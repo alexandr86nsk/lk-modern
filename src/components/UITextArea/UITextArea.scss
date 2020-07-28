@@ -1,0 +1,75 @@
+@import '../../static/css/colors.scss';
+
+.ui-textarea {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &__textarea {
+    width: 100%;
+    min-height: 40px;
+    padding: 6px 12px;
+    line-height: 1.5;
+    color: $trout;
+    background-color: $white;
+    background-clip: padding-box;
+    border: 1px solid $ghost;
+    border-radius: 6px;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    display: inline-block;
+    align-items: center;
+    overflow-y: scroll;
+    overflow-wrap: break-word;
+    scrollbar-color: $malibu transparent;
+    scrollbar-width: thin;
+    outline: none;
+    resize: vertical;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 6px;
+      background: $malibu;
+    }
+
+    &:focus {
+      border-color: transparent;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba($azure_radiance, .25);
+    }
+
+    &.vertical {
+      resize: vertical;
+    }
+
+    &.disabled {
+      background-color: $athens-gray;
+    }
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+
+    span {
+      width: max-content;
+      max-width: 100%;
+    }
+  }
+
+  &.error &__textarea {
+    background-color: $chablis;
+    border-color: $cavern_pink;
+    color: $stiletto;
+    box-shadow: none;
+
+      &:focus {
+          border-color: transparent;
+          outline: 0;
+          box-shadow: 0 0 0 0.2rem rgba($stiletto, .25);
+      }
+  }
+}

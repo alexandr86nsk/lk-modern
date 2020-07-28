@@ -1,0 +1,67 @@
+@import "../../static/css/colors";
+
+.ui-page-control {
+  position: fixed;
+  right: 64px;
+  bottom: 22px;
+  z-index: 8;
+  cursor: pointer;
+  border-radius: 6px;
+  display: flex;
+  transition: all .2s ease;
+
+  &__button {
+    width: 54px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    background-color: $white;
+    margin: 0 3px;
+    transition: all .2s ease;
+    position: relative;
+    opacity: 0.7;
+    transform: scale(0);
+
+    &.active {
+      transform: scale(1);
+    }
+
+    .ui-loader {
+      &::before {
+        border-color: rgba($white, .1);
+      }
+
+      &::after {
+        border-color: $white transparent transparent;
+      }
+    }
+
+    svg {
+      fill: $white;
+    }
+
+    &:hover {
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      transform: scale(1.05);
+      opacity: 1;
+    }
+
+    &.save,
+    &.add,
+    &.complete {
+      background-color: $light_mountain_meadow;
+    }
+
+    &.delete {
+      background-color: $light_alizarin_crimson;
+    }
+
+    &.back {
+      background-color: $malibu;
+    }
+  }
+}

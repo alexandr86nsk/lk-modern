@@ -1,0 +1,26 @@
+const tableDefaultConfig = {
+  tableEmptyMessage: undefined,
+  tableLoadingMessage: undefined,
+  pagination: true,
+  paginationPageNeighbours: 0,
+  paginationCurrentPage: undefined,
+  paginationNumberOfItemsToPage: 20,
+  paginationTotalItems: undefined,
+  filter: true,
+  filterSelectedItemsCount: undefined,
+  filterType: undefined,
+  filterBodyTitle: undefined,
+  search: true,
+  searchPlaceholder: undefined,
+  searchString: undefined,
+  refresh: true,
+  refreshCallback: undefined,
+  contextMenu: true,
+  readOnly: undefined,
+  sortSortingValue: undefined,
+  loading: undefined,
+  tableHeaderHeight: undefined,
+  tableRowHeight: undefined,
+};
+
+export default tableDefaultConfig;

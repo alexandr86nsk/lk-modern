@@ -1,0 +1,27 @@
+@import "../../static/css/colors";
+
+.ui-scroll-to-top {
+  bottom: 30px;
+  position: fixed;
+  right: 14px;
+  z-index: 7;
+  cursor: pointer;
+  border-radius: 8px;
+  background-color: $persian_green;
+  opacity: .3;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  & > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  svg {
+    fill: $white;
+    margin: 8px 10px;
+  }
+}

@@ -1,0 +1,120 @@
+$black: #000000;
+$shark: #222426;
+$white: #FFFFFF;
+$athens-gray: #EEEEEF;
+$jordy-blue: #87A4F6;
+$dodger_blue: #3498ff;
+$light_ghost: #C2C7D0;
+$ghost: #a5adba;
+$dark_ghost: #979faf;
+
+@mixin flexCenterCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flexUnsetCenter {
+  display: flex;
+  align-items: center;
+}
+
+.ui-rsuite-table__control-block {
+  @include flexUnsetCenter;
+
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+  }
+
+  .select-wrapper {
+    @include flexUnsetCenter;
+    width: 160px;
+    z-index: 3;
+
+    span {
+      white-space: nowrap;
+      margin-right: .5em;
+    }
+
+    .ui-select-block {
+      max-width: 70px;
+    }
+  }
+
+  .control-block {
+
+    &__left-side {
+      @include flexUnsetCenter;
+
+      @media screen and (max-width: 767px) {
+        width: 100%;
+        margin-bottom: 1em;
+      }
+
+      .number-items {
+        @include flexUnsetCenter;
+      }
+
+      .total-records {
+        white-space: nowrap;
+        margin-left: .5em;
+      }
+    }
+
+    &__right-side {
+      @include flexUnsetCenter;
+      margin-left: auto;
+
+      @media screen and (max-width: 767px) {
+        margin-left: 0;
+        width: 100%;
+      }
+
+      .ui-filter {
+        margin-right: 1em;
+      }
+    }
+  }
+
+  .refresh-wrapper {
+    @include flexCenterCenter;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    padding: .5em;
+    cursor: pointer;
+    margin: 0 1em;
+    user-select: none;
+
+    svg {
+      width: 2em;
+      height: 2em;
+      fill: $light_ghost;
+    }
+
+    &:hover {
+      background-color: rgba($athens-gray, .7);
+      border: 1px solid rgba($athens-gray, .7);
+
+      svg {
+        fill: $ghost;
+      }
+    }
+
+    &:active {
+      background-color: rgba($athens-gray, 1);
+      border: 1px solid rgba($dark_ghost, .1);
+
+      svg {
+        fill: $dodger_blue;
+      }
+    }
+  }
+
+  .search-wrapper {
+    width: 250px;
+
+    @media screen and (max-width: 767px) {
+      width: 100%;
+    }
+  }
+}

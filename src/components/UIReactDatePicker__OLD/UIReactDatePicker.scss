@@ -1,0 +1,122 @@
+@import "../../static/css/colors";
+
+
+.ui-react-datepicker {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &__title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+
+    span {
+      width: max-content;
+      max-width: 100%;
+    }
+
+    .required-icon {
+      color: $sunset-orange;
+      transform: scale(1.5);
+      margin-left: 2px;
+    }
+  }
+
+  &__body {
+    position: relative;
+  }
+
+  &__input {
+    width: 100%;
+    height: 100%;
+    padding: 6px 12px;
+    line-height: 1.5;
+    color: $trout;
+    background-color: $white;
+    background-clip: padding-box;
+    border: 1px solid $ghost;
+    border-radius: 6px;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+    &:focus {
+      border-color: transparent;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba($azure_radiance, .25);
+    }
+  }
+
+  &__error,
+  &__success {
+    display: none;
+    position: absolute;
+    right: 8px;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  &__success {
+
+    svg {
+      fill: $light_mountain_meadow;
+    }
+  }
+
+  &__error {
+
+    svg {
+      fill: $sunset-orange;
+    }
+  }
+
+  &.success &__success {
+    display: flex;
+  }
+
+  &.success &__input {
+    padding-right: 40px;
+  }
+
+  &.error &__input {
+    background-color: $chablis;
+    border-color: $cavern_pink;
+    color: $stiletto;
+    box-shadow: none;
+    padding-right: 40px;
+
+    &:focus {
+      border-color: transparent;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba($stiletto, .25);
+    }
+  }
+
+  &.error &__error {
+    display: flex;
+  }
+
+
+  .react-datepicker-wrapper {
+    width: 100%;
+    height: 38px;
+
+    .react-datepicker__input-container {
+      height: 100%;
+    }
+  }
+
+  .react-datepicker-popper {
+    .react-datepicker {
+      font-family: unset;
+    }
+    .react-datepicker__header {
+      background-color: rgba($azure_radiance, .1);
+    }
+
+    .react-datepicker__day--outside-month {
+      opacity: .3;
+    }
+  }
+}

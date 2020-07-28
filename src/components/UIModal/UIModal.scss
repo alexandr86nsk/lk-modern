@@ -1,0 +1,209 @@
+@import "../../static/css/colors";
+
+.ui-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0,0,0,.5);
+  z-index: 10;
+
+  &__loader {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    border-radius: 10px;
+    background-color: rgba(255,255,255, 0.8);
+  }
+
+  .ui-loader {
+    z-index: 2;
+  }
+
+  .confirm-block {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    min-width: 400px;
+    padding: 23px;
+    border-radius: 10px;
+    z-index: 1;
+    position: relative;
+    background-color: $white;
+    max-height: 85vh;
+    opacity: 0;
+    transform: translateY(-25%);
+    transition: all .2s ease-in-out;
+/*    animation: outcome ease .3s forwards;
+
+    @keyframes outcome {
+      to {
+        opacity: 0;
+        transform: translateY(-25%);
+      }
+    }*/
+
+    @media screen and (max-width: 767px) {
+      width: 80%;
+      min-width: 260px;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 7px;
+      right: 7px;
+      bottom: 7px;
+      left: 7px;
+      border-radius: 8px;
+      border: 1px solid $athens-gray;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+      z-index: -1;
+
+      @media screen and (max-width: 767px) {
+        content: unset;
+      }
+    }
+
+    &__title {
+      width: 100%;
+      padding-bottom: 15px;
+      border-bottom: 1px solid $athens-gray;
+      display: flex;
+      align-items: center;
+      text-align: start;
+      font-weight: bold;
+    }
+
+    &__icon {
+      display: flex;
+      align-items: center;
+
+      svg {
+        fill: $sunset-orange;
+        margin-right: 10px;
+      }
+    }
+
+    &__body {
+      width: 100%;
+      height: 100%;
+      flex: 1;
+      padding: 20px 5px;
+      // word-break: break-all;
+
+      @media screen and (max-width: 767px) {
+        overflow-y: scroll;
+      }
+    }
+
+    &__controls {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      border-top: 1px solid $athens-gray;
+      padding-top: 15px;
+    }
+
+    &__accept-btn {
+    }
+
+    &__reject-btn {
+      margin: 0 0 0 15px;
+    }
+
+    &__close {
+      position: absolute;
+      top: -25px;
+      right: -25px;
+      background-color: $white;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      cursor: pointer;
+
+      svg {
+        border-radius: 50%;
+      }
+    }
+  }
+
+  &.active {
+
+    .confirm-block {
+      transform: translateY(0);
+      opacity: 1;
+      /*animation: income ease .3s forwards;*/
+    }
+
+    @keyframes income {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  }
+
+  &.small {
+
+    .confirm-block {
+      width: 20%;
+
+      @media screen and (max-width: 767px) {
+        width: 80%;
+      }
+    }
+  }
+
+  &.medium {
+
+    .confirm-block {
+      width: 40%;
+
+      @media screen and (max-width: 767px) {
+        width: 80%;
+      }
+    }
+  }
+
+  &.large {
+
+    .confirm-block {
+      width: 60%;
+
+      @media screen and (max-width: 767px) {
+        width: 80%;
+      }
+    }
+  }
+
+  &.wide {
+
+    .confirm-block {
+      width: 80%;
+
+      @media screen and (max-width: 767px) {
+        width: 80%;
+      }
+    }
+  }
+
+  &__error-message {
+    width: 100%;
+    margin: 5px 0;
+    padding: 5px;
+    background-color: $sunset-orange;
+    color: $white;
+  }
+}

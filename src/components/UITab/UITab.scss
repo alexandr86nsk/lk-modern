@@ -1,0 +1,224 @@
+@import "../../static/css/colors";
+
+.ui-tab {
+  width: 100%;
+  height: 100%;
+
+  & > div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ui.menu {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1em;
+    font-size: inherit;
+  }
+}
+
+/*--------------
+     Tabular
+---------------*/
+
+.ui.tabular.menu {
+  border-radius: 0em;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border: none;
+  background: none transparent;
+  border-bottom: 1px solid #D4D4D5;
+}
+
+.ui.tabular.menu .item {
+  background: transparent;
+  border-bottom: none;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  border-top: 2px solid transparent;
+  padding: 0.92857143em 1.42857143em;
+  color: rgba(0, 0, 0, 0.87);
+  cursor: pointer;
+}
+
+.ui.tabular.menu .item:before {
+  display: none;
+}
+
+/* Hover */
+
+.ui.tabular.menu .item:hover {
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+/* Active */
+
+.ui.tabular.menu .active.item {
+  background: none #FFFFFF;
+  color: rgba(0, 0, 0, 0.95);
+  border-top-width: 1px;
+  border-color: #D4D4D5;
+  font-weight: bold;
+  margin-bottom: -1px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 0.28571429rem 0.28571429rem 0px 0px !important;
+}
+
+/*--------------
+   GreenTheme
+---------------*/
+
+/*.ui-tab {
+
+  .ui.tabular.menu {
+    overflow: hidden;
+    border-bottom: 1px solid $athens-gray;
+
+    .item {
+      padding: 0 23px 0 13px;
+      line-height: 3;
+      color: $elf_green;
+      transition: color 0.2s;
+      position: relative;
+      cursor: pointer;
+      user-select: none;
+      font-size: 16px;
+      margin-top: 10px;
+
+      &:hover {
+        color: $zuccini;
+      }
+
+      &::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        outline: 1px solid transparent;
+        border-radius: 10px 10px 0 0;
+        border: 1px solid transparent;
+        background: $paris_White;
+        box-shadow: inset 0 -1px 2px rgba(0,0,0,0.1);
+        content: '';
+        transform: perspective(10px) rotateX(2.8deg) translateZ(-1px);
+        transform-origin: 0 0;
+        backface-visibility: hidden;
+      }
+
+      &.active {
+        color: $shamrock;
+        z-index: 1;
+
+        &::after {
+          background: $white;
+          box-shadow: none;
+          border: 1px solid $athens-gray;
+          border-bottom: transparent;
+        }
+      }
+    }
+  }
+}*/
+
+/*--------------
+   Secondary
+---------------*/
+
+.ui.secondary.menu {
+  background: none;
+  margin-left: -0.35714286em;
+  margin-right: -0.35714286em;
+  border-radius: 0em;
+  border: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+/* Item */
+
+.ui.secondary.menu .item {
+  -ms-flex-item-align: center;
+  align-self: center;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: none;
+  padding: 0.78571429em 0.92857143em;
+  margin: 0em 0.35714286em;
+  background: none;
+  -webkit-transition: color 0.1s ease;
+  transition: color 0.1s ease;
+  border-radius: 0.28571429rem;
+  font: 500 14px OpenSans-Regular, sans-serif;
+
+  &:hover {
+    background: rgba($persian_green, 0.1);
+  }
+}
+
+/* No Divider */
+
+.ui.secondary.menu .item:before {
+  display: none !important;
+}
+
+/* Header */
+
+.ui.secondary.menu .header.item {
+  border-radius: 0em;
+  border-right: none;
+  background: none transparent;
+}
+
+/* Image */
+
+.ui.secondary.menu .item > img:not(.ui) {
+  margin: 0em;
+}
+
+/* Active */
+
+.ui.secondary.menu .active.item {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background: rgba($persian_green, 0.85);
+  color: rgba($white, 0.95);
+  border-radius: 0.28571429rem;
+}
+
+/* Active Hover */
+
+.ui.secondary.menu .active.item:hover {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background: rgba($persian_green, 1);
+  color: $white;
+}
+
+/*******************************
+           UI tabs
+*******************************/
+
+.ui.tab {
+  display: none;
+}
+
+/*******************************
+             States
+*******************************/
+
+/*--------------------
+       Active
+---------------------*/
+
+.ui.tab.active,
+.ui.tab.open {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

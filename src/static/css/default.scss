@@ -1,0 +1,156 @@
+/* Указываем box sizing */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  &::before,
+  &::after {
+    box-sizing: border-box;
+    font: inherit;
+  }
+}
+
+/* Убираем внутренние отступы */
+ul,
+ol {
+  padding: 0;
+}
+
+/* Убираем внешние отступы */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Выставляем основные настройки по-умолчанию для body */
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+/* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Сбрасываем стиль для ссылок */
+a {
+  text-decoration: none;
+  color: #000201;
+}
+
+/* Сбрасываем стиль для кнопок */
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Скрытый заголовок для SEO */
+/*  h5 {
+    display: none;
+  }*/
+
+/* Длинный текст в одну строку */
+.ellipsis-element {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Упрощаем работу с изображениями */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Указываем понятную периодичность в потоке данных у article*/
+article > * + * {
+  margin-top: 1em;
+}
+
+/* Наследуем шрифты для инпутов и кнопок */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+.App input,
+.App button,
+.App textarea,
+.App select {
+  font: inherit;
+}
+
+.App .ui.segment {
+  border: none;
+  padding: 0;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.tox-notification.tox-notification--warning {
+  display: none !important;
+}
+
+/*  !* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать *!
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }*/
+
+.loading-ellipsis-emulator {
+  padding: .3em 1.55em .3em .3em;
+  display: flex;
+  align-items: center;
+  position: relative;
+  line-height: 20px;
+  width: max-content;
+
+  &:after {
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    animation: ellipsis steps(4, end) 900ms infinite;
+    content: "\2026";
+    width: 0;
+    padding: .3em 0 .3em 0;
+    height: 100%;
+    position: absolute;
+    left: calc(100% - 1.55em);
+    bottom: 0;
+  }
+
+  @keyframes ellipsis {
+    to {
+      width: 1.25em;
+    }
+  }
+}

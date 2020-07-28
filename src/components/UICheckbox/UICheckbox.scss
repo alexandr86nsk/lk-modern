@@ -1,0 +1,99 @@
+@import "../../static/css/colors";
+
+.ui-checkbox {
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  &__title {
+    width: max-content;
+    max-width: 100%;
+  }
+
+  &__content {
+    user-select: none;
+    cursor: pointer;
+    margin-right: 10px;
+    background-color: $white;
+
+    input {
+      display: none;
+    }
+
+    input:checked + .checkbox {
+      border-color: #20C2E0;
+
+      svg {
+        path {
+          fill: #20C2E0;
+        }
+
+        polyline {
+          stroke-dashoffset: 0;
+        }
+      }
+    }
+
+    &:hover .checkbox svg path {
+      stroke-dashoffset: 0;
+    }
+
+    .checkbox {
+      position: relative;
+      float: left;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #C8CCD4;
+      border-radius: 3px;
+
+      svg {
+        position: absolute;
+        top: -2px;
+        left: -2px;
+
+        path {
+          fill: none;
+          stroke: #20C2E0;
+          stroke-width: 2;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          stroke-dasharray: 71px;
+          stroke-dashoffset: 71px;
+          transition: all 0.6s ease;
+        }
+
+        polyline {
+          fill: none;
+          stroke: #FFF;
+          stroke-width: 2;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          stroke-dasharray: 18px;
+          stroke-dashoffset: 18px;
+          transition: all 0.3s ease;
+        }
+      }
+    }
+
+    > span {
+      pointer-events: none;
+      vertical-align: middle;
+    }
+
+    &.disabled input:checked + .checkbox {
+      border-color: $white-aluminum;
+    }
+
+    &.disabled input:checked + .checkbox svg path {
+      fill: $white-aluminum;
+    }
+
+    &.disabled .checkbox svg path {
+      fill: $athens-gray;
+    }
+
+    &.disabled:hover .checkbox svg path {
+      stroke-dashoffset: 71px;
+    }
+  }
+}

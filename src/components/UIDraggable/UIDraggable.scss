@@ -1,0 +1,25 @@
+.ui-draggable {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  &__body {
+    position: relative;
+    width: 0;
+    height: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__item {
+    position: absolute;
+    cursor: grab;
+
+    @media screen and(max-width: 767px) {
+      width: 100vw;
+    }
+  }
+}

@@ -1,0 +1,155 @@
+$white: #FFFFFF;
+$athens-gray: #EEEEEF;
+$dim-gray: #707070;
+$hawkes-blue: #D7E1FC;
+$dodger_blue: #2684ff;
+
+.ui-select-block {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-radius: .6em;
+  background: $white;
+  border: 1px solid $athens-gray;
+  cursor: pointer;
+
+  svg {
+    width: 1em;
+    height: 1em;
+    transition: all 0.1s ease;
+    stroke: $dodger_blue;
+  }
+
+  &__input {
+    padding: .8em;
+    border-radius: .6em;
+    width: 100%;
+    appearance: none;
+    outline: none;
+    user-select: none;
+    cursor: pointer;
+    border: none;
+
+    &::placeholder {
+      color: $dim-gray;
+    }
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.8em;
+    height: 100%;
+    min-width: 1.8em;
+    padding: .8em .8em .8em 0;
+  }
+
+  &__options-wrapper {
+    display: none;
+  }
+
+  &__options-background {
+    display: none;
+  }
+
+  &__options {
+/*    border-left: 1px solid $athens-gray;
+    border-right: 1px solid $athens-gray;
+    border-bottom: 1px solid $athens-gray;
+    border-top: none;*/
+    position: absolute;
+    top: 100%;
+    left: -1px;
+    right: -1px;
+    border-radius: 0 0 6px 6px;
+    z-index: 2;
+    box-shadow: 1px 6px 5px rgba(147, 147, 147, 0.5);
+    overflow: hidden;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: $white;
+
+    li {
+      padding: .8em;
+      cursor: pointer;
+      text-align: left;
+      user-select: none;
+
+      &:hover {
+        background: rgba($hawkes-blue, .6);
+      }
+    }
+  }
+
+  &.active &__options-wrapper {
+    display: block;
+  }
+
+  &.active {
+    border-radius: 6px 6px 0 0;
+    border-bottom: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+    box-shadow: 1px 6px 5px rgba(147, 147, 147, 0.5);
+    z-index: 2;
+  }
+
+  &.active &__button {
+    z-index: 2;
+  }
+
+  &.active &__button svg {
+    transform: rotate(180deg);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .ui-select-block {
+
+    &__options-wrapper {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, .7);
+      z-index: 10;
+    }
+
+    &__options-background {
+      display: block;
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.7);
+    }
+
+    &__options {
+      position: unset;
+      width: 95%;
+      margin: auto;
+      border-radius: 6px;
+    }
+
+    &.active &__options-wrapper {
+      display: flex;
+    }
+
+    ul {
+
+      li {
+        padding: 15px;
+      }
+    }
+  }
+}

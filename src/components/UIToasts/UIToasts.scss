@@ -1,0 +1,46 @@
+.ui-toasts {
+  bottom: 77px;
+  position: fixed;
+  right: 14px;
+  width: 240px;
+  z-index: 9;
+
+  @media screen and (max-width: 767px) {
+    width: calc(50% - 24px);
+    right: 12px;
+  }
+
+  .ui-toast {
+    align-items: flex-start;
+    border-radius: 4px;
+    color: #ffffff;
+    display: flex;
+    padding: 16px;
+    opacity: .85;
+    margin-bottom: 5px;
+
+    &:not(:last-child) {
+      margin: 0 0 12px;
+    }
+
+    &__content {
+      flex: 1 1 auto;
+      margin: 0 12px 0 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &__dismiss {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background: transparent;
+      border: 0;
+      color: inherit;
+      cursor: pointer;
+      display: block;
+      flex: 0 0 auto;
+      font: inherit;
+      padding: 0;
+    }
+  }
+}

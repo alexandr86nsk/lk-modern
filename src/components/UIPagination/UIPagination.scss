@@ -1,0 +1,100 @@
+@import "../../static/css/colors";
+
+.ui-pagination {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  overflow: hidden;
+  user-select: none;
+  flex-wrap: wrap;
+
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__body {
+    display: flex;
+    width: max-content;
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+
+    @media screen and (max-width: 767px) {
+      width: 38px;
+      height: 38px;
+    }
+
+    @media screen and (max-width: 374px) {
+      width: 28px;
+      height: 28px;
+    }
+
+    &.active {
+      background-color: $sunset-orange;
+      color: $white;
+
+      &:hover {
+        color: $white;
+      }
+    }
+
+    &:hover {
+      color: $sunset-orange;
+    }
+  }
+
+  .paginate-next,
+  .paginate-prev {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid $athens-gray;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, .1);
+    }
+  }
+
+  &__go-to {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+
+    @media screen and (max-width: 767px) {
+      margin: 10px 0;
+    }
+
+    .input {
+      margin: 2px 5px;
+      padding: 6px 0 6px 12px;
+      line-height: 1.5;
+      width: 50px;
+      border: 1px solid $ghost;
+      border-radius: 6px;
+      background-color: transparent;
+      outline: none;
+      transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+      &:focus {
+        border-color: transparent;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba($azure_radiance, .25);
+      }
+    }
+  }
+
+  .paginate-next {
+    transform: rotate(180deg);
+  }
+}

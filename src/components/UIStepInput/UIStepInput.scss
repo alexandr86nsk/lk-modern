@@ -1,0 +1,139 @@
+@import '../../static/css/colors.scss';
+
+.c-step-input {
+    margin-bottom: 60px;
+    width: 100%;
+    position: relative;
+
+    &__input-block {
+        width: 100%;
+        position: relative;
+
+        & > span {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding-bottom: 8px;
+        }
+
+        & > span:nth-of-type(1) {
+            position: absolute;
+            left: 12px;
+            color: $white-aluminum;
+        }
+
+        & > span:nth-of-type(2) {
+            position: absolute;
+            right: 12px;
+        }
+
+        & > input {
+            text-align: end;
+            width: 100%;
+            border: 1px solid $ghost;
+            height: 60px;
+            outline: none;
+            padding: 0 28px 8px 50%;
+            transition: all 0.3s ease;
+
+            &:disabled {
+                background-color: $white;
+            }
+        }
+    }
+
+    &__slider {
+        position: absolute;
+        top: calc(100% - 13px);
+        right: 1px;
+        left: 1px;
+
+        .rc-slider-rail {
+            height: 8px;
+            border-radius: 0;
+        }
+
+        .rc-slider-track {
+            height: 8px;
+            border-radius: 0;
+            background-color: $mountain_meadow;
+        }
+
+        .rc-slider-handle {
+            width: 25px;
+            height: 25px;
+            margin-top: -9px;
+            border: 6px solid $white;
+            background-color: $mountain_meadow;
+            box-shadow: 0 1px 4px 0 rgba(0,0,0,.4);
+        }
+
+        .rc-slider-dot {
+            display: none;
+        }
+    }
+
+    &__range {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 12px;
+        color: $white-aluminum;
+    }
+}
+
+.rc-slider-handle {
+
+    &__tooltip-wrapper {
+        display: none;
+        position: relative;
+
+        .rc-tooltip {
+            width: max-content;
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translate(-50%, 0);
+
+            &__body {
+                padding: 6px;
+                min-width: 24px;
+                height: 24px;
+                font-size: 12px;
+                line-height: 1;
+                color: $white;
+                text-align: center;
+                text-decoration: none;
+                background-color: $mountain_meadow;
+                border-radius: 50%;
+                box-shadow: 0 0 4px #d9d9d9;
+            }
+
+            &__arrow-wrapper {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: -1px;
+            }
+
+            &__arrow {
+                width: 0;
+                height: 0;
+                border-color: transparent;
+                border-width: 4px 4px 0;
+                border-style: solid;
+                border-top-color: $mountain_meadow;
+                background-color: transparent;
+            }
+        }
+    }
+
+    &:focus {
+        .rc-slider-handle__tooltip-wrapper {
+            display: block;
+        }
+    }
+}

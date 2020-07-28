@@ -1,0 +1,13 @@
+.ui-hint {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  &__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+}

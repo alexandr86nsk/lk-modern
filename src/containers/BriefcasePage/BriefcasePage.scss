@@ -1,0 +1,199 @@
+@import "../../static/css/colors";
+
+.briefcase-list {
+
+  &__item-status {
+
+    &:before {
+      content: '';
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      border-radius: 50%;
+      margin-right: .8em;
+      vertical-align: middle;
+    }
+
+    &.red:before {
+      background-color: $sunset-orange;
+    }
+
+    &.blue:before {
+      background-color: $boston_blue;
+    }
+
+    &.green:before {
+      background-color: $light_mountain_meadow;
+    }
+
+    &.gray:before {
+      background-color: $light_ghost;
+    }
+  }
+
+  &__add-modal {
+    display: grid;
+    grid-gap: 1em;
+  }
+
+  &__queue-settings {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .ui-tab {
+
+      .ui.menu {
+        font-size: .8em;
+      }
+    }
+
+    .queue-settings {
+
+      &__body {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        position: relative;
+      }
+
+      &__loader {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(255, 255, 255, .3);
+      }
+
+      &__table {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        overflow-y: scroll;
+        padding-right: .5em;
+      }
+
+      &__item {
+        margin-bottom: .3em;
+
+        .settings-item {
+
+          &__header {
+            display: flex;
+            align-items: center;
+            background-color: rgba(238, 238, 239, 0.65);
+            padding: .2em .2em .2em .6em;
+          }
+
+          &__title {
+            display: grid;
+            grid-template: auto / 1fr auto;
+            grid-gap: 1em;
+            font-weight: 700;
+            flex: 1;
+          }
+
+          &__dropdown-icon {
+            cursor: pointer;
+          }
+
+          &__text {
+            align-self: center;
+          }
+
+          &__btn {
+            align-self: center;
+          }
+
+          &__body {
+            position: relative;
+          }
+
+          &__loader {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(255, 255, 255, .3);
+          }
+        }
+      }
+
+      &__recall-item {
+        margin: .5em 0;
+        padding: 0 .8em;
+        font-size: .8em;
+
+        .recall-item {
+
+          &__title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(238, 238, 239, 0.15);
+            padding: .2em;
+          }
+
+          &__body {
+            display: flex;
+            flex-direction: column;
+
+            .ui-input-v2 {
+              margin: .2em 0;
+            }
+          }
+        }
+      }
+
+      &__time-zone-item {
+        margin: .5em 0;
+        padding: 0 .8em;
+        font-size: .8em;
+
+        .time-zone-item {
+
+          &__title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(238, 238, 239, 0.15);
+            padding: .2em;
+          }
+
+          &__body {
+            display: flex;
+            flex-direction: column;
+
+            .ui-react-select {
+              margin: .2em 0;
+            }
+          }
+        }
+      }
+
+      &__queue-asterisk-item {
+
+        .settings-item {
+
+          &__body {
+            margin: .5em 0;
+            padding: 0 .8em;
+            font-size: .8em;
+            display: flex;
+            flex-direction: column;
+
+            .ui-react-select,
+            .ui-input-v2 {
+              margin: .2em 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}

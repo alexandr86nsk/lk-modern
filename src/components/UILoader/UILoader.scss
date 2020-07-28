@@ -1,0 +1,358 @@
+.ui-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  text-align: center;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  user-select: none;
+}
+
+/* Static Shape */
+
+.ui-loader:before {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 500rem;
+  border: 0.2em solid rgba(0, 0, 0, 0.1);
+}
+
+/* Active Shape */
+
+.ui-loader:after {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  -webkit-animation: loader 0.6s linear;
+  animation: loader 0.6s linear;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  border-radius: 500rem;
+  border-color: #767676 transparent transparent;
+  border-style: solid;
+  border-width: 0.2em;
+  -webkit-box-shadow: 0px 0px 0px 1px transparent;
+  box-shadow: 0px 0px 0px 1px transparent;
+}
+
+/* Active Animation */
+
+@-webkit-keyframes loader {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loader {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+/* Sizes */
+
+.ui-loader.mini:before,
+.ui-loader.mini:after {
+  width: 1rem;
+  height: 1rem;
+  margin: 0em 0em 0em -0.5rem;
+}
+
+.ui-loader.tiny:before,
+.ui-loader.tiny:after {
+  width: 1.14285714rem;
+  height: 1.14285714rem;
+  margin: 0em 0em 0em -0.57142857rem;
+}
+
+.ui-loader.small:before,
+.ui-loader.small:after {
+  width: 1.71428571rem;
+  height: 1.71428571rem;
+  margin: 0em 0em 0em -0.85714286rem;
+}
+
+.ui-loader:before,
+.ui-loader:after {
+  width: 2.28571429rem;
+  height: 2.28571429rem;
+  margin: 0em 0em 0em -1.14285714rem;
+}
+
+.ui-loader.large:before,
+.ui-loader.large:after {
+  width: 3.42857143rem;
+  height: 3.42857143rem;
+  margin: 0em 0em 0em -1.71428571rem;
+}
+
+.ui-loader.big:before,
+.ui-loader.big:after {
+  width: 3.71428571rem;
+  height: 3.71428571rem;
+  margin: 0em 0em 0em -1.85714286rem;
+}
+
+.ui-loader.huge:before,
+.ui-loader.huge:after {
+  width: 4.14285714rem;
+  height: 4.14285714rem;
+  margin: 0em 0em 0em -2.07142857rem;
+}
+
+.ui-loader.massive:before,
+.ui-loader.massive:after {
+  width: 4.57142857rem;
+  height: 4.57142857rem;
+  margin: 0em 0em 0em -2.28571429rem;
+}
+
+/*-------------------
+      Coupling
+--------------------*/
+
+/* Show inside active dimmer */
+
+.ui-dimmer .loader {
+  display: block;
+}
+
+/* Black Dimmer */
+
+.ui-dimmer .ui-loader {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.ui-dimmer .ui-loader:before {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.ui-dimmer .ui-loader:after {
+  border-color: #FFFFFF transparent transparent;
+}
+
+/* White Dimmer (Inverted) */
+
+.ui-dimmer.inverted .ui-loader {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.ui-dimmer.inverted .ui-loader:before {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.ui-dimmer.inverted .ui-loader:after {
+  border-color: #767676 transparent transparent;
+}
+
+/*******************************
+             Types
+*******************************/
+
+/*-------------------
+        Text
+--------------------*/
+
+.ui-loader.text {
+  width: auto !important;
+  height: auto !important;
+  text-align: center;
+  font-style: normal;
+}
+
+/*******************************
+            States
+*******************************/
+
+.ui-loader.indeterminate:after {
+  animation-direction: reverse;
+  -webkit-animation-duration: 1.2s;
+  animation-duration: 1.2s;
+}
+
+.ui-loader.active,
+.ui-loader.visible {
+  display: block;
+}
+
+.ui-loader.disabled,
+.ui-loader.hidden {
+  display: none;
+}
+
+/*******************************
+            Variations
+*******************************/
+
+/*-------------------
+        Sizes
+--------------------*/
+
+/* Loader */
+
+.ui-dimmer.inverted .ui-loader.mini,
+.ui-loader.mini {
+  width: 1rem;
+  height: 1rem;
+  font-size: 0.78571429em;
+}
+
+.ui-dimmer.inverted .ui-loader.tiny,
+.ui-loader.tiny {
+  width: 1.14285714rem;
+  height: 1.14285714rem;
+  font-size: 0.85714286em;
+}
+
+.ui-dimmer.inverted .ui-loader.small,
+.ui-loader.small {
+  width: 1.71428571rem;
+  height: 1.71428571rem;
+  font-size: 0.92857143em;
+}
+
+.ui-dimmer.inverted .ui-loader,
+.ui-loader {
+  width: 2.28571429rem;
+  height: 2.28571429rem;
+  font-size: 1em;
+}
+
+.ui-dimmer.inverted .ui-loader.large,
+.ui-loader.large {
+  width: 3.42857143rem;
+  height: 3.42857143rem;
+  font-size: 1.14285714em;
+}
+
+.ui-dimmer.inverted .ui-loader.big,
+.ui-loader.big {
+  width: 3.71428571rem;
+  height: 3.71428571rem;
+  font-size: 1.28571429em;
+}
+
+.ui-dimmer.inverted .ui-loader.huge,
+.ui-loader.huge {
+  width: 4.14285714rem;
+  height: 4.14285714rem;
+  font-size: 1.42857143em;
+}
+
+.ui-dimmer.inverted .ui-loader.massive,
+.ui-loader.massive {
+  width: 4.57142857rem;
+  height: 4.57142857rem;
+  font-size: 1.71428571em;
+}
+
+/* Text Loader */
+
+.ui-loader.mini.text {
+  min-width: 1rem;
+  padding-top: 1.78571429rem;
+}
+
+.ui-loader.tiny.text {
+  min-width: 1.14285714rem;
+  padding-top: 1.92857143rem;
+}
+
+.ui-loader.small.text {
+  min-width: 1.71428571rem;
+  padding-top: 2.5rem;
+}
+
+.ui-loader.text{
+  min-width: 2.28571429rem;
+  padding-top: 3.07142857rem;
+}
+
+.ui-loader.large.text {
+  min-width: 3.42857143rem;
+  padding-top: 4.21428571rem;
+}
+
+.ui-loader.big.text {
+  min-width: 3.71428571rem;
+  padding-top: 4.5rem;
+}
+
+.ui-loader.huge.text {
+  min-width: 4.14285714rem;
+  padding-top: 4.92857143rem;
+}
+
+.ui-loader.massive.text {
+  min-width: 4.57142857rem;
+  padding-top: 5.35714286rem;
+}
+
+/*-------------------
+       Inverted
+--------------------*/
+
+.ui-loader.inverted {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.ui-loader.inverted:before {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.ui-loader.inverted:after {
+  border-top-color: #FFFFFF;
+}
+
+/*-------------------
+       Inline
+--------------------*/
+
+.ui-loader.inline {
+  position: relative;
+  vertical-align: middle;
+  margin: 0em;
+  left: 0em;
+  top: 0em;
+  -webkit-transform: none;
+  transform: none;
+}
+
+.ui-loader.inline.active,
+.ui-loader.inline.visible {
+  display: inline-block;
+}
+
+/* Centered Inline */
+
+.ui-loader.centered.inline.active,
+.ui-loader.centered.inline.visible {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ui-loader.button {
+  width: 50%;
+  height: 50%;
+}

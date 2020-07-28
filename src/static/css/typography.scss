@@ -1,0 +1,63 @@
+$path-to-fonts: '../fonts/';
+$font-regular: GothamProRRegular;
+$font-medium: GothamProRMedium;
+$font-bold: GothamProRBold;
+
+@font-face {
+  font-family: $font-regular;
+  src: url('#{$path-to-fonts}#{$font-regular}.eot'); /* IE9 Compat Modes */
+  src: url('#{$path-to-fonts}#{$font-regular}.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('#{$path-to-fonts}#{$font-regular}.woff2') format('woff2'), /* Super Modern Browsers */
+  url('#{$path-to-fonts}#{$font-regular}.woff') format('woff'), /* Pretty Modern Browsers */
+  url('#{$path-to-fonts}#{$font-regular}.ttf') format('truetype'); /* Safari, Android, iOS */
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: $font-medium;
+  src: url('#{$path-to-fonts}#{$font-medium}.eot'); /* IE9 Compat Modes */
+  src: url('#{$path-to-fonts}#{$font-medium}.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('#{$path-to-fonts}#{$font-medium}.woff2') format('woff2'), /* Super Modern Browsers */
+  url('#{$path-to-fonts}#{$font-medium}.woff') format('woff'), /* Pretty Modern Browsers */
+  url('#{$path-to-fonts}#{$font-medium}.ttf') format('truetype'); /* Safari, Android, iOS */
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: $font-bold;
+  src: url('#{$path-to-fonts}#{$font-bold}.eot'); /* IE9 Compat Modes */
+  src: url('#{$path-to-fonts}#{$font-bold}.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('#{$path-to-fonts}#{$font-bold}.woff2') format('woff2'), /* Super Modern Browsers */
+  url('#{$path-to-fonts}#{$font-bold}.woff') format('woff'), /* Pretty Modern Browsers */
+  url('#{$path-to-fonts}#{$font-bold}.ttf') format('truetype'); /* Safari, Android, iOS */
+  font-weight: 700;
+}
+
+@for $i from 9 through 40 {
+  .font-type-r-#{$i} {
+    font: 400 #{$i}px $font-regular, sans-serif;
+
+    @media screen and (max-width: 1000px) {
+      $length: $i - 2px;
+      font-size: $length;
+    }
+  }
+
+  .font-type-m-#{$i} {
+    font: 500 #{$i}px $font-medium, sans-serif;
+
+    @media screen and (max-width: 1000px) {
+      $length: $i - 2px;
+      font-size: $length;
+    }
+  }
+
+  .font-type-b-#{$i} {
+    font: 700 #{$i}px $font-bold, sans-serif;
+
+    @media screen and (max-width: 1000px) {
+      $length: $i - 2px;
+      font-size: $length;
+    }
+  }
+}

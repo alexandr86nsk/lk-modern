@@ -1,0 +1,141 @@
+@import "/../../static/css/colors";
+/*********************************** theme: default **************************************************************/
+
+.ui-calendar {
+  width: 320px;
+  border-radius: 6px;
+  background: $white;
+  overflow: hidden;
+  padding: 10px;
+  z-index: 1;
+  color: $shark;
+  box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+  &__header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 10px;
+    margin: 0 5px;
+
+    &:hover {
+      background-color: $hawkes-blue;
+    }
+
+    img {
+      width: 20px;
+      height: 20px;
+      user-select: none;
+    }
+  }
+
+  &__date {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+  }
+
+  &__year {
+    position: relative;
+    width: 75px;
+    height: 100%;
+
+    .ui-select-block {
+
+      input {
+        padding: 0 19px 0 0;
+        border: 1px solid transparent;
+        margin-left: 10px;
+        font-size: 16px;
+        font-weight: 600;
+
+        &::placeholder {
+          color: $shark;
+        }
+      }
+
+      &__button {
+        right: 1px;
+      }
+    }
+  }
+
+  &__body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  &__day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 50%;
+    margin: auto;
+
+    &:hover {
+      background-color: $cosmos;
+      color: $sunset-orange;
+    }
+  }
+
+  &__day.pick {
+    background-color: $sunset-orange;
+    color: $white;
+  }
+
+  &__day.present {
+    background-color: $royal-blue;
+    color: $white;
+  }
+
+  &__label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    cursor: default;
+    margin: auto;
+    user-select: none;
+  }
+
+  &__label.weekend {
+    color: $sunset-orange;
+  }
+
+  &__filler {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $athens-gray opacity(0.02);
+    color: $athens-gray;
+    width: 40px;
+    height: 40px;
+    cursor: default;
+    user-select: none;
+    margin: auto;
+  }
+}
+
+
+@media screen and (max-width: 767px) {
+  .ui-calendar {
+    width: 300px;
+  }
+}

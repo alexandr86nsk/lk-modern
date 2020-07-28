@@ -1,0 +1,149 @@
+@import "../../static/css/colors";
+
+.ui-popup {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: $white;
+  transition: all .7s ease;
+  z-index: 8;
+  opacity: 1;
+
+  &.entering {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  &.entered {
+  }
+
+  &.exiting {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  &__wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    border: 1px solid $athens-gray;
+  }
+
+  &__top-panel {
+    display: flex;
+    justify-content: flex-end;
+    background: linear-gradient(to bottom, #ebebeb, #d5d5d5);
+    color: #4d494d;
+    font-size: 11pt;
+    line-height: 20px;
+    text-align: center;
+    width: 100%;
+    height: 20px;
+    border-bottom: 1px solid #b1aeb1;
+    user-select: none;
+  }
+
+  &__close-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.5em;
+    height: 100%;
+    user-select: none;
+  }
+
+  &__close-btn {
+    width: .8em;
+    height: .8em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: $persimmon;
+
+    svg {
+      width: .6em;
+      height: .6em;
+      fill: $white;
+    }
+  }
+
+  &__data-block {
+    flex: 1;
+    padding: .5em;
+  }
+
+  &__body {
+    width: 100%;
+    height: 100%;
+  }
+
+  .ui-scroll-to-top {
+    opacity: 0.8;
+
+    &:hover {
+     opacity: 1;
+    }
+  }
+
+  &.--horizontal-right-25 {
+    left: unset;
+    width: 25%;
+    transition: all .4s ease;
+    box-shadow: -3px 1px 6px rgba(147, 147, 147, 0.3);
+
+    @media screen and (max-width: 1650px) {
+      width: 35%;
+    }
+
+    @media screen and (max-width: 1350px) {
+      width: 45%;
+    }
+
+    @media screen and (max-width: 1000px) {
+      width: 60%;
+    }
+
+    &.entering {
+      opacity: .5;
+      transform: translateX(100%);
+    }
+
+    &.exiting {
+      opacity: .5;
+      transform: translateX(100%);
+    }
+  }
+}
+
+@keyframes elastic {
+  0% {
+    border-radius: 50%;
+  }
+  45% {
+    border-radius: 0;
+  }
+  65% {
+    border-top-left-radius: 100px 50%;
+    border-bottom-left-radius: 40px 50%;
+    border-top-right-radius: 40px 50%;
+    border-bottom-right-radius: 100px 50%;
+  }
+  80% {
+    border-radius: 0;
+  }
+  90% {
+    border-top-left-radius: 50px 50%;
+    border-bottom-left-radius: 20px 50%;
+    border-top-right-radius: 50px 50%;
+    border-bottom-right-radius: 40px 50%;
+  }
+  100% {
+    border-radius: 0;
+  }
+}

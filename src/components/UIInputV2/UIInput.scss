@@ -1,0 +1,265 @@
+$red: #FF4D4D;
+$white: #FFFFFF;
+$gray: #CCCCCC;
+$dark-gray: #999999;
+$hint-color: #2185D0;
+$success-color: #19BB4F;
+$error-color: #b31616;
+$error-background-color: #ffeeec;
+$dark-error-background-color: #ffd7d3;
+$error-border-color: #ffc2c1;
+$border-color: #B3B3B3;
+$box-shadow-color: #0088FF;
+$disabled-background-color: #EEEEEF;
+
+.ui-input-v2 {
+  width: 100%;
+
+  svg {
+    width: 1.5em;
+    height: 1.5em;
+  }
+
+  &__title-wrapper {
+    margin-bottom: .5em;
+  }
+
+  &__hint-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    svg {
+      width: 2.2em;
+      height: 2.2em;
+      fill: $hint-color;
+    }
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    font-size: .8em;
+
+    .required-icon {
+      color: $red;
+      transform: scale(1.5);
+      margin-left: .2em;
+    }
+  }
+
+  &__body {
+    position: relative;
+  }
+
+  &__input {
+    width: 100%;
+    padding: .8em;
+    background-color: $white;
+    background-clip: padding-box;
+    border: 1px solid $gray;
+    border-radius: .6em;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+    &::placeholder {
+      opacity: .5;
+    }
+
+    &::-ms-clear {
+      display: none;
+    }
+
+    &:hover {
+      border-color: $border-color;
+    }
+
+    &:focus {
+      border-color: transparent;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba($box-shadow-color, .25);
+    }
+
+    &:disabled {
+      padding: .6em 1.2em;
+      background-color: $disabled-background-color;
+    }
+  }
+
+  &__error,
+  &__success,
+  &__clear {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: .8em;
+    bottom: 0;
+    height: 100%;
+  }
+
+  &__clear {
+    display: flex;
+    cursor: pointer;
+
+    svg {
+      fill: $gray;
+    }
+
+    &:hover {
+
+      svg {
+        fill: $dark-gray;
+      }
+    }
+  }
+
+  &__success {
+
+    svg {
+      fill: $success-color;
+    }
+  }
+
+  &__error {
+
+    svg {
+      fill: $red;
+    }
+  }
+
+  &__i-error {
+    position: absolute;
+    background: $error-background-color;
+    color: $error-color;
+    font-size: .9em;
+    border-radius: .4em;
+    display: none;
+    top: calc(100% + .2em);
+    margin-top: .5em;
+    padding: .5em 1em;
+    z-index: 1;
+    border: 1px solid $error-border-color;
+    box-shadow: 0 .1em .3em rgba(0,0,0,.3);
+
+    &:after, &:before {
+      content: "";
+      bottom: 100%;
+      left: 2em;
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      border: .5em solid transparent;
+      margin-left: -.5em;
+    }
+
+    &:after {
+      border-bottom-color: $error-background-color;
+      transform: translateY(1px);
+    }
+
+    &:before {
+      border-bottom-color: $error-border-color;
+    }
+  }
+
+  &.success &__success {
+    display: flex;
+  }
+
+  &.success &__input:not(:disabled) {
+    padding-right: 5.4em;
+  }
+
+  &.error &__input:not(:disabled) {
+    border-color: $error-border-color;
+    color: $error-color;
+    box-shadow: none;
+    padding-right: 5.4em;
+
+    &:focus {
+      border-color: transparent;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba($error-color, .25);
+    }
+  }
+
+  &.error &__error {
+    display: flex;
+  }
+
+  &.error &__input:focus ~ &__i-error {
+    display: block;
+  }
+
+  &.success &__clear,
+  &.error &__clear {
+    right: 3em;
+  }
+
+  &.empty  &__input {
+    padding-right: 1.2em;
+  }
+
+  &.empty.success &__input,
+  &.empty.error &__input {
+    padding-right: 3.1em;
+  }
+
+  &.empty &__clear {
+    display: none;
+  }
+
+  &.read-only {
+    font-weight: 600;
+    border-bottom: 1px solid $border-color;
+  }
+
+  &.read-only &__title {
+    font-weight: 400;
+  }
+
+
+  /* ****************************** 1c style ********************************** */
+
+  &.--style-1c {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba($border-color, .5);
+  }
+
+  &.--style-1c &__title-wrapper {
+    border: none;
+    border-right: 1px solid rgba($border-color, .5);
+    padding: .8em;
+    margin: 0;
+    flex: .4;
+    overflow: hidden;
+  }
+
+  &.--style-1c &__title {
+    font-size: inherit;
+  }
+
+  &.--style-1c &__body {
+    flex: .6;
+  }
+
+  &.--style-1c &__input {
+    border: none;
+    border-radius: 0;
+    padding: .8em;
+
+    &:focus {
+      box-shadow: inset 0 0 0 0.2rem rgba(0, 136, 255, 0.25);
+    }
+  }
+
+  &.--style-1c.error &__input:not(:disabled) {
+
+    &:focus {
+      box-shadow: inset 0 0 0 0.2rem rgba($error-color, .25);
+    }
+  }
+}

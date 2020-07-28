@@ -1,0 +1,268 @@
+@import "../../static/css/colors";
+
+.ui-sidebar {
+  display: flex;
+  flex-direction: column;
+  background-color: $outer_space;
+  color: $light_ghost;
+  height: 100vh;
+  width: 250px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, .22);
+  transition: width .2s ease-in-out;
+  white-space: nowrap;
+  z-index: 9;
+  background-image: linear-gradient(35deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.1) 15%,
+          rgba(255, 255, 255, 0) 15.1%),
+  linear-gradient(25deg, rgba(255, 255, 255, 0.025) 0%, rgba(255, 255, 255, 0.05) 20%,
+                  rgba(255, 255, 255, 0) 20.1%),
+  linear-gradient(15deg, rgba(255, 255, 255, 0.0125) 0%, rgba(255, 255, 255, 0.025) 25%,
+                  rgba(255, 255, 255, 0) 25.1%),
+  linear-gradient(10deg, rgba(255, 255, 255, 0.00625) 0%, rgba(255, 255, 255, 0.0125) 27.5%,
+                  rgba(255, 255, 255, 0) 30.1%),
+  linear-gradient(10deg, rgba(255, 255, 255, 0) 94.9%, rgba(255, 255, 255, 0.025) 95%,
+                  rgba(255, 255, 255, 0.05) 100%),
+  linear-gradient(15deg, rgba(255, 255, 255, 0) 89.9%, rgba(255, 255, 255, 0.0125) 90%,
+                  rgba(255, 255, 255, 0.025) 95%),
+  linear-gradient(20deg, rgba(255, 255, 255, 0) 84.9%, rgba(255, 255, 255, 0.0125) 85%,
+                  rgba(255, 255, 255, 0.025) 90%);;
+
+  &__tooltip {
+    position: fixed;
+    color: $white;
+    background-color: $outer_space;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, .22);
+    z-index: 3;
+  }
+
+  nav {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  &__btn-title {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__btn,
+  &__link-btn {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    color: $light_ghost;
+    padding: 8px 0;
+    margin-bottom: 3px;
+    border-radius: 6px;
+    cursor: pointer;
+    user-select: none;
+    transition: width .2s ease-in-out, background-color .2s ease-in-out, color .2s ease-in-out;
+    position: relative;
+
+    svg {
+      width: 24px;
+      height: 24px;
+      fill: $light_ghost;
+      transition: all .2s ease-in-out;
+      user-select: none;
+    }
+
+    &:hover {
+      background-color: rgba(255, 255, 255, .1);;
+      color: $white;
+
+      svg {
+        fill: $white;
+      }
+    }
+
+    > div:first-of-type {
+      width: 56px;
+      min-width: 56px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    > div:last-of-type {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      transition: width .2s ease-in-out;
+      white-space: nowrap;
+
+      svg {
+        margin-right: 6px;
+      }
+    }
+
+    > span {
+      /*position: absolute;
+      top: 50%;
+      left: calc(100% + 16px);
+      transform: translateY(-50%);
+      display: none;*/
+      background-color: $outer_space;
+      padding: 10px;
+      border-radius: 4px;
+      box-shadow: 0 2px 3px rgba(0, 0, 0, .22);
+    }
+  }
+
+  &__btn-arrow {
+    margin-left: auto;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    height: 57px;
+    padding: 0 8px;
+    border-bottom: 1px solid $trout;
+
+    img {
+      width: 20px;
+    }
+  }
+
+  &__logo &__btn {
+    cursor: default;
+
+    &:hover {
+      background-color: transparent;
+    }
+
+    > div:last-of-type {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      color: $gold;
+      font-weight: 600;
+      text-shadow: none;
+    }
+  }
+
+  &__search {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid $trout;
+    margin: 16px 0;
+    padding: 0 8px 16px 8px;
+    height: 57px;
+    width: 100%;
+
+    .ui-search {
+
+      &__input {
+        transition: width .2s ease-in-out;
+      }
+
+      &__icon {
+        transition: all .2s ease-in-out;
+      }
+    }
+  }
+
+  &__navigation {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 16px;
+    left: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 0 0 0 8px;
+
+    &::-webkit-scrollbar {
+      -webkit-appearance: none;
+      width: 8px;
+      height: 8px;
+    }
+  }
+
+  /* *************************************************** hide ******************************************* */
+  &.hide {
+    width: 72px;
+  }
+
+  &.hide &__search {
+    user-select: none;
+
+    .ui-search {
+      padding: .6em;
+
+      &__input {
+        display: none;
+        width: 0;
+      }
+
+      &__clear {
+        display: none;
+      }
+
+      &__icon {
+        margin: auto;
+      }
+    }
+  }
+
+  &.hide &__btn,
+  &.hide &__link-btn {
+    z-index: 9;
+
+    > div:last-of-type {
+      width: 0;
+    }
+
+/*    &:hover {
+
+      > span {
+        display: unset;
+      }
+    }*/
+  }
+
+  /* *************************************************** active btn ******************************************* */
+
+  &__item.active > &__link-btn,
+  &__item.active > &__btn {
+    color: $white;
+    background-color: $light-azure-radiance;
+
+    svg {
+      fill: $white;
+    }
+  }
+
+  &__item.open &__btn &__btn-arrow,
+  &__item.open &__link-btn &__btn-arrow {
+    transform: rotate(90deg);
+  }
+
+  &__item.active &__link-btn.active {
+    background-color: rgba(255, 255, 255, .9);
+    color: $outer_space;
+
+    svg {
+      fill: $outer_space;
+    }
+  }
+
+  /* *************************************************** open submenu ******************************************* */
+
+  &__sub-items-list {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-in-out;
+  }
+
+  &__item.open &__sub-items-list {
+    max-height: 1000px;
+    transition: max-height 0.2s ease-in-out;
+  }
+}

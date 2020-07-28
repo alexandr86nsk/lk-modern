@@ -1,0 +1,44 @@
+@import '../../static/css/colors.scss';
+
+.ui-text-field {
+  width: 100%;
+  min-height: 38px;
+  height: auto;
+  line-height: 1.5;
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  &__title {
+    position: absolute;
+    left: 10px;
+    background-color: $white;
+    top: -8px;
+    font-weight: bold;
+    padding: 0 5px;
+  }
+
+  &__body {
+    padding: 6px 12px;
+  }
+
+  /* *********************** underline *********************** */
+  &.underline {
+    border-bottom: 1px solid $athens-gray;
+  }
+
+  /* *********************** bordered *********************** */
+  &.bordered {
+    border: 1px solid $athens-gray;
+    border-radius: 6px;
+  }
+
+  /* *********************** inline *********************** */
+  &.inline &__title {
+    position: unset;
+  }
+
+  &.inline &__body {
+    padding: 0 5px;
+  }
+}

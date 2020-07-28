@@ -1,0 +1,12 @@
+.ui-file-picker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 40px;
+  position: relative;
+
+  input {
+    display: none;
+  }
+}

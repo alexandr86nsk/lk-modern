@@ -1,0 +1,148 @@
+$dodger_blue: #3498ff;
+$gallery: #EEEEEE;
+$white: #FFFFFF;
+
+.ui-rsuite-table {
+
+  &__table {
+    background-color: $white;
+  }
+
+  .rs-table-cell .rs-table-cell-content {
+    display: flex;
+    align-items: center;
+    padding: .8em;
+  }
+
+  &__icon-actions {
+
+    .rs-table-cell-content {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+  }
+
+  &__actions {
+
+    .rs-table-cell-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .rs-table-cell-header-sort-wrapper {
+    margin-left: .5em;
+  }
+
+  .rs-table-cell-header-sort-wrapper {
+    margin-left: .5em;
+  }
+
+  .rs-table-cell-header-icon-sort {
+
+    &:after {
+      display: inline-block;
+      transform: rotate(90deg);
+      content: '\f362';
+      font-style: normal;
+      font-family: Icons, serif;
+      font-size: .7em;
+    }
+
+    &.rs-table-cell-header-icon-sort-desc {
+
+      &:after {
+        transform: none;
+        color: $dodger_blue;
+        content: '\f309';
+      }
+    }
+
+    &.rs-table-cell-header-icon-sort-asc {
+
+      &:after {
+        transform: none;
+        color: $dodger_blue;
+        content: '\f30c';
+      }
+    }
+  }
+
+  .rs-table-column-resize-spanner {
+    width: 3px;
+  }
+
+  .rs-table:not(.rs-table-column-resizing) .rs-table-cell-header .rs-table-cell:hover~.rs-table-column-resize-spanner,
+  .rs-table:not(.rs-table-column-resizing) .rs-table-column-resize-spanner:hover {
+    background-color: $dodger_blue;
+  }
+
+  .rs-table:not(.rs-table-column-resizing) .rs-table-cell-header .rs-table-cell:hover~.rs-table-column-resize-spanner:after,
+  .rs-table:not(.rs-table-column-resizing) .rs-table-cell-header .rs-table-cell:hover~.rs-table-column-resize-spanner:before,
+  .rs-table:not(.rs-table-column-resizing) .rs-table-column-resize-spanner:hover:after,
+  .rs-table:not(.rs-table-column-resizing) .rs-table-column-resize-spanner:hover:before {
+    display: block;
+  }
+
+  .rs-table-column-resize-spanner:after,
+  .rs-table-column-resize-spanner:before {
+    content: " ";
+    position: absolute;
+    width: 0;
+    height: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+    display: none;
+  }
+
+  .rs-table-column-resize-spanner:after {
+    border: 3px dashed transparent;
+    border-left: 3px solid $dodger_blue;
+    left: 4px;
+  }
+
+  .rs-table-column-resize-spanner:before {
+    border: 3px dashed transparent;
+    border-right: 3px solid $dodger_blue;
+    right: 4px;
+  }
+
+  .rs-table-scrollbar-horizontal .rs-table-scrollbar-pressed,
+  .rs-table-scrollbar-horizontal:hover {
+    height: 10px;
+    box-shadow: none;
+  }
+
+  .rs-table-scrollbar-vertical .rs-table-scrollbar-pressed,
+  .rs-table-scrollbar-vertical:hover {
+    width: 10px;
+    box-shadow: none;
+  }
+
+  .rs-table-scrollbar-horizontal .rs-table-scrollbar-pressed .rs-table-scrollbar-handle,
+  .rs-table-scrollbar-horizontal:hover .rs-table-scrollbar-handle {
+    top: 1px;
+    height: 8px;
+  }
+
+  .rs-table-scrollbar-vertical .rs-table-scrollbar-pressed .rs-table-scrollbar-handle,
+  .rs-table-scrollbar-vertical:hover .rs-table-scrollbar-handle {
+    left: 1px;
+    width: 8px;
+  }
+
+  .rs-table-cell-group-fixed-right,
+  .rs-table-cell.rs-table-cell-last {
+
+    .rs-table-cell-content {
+      padding-right: 18px;
+    }
+  }
+
+  .rs-table-scrollbar {
+    background: rgba(238,238,239,1);
+  }
+}

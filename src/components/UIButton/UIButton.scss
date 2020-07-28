@@ -1,0 +1,290 @@
+@import '../../static/css/colors.scss';
+
+.ui-button {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  user-select: none;
+  background-color: transparent;
+  padding: 10px 15px;
+  border-radius: 6px;
+  transition: color .15s ease-in-out,
+  background-color .15s ease-in-out,
+  border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 0 rgba(34,36,38,.15) inset;
+
+  .ui-loader {
+    &::before {
+      border-color: rgba(0, 0, 0, .15);
+    }
+
+    &::after {
+      border-color: #fff transparent transparent;
+    }
+  }
+
+  svg {
+    fill: $white;
+  }
+
+  &__loader {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  &__left-icon,
+  &__right-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__left-icon {
+    margin-right: 5px;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &__right-icon {
+    margin-left: 5px;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &.primary {
+    color: $white;
+    background-color: $curious_blue;
+
+    &:hover {
+      background-color: $denim;
+      box-shadow: 0 5px 10px rgba($denim, .2);
+    }
+  }
+
+  &.primary-empty {
+    background-color: $white;
+    border: 1px solid $curious_blue;
+    color: $curious_blue;
+
+    svg {
+      fill: $curious_blue;
+    }
+
+    .ui-loader {
+      &::before {
+        border-color: rgba($curious_blue, .15);
+      }
+
+      &::after {
+        border-color: $curious_blue transparent transparent;
+      }
+    }
+
+    &:hover {
+      color: $white;
+      background-color: $curious_blue;
+      box-shadow: 0 5px 10px rgba($curious_blue, .2);
+
+      svg {
+        fill: $white;
+      }
+
+      .ui-loader {
+        &::before {
+          border-color: rgba(0, 0, 0, .15);
+        }
+
+        &::after {
+          border-color: #fff transparent transparent;
+        }
+      }
+    }
+  }
+
+  &.positive {
+    background-color: $light_mountain_meadow;
+    color: $white;
+
+    &:hover {
+      color: $white;
+      background-color: $mountain_meadow;
+      box-shadow: 0 5px 10px rgba($mountain_meadow, .2);
+    }
+  }
+
+  &.negative {
+    background-color: $light_alizarin_crimson;
+    color: $white;
+
+    &:hover {
+      color: $white;
+      background-color: $alizarin_crimson;
+      box-shadow: 0 5px 10px rgba($alizarin_crimson, .2);
+    }
+  }
+
+  &.black {
+    color: $white;
+    background-color: $pale_sky;
+
+    &:hover {
+      background-color: $trout;
+      box-shadow: 0 5px 10px rgba($trout, .2);
+    }
+  }
+
+  &.black-empty {
+    background-color: $white;
+    border: 1px solid $pale_sky;
+    color: $pale_sky;
+
+    .ui-loader {
+      &::before {
+        border-color: rgba($pale_sky, .15);
+      }
+
+      &::after {
+        border-color: $pale_sky transparent transparent;
+      }
+    }
+
+    svg {
+      fill: $pale_sky;
+    }
+
+    &:hover {
+      color: $white;
+      background-color: $pale_sky;
+      box-shadow: 0 5px 10px rgba($pale_sky, .2);
+
+      .ui-loader {
+        &::before {
+          border-color: rgba(0, 0, 0, .15);
+        }
+
+        &::after {
+          border-color: #fff transparent transparent;
+        }
+      }
+
+      svg {
+        fill: $white;
+      }
+    }
+  }
+
+  &.white {
+    background-color: $white;
+    color: $curious_blue;
+    box-shadow: 0 1px 3px 1px rgba(60,64,67,0.15),
+    0 1px 2px 0 rgba(60,64,67,0.3);
+
+    .ui-loader {
+      &::before {
+        border-color: rgba($curious_blue, .15);
+      }
+
+      &::after {
+        border-color: $curious_blue transparent transparent;
+      }
+    }
+
+    svg {
+      fill: $curious_blue;
+    }
+
+    &:hover {
+      color: $curious_blue;
+      background-color: $hawkes-blue;
+      box-shadow: 0 1px 5px rgba($hawkes-blue,.1),
+      1px 0 5px rgba($hawkes-blue,.1);
+
+      .ui-loader {
+        &::before {
+          border-color: $white;
+        }
+
+        &::after {
+          border-color: $curious_blue transparent transparent;
+        }
+      }
+
+      svg {
+        fill: $curious_blue;
+      }
+    }
+  }
+
+  &.max-content {
+    width: max-content;
+  }
+
+  &.disabled {
+    color: rgba(0,0,0,.6);
+    background-color: $light_iron;
+
+    svg {
+      fill: rgba(0,0,0,.6);
+    }
+
+    &:hover {
+      color: rgba(0,0,0,.8);
+      background-color: $iron;
+      box-shadow: 0 5px 10px rgba($iron, .2);
+
+      svg {
+        fill: rgba(0,0,0,.8);
+      }
+    }
+  }
+
+  &.jira {
+    border-radius: 3.01px;
+    background-color: rgba($downriver,.08);
+    color: $pickled-bluewood;
+    display: inline-block;
+    height: 2.14285714em;
+    line-height: 1.42857143em;
+    padding: 4px 10px;
+    vertical-align: baseline;
+    white-space: nowrap;
+
+    .ui-loader {
+      &::before {
+        border-color: rgba($pickled-bluewood, .15);
+      }
+
+      &::after {
+        border-color: $pickled-bluewood transparent transparent;
+      }
+    }
+
+    svg {
+      fill: $pickled-bluewood;
+    }
+
+    &:hover {
+      background-color: rgba($downriver,.13);
+    }
+  }
+}

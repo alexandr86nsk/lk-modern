@@ -1,0 +1,270 @@
+import React from 'react';
+import PlayIcon from '../../static/images/play_arrow-24px.svg';
+import StopIcon from '../../static/images/stop-24px.svg';
+import DeleteIcon from '../../static/images/delete-24px.svg';
+
+
+const briefStatusOptions = {
+  0: 'Ошибка',
+  1: 'Кампания создана',
+  2: 'Загружается',
+  3: 'Ожидает запуска',
+  4: 'Кампания запущена на обзвон',
+  5: 'Кампания остановлена',
+  6: 'Кампания выполнена',
+};
+
+const callStatusOptions = {
+  0: 'Создан',
+  1: 'В очереди',
+  2: 'Попытка соединения',
+  3: 'Неудачная попытка соединения',
+  4: 'Соединен с оператором',
+  5: 'Завершен',
+  6: 'Абонент недоступен/не взял трубку"',
+};
+
+const callResultOptions = {
+  0: 'Ошибка',
+  1: 'Поставлен в очередь',
+  2: 'Звонок прошел успешно',
+  3: 'Автоответчик',
+  4: 'Бросили трубку',
+  5: 'Нет ответа',
+};
+
+export const listHeader = [
+  {
+    id: 0,
+    title: 'Название',
+    value: 'Title',
+    type: '',
+    controls: [],
+  },
+  {
+    id: 1,
+    title: 'Дата создания',
+    value: 'CreateDate',
+    type: 'date',
+    controls: [],
+  },
+  {
+    id: 2,
+    title: 'Статус',
+    value: 'Status',
+    type: 'options-select',
+    options: [],
+    controls: [],
+  },
+  {
+    id: 3,
+    title: 'Очередь операторов',
+    value: 'QueuePhone',
+    type: '',
+    controls: [],
+  },
+  {
+    id: 4,
+    title: '',
+    value: '',
+    type: 'control-options',
+    controls: [
+      {
+        id: 0,
+        icon: <PlayIcon />,
+        title: 'Запустить',
+        action: 'start',
+        showOptions: [3, 5],
+        showValue: 'Status',
+      },
+      {
+        id: 1,
+        icon: <StopIcon />,
+        title: 'Остановить',
+        action: 'stop',
+        showOptions: [4],
+        showValue: 'Status',
+      },
+      {
+        id: 2,
+        icon: '',
+        title: 'Загрузить файл',
+        action: 'upload',
+        showOptions: [],
+      },
+      {
+        id: 3,
+        icon: <DeleteIcon />,
+        title: 'Удалить',
+        action: 'remove',
+        showOptions: [],
+      },
+    ],
+  },
+];
+
+export const itemHeader = [
+  {
+    id: 0,
+    title: 'Статус звонка',
+    value: 'StatusId',
+    type: 'options-select',
+    options: [],
+    controls: [],
+  },
+  {
+    id: 1,
+    title: 'Результат звонка',
+    value: 'ResultId',
+    type: 'options-select',
+    options: [],
+    controls: [],
+  },
+  {
+    id: 2,
+    title: 'Часовой пояс',
+    value: 'TimeZone',
+    type: '',
+    controls: [],
+  },
+  {
+    id: 3,
+    title: 'Телефон1',
+    value: 'Phone1',
+    type: '',
+    controls: [],
+  },
+  {
+    id: 4,
+    title: 'Телефон2',
+    value: 'Phone2',
+    type: '',
+    controls: [],
+  },
+  {
+    id: 5,
+    title: 'Телефон3',
+    value: 'Phone3',
+    type: '',
+    controls: [],
+  },
+  {
+    id: 6,
+    title: 'Телефон4',
+    value: 'Phone4',
+    type: '',
+    controls: [],
+  },
+  {
+    id: 7,
+    title: 'Телефон5',
+    value: 'Phone5',
+    type: '',
+    controls: [],
+  },
+  {
+    id: 8,
+    title: 'Телефон6',
+    value: 'Phone6',
+    type: '',
+    controls: [],
+  },
+  {
+    id: 9,
+    title: 'Телефон7',
+    value: 'Phone7',
+    type: '',
+    controls: [],
+  },
+  {
+    id: 10,
+    title: 'Телефон8',
+    value: 'Phone8',
+    type: '',
+    controls: [],
+  },
+  {
+    id: 11,
+    title: 'Телефон9',
+    value: 'Phone9',
+    type: '',
+    controls: [],
+  },
+  {
+    id: 12,
+    title: 'Телефон10',
+    value: 'Phone10',
+    type: '',
+    controls: [],
+  },
+  {
+    id: 13,
+    title: 'Телефон11',
+    value: 'Phone11',
+    type: '',
+    controls: [],
+  },
+  {
+    id: 14,
+    title: 'Телефон12',
+    value: 'Phone12',
+    type: '',
+    controls: [],
+  },
+  {
+    id: 15,
+    title: 'Телефон13',
+    value: 'Phone13',
+    type: '',
+    controls: [],
+  },
+  {
+    id: 16,
+    title: 'Телефон14',
+    value: 'Phone14',
+    type: '',
+    controls: [],
+  },
+  {
+    id: 17,
+    title: 'Телефон15',
+    value: 'Phone15',
+    type: '',
+    controls: [],
+  },
+  {
+    id: 18,
+    title: 'Телефон16',
+    value: 'Phone16',
+    type: '',
+    controls: [],
+  },
+  {
+    id: 19,
+    title: 'Телефон17',
+    value: 'Phone17',
+    type: '',
+    controls: [],
+  },
+  {
+    id: 20,
+    title: 'Телефон18',
+    value: 'Phone18',
+    type: '',
+    controls: [],
+  },
+  {
+    id: 21,
+    title: 'Телефон19',
+    value: 'Phone19',
+    type: '',
+    controls: [],
+  },
+  {
+    id: 22,
+    title: 'Телефон20',
+    value: 'Phone20',
+    type: '',
+    controls: [],
+  },
+];

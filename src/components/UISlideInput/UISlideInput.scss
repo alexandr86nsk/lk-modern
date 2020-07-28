@@ -1,0 +1,61 @@
+@import '../../static/css/colors.scss';
+
+.ui-slide-input {
+    margin-bottom: 60px;
+    width: 100%;
+    position: relative;
+
+    &__input-block {
+        width: 100%;
+        position: relative;
+
+        & > span {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding-bottom: 8px;
+        }
+
+        & > span:nth-of-type(1) {
+            position: absolute;
+            left: 12px;
+            color: $white-aluminum;
+        }
+
+        & > span:nth-of-type(2) {
+            position: absolute;
+            right: 12px;
+        }
+
+        & > input {
+            text-align: end;
+            width: 100%;
+            border: 1px solid $ghost;
+            height: 60px;
+            outline: none;
+            padding: 0 28px 8px 50%;
+            transition: all 0.3s ease;
+
+            &:disabled {
+                background-color: $white;
+            }
+        }
+    }
+
+    &__slider {
+        position: absolute;
+        top: calc(100% - 16px);
+        right: 1px;
+        left: 1px;
+    }
+
+    &__range {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5px;
+        color: $white-aluminum;
+    }
+}

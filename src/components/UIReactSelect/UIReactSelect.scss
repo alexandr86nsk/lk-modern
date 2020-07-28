@@ -1,0 +1,164 @@
+$red: #FF4D4D;
+$white: #FFFFFF;
+$gray: #CCCCCC;
+$dark-gray: #999999;
+$hint-color: #2185D0;
+$success-color: #19BB4F;
+$error-color: #b31616;
+$error-background-color: #ffeeec;
+$dark-error-background-color: #ffd7d3;
+$error-border-color: #ffc2c1;
+$border-color: #B3B3B3;
+$box-shadow-color: #0088FF;
+$disabled-background-color: #EEEEEF;
+
+.ui-react-select {
+  width: 100%;
+
+  svg {
+    width: 1.5em;
+    height: 1.5em;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    margin-bottom: .5em;
+    font-size: .8em;
+
+    span {
+      width: max-content;
+      max-width: 100%;
+    }
+
+    .required-icon {
+      color: $red;
+      transform: scale(1.5);
+      margin-left: 2px;
+    }
+  }
+
+  &__body {
+    position: relative;
+  }
+
+  &__placeholder {
+    margin: 0;
+    opacity: .5;
+  }
+
+  & .css-b8ldur-Input {
+    margin: 0;
+    padding: 0;
+  }
+
+  &__value-container.css-g1d714-ValueContainer {
+    border: none;
+    padding: .8em;
+  }
+
+  &__control {
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  }
+
+  &__control.ui-react-select__control--is-focused {
+    border-color: transparent;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba($box-shadow-color, .25);
+  }
+
+  &__error,
+  &__success {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: .8em;
+    bottom: 0;
+    height: 100%;
+  }
+
+  &__success {
+
+    svg {
+      fill: $success-color;
+    }
+  }
+
+  &__error {
+
+    svg {
+      fill: $red;
+    }
+  }
+
+  &.success &__success {
+    display: flex;
+  }
+
+  &.success &__control {
+    padding-right: 3.1em;
+  }
+
+  &.error &__control {
+    border-color: $error-border-color;
+    color: $error-color;
+    box-shadow: none;
+    padding-right: 3.1em;
+
+    &:focus {
+      border-color: transparent;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba($error-color, .25);
+    }
+  }
+
+  &.error &__error {
+    display: flex;
+  }
+
+  &.read-only {
+    font-weight: 600;
+    border-bottom: 1px solid $border-color;
+  }
+
+  &__control.ui-react-select__control--is-focused {
+    border-color: transparent;
+    box-shadow: 0 0 0 0.2rem rgba($box-shadow-color, .25);
+  }
+
+  &__control.ui-react-select__control--is-focused:hover {
+    border-color: transparent;
+  }
+
+  /* ****************************** 1c style ********************************** */
+
+  &.--style-1c {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba($border-color, .5);
+  }
+
+  &.--style-1c &__title {
+    border-right: 1px solid rgba($border-color, .5);
+    padding: .8em;
+    font-weight: 500;
+    margin: 0;
+    flex: .4;
+    overflow: hidden;
+    font-size: inherit;
+  }
+
+  &.--style-1c &__body {
+    flex: .6;
+  }
+
+  &.--style-1c &__control {
+    border: none;
+    border-radius: 0;
+  }
+
+  &.--style-1c &__control.ui-react-select__control--is-focused {
+    box-shadow: inset 0 0 0 0.2rem rgba(0, 136, 255, 0.25);
+  }
+}
