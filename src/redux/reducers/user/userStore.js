@@ -2,15 +2,13 @@ const initialUserStore = {};
 
 export default function userStore(state = initialUserStore, action) {
   switch (action.type) {
-    case 'USER_STORE_SET':
-      return action.value;
-    case 'USER_STORE_CLEAR':
-      return initialUserStore;
-    case 'USER_STORE_SET_VALUE':
+    case 'USER_STORE_SET_SECTION':
       return {
         ...state,
-        [action.name]: action.value,
+        ...action.value,
       };
+    case 'USER_STORE_CLEAR':
+      return initialUserStore;
     default:
       return state;
   }

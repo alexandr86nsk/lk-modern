@@ -59,7 +59,7 @@ $disabled-background-color: #EEEEEF;
     background-color: $white;
     background-clip: padding-box;
     border: 1px solid $gray;
-    border-radius: .6em;
+    border-radius: 0.30769231rem;
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 
     &::placeholder {
@@ -198,13 +198,13 @@ $disabled-background-color: #EEEEEF;
     right: 3em;
   }
 
-  &.empty  &__input {
-    padding-right: 1.2em;
+  &:not(.empty)  &__input {
+    padding-right: 2.8em;
   }
 
-  &.empty.success &__input,
-  &.empty.error &__input {
-    padding-right: 3.1em;
+  &:not(.empty).success &__input,
+  &:not(.empty).error &__input {
+    padding-right: 5.4em;
   }
 
   &.empty &__clear {

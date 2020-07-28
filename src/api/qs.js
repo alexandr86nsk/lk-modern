@@ -1,5 +1,5 @@
-// const qs = 'http://10.168.1.213:5089/api/'; //prod
-const qs = 'http://10.168.1.213:5099/api/'; // test
-// const qs = `${window.location.origin}/api/`;
-
+const qs = SERVER_URL === 'true'
+  ? `http://${window.location.hostname}:20000/api/`
+  : 'http://nsk-1cprog-01:801/';
+// const qs = 'http://nsk-dev-04:20000/api/';
 export default qs;

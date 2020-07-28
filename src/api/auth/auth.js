@@ -1,6 +1,13 @@
-import axios from 'axios';
-import qs from '../qs';
+/* ********************* auth ***************** */
+import requestParser from '../requestParser';
 
-export const getSmsCode = (data) => axios.post(`${qs}auth`, data);
+const logIn = (data) => requestParser(
+  'post',
+  'login',
+  {
+    Phone: data.login,
+    Password: data.password,
+  },
+);
 
-export const logIn = (data) => axios.post(`${qs}auth/smscode`, data);
+export default logIn;

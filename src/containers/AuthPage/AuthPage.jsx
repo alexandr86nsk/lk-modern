@@ -1,61 +1,74 @@
 import React from 'react';
 import './AuthPage.scss';
 import { connect } from 'react-redux';
+import { Button, Icon } from 'semantic-ui-react';
 import actions from '../../redux/actions/actions';
 import ErrorsBlock from './ErrorsBlock';
-import PhoneIcon from '../../static/images/phone.svg';
-import UIButton from '../../components/UIButton/UIButton';
-import { logIn, winAuth } from './pageLogic';
 import UILoader from '../../components/UILoader/UILoader';
-import UIInput from '../../components/UIInput/UIInput';
-
+import UIInput from '../../components/UIInputV2/UIInput';
 
 function AuthPage(props) {
   const {
     login,
     password,
-    authStoreSetValue,
-    authStoreSetErrors,
-    setToken,
+    tryLogIn,
+    authStoreSetSection,
+    authStoreLogIn,
   } = props;
 
-  const [pageLoading, setPageLoading] = React.useState(false);
-  const [appLoading, setAppLoading] = React.useState(true);
+  const handleLogIn = React.useCallback(() => {
+    authStoreLogIn({ login, password });
+  }, [login, password, authStoreLogIn]);
 
-  React.useEffect(() => {
-    setTimeout(() => winAuth(setAppLoading), 1000);
-  }, []);
-
-  const memoizedLogIn = React.useCallback(() => {
-    logIn(login, password, setPageLoading, setToken, authStoreSetErrors);
-  }, [login, password, setToken, authStoreSetErrors]);
+  const handleChangeValue = React.useCallback((editName, editValue) => {
+    authStoreSetSection({
+      errors: null,
+      [editName]: editValue,
+    });
+  }, [authStoreSetSection]);
 
   return (
-    <div className={`auth-page font-type-m-16 ${appLoading ? 'loading' : ''}`}>
-      <div className="auth-page__animation-block">
-        <div className="auth-page__header">
-          <div className="auth-page__logo">
-            <PhoneIcon />
-          </div>
-          <div className="auth-page__title font-type-b-20">Asterisk Dialer</div>
+    <div className="auth-page">
+      <section className="auth-page__banner">
+        <div className="banner__content">
+          <h1>Добро пожаловать в систему</h1>
         </div>
-        <div className="auth-page__form">
-          {pageLoading && <UILoader />}
-          <div className="auth-page__input-block">
-            <UIInput title="Логин" name="login" callback={authStoreSetValue} data={login} />
-            <UIInput title="Пароль" name="password" password callback={authStoreSetValue} data={password} />
-          </div>
-          <div className="auth-page__log-in-block">
-            <UIButton
-              type="positive"
-              disabled={!login || !password}
-              title="Войти"
-              callback={memoizedLogIn}
+        <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 25 160 40" className="waves">
+          <defs>
+            <path
+              id="wave"
+              d="M-150 53c30.77 0 59.538-20 90-20 31.077 0 60.256 20 90 20 30.77 0 59.23-20 90-20 30.77 0 59.23 20 90 20v20h-360z"
             />
+          </defs>
+          <g>
+            <use href="#wave" x="50" y="0" fill="#7986cb" />
+            <use href="#wave" x="50" y="2" fill="#5c6bc0" />
+            <use href="#wave" x="50" y="4" fill="#ffffff" />
+          </g>
+        </svg>
+        <div className="auth-page__form">
+          {tryLogIn && <UILoader />}
+          <div className="auth-page__form-header">Авторизация</div>
+          <div className="auth-page__input-block">
+            <UIInput title="Телефон" name="login" callback={handleChangeValue} data={login} mask="00000000000" />
+            <UIInput title="Пароль" name="password" password callback={handleChangeValue} data={password} />
+          </div>
+          <div className="auth-page__btn-block">
+            <Button
+              positive
+              fluid
+              disabled={!login || !password}
+              onClick={handleLogIn}
+              title="Войти"
+              loading={tryLogIn}
+            >
+              <Icon name="key" />
+              Войти
+            </Button>
           </div>
           <ErrorsBlock />
         </div>
-      </div>
+      </section>
     </div>
   );
 }
@@ -63,6 +76,7 @@ function AuthPage(props) {
 const mapStateToProps = (state) => ({
   login: state.authStore.login,
   password: state.authStore.password,
+  tryLogIn: state.authStore.tryLogIn,
 });
 
 const mapDispatchToProps = { ...actions };

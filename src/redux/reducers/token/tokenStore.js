@@ -4,8 +4,8 @@ const initialTokenStore = {
 
 export default function tokenStore(state = initialTokenStore, action) {
   switch (action.type) {
-    case 'TOKEN_STORE_SET_TOKEN':
-      return { token: action.value };
+    case 'TOKEN_STORE_SET_SECTION':
+      return { ...state, ...action.value };
     case 'TOKEN_STORE_CLEAR_TOKEN':
       return initialTokenStore;
     default:

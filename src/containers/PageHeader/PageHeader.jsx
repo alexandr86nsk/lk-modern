@@ -5,24 +5,22 @@ import MenuIcon from '../../static/images/menu.svg';
 import actions from '../../redux/actions/actions';
 import UserInfo from './UserInfo';
 
-
 function PageHeader(props) {
   const {
-    name,
-    family,
-    username,
+    userInfo,
     showSidebar,
     globalStoreSetValue,
-    userStoreGetUserInfo,
     userStoreClear,
     clearToken,
   } = props;
 
-  React.useEffect(() => () => userStoreClear(), [userStoreClear]);
+  const {
+    FirstName: firstName,
+    MiddleName: middleName,
+    LastName: lastName,
+  } = userInfo || {};
 
-  React.useEffect(() => {
-    userStoreGetUserInfo();
-  }, [userStoreGetUserInfo]);
+  React.useEffect(() => () => userStoreClear(), [userStoreClear]);
 
   const logout = React.useCallback(() => {
     clearToken();
@@ -42,12 +40,12 @@ function PageHeader(props) {
         <MenuIcon />
       </div>
       <div className="page-header__user-info-wrapper">
-        {name && (
+        {(firstName || middleName || lastName) && (
         <UserInfo
-          firstName={name}
-          lastName={family}
+          firstName={firstName}
+          middleName={middleName}
+          lastName={lastName}
           logout={logout}
-          avatar={username}
         />
         )}
       </div>
@@ -57,9 +55,7 @@ function PageHeader(props) {
 
 const mapStateToProps = (state) => ({
   showSidebar: state.globalStore.showSidebar,
-  name: state.userStore.given_name,
-  family: state.userStore.family_name,
-  username: state.userStore.preferred_username,
+  userInfo: state.userStore,
 });
 
 const mapDispatchToProps = { ...actions };

@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.scss';
 import './static/css/default.scss';
-// import './static/css/global.scss';
 import './static/css/typography.scss';
 import '../semantic-ui/semantic.less';
 import { Route, Switch, Redirect } from 'react-router-dom';
@@ -9,39 +8,35 @@ import { connect } from 'react-redux';
 import routes from './routes/routes';
 import PrivateRoutes from './routes/privateRoutes';
 import PageWrapper from './components/PageWrapper/PageWrapper';
-import actions from './redux/actions/actions';
+import AuthPage from './containers/AuthPage/AuthPage';
 
 
 const App = (props) => {
-  const {
-    referencesStoreGetAll,
-    referencesStoreGetAllCancel,
-  } = props;
-
-  React.useEffect(() => {
-    referencesStoreGetAll();
-  }, [referencesStoreGetAll]);
-
-  React.useEffect(() => () => {
-    referencesStoreGetAllCancel();
-  }, [referencesStoreGetAllCancel]);
+  const { token } = props;
 
   return (
     <div className="App font-type-m-12">
-      <PageWrapper isAuth>
+      <PageWrapper isAuth={token}>
         <Switch>
           <Route
             exact
             path="/"
             render={() => (
-              <Redirect to="/briefcase" />
+              token ? <Redirect to="/zone" /> : <Redirect to="/sign-in" />
+            )}
+          />
+          <Route
+            exact
+            path="/sign-in"
+            render={() => (
+              token ? <Redirect to="/zone" /> : <AuthPage />
             )}
           />
           {routes.map(({
             path, exact, component: C, ...rest
           }) => (
             <PrivateRoutes
-              isLoggedIn
+              isLoggedIn={!!token}
               key={path}
               path={path}
               exact={exact}
@@ -59,6 +54,4 @@ const mapStateToProps = (state) => ({
   token: state.tokenStore.token,
 });
 
-const mapDispatchToProps = { ...actions };
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, null)(App);

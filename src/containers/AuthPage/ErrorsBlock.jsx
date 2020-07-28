@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 function ErrorsBlock(props) {
   const { errors } = props;
 
-  return (
-    <div className="auth-page__errors-block font-type-b-14">
+  return errors ? (
+    <div className="auth-page__errors-block">
       {errors}
     </div>
-  );
+  ) : null;
 }
 
 const mapStateToProps = (state) => ({ errors: state.authStore.errors });

@@ -1,9 +1,9 @@
 /** ********************************* tokenStore  ********************************************** */
-export const setToken = (value) => ({
-  type: 'TOKEN_STORE_SET_TOKEN',
+export const tokenStoreSetSection = (value) => ({
+  type: 'TOKEN_STORE_SET_SECTION',
   value,
 });
 
-export const clearToken = () => ({
-  type: 'TOKEN_STORE_CLEAR_TOKEN',
+export const tokenStoreClear = () => ({
+  type: 'TOKEN_STORE_CLEAR',
 });

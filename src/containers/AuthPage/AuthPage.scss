@@ -1,144 +1,131 @@
 @import '../../static/css/colors.scss';
+$strong-blue: #32408f;
+$dark-blue: #3f51b5;
+$medium-blue: #5c6bc0;
+$light-blue: #7986cb;
+
 
 .auth-page {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
   width: 100%;
-  min-height: 100vh;
-  background-color: $white;
-  background-image: linear-gradient(35deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.1) 15%, rgba(255, 255, 255, 0) 15.1%),
-  linear-gradient(25deg, rgba(255, 255, 255, 0.025) 0%, rgba(255, 255, 255, 0.05) 20%, rgba(255, 255, 255, 0) 20.1%),
-  linear-gradient(15deg, rgba(255, 255, 255, 0.0125) 0%, rgba(255, 255, 255, 0.025) 25%, rgba(255, 255, 255, 0) 25.1%),
-  linear-gradient(10deg, rgba(255, 255, 255, 0.00625) 0%, rgba(255, 255, 255, 0.0125) 27.5%, rgba(255, 255, 255, 0) 30.1%),
-  linear-gradient(10deg, rgba(255, 255, 255, 0) 94.9%, rgba(255, 255, 255, 0.025) 95%, rgba(255, 255, 255, 0.05) 100%),
-  linear-gradient(15deg, rgba(255, 255, 255, 0) 89.9%, rgba(255, 255, 255, 0.0125) 90%, rgba(255, 255, 255, 0.025) 95%),
-  linear-gradient(20deg, rgba(255, 255, 255, 0) 84.9%, rgba(255, 255, 255, 0.0125) 85%, rgba(255, 255, 255, 0.025) 90%);
+  height: 100%;
 
-  &__animation-block {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    transition: transform .8s ease;
-    transform: translateY(0);
-  }
+  &__banner {
+    position: relative;
 
-  &.loading &__animation-block {
-    transform: translateY(50%);
-  }
+    & > svg {
+      width: 100%;
+      height: 10vw;
+      background: $dark-blue;
+      display: block;
 
-  &__header {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-  }
+      & > g > use {
+        animation: move 120s linear infinite;
 
-  &__logo {
-    width: 120px;
-    height: 120px;
-    padding: 24px;
-    border-radius: 50%;
-    border: 2px solid $mountain_meadow;
-    margin-top: 20px;
+        &:nth-child(1) {
+          animation-delay: -2s;
+          fill: $light-blue;
+        }
 
-    svg {
-      fill: $mountain_meadow;
+        &:nth-child(2) {
+          animation-delay: -2s;
+          animation-duration: 68s;
+          fill: $medium-blue;
+        }
+
+        &:nth-child(3) {
+          animation-delay: -4s;
+          animation-duration: 40s;
+          fill: $white;
+        }
+      }
     }
   }
 
-  &__title {
-    margin: 10px 0;
+  .banner__content {
+    background: linear-gradient(180deg, $strong-blue 0%, $dark-blue 100%);
+    padding-top: 8%;
+    padding-bottom: 8%;
+
+    h1 {
+      text-align: center;
+      color: $white;
+      font-size: 2.5em;
+      font-weight: 300;
+      line-height: 1.2;
+    }
   }
 
   &__form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    position: relative;
+    display: grid;
+    grid-template: auto / 1fr;
+    grid-gap: 1em;
+    position: absolute;
+    top: calc(100% - 10vw);
+    left: 50%;
+    transform: translateX(-50%);
     width: 100%;
-    max-width: 375px;
-    height: max-content;
-    padding: 24px;
-    border-radius: 6px;
-    background-color: rgba($pale_sky, .1);
-    opacity: 1;
-    transition: opacity 1.5s ease;
+    max-width: 450px;
+    padding: 2.4em;
+    border-radius: .6em;
+    box-shadow: 1px 3px 10px rgba($light-blue, .4), -1px -3px 5px rgba($white, .7);
+    background-color: $white;
   }
 
-  &.loading &__form {
-    opacity: 0;
+  &__form-header {
+    font-size: 1.5em;
   }
 
   &__input-block {
     width: 100%;
-    margin-bottom: 24px;
-
-    input {
-
-      &:focus {
-        background-color: rgba($white, .8);
-      }
-    }
+    display: grid;
+    grid-template: auto / 1fr;
+    grid-gap: 1em;
+    margin: 1.5em 0 1em 0;
   }
 
-  &__log-in-block {
+  &__btn-block {
     width: 100%;
-
-    .c-button {
-
-      &.disabled {
-        background-color: rgba($boston_blue, .5);
-
-        &:hover {
-          background-color: rgba($boston_blue, 1);
-        }
-      }
-      &.primary {
-        background-color: rgba($mountain_meadow, .8);
-
-        &:hover {
-          background-color: rgba($mountain_meadow, 1);
-        }
-      }
-    }
   }
 
   &__errors-block {
     width: 100%;
-    color: $white;
-    margin-top: 16px;
     text-align: center;
-    text-shadow: none;
+    color: $error-color;
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1100px) {
   .auth-page {
+
+    &__banner {
+      height: 100%;
+    }
+
+    .banner__content {
+      padding-top: 25%;
+      padding-bottom: 25%;
+
+      h1 {
+        font-size: 2em;
+      }
+    }
 
     &__form {
+      border: none;
       border-radius: 0;
+      box-shadow: none;
+      top: 50%;
+      transform: translateX(-50%) translateY(-50%);
     }
   }
 }
 
-@media screen and (max-width: 450px) {
-  .auth-page {
-    &__animation-block {
-      width: 100%;
-    }
+@keyframes move {
+  from {
+    transform: translate(-90px, 0%);
   }
-}
 
-@media screen and (max-width: 360px) {
-  .auth-page {
-
-    &.loading &__animation-block {
-      transform: translateY(35%);
-    }
+  to {
+    transform: translate(90px, 0%);
   }
 }

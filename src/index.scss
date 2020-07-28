@@ -7,10 +7,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body ::-webkit-scrollbar-track {
-  background: rgba(145, 145, 145, .05) !important;
-}
-
 body.modal {
   overflow: hidden;
 }

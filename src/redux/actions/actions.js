@@ -11,8 +11,10 @@ import * as references from './references/referencesActions';
 import * as test from './test/testActions';
 import * as contextMenuActions from './common/contextMenuActions';
 import * as popUpActions from './common/popUpActions';
+import * as authActions from './auth/authActions';
 
 const actions = {
+  ...authActions,
   ...modal,
   ...toasts,
   ...pageControlActions,

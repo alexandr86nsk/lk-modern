@@ -1,19 +1,9 @@
-/* ********************************* UserStore  ********************************************** */
-export const userStoreSet = (value) => ({
-  type: 'USER_STORE_SET',
-  value,
-});
-
+/* ********************************* userStore  ********************************************** */
 export const userStoreClear = () => ({
   type: 'USER_STORE_CLEAR',
 });
 
-export const userStoreSetValue = (name, value) => ({
-  type: 'USER_STORE_SET_VALUE',
-  name,
+export const userStoreSetSection = (value) => ({
+  type: 'USER_STORE_SET_SECTION',
   value,
-});
-
-export const userStoreGetUserInfo = () => ({
-  type: 'USER_STORE_GET_USER_INFO',
 });

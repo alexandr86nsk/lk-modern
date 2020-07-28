@@ -34,6 +34,7 @@ function UserInfo(props) {
   const {
     firstName = '',
     lastName = '',
+    middleName = '',
     logout,
     avatar,
   } = props;
@@ -73,7 +74,7 @@ function UserInfo(props) {
       <div className="avatar">
         <img src={avatar ? `https://jira.otlnal.ru/secure/useravatar?ownerId=${avatar}` : avatarIcon} alt="avatar" />
       </div>
-      <span>{`${firstName} ${lastName}`}</span>
+      <span>{`${lastName ? `${lastName} ` : ''}${firstName ? `${firstName} ` : ''}${middleName}`}</span>
       <div className="user-menu">
         <nav className="user-menu__list">
           {renderUserMenu}
