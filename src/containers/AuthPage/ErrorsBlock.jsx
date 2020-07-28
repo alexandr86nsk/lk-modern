@@ -6,7 +6,7 @@ function ErrorsBlock(props) {
   const { errors } = props;
 
   return errors ? (
-    <div className="auth-page__errors-block">
+    <div className="form__errors-block">
       {errors}
     </div>
   ) : null;

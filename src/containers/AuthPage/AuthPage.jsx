@@ -14,7 +14,9 @@ function AuthPage(props) {
     tryLogIn,
     authStoreSetSection,
     authStoreLogIn,
-  } = props;
+  } = props || {};
+
+  const inputEl = React.useRef(null);
 
   const handleLogIn = React.useCallback(() => {
     authStoreLogIn({ login, password });
@@ -26,6 +28,24 @@ function AuthPage(props) {
       [editName]: editValue,
     });
   }, [authStoreSetSection]);
+
+  React.useEffect(() => {
+    function handlePressEnter(event) {
+      const { current } = inputEl || {};
+      if (event.keyCode === 13
+        && login
+        && password
+        && current
+        && current.contains(event.target)
+      ) {
+        authStoreLogIn({ login, password });
+      }
+    }
+    document.addEventListener('keyup', handlePressEnter);
+    return () => {
+      document.removeEventListener('keyup', handlePressEnter);
+    };
+  }, [authStoreLogIn, login, password]);
 
   return (
     <div className="auth-page">
@@ -47,26 +67,31 @@ function AuthPage(props) {
           </g>
         </svg>
         <div className="auth-page__form">
-          {tryLogIn && <UILoader />}
-          <div className="auth-page__form-header">Авторизация</div>
-          <div className="auth-page__input-block">
-            <UIInput title="Телефон" name="login" callback={handleChangeValue} data={login} mask="00000000000" />
-            <UIInput title="Пароль" name="password" password callback={handleChangeValue} data={password} />
+          <div className="form__body">
+            {tryLogIn && (
+            <div className="form__loader">
+              <UILoader text="Выполняется авторизация..." />
+            </div>
+            )}
+            <div className="form__header">Авторизация</div>
+            <div className="form__input-block" ref={inputEl}>
+              <UIInput title="Телефон" name="login" callback={handleChangeValue} data={login} mask="00000000000" />
+              <UIInput title="Пароль" name="password" password callback={handleChangeValue} data={password} />
+            </div>
+            <div className="form__btn-block">
+              <Button
+                positive
+                fluid
+                disabled={!login || !password}
+                onClick={handleLogIn}
+                title="Войти"
+              >
+                <Icon name="key" />
+                Войти
+              </Button>
+            </div>
+            <ErrorsBlock />
           </div>
-          <div className="auth-page__btn-block">
-            <Button
-              positive
-              fluid
-              disabled={!login || !password}
-              onClick={handleLogIn}
-              title="Войти"
-              loading={tryLogIn}
-            >
-              <Icon name="key" />
-              Войти
-            </Button>
-          </div>
-          <ErrorsBlock />
         </div>
       </section>
     </div>
