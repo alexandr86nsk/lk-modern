@@ -51,6 +51,20 @@ $persian_green: #00B5AD;
     }
   }
 
+  .element-wrapper {
+    display: flex;
+    flex-direction: column;
+    background-color: $theme-element-wrapper-background;
+    padding: 1.5em;
+    border-radius: .8em;
+    box-shadow: 1px 3px 15px rgba(0,0,0,.05);
+
+    &.--fullscreen {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
   .ui-pagination {
 
     &__button {

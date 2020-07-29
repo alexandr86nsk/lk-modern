@@ -62,3 +62,32 @@ export function* canBeCanceledSettingsStoreSaveSettings(action) {
   yield take('SETTINGS_STORE_SAVE_SETTINGS_CANCEL');
   yield cancel(bgSettingsStoreSaveSettings);
 }
+
+/* ***************************** settingsStoreGetUsers ********************** */
+function* settingsStoreGetUsers() {
+  yield put(actions.settingsStoreSetSection({
+    loadingUsers: true,
+  }));
+  yield queryResultAnalysis(
+    api.settingsStoreGetUsers,
+    null,
+    function* (res) {
+      yield put(actions.settingsStoreSetSection({
+        users: res,
+        loadingUsers: false,
+      }));
+    },
+    function* () {
+      yield put(actions.settingsStoreSetSection({
+        users: [],
+        loadingUsers: false,
+      }));
+    },
+  );
+}
+
+export function* canBeCanceledSettingsStoreGetUsers() {
+  const bgSettingsStoreGetUsers = yield fork(settingsStoreGetUsers);
+  yield take('SETTINGS_STORE_GET_USERS_CANCEL');
+  yield cancel(bgSettingsStoreGetUsers);
+}

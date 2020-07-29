@@ -35,3 +35,21 @@ export const settingsStoreSaveSettings = (value) => ({
 export const settingsStoreSaveSettingsCancel = () => ({
   type: 'SETTINGS_STORE_SAVE_SETTINGS_CANCEL',
 });
+
+export const settingsStoreGetUsers = () => ({
+  type: 'SETTINGS_STORE_GET_USERS',
+});
+
+export const settingsStoreGetUsersCancel = () => ({
+  type: 'SETTINGS_STORE_GET_USERS_CANCEL',
+});
+
+export const settingsStoreSetUsersTableStoreSection = (value) => ({
+  type: 'SETTINGS_STORE_SET_USERS_TABLE_STORE_SECTION',
+  value,
+});
+
+export const settingsStoreSetUsersTableTemplateSection = (value) => ({
+  type: 'SETTINGS_STORE_SET_USERS_TABLE_TEMPLATE_SECTION',
+  value,
+});

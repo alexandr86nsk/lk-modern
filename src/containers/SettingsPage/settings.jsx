@@ -1,5 +1,6 @@
 import React from 'react';
 import SettingsTab from './tabs/SettingsTab/SettingsTab';
+import UsersTab from './tabs/UsersTab/UsersTab';
 
 const settingsTabs = [
   {
@@ -10,7 +11,7 @@ const settingsTabs = [
   {
     id: 1,
     title: 'Список пользователей',
-    item: <SettingsTab />,
+    item: <UsersTab />,
   },
   {
     id: 2,

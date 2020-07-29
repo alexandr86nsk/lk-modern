@@ -11,3 +11,8 @@ export const settingsStoreSaveSettings = (data) => requestParser(
   'setting/bulk',
   data,
 );
+
+export const settingsStoreGetUsers = () => requestParser(
+  'get',
+  'user',
+);

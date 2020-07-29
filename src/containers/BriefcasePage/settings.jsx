@@ -1,7 +1,7 @@
 import React from 'react';
 import MainTab from './settingsTabs/MainTab/MainTab';
 // import QueuePhoneTab from './settingsTabs/QueuePhoneTab/QueuePhoneTab';
-// import RecallTab from './settingsTabs/RecallTab/RecallTab';
+// import UsersTab from './settingsTabs/UsersTab/UsersTab';
 
 const briefStatusOptions = {
   0: 'Ошибка',
@@ -270,7 +270,7 @@ export const settingsTabs = [
 /*  {
     id: 1,
     title: 'Настройки перезвона',
-    item: <RecallTab />,
+    item: <UsersTab />,
   },
   {
     id: 2,

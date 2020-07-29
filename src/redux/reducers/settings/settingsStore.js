@@ -28,6 +28,27 @@ export default function settingsStore(state = initialSettingsStore, action) {
           return v;
         }),
       };
+    case 'SETTINGS_STORE_SET_USERS_TABLE_STORE_SECTION':
+      return {
+        ...state,
+        usersTableStore: {
+          ...state.usersTableStore,
+          ...action.value,
+        },
+      };
+    case 'SETTINGS_STORE_STORE_SET_USERS_TABLE_TEMPLATE_SECTION':
+      return {
+        ...state,
+        usersTableTemplate: state.usersTableTemplate.map((v) => {
+          if (v.dataKey === action.value.dataKey) {
+            return {
+              ...v,
+              ...action.value,
+            };
+          }
+          return v;
+        }),
+      };
     case 'SETTINGS_STORE_CLEAR':
       return initialSettingsStore;
     default:

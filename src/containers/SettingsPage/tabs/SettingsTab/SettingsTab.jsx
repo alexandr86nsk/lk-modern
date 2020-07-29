@@ -1,11 +1,12 @@
 import React from 'react';
 import '../../SettingsPage.scss';
 import { connect } from 'react-redux';
-import { Button } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 import actions from '../../../../redux/actions/actions';
 import UILoader from '../../../../components/UILoader/UILoader';
 import UIMissingData from '../../../../components/UIMissingData/UIMissingData';
 import SettingsTabItem from './SettingsTabItem';
+import UIElementTitle from '../../../../components/UIElementTitle/UIElementTitle';
 
 function SettingsTab(props) {
   const {
@@ -60,19 +61,22 @@ function SettingsTab(props) {
       {!settingsLoaded && <UILoader text="Загрузка настроек..." size="large" />}
       {settingsLoaded && renderContent
         && (
-          <>
+          <div className="element-wrapper">
+            <UIElementTitle title="Настройки" />
             {renderContent}
             <div className="controls">
               <Button
-                content="Сохранить"
-                icon="check"
-                labelPosition="left"
+                circular
                 positive
+                size="small"
                 onClick={handleSaveClick}
                 loading={trySaveSettings}
-              />
+              >
+                <Icon name="check" />
+                Сохранить
+              </Button>
             </div>
-          </>
+          </div>
         )}
       {settingsLoaded && !renderContent && <UIMissingData />}
     </div>

@@ -13,7 +13,7 @@ function UIRsuiteTableBody(props) {
     tableEmptyMessage = 'Нет данных',
     tableLoadingMessage = 'Загрузка...',
     contextMenu = true,
-    actions = {},
+    actions,
     onRowClick,
     onRowDoubleClick,
     sortSortingValue,
@@ -35,13 +35,13 @@ function UIRsuiteTableBody(props) {
   const contextMenuRef = React.useRef(null);
   const [contextMenuData, setContextMenuData] = React.useState(null);
 
-  const [customActionsMenu, setCustomActionsMenu] = React.useState([]);
+  const [customActionsMenu, setCustomActionsMenu] = React.useState(null);
 
   React.useEffect(() => {
-    if (actions) {
+    if (!customActionsMenu && actions) {
       setCustomActionsMenu(actions);
     }
-  }, [actions]);
+  }, [customActionsMenu, actions]);
 
   const handleUpload = React.useCallback((fn, files) => {
     if (contextMenuData) {

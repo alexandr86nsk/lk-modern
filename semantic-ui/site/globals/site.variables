@@ -3,6 +3,8 @@
 *******************************/
 
 @emSize: 13px;
-@fontSize : 13px;
-@fontName : 'GothamProRRegular';
-@importGoogleFonts : false;
+@fontSize: 13px;
+@fontName: 'GothamProRRegular';
+@importGoogleFonts: false;
+@positiveColor: #922c88;
+@negativeColor: #b76dab;
