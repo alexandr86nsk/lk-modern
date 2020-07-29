@@ -1,7 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import RightArrow from "../../../static/images/chevron_right-24px.svg";
-
 
 function UISidebarItemLinkBtn(props) {
   const {
@@ -9,11 +7,10 @@ function UISidebarItemLinkBtn(props) {
     link,
     icon,
     active,
-    isArrow,
-    callback,
+    hideTooltip,
   } = props;
 
-  let tooltipElem;
+  const tooltipElem = React.useRef(null);
 
   const renderTitle = React.useMemo(
     () => {
@@ -32,35 +29,33 @@ function UISidebarItemLinkBtn(props) {
   );
 
   const onToggleOver = React.useCallback((e) => {
-    if (e.target.closest('.ui-sidebar').classList.contains('hide')) {
-      const target = e.target.closest('.ui-sidebar__link-btn');
-      tooltipElem = document.createElement('div');
-      tooltipElem.className = 'ui-sidebar__tooltip font-type-m-12';
-      tooltipElem.innerHTML = title;
-      document.body.append(tooltipElem);
+    if (!hideTooltip) {
+      if (e.target.closest('.ui-sidebar').classList.contains('hide')
+        && !e.target.closest('.sub-items-list')) {
+        const target = e.target.closest('.ui-sidebar__link-btn');
+        tooltipElem.current = document.createElement('div');
+        tooltipElem.current.className = 'ui-sidebar__tooltip font-type-m-12';
+        tooltipElem.current.innerHTML = title;
+        document.body.append(tooltipElem.current);
 
-      const coords = target.getBoundingClientRect();
-      const left = coords.left + target.offsetWidth + 16;
-      const height = (target.offsetHeight - tooltipElem.offsetHeight) / 2;
-      const { top } = coords;
-      tooltipElem.style.left = `${left}px`;
-      tooltipElem.style.top = `${top + height}px`;
+        const coords = target.getBoundingClientRect();
+        const left = coords.left + target.offsetWidth + 16;
+        const height = (target.offsetHeight - tooltipElem.current.offsetHeight) / 2;
+        const { top } = coords;
+        tooltipElem.current.style.left = `${left}px`;
+        tooltipElem.current.style.top = `${top + height}px`;
+      }
     }
-  }, [title]);
+  }, [hideTooltip, title]);
 
   const onToggleOut = React.useCallback(() => {
-    if (tooltipElem) {
-      tooltipElem.remove();
-      tooltipElem = null;
+    if (!hideTooltip) {
+      if (tooltipElem.current) {
+        tooltipElem.current.remove();
+        tooltipElem.current = null;
+      }
     }
-  }, []);
-
-  const handleActiveClick = React.useCallback((e) => {
-    if (isArrow && callback) {
-      callback();
-    }
-    onToggleOut();
-  }, [onToggleOut, callback, isArrow]);
+  }, [hideTooltip]);
 
   return (
     <Link
@@ -68,7 +63,6 @@ function UISidebarItemLinkBtn(props) {
       className={`ui-sidebar__link-btn${active ? ' active' : ''}`}
       onMouseOver={onToggleOver}
       onMouseOut={onToggleOut}
-      onClick={handleActiveClick}
     >
       <div>
         {icon && icon}
@@ -77,7 +71,6 @@ function UISidebarItemLinkBtn(props) {
         <div className="ui-sidebar__btn-title">
           {renderTitle}
         </div>
-        {isArrow && <RightArrow className="ui-sidebar__btn-arrow" />}
       </div>
     </Link>
   );

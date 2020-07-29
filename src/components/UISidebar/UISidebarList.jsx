@@ -1,70 +1,43 @@
 import React from 'react';
-import BriefIcon from '../../static/images/work-24px.svg';
-import SettingsIcon from '../../static/images/settings.svg';
-import ReportIcon from '../../static/images/tv-24px.svg';
-import ReportsIcon from '../../static/images/update-24px.svg';
-import CircleIcon from '../../static/images/circle_outline.svg';
-import SidebarItem from "../../containers/TestPage/SidebarItem";
+import ReportsIcon from '../../static/images/insert_chart_outlined-24px.svg';
+import ZoneIcon from '../../static/images/language-24px.svg';
+import SettingsIcon from '../../static/images/settings-24px.svg';
 
 const UISidebarList = [
   {
     id: 0,
-    title: 'Кампании',
-    link: '/briefcase',
-    icon: <BriefIcon />,
+    title: 'Список зон',
+    link: '/zone',
+    icon: <ZoneIcon />,
+    items: [],
   },
   {
     id: 1,
-    title: 'Настройки',
+    title: 'Администрирование',
     link: '/settings',
     icon: <SettingsIcon />,
+    items: [],
   },
   {
     id: 2,
-    title: 'Мониторинг',
+    title: 'Отчетность',
     link: '/reports',
-    icon: <ReportIcon />,
-  },
-  {
-    id: 3,
-    title: 'Отчеты',
-    link: '/test',
     icon: <ReportsIcon />,
-    items: [
-      {
-        id: 0,
-        title: 'Детали задания',
-        icon: <CircleIcon />,
-        component: (item) => (
-          <SidebarItem key={item.id} {...item} />
-        )
-      },
-      {
-        id: 1,
-        title: 'Статус задания',
-        icon: <CircleIcon />,
-        component: (item) => (
-          <SidebarItem key={item.id} {...item} />
-        )
-      },
-      {
-        id: 2,
-        title: 'Динамическая история задания',
-        icon: <CircleIcon />,
-        component: (item) => (
-          <SidebarItem key={item.id} {...item} />
-        )
-      },
-      {
-        id: 3,
-        title: 'Эффективность работы сотрудников',
-        icon: <CircleIcon />,
-        component: (item) => (
-          <SidebarItem key={item.id} {...item} />
-        )
-      },
-    ],
+    items: [],
   },
+  /*  {
+      id: 6,
+      title: 'Тест Субменю2',
+      link: '',
+      icon: <TestIcon />,
+      items: [
+        {
+          id: 0,
+          title: 'Субменю4',
+          link: '/',
+          icon: <CircleIcon />,
+        },
+      ],
+    }, */
 ];
-
 export default UISidebarList;

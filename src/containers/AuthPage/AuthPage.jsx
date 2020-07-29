@@ -51,7 +51,7 @@ function AuthPage(props) {
     <div className="auth-page">
       <section className="auth-page__banner">
         <div className="banner__content">
-          <h1>Добро пожаловать в систему</h1>
+          <h1>Мобильное приложение</h1>
         </div>
         <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 25 160 40" className="waves">
           <defs>

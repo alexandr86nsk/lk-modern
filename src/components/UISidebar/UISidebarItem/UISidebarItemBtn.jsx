@@ -10,7 +10,7 @@ function UISidebarItemBtn(props) {
     isArrow,
   } = props;
 
-  let tooltipElem;
+  const tooltipElem = React.useRef(null);
 
   const renderTitle = React.useMemo(
     () => {
@@ -29,26 +29,28 @@ function UISidebarItemBtn(props) {
   );
 
   const onToggleOver = React.useCallback((e) => {
-    if (e.target.closest('.ui-sidebar').classList.contains('hide')) {
+    if (e.target.closest('.ui-sidebar').classList.contains('hide')
+      && !e.target.closest('.sub-items-list')
+    ) {
       const target = e.target.closest('.ui-sidebar__btn');
-      tooltipElem = document.createElement('div');
-      tooltipElem.className = 'ui-sidebar__tooltip font-type-m-12';
-      tooltipElem.innerHTML = title;
-      document.body.append(tooltipElem);
+      tooltipElem.current = document.createElement('div');
+      tooltipElem.current.className = 'ui-sidebar__tooltip font-type-m-12';
+      tooltipElem.current.innerHTML = title;
+      document.body.append(tooltipElem.current);
 
       const coords = target.getBoundingClientRect();
       const left = coords.left + target.offsetWidth + 16;
-      const height = (target.offsetHeight - tooltipElem.offsetHeight) / 2;
+      const height = (target.offsetHeight - tooltipElem.current.offsetHeight) / 2;
       const { top } = coords;
-      tooltipElem.style.left = `${left}px`;
-      tooltipElem.style.top = `${top + height}px`;
+      tooltipElem.current.style.left = `${left}px`;
+      tooltipElem.current.style.top = `${top + height}px`;
     }
   }, [title]);
 
   const onToggleOut = React.useCallback(() => {
-    if (tooltipElem) {
-      tooltipElem.remove();
-      tooltipElem = null;
+    if (tooltipElem.current) {
+      tooltipElem.current.remove();
+      tooltipElem.current = null;
     }
   }, []);
 

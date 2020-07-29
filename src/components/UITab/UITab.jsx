@@ -2,12 +2,11 @@ import React from 'react';
 import './UITab.scss';
 import { Tab } from 'semantic-ui-react';
 
-
 function UITab(props) {
   const {
     tabs = [],
-    renderActiveOnly = false,
-  } = props;
+    renderActiveOnly,
+  } = props || {};
 
   const panes = React.useMemo(() => {
     if (renderActiveOnly) {

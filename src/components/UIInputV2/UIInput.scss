@@ -1,16 +1,4 @@
-$red: #FF4D4D;
-$white: #FFFFFF;
-$gray: #CCCCCC;
-$dark-gray: #999999;
-$hint-color: #2185D0;
-$success-color: #19BB4F;
-$error-color: #b31616;
-$error-background-color: #ffeeec;
-$dark-error-background-color: #ffd7d3;
-$error-border-color: #ffc2c1;
-$border-color: #B3B3B3;
-$box-shadow-color: #0088FF;
-$disabled-background-color: #EEEEEF;
+@import '../../static/css/colors.scss';
 
 .ui-input-v2 {
   width: 100%;
@@ -33,7 +21,7 @@ $disabled-background-color: #EEEEEF;
     svg {
       width: 2.2em;
       height: 2.2em;
-      fill: $hint-color;
+      fill: $medium-theme-color;
     }
   }
 
@@ -43,7 +31,7 @@ $disabled-background-color: #EEEEEF;
     font-size: .8em;
 
     .required-icon {
-      color: $red;
+      color: $error-color;
       transform: scale(1.5);
       margin-left: .2em;
     }
@@ -58,7 +46,7 @@ $disabled-background-color: #EEEEEF;
     padding: .8em;
     background-color: $white;
     background-clip: padding-box;
-    border: 1px solid $gray;
+    border: 1px solid $theme-border-color;
     border-radius: 0.30769231rem;
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 
@@ -70,19 +58,18 @@ $disabled-background-color: #EEEEEF;
       display: none;
     }
 
-    &:hover {
-      border-color: $border-color;
+    &:not(:disabled):hover {
+      border-color: $stylish-color;
     }
 
-    &:focus {
+    &:not(:disabled):focus {
       border-color: transparent;
       outline: 0;
-      box-shadow: 0 0 0 0.2rem rgba($box-shadow-color, .25);
+      box-shadow: 0 0 0 0.2rem rgba($medium-theme-color, .25);
     }
 
     &:disabled {
-      padding: .6em 1.2em;
-      background-color: $disabled-background-color;
+      background-color: $theme-disabled-color;
     }
   }
 
@@ -103,15 +90,19 @@ $disabled-background-color: #EEEEEF;
     cursor: pointer;
 
     svg {
-      fill: $gray;
+      fill: rgba($stylish-color, .5);
     }
 
     &:hover {
 
       svg {
-        fill: $dark-gray;
+        fill: $stylish-color;
       }
     }
+  }
+
+  &__clear:hover ~ &__input:not(:disabled) {
+    border-color: $stylish-color;
   }
 
   &__success {
@@ -124,22 +115,22 @@ $disabled-background-color: #EEEEEF;
   &__error {
 
     svg {
-      fill: $red;
+      fill: $error-color;
     }
   }
 
   &__i-error {
     position: absolute;
     background: $error-background-color;
-    color: $error-color;
+    color: rgba($error-color, .85);
     font-size: .9em;
-    border-radius: .4em;
+    border-radius: 0.30769231rem;
     display: none;
     top: calc(100% + .2em);
     margin-top: .5em;
     padding: .5em 1em;
     z-index: 1;
-    border: 1px solid $error-border-color;
+    border: 1px solid $error-color;
     box-shadow: 0 .1em .3em rgba(0,0,0,.3);
 
     &:after, &:before {
@@ -160,7 +151,7 @@ $disabled-background-color: #EEEEEF;
     }
 
     &:before {
-      border-bottom-color: $error-border-color;
+      border-bottom-color: $error-color;
     }
   }
 
@@ -173,7 +164,7 @@ $disabled-background-color: #EEEEEF;
   }
 
   &.error &__input:not(:disabled) {
-    border-color: $error-border-color;
+    border-color: $error-color;
     color: $error-color;
     box-shadow: none;
     padding-right: 5.4em;
@@ -213,7 +204,7 @@ $disabled-background-color: #EEEEEF;
 
   &.read-only {
     font-weight: 600;
-    border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid $theme-border-color;
   }
 
   &.read-only &__title {
@@ -226,12 +217,12 @@ $disabled-background-color: #EEEEEF;
   &.--style-1c {
     display: flex;
     align-items: center;
-    border: 1px solid rgba($border-color, .5);
+    border: 1px solid rgba($theme-border-color, .5);
   }
 
   &.--style-1c &__title-wrapper {
     border: none;
-    border-right: 1px solid rgba($border-color, .5);
+    border-right: 1px solid rgba($theme-border-color, .5);
     padding: .8em;
     margin: 0;
     flex: .4;
@@ -252,7 +243,7 @@ $disabled-background-color: #EEEEEF;
     padding: .8em;
 
     &:focus {
-      box-shadow: inset 0 0 0 0.2rem rgba(0, 136, 255, 0.25);
+      box-shadow: inset 0 0 0 0.2rem rgba($medium-theme-color, 0.25);
     }
   }
 

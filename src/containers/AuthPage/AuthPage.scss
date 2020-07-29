@@ -1,9 +1,4 @@
 @import '../../static/css/colors.scss';
-$strong-blue: #32408f;
-$dark-blue: #3f51b5;
-$medium-blue: #5c6bc0;
-$light-blue: #7986cb;
-
 
 .auth-page {
   width: 100%;
@@ -15,7 +10,7 @@ $light-blue: #7986cb;
     & > svg {
       width: 100%;
       height: 10vw;
-      background: $dark-blue;
+      background: $dark-theme-color;
       display: block;
 
       & > g > use {
@@ -23,13 +18,13 @@ $light-blue: #7986cb;
 
         &:nth-child(1) {
           animation-delay: -2s;
-          fill: $light-blue;
+          fill: $light-theme-color;
         }
 
         &:nth-child(2) {
           animation-delay: -2s;
           animation-duration: 68s;
-          fill: $medium-blue;
+          fill: $medium-theme-color;
         }
 
         &:nth-child(3) {
@@ -42,7 +37,7 @@ $light-blue: #7986cb;
   }
 
   .banner__content {
-    background: linear-gradient(180deg, $strong-blue 0%, $dark-blue 100%);
+    background: linear-gradient(180deg, $medium-theme-color 0%, $dark-theme-color 100%);
     padding-top: 8%;
     padding-bottom: 8%;
 
@@ -63,7 +58,7 @@ $light-blue: #7986cb;
     width: 100%;
     max-width: 450px;
     border-radius: .6em;
-    box-shadow: 1px 3px 10px rgba($light-blue, .4), -1px -3px 5px rgba($white, .7);
+    box-shadow: 1px 3px 10px rgba($dark-theme-color, .4), -1px -3px 5px rgba($white, .7);
     background-color: $white;
   }
 

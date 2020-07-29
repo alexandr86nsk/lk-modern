@@ -4,29 +4,10 @@
   display: flex;
   align-items: center;
   background-color: $white;
-  border-bottom: 1px solid $geyser;
-  padding: 0 12px 0 8px;
-  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
-
-  &__sidebar-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: auto;
-    padding: 8px 16px;
-    cursor: pointer;
-
-    svg {
-      fill: rgba(0, 0, 0, .5);
-
-      &:hover {
-        fill: $outer_space;
-        text-shadow: 0 5px 10px rgba($outer_space, .5);
-      }
-    }
-  }
+  padding: 0 .8em;
 
   &__user-info-wrapper {
+    width: 100%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -38,18 +19,17 @@
       cursor: pointer;
       position: relative;
       height: 100%;
-      padding: 10px 15px;
+      padding: 1em 1.5em;
 
       & > span {
         white-space: nowrap;
-        margin: 0 10px;
-        color: $outer_space;
+        margin: 0 1em;
         user-select: none;
       }
 
       .avatar {
-        width: 25px;
-        height: 25px;
+        width: 2.5em;
+        height: 2.5em;
         border-radius: 50%;
         background-color: $white;
         overflow: hidden;
@@ -76,17 +56,16 @@
           display: flex;
           justify-content: flex-start;
           align-items: center;
-          color: $shark;
-          padding: 16px 16px;
+          padding: 1.6em;
 
           & > svg {
-            width: 14px;
-            height: 14px;
-            margin-right: 15px;
+            width: 1.4em;
+            height: 1.4em;
+            margin-right: 1.5em;
           }
 
           &:hover {
-            background-color: rgba($boston_blue, .9);
+            background-color: rgba($medium-theme-color, .65);
             color: $white;
 
             & > svg {
@@ -95,7 +74,7 @@
           }
 
           &:nth-last-child(1) {
-            border-top: 2px solid $athens-gray;
+            border-top: 1px solid rgba($theme-border-color, .5);
           }
         }
       }
@@ -103,10 +82,6 @@
       &.active,
       &:hover {
         background-color: rgba(0, 0, 0, .1);
-
-        & > span {
-          color: $outer_space;
-        }
       }
 
       &.active {
@@ -123,7 +98,7 @@
   .page-header {
     &__user-info-wrapper {
       .user-info {
-        padding: 10px 4px;
+        padding: 1em .4em;
       }
     }
   }

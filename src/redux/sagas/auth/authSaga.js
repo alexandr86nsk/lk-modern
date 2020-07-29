@@ -1,7 +1,6 @@
 import {
   put, fork, take, cancel,
 } from 'redux-saga/effects';
-import jwt from 'jwt-decode';
 import api from '../../../api/api';
 import actions from '../../actions/actions';
 import { queryResultAnalysis } from '../common/globalSaga';
@@ -26,7 +25,6 @@ function* authStoreLogIn(value) {
         token: accessToken,
         refreshToken,
       }));
-      yield put(actions.userStoreSetSection({ ...jwt(accessToken) }));
     },
     function* (err) {
       yield put(actions.authStoreSetSection({

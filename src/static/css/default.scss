@@ -55,7 +55,7 @@ a:not([class]) {
 }
 
 /* Сбрасываем стиль для ссылок */
-a {
+a:not(:hover) {
   text-decoration: none;
   color: #000201;
 }

@@ -1,14 +1,15 @@
 import React from 'react';
 import './UIBlockTitle.scss';
 
-
 function UIBlockTitle(props) {
   const {
     title = '',
-    fontSize = '15',
   } = props;
   return (
-    <div className={`ui-block-title font-type-b-${fontSize}`}>{title}</div>
+    <div className="ui-block-title">
+      <div className="ui-block-title__main">{title}</div>
+      <div className="ui-block-title__sub">{`Вы находитесь в панели ${title}`}</div>
+    </div>
   );
 }
 

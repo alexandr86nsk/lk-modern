@@ -6,6 +6,16 @@ const routes = [
     exact: true,
     component: SettingsPage,
   },
+  {
+    path: '/settings',
+    exact: true,
+    component: SettingsPage,
+  },
+  {
+    path: '/reports',
+    exact: true,
+    component: SettingsPage,
+  },
 ];
 
 export default routes;

@@ -12,7 +12,7 @@ import AuthPage from './containers/AuthPage/AuthPage';
 
 
 const App = (props) => {
-  const { token } = props;
+  const { token } = props || {};
 
   return (
     <div className="App font-type-m-12">

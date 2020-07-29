@@ -6,7 +6,7 @@ import rootReducer from '../redux/reducers/rootReducer';
 import rootSaga from '../redux/sagas/rootSaga';
 import history from '../history/history';
 
-const preloadedState = /*localStorage.getItem('rStore') ? JSON.parse(localStorage.getItem('rStore')) :*/ {};
+const preloadedState = localStorage.getItem('tokenStore') ? { tokenStore: JSON.parse(localStorage.getItem('tokenStore')) } : {};
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
@@ -22,10 +22,8 @@ const store = createStore(
 
 sagaMiddleware.run(rootSaga);
 
-/*
 store.subscribe(() => {
-  localStorage.setItem('rStore', JSON.stringify(store.getState()));
+  localStorage.setItem('tokenStore', JSON.stringify(store.getState().tokenStore));
 });
-*/
 
 export default store;

@@ -1,3 +1,4 @@
+@import "./static/css/colors";
 $persian_green: #00B5AD;
 
 .App {
@@ -11,7 +12,7 @@ $persian_green: #00B5AD;
 
   .page-container {
     display: grid;
-    grid-template-rows: 50px 1fr 50px;
+    grid-template-rows: 60px 1fr 20px;
     position: relative;
     flex: 1;
   }
@@ -36,6 +37,10 @@ $persian_green: #00B5AD;
       flex-direction: column;
       padding: 1em;
       overflow-y: scroll;
+
+      &::-webkit-scrollbar-track {
+        background-color: $white;
+      }
 
       &.--with-page-controls {
         bottom: 30px;

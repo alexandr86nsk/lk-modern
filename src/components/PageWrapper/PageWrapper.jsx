@@ -16,7 +16,7 @@ import PageContextMenu from './PageContextMenu';
 function PageWrapper(props) {
   const {
     children,
-    isAuth = true,
+    isAuth,
   } = props;
 
   const pageEl = React.useRef(null);
