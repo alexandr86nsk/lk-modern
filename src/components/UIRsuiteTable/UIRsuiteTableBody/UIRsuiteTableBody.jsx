@@ -25,6 +25,7 @@ function UIRsuiteTableBody(props) {
     tableIsResizable = true,
     tableBodyHeight,
     tableVirtualized,
+    cellBordered,
   } = props || {};
 
   const {
@@ -227,8 +228,7 @@ function UIRsuiteTableBody(props) {
           height={tableBodyHeight}
           headerHeight={tableHeaderHeight}
           rowHeight={tableRowHeight}
-          cellBordered
-          bordered
+          cellBordered={cellBordered}
           locale={{ emptyMessage: tableEmptyMessage, loading: tableLoadingMessage }}
           sortColumn={sortColumn}
           sortType={sortType}

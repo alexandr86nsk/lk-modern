@@ -265,9 +265,10 @@ linear-gradient(20deg, rgba(255, 255, 255, 0) 84.9%, rgba(255, 255, 255, 0.0125)
   &.--compact &__logo {
     border: none;
     height: 7em;
+    margin-top: 1em;
 
     img {
-      width: 2.5em;
+      width: 7em;
     }
   }
 

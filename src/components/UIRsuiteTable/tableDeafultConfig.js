@@ -18,7 +18,7 @@ const tableDefaultConfig = {
   contextMenu: true,
   readOnly: undefined,
   sortSortingValue: undefined,
-  loading: undefined,
+  tableLoading: undefined,
   tableHeaderHeight: undefined,
   tableRowHeight: undefined,
 };

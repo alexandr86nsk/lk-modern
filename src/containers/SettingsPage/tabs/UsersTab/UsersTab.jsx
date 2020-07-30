@@ -1,12 +1,14 @@
 import React from 'react';
 import '../../SettingsPage.scss';
 import { connect } from 'react-redux';
+import { Button, Icon } from 'semantic-ui-react';
 import actions from '../../../../redux/actions/actions';
 import UIElementTitle from '../../../../components/UIElementTitle/UIElementTitle';
 import UIRsuiteTable from '../../../../components/UIRsuiteTable/UIRsuiteTable';
 import tableDefaultConfig from '../../../../components/UIRsuiteTable/tableDeafultConfig';
-import usersTableConfig from './settings';
+import { usersTableConfig } from './settings';
 import WarningIcon from '../../../../static/images/warning-24px.svg';
+import UserEditor from './common/UserEditor';
 
 function UsersTab(props) {
   const {
@@ -40,12 +42,12 @@ function UsersTab(props) {
     settingsStoreGetUsers();
   }, [settingsStoreGetUsers]);
 
-  const handleEdit = React.useCallback((el) => {
+  const handleEdit = React.useCallback((value) => {
+    const { userID } = value || {};
     popUpStoreSetSection({
       show: true,
-      component: <div>{el}</div>,
-      hidePageControl: true,
-      type: '--horizontal-right-25',
+      component: <UserEditor id={userID} />,
+      type: '--horizontal-right-25 --rounded',
     });
   }, [popUpStoreSetSection]);
 
@@ -55,19 +57,28 @@ function UsersTab(props) {
   }, [settingsStoreRemoveUser]);
 
   const handleRemove = React.useCallback((value) => {
-    const { userID } = value || {};
+    const { fio } = value || {};
     modalStoreSetSection({
       show: true,
       outputBody: {
         icon: <WarningIcon />,
         title: 'Важно',
-        body: <div>{`Действительно хотите удалить пользователя "${userID}"?`}</div>,
+        body: <div>{`Подтверждаете удаление ${fio ? `"${fio}"` : 'этого пользователя'}?`}</div>,
       },
       data: value,
       asyncClose: true,
       callback: removeUser,
     });
   }, [modalStoreSetSection, removeUser]);
+
+  const handleAdd = React.useCallback(() => {
+    popUpStoreSetSection({
+      show: true,
+      component: <UserEditor />,
+      hidePageControl: true,
+      type: '--horizontal-right-25 --rounded',
+    });
+  }, [popUpStoreSetSection]);
 
   React.useEffect(() => {
     settingsStoreSetSection({
@@ -81,8 +92,8 @@ function UsersTab(props) {
           {
             id: 0,
             action: handleEdit,
-            title: 'Настройки',
-            icon: 'settings',
+            title: 'Изменить',
+            icon: 'edit',
             hideTitle: true,
           },
           {
@@ -115,6 +126,17 @@ function UsersTab(props) {
           tableTemplateSetSection={settingsStoreSetUsersTableTemplateSection}
           tableData={users}
         />
+        <div className="add-block">
+          <Button
+            circular
+            positive
+            size="small"
+            onClick={handleAdd}
+          >
+            <Icon name="add" />
+            Добавить
+          </Button>
+        </div>
       </div>
     </div>
   );

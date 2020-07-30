@@ -1,24 +1,34 @@
 import React from 'react';
 
-const colorSchema = {
-  red: '#db2828',
-  green: '#21ba45',
-  blue: '#2185d0',
-  teal: '#00b5ad',
-};
-
 function UIToast(props) {
   const {
-    color,
+    type,
     text,
     onDismissClick,
   } = props;
 
+  const parseValue = React.useCallback((value) => {
+    if (Array.isArray(value)) {
+      return value.map((v) => parseValue(v));
+    }
+    if (typeof value !== 'string' && Array.isArray(Object.keys(value))) {
+      return Object.keys(value).map((v) => parseValue(value[v]));
+    }
+    return (<li key={value}>{value}</li>);
+  }, []);
+
+  const generateContent = React.useMemo(() => {
+    if (text) {
+      return (<ul>{parseValue(text)}</ul>);
+    }
+    return '';
+  }, [parseValue, text]);
+
   return (
-    <div className="ui-toast font-type-r-12" style={{ backgroundColor: colorSchema[color] }}>
-      <p className="ui-toast__content">
-        {text}
-      </p>
+    <div className={`ui-toast${type ? ` ${type}` : ''}`}>
+      <div className="ui-toast__content">
+        {generateContent}
+      </div>
       <button type="button" className="ui-toast__dismiss" onClick={onDismissClick}>
         x
       </button>

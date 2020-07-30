@@ -13,11 +13,19 @@ function UIToasts(props) {
 
   React.useEffect(() => {
     toasts.forEach((v) => {
-      setTimeout(() => {
-        if (v) {
-          toastsStoreRemoveToast(v);
-        }
-      }, 1500);
+      if (v.type === 'error') {
+        setTimeout(() => {
+          if (v) {
+            toastsStoreRemoveToast(v);
+          }
+        }, 5000);
+      } else {
+        setTimeout(() => {
+          if (v) {
+            toastsStoreRemoveToast(v);
+          }
+        }, 2000);
+      }
     });
   }, [toasts, toastsStoreRemoveToast]);
 

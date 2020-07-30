@@ -84,7 +84,7 @@ function UIRsuiteTable(props) {
           if (!v.width) {
             return {
               ...v,
-              width: (tableBodySize.width - usedWidth) / nonWidthCells,
+              width: (tableBodySize.width - 2 - usedWidth) / nonWidthCells,
             };
           }
           return v;

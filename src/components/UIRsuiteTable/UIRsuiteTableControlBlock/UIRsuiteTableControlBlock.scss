@@ -1,12 +1,4 @@
-$black: #000000;
-$shark: #222426;
-$white: #FFFFFF;
-$athens-gray: #EEEEEF;
-$jordy-blue: #87A4F6;
-$dodger_blue: #3498ff;
-$light_ghost: #C2C7D0;
-$ghost: #a5adba;
-$dark_ghost: #979faf;
+@import "../../../static/css/colors";
 
 @mixin flexCenterCenter {
   display: flex;
@@ -88,24 +80,24 @@ $dark_ghost: #979faf;
     svg {
       width: 2em;
       height: 2em;
-      fill: $light_ghost;
+      fill: rgba($theme-border-color, .7);
     }
 
     &:hover {
-      background-color: rgba($athens-gray, .7);
-      border: 1px solid rgba($athens-gray, .7);
+      background-color: rgba($theme-border-color, .1);
+      border: 1px solid rgba($theme-border-color, .2);
 
       svg {
-        fill: $ghost;
+        fill: rgba($theme-border-color, 1);
       }
     }
 
     &:active {
-      background-color: rgba($athens-gray, 1);
-      border: 1px solid rgba($dark_ghost, .1);
+      background-color: rgba($theme-border-color, .2);
+      border: 1px solid rgba($theme-border-color, .3);
 
       svg {
-        fill: $dodger_blue;
+        fill: $medium-theme-color;
       }
     }
   }

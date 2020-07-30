@@ -1,3 +1,4 @@
+@import "../../static/css/colors";
 /* Указываем box sizing */
 * {
   box-sizing: border-box;
@@ -9,6 +10,10 @@
     box-sizing: border-box;
     font: inherit;
   }
+}
+
+div::-webkit-scrollbar-track {
+  background-color: $theme-page-background;
 }
 
 /* Убираем внутренние отступы */

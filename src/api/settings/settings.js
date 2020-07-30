@@ -16,3 +16,8 @@ export const settingsStoreGetUsers = () => requestParser(
   'get',
   'user',
 );
+
+export const settingsStoreGetUserInfo = (id) => requestParser(
+  'get',
+  `user/${id}`,
+);

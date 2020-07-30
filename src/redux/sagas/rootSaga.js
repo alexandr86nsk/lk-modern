@@ -7,6 +7,7 @@ function* rootSaga() {
   yield takeLatest('SETTINGS_STORE_GET_SETTINGS', settingsSaga.canBeCanceledSettingsStoreGetSettings);
   yield takeLatest('SETTINGS_STORE_SAVE_SETTINGS', settingsSaga.canBeCanceledSettingsStoreSaveSettings);
   yield takeLatest('SETTINGS_STORE_GET_USERS', settingsSaga.canBeCanceledSettingsStoreGetUsers);
+  yield takeLatest('SETTINGS_STORE_GET_USER_INFO', settingsSaga.canBeCanceledSettingsStoreGetUserInfo);
 }
 
 export default rootSaga;

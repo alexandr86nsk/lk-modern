@@ -14,9 +14,14 @@ function AuthPage(props) {
     tryLogIn,
     authStoreSetSection,
     authStoreLogIn,
+    authStoreClear,
   } = props || {};
 
   const inputEl = React.useRef(null);
+
+  React.useEffect(() => () => {
+    authStoreClear();
+  }, [authStoreClear]);
 
   const handleLogIn = React.useCallback(() => {
     authStoreLogIn({ login, password });

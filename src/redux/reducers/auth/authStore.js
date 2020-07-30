@@ -1,15 +1,6 @@
 const initialAuthStore = {
-  phone: '',
-  firstName: '',
-  middleName: '',
-  lastName: '',
-  birthday: '',
-  loading: false,
-  loadingText: 'Загрузка...',
-  errors: '',
-  showSmsCode: false,
-  smsCode: '',
-  sessionId: '',
+  login: '70000000000',
+  password: 'Password',
 };
 
 export default function authStore(state = initialAuthStore, action) {

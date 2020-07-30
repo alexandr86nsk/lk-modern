@@ -1,5 +1,4 @@
 @import "./static/css/colors";
-$persian_green: #00B5AD;
 
 .App {
   display: flex;
@@ -20,6 +19,10 @@ $persian_green: #00B5AD;
   .ui.segment {
     font-size: inherit;
     background-color: $theme-page-background;
+  }
+
+  .ui.divided.list > .item {
+    border-top: none;
   }
 
   .page {
@@ -54,6 +57,7 @@ $persian_green: #00B5AD;
   .element-wrapper {
     display: flex;
     flex-direction: column;
+    position: relative;
     background-color: $theme-element-wrapper-background;
     padding: 1.5em;
     border-radius: .8em;
@@ -63,23 +67,32 @@ $persian_green: #00B5AD;
       width: 100%;
       height: 100%;
     }
+
+    .add-block {
+      position: absolute;
+      top: 1.5em;
+      right: 1.5em;
+    }
   }
 
-  .ui-pagination {
+  .status {
 
-    &__button {
-      width: 36px;
-      height: 36px;
-      margin: 0 .2em;
+    &:before {
+      content: '';
+      display: inline-block;
+      width: .8em;
+      height: .8em;
+      border-radius: 50%;
+      margin-right: .8em;
+      vertical-align: middle;
+    }
 
-      @media screen and (max-width: 359px) {
-        width: 30px;
-        height: 30px;
-      }
+    &.success:before {
+      background-color: $success-color;
+    }
 
-      &.active {
-        background-color: $persian_green;
-      }
+    &.error:before {
+      background-color: $error-color;
     }
   }
 }

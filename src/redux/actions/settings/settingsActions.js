@@ -53,3 +53,12 @@ export const settingsStoreSetUsersTableTemplateSection = (value) => ({
   type: 'SETTINGS_STORE_SET_USERS_TABLE_TEMPLATE_SECTION',
   value,
 });
+
+export const settingsStoreGetUserInfo = (value) => ({
+  type: 'SETTINGS_STORE_GET_USER_INFO',
+  value,
+});
+
+export const settingsStoreGetUserInfoCancel = () => ({
+  type: 'SETTINGS_STORE_GET_USER_INFO_CANCEL',
+});

@@ -65,22 +65,34 @@ export function* canBeCanceledSettingsStoreSaveSettings(action) {
 
 /* ***************************** settingsStoreGetUsers ********************** */
 function* settingsStoreGetUsers() {
-  yield put(actions.settingsStoreSetSection({
-    loadingUsers: true,
+  yield put(actions.settingsStoreSetUsersTableStoreSection({
+    tableLoading: true,
   }));
   yield queryResultAnalysis(
     api.settingsStoreGetUsers,
     null,
     function* (res) {
       yield put(actions.settingsStoreSetSection({
-        users: res,
-        loadingUsers: false,
+        users: [
+          ...res,
+          ...res,
+          ...res,
+          ...res,
+          ...res,
+          ...res,
+          ...res,
+        ],
+      }));
+      yield put(actions.settingsStoreSetUsersTableStoreSection({
+        tableLoading: false,
       }));
     },
     function* () {
       yield put(actions.settingsStoreSetSection({
         users: [],
-        loadingUsers: false,
+      }));
+      yield put(actions.settingsStoreSetUsersTableStoreSection({
+        tableLoading: false,
       }));
     },
   );
@@ -90,4 +102,33 @@ export function* canBeCanceledSettingsStoreGetUsers() {
   const bgSettingsStoreGetUsers = yield fork(settingsStoreGetUsers);
   yield take('SETTINGS_STORE_GET_USERS_CANCEL');
   yield cancel(bgSettingsStoreGetUsers);
+}
+
+/* ***************************** settingsStoreGetUserInfo ********************** */
+function* settingsStoreGetUserInfo(value) {
+  yield put(actions.settingsStoreSetSection({
+    userInfoLoading: true,
+  }));
+  yield queryResultAnalysis(
+    api.settingsStoreGetUserInfo,
+    value,
+    function* (res) {
+      yield put(actions.settingsStoreSetSection({
+        userInfo: res,
+        userInfoLoading: false,
+      }));
+    },
+    function* () {
+      yield put(actions.settingsStoreSetSection({
+        userInfo: {},
+        userInfoLoading: false,
+      }));
+    },
+  );
+}
+
+export function* canBeCanceledSettingsStoreGetUserInfo(action) {
+  const bgSettingsStoreGetUserInfo = yield fork(settingsStoreGetUserInfo, action.value);
+  yield take('SETTINGS_STORE_GET_USER_INFO_CANCEL');
+  yield cancel(bgSettingsStoreGetUserInfo);
 }

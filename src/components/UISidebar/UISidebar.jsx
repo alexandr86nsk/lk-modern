@@ -1,7 +1,7 @@
 import React from 'react';
 import './UISidebar.scss';
 import { connect } from 'react-redux';
-import logo from '../../static/images/logo-icon.png';
+import logo from '../../../logo/mobile-app-logo.png';
 import UISidebarItem from './UISidebarItem/UISidebarItem';
 import UISidebarList from './UISidebarList';
 import UISearch from '../UISearch/UISearch';

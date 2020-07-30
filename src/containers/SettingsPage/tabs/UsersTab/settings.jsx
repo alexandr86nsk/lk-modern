@@ -1,9 +1,12 @@
-const usersTableConfig = [
+import React from 'react';
+//import MainTab from './addUserPopupTabs/MainTab/MainTab';
+
+export const usersTableConfig = [
   {
     id: 0,
-    title: 'Фамилия',
-    dataKey: 'lastName',
-    width: 90,
+    title: 'Ф.И.О',
+    dataKey: 'fio',
+    width: 230,
     fixed: true,
     column: {
       sortable: true,
@@ -11,18 +14,10 @@ const usersTableConfig = [
   },
   {
     id: 1,
-    title: 'Имя',
-    dataKey: 'firstName',
-    width: 90,
-    column: {
-      sortable: true,
-    },
-  },
-  {
-    id: 2,
-    title: 'Отчество',
-    dataKey: 'lastName',
-    width: 90,
+    title: 'Дата рождения',
+    dataKey: 'birthDay',
+    type: 'date',
+    width: 120,
     column: {
       sortable: true,
     },
@@ -38,35 +33,71 @@ const usersTableConfig = [
   },
   {
     id: 3,
-    title: 'Дата рождения',
-    dataKey: 'birthDay',
-    type: 'date',
+    title: 'Статус',
+    dataKey: 'isAcceptedUser',
+    type: 'component',
+    width: 140,
+    component: (data) => {
+      const { isAcceptedUser } = data || {};
+      return (
+        <div className={`status ellipsis-element ${isAcceptedUser ? 'success' : 'error'}`}>
+          {isAcceptedUser ? 'Подтвержден' : 'Не подтвержден'}
+        </div>
+      );
+    },
     column: {
       sortable: true,
     },
   },
-  /*  {
-      id: 2,
-      title: 'Статус',
-      dataKey: 'Status',
-      type: 'component',
-      width: 250,
-      column: {
-        sortable: true,
-      },
-      component: (data) => (
-        <div className={`briefcase-list__item-status ellipsis-element ${briefStatusColorOptions[data.Status]}`}>
-          {briefStatusOptions[data.Status]}
-        </div>
-      ),
-    }, */
   {
     id: 4,
+    title: 'Доступ',
+    dataKey: 'isCanUseMobileVer',
+    type: 'component',
+    width: 120,
+    component: (data) => {
+      const { isCanUseMobileVer } = data || {};
+      return (
+        <div className={`status ellipsis-element ${isCanUseMobileVer ? 'success' : 'error'}`}>
+          {isCanUseMobileVer ? 'Разрешен' : 'Запрещен'}
+        </div>
+      );
+    },
+    column: {
+      sortable: true,
+    },
+  },
+  {
+    id: 5,
+    title: 'Роль',
+    dataKey: 'roleDescription',
+    column: {
+      sortable: true,
+    },
+  },
+  {
+    id: 6,
     title: 'Действия',
     type: 'actions',
     fixed: 'right',
-    width: 90,
+    width: 80,
   },
 ];
 
-export default usersTableConfig;
+/*export const addUserPopupTabs = [
+  {
+    id: 0,
+    title: 'Основные',
+    item: <MainTab />,
+  },
+  /!*  {
+      id: 1,
+      title: 'Настройки перезвона',
+      item: <RecallTab />,
+    },
+    {
+      id: 2,
+      title: 'Настройки часовых поясов',
+      item: <QueuePhoneTab />,
+    }, *!/
+];*/

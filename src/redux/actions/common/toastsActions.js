@@ -1,4 +1,4 @@
-/* ********************************* ToastsStore  ********************************************** */
+/* ********************************* toastsStore  ********************************************** */
 export const toastsStoreAddToast = (value) => ({
   type: 'TOASTS_STORE_ADD_TOAST',
   value,

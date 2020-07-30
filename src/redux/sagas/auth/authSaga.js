@@ -29,9 +29,10 @@ function* authStoreLogIn(value) {
     function* (err) {
       yield put(actions.authStoreSetSection({
         tryLogIn: false,
-        errors: err && err.response && err.response.data && err.response.data.error ? err.response.data.error : 'Неизвестная ошибка',
+        errors: err && err.response && err.response.data && err.response.data.errors ? err.response.data.errors : 'Неизвестная ошибка',
       }));
     },
+    true,
   );
 }
 

@@ -8,22 +8,11 @@ function PagePopUp(props) {
     show,
     item,
     popUpStoreClear,
-    hidePageControl,
-    pageControlStoreSetSection,
   } = props;
-
-  React.useEffect(() => {
-    if (show && hidePageControl) {
-      pageControlStoreSetSection({ show: false });
-    }
-  }, [hidePageControl, pageControlStoreSetSection, show]);
 
   const handleHidePopUp = React.useCallback(() => {
     popUpStoreClear();
-    if (hidePageControl) {
-      pageControlStoreSetSection({ show: true });
-    }
-  }, [hidePageControl, pageControlStoreSetSection, popUpStoreClear]);
+  }, [popUpStoreClear]);
 
   return (
     <>
