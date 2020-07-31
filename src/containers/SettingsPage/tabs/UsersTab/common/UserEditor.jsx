@@ -4,11 +4,15 @@ import actions from '../../../../../redux/actions/actions';
 import UILoader from '../../../../../components/UILoader/UILoader';
 import UIElementTitle from '../../../../../components/UIElementTitle/UIElementTitle';
 import UIAnimateHeightBlock from '../../../../../components/UIAnimateHeightBlock/UIAnimateHeightBlock';
+import formGenerator from '../../../../../components/utilities/formGenerator';
+import { userInfoMainTemplate } from '../settings';
 
 function UserEditor(props) {
   const {
     id,
+    userInfo,
     userInfoLoading,
+    settingStoreSetUserInfoSection,
     settingsStoreGetUserInfo,
     settingsStoreGetUserInfoCancel,
     settingsStoreSaveUserCancel,
@@ -28,6 +32,17 @@ function UserEditor(props) {
     settingsStoreSaveUserCancel,
   ]);
 
+  const handleChangeValue = React.useCallback((editName, editValue) => {
+    settingStoreSetUserInfoSection({
+      [editName]: editValue,
+    });
+  }, [settingStoreSetUserInfoSection]);
+
+  const mainBlock = React.useMemo(
+    () => formGenerator(userInfoMainTemplate, userInfo, handleChangeValue),
+    [userInfo, handleChangeValue],
+  );
+
   return (
     <div className="settings-page__add-user-popup">
       <UIElementTitle title={id ? 'Редактирование пользователя' : 'Добавление пользователя'} />
@@ -41,15 +56,18 @@ function UserEditor(props) {
           <div className="add-user-popup__table">
             <UIAnimateHeightBlock
               title="Основные"
-              body={<div>a</div>}
+              body={mainBlock}
+              blockName="main"
             />
             <UIAnimateHeightBlock
               title="Паспортные данные"
               body={<div>b</div>}
+              blockName="passport"
             />
             <UIAnimateHeightBlock
               title="Банковские реквизиты"
               body={<div>c</div>}
+              blockName="bank"
             />
           </div>
         )}
@@ -60,6 +78,7 @@ function UserEditor(props) {
 
 const mapStateToProps = (state) => ({
   userInfoLoading: state.settingsStore.userInfoLoading,
+  userInfo: state.settingsStore.userInfo,
 });
 
 const mapDispatchToProps = { ...actions };

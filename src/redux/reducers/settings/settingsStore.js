@@ -49,6 +49,14 @@ export default function settingsStore(state = initialSettingsStore, action) {
           return v;
         }),
       };
+    case 'SETTINGS_STORE_SET_USER_INFO_SECTION':
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          ...action.value,
+        },
+      };
     case 'SETTINGS_STORE_CLEAR':
       return initialSettingsStore;
     default:

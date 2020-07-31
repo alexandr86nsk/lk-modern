@@ -62,3 +62,7 @@ export const settingsStoreGetUserInfo = (value) => ({
 export const settingsStoreGetUserInfoCancel = () => ({
   type: 'SETTINGS_STORE_GET_USER_INFO_CANCEL',
 });
+
+export const settingsStoreSetUserInfoSection = () => ({
+  type: 'SETTINGS_STORE_SET_USER_INFO_SECTION',
+});
