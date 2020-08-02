@@ -1,48 +1,37 @@
-$red: #FF4D4D;
-$white: #FFFFFF;
-$gray: #CCCCCC;
-$dark-gray: #999999;
-$success-color: #19BB4F;
-$error-color: #b31616;
-$error-background-color: #ffeeec;
-$dark-error-background-color: #ffd7d3;
-$error-border-color: #ffc2c1;
-$border-color: #CED4DA;
-$box-shadow-color: #0088FF;
-$disabled-background-color: #EEEEEF;
+@import '../../static/css/colors.scss';
 
 .ui-input {
   width: 100%;
 
   svg {
-    width: 1.7em;
-    height: 1.7em;
-  }
-
-  &__title-wrapper {
-    display: flex;
-    margin-bottom: .5em;
-  }
-
-  &.hint &__title {
-    padding-right: 2em;
+    width: 1.5em;
+    height: 1.5em;
   }
 
   &__title {
+    margin-bottom: .5em;
+  }
+
+  &__hint-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    svg {
+      width: 2.2em;
+      height: 2.2em;
+      fill: $medium-theme-color;
+    }
+  }
+
+  &__title-content {
     display: flex;
     align-items: center;
     font-size: .8em;
-    position: relative;
-
-    .ui-hint {
-      position: absolute;
-      left: 100%;
-      top: 50%;
-      transform: translateY(-50%);
-    }
 
     .required-icon {
-      color: $red;
+      color: $error-color;
       transform: scale(1.5);
       margin-left: .2em;
     }
@@ -54,12 +43,11 @@ $disabled-background-color: #EEEEEF;
 
   &__input {
     width: 100%;
-    height: 3em;
-    padding: .6em 3em .6em 1.2em;
+    padding: .8em;
     background-color: $white;
     background-clip: padding-box;
-    border: 1px solid $border-color;
-    border-radius: .6em;
+    border: 1px solid $theme-border-color;
+    border-radius: 0.30769231rem;
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 
     &::placeholder {
@@ -70,15 +58,18 @@ $disabled-background-color: #EEEEEF;
       display: none;
     }
 
-    &:focus {
+    &:not(:disabled):hover {
+      border-color: $stylish-color;
+    }
+
+    &:not(:disabled):focus {
       border-color: transparent;
       outline: 0;
-      box-shadow: 0 0 0 0.2rem rgba($box-shadow-color, .25);
+      box-shadow: 0 0 0 0.2rem rgba($medium-theme-color, .25);
     }
 
     &:disabled {
-      padding: .6em 1.2em;
-      background-color: $disabled-background-color;
+      background-color: $theme-disabled-color;
     }
   }
 
@@ -99,15 +90,19 @@ $disabled-background-color: #EEEEEF;
     cursor: pointer;
 
     svg {
-      fill: $gray;
+      fill: rgba($stylish-color, .5);
     }
 
     &:hover {
 
       svg {
-        fill: $dark-gray;
+        fill: $stylish-color;
       }
     }
+  }
+
+  &__clear:hover ~ &__input:not(:disabled) {
+    border-color: $stylish-color;
   }
 
   &__success {
@@ -120,22 +115,22 @@ $disabled-background-color: #EEEEEF;
   &__error {
 
     svg {
-      fill: $red;
+      fill: $error-color;
     }
   }
 
   &__i-error {
     position: absolute;
     background: $error-background-color;
-    color: $error-color;
+    color: rgba($error-color, .85);
     font-size: .9em;
-    border-radius: .4em;
+    border-radius: 0.30769231rem;
     display: none;
     top: calc(100% + .2em);
     margin-top: .5em;
     padding: .5em 1em;
     z-index: 1;
-    border: 1px solid $error-border-color;
+    border: 1px solid $error-color;
     box-shadow: 0 .1em .3em rgba(0,0,0,.3);
 
     &:after, &:before {
@@ -156,7 +151,7 @@ $disabled-background-color: #EEEEEF;
     }
 
     &:before {
-      border-bottom-color: $error-border-color;
+      border-bottom-color: $error-color;
     }
   }
 
@@ -165,14 +160,14 @@ $disabled-background-color: #EEEEEF;
   }
 
   &.success &__input:not(:disabled) {
-    padding-right: 6.5em;
+    padding-right: 5.4em;
   }
 
   &.error &__input:not(:disabled) {
-    border-color: $error-border-color;
+    border-color: $error-color;
     color: $error-color;
     box-shadow: none;
-    padding-right: 6.5em;
+    padding-right: 5.4em;
 
     &:focus {
       border-color: transparent;
@@ -194,23 +189,68 @@ $disabled-background-color: #EEEEEF;
     right: 3em;
   }
 
-  &.empty  &__input {
-    padding-right: 1.2em;
+  &:not(.empty)  &__input {
+    padding-right: 2.8em;
   }
 
-  &.empty.success &__input,
-  &.empty.error &__input {
-    padding-right: 4em;
+  &:not(.empty).success &__input,
+  &:not(.empty).error &__input {
+    padding-right: 5.4em;
   }
 
   &.empty &__clear {
     display: none;
   }
 
-  .read-only {
-    line-height: 1em;
+  &.read-only {
     font-weight: 600;
-    padding-bottom: .4em;
-    border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid $theme-border-color;
+  }
+
+  &.read-only &__title {
+    font-weight: 400;
+  }
+
+
+  /* ****************************** 1c style ********************************** */
+
+  &.--style-1c {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba($theme-border-color, .5);
+  }
+
+  &.--style-1c &__title {
+    background-color: rgba($theme-border-color, .05);
+    border: none;
+    border-right: 1px solid rgba($theme-border-color, .5);
+    padding: .8em;
+    margin: 0;
+    flex: .4;
+    overflow: hidden;
+  }
+
+  &.--style-1c &__title-content {
+    font-size: inherit;
+  }
+
+  &.--style-1c &__body {
+    flex: .6;
+  }
+
+  &.--style-1c &__input {
+    border: none;
+    border-radius: 0;
+
+    &:focus {
+      box-shadow: inset 0 0 0 0.2rem rgba($medium-theme-color, .25);
+    }
+  }
+
+  &.--style-1c.error &__input:not(:disabled) {
+
+    &:focus {
+      box-shadow: inset 0 0 0 0.2rem rgba($error-color, .25);
+    }
   }
 }

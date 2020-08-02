@@ -27,10 +27,6 @@
     user-select: none;
     cursor: pointer;
     border: none;
-
-    &::placeholder {
-      color: $theme-border-color;
-    }
   }
 
   &__button {

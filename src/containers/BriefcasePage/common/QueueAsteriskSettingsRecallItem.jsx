@@ -1,5 +1,5 @@
 import React from 'react';
-import UIInput from '../../../components/UIInputV2/UIInput';
+import UIInput from '../../../components/UIInput/UIInput';
 
 const status = {
   0: 'Неверный формат номера',

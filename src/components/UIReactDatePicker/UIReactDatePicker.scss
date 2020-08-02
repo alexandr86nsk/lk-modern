@@ -1,17 +1,4 @@
-$red: #FF4D4D;
-$white: #FFFFFF;
-$gray: #CCCCCC;
-$dark-gray: #999999;
-$hint-color: #2185D0;
-$success-color: #19BB4F;
-$error-color: #b31616;
-$error-background-color: #ffeeec;
-$dark-error-background-color: #ffd7d3;
-$error-border-color: #ffc2c1;
-$border-color: #B3B3B3;
-$box-shadow-color: #0088FF;
-$disabled-background-color: #EEEEEF;
-
+@import '../../static/css/colors.scss';
 
 .ui-react-datepicker {
   width: 100%;
@@ -33,7 +20,7 @@ $disabled-background-color: #EEEEEF;
     }
 
     .required-icon {
-      color: $red;
+      color: $error-color;
       transform: scale(1.5);
       margin-left: .2em;
     }
@@ -48,7 +35,7 @@ $disabled-background-color: #EEEEEF;
     padding: .8em;
     background-color: $white;
     background-clip: padding-box;
-    border: 1px solid $gray;
+    border: 1px solid $theme-border-color;
     border-radius: .6em;
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 
@@ -61,18 +48,17 @@ $disabled-background-color: #EEEEEF;
     }
 
     &:hover {
-      border-color: $border-color;
+      border-color: $stylish-color;
     }
 
     &:focus {
       border-color: transparent;
       outline: 0;
-      box-shadow: 0 0 0 0.2rem rgba($box-shadow-color, .25);
+      box-shadow: 0 0 0 0.2rem rgba($medium-theme-color, .25);
     }
 
     &:disabled {
-      padding: .6em 1.2em;
-      background-color: $disabled-background-color;
+      background-color: $theme-disabled-color;
     }
   }
 
@@ -97,7 +83,7 @@ $disabled-background-color: #EEEEEF;
   &__error {
 
     svg {
-      fill: $red;
+      fill: $error-color;
     }
   }
 
@@ -110,7 +96,7 @@ $disabled-background-color: #EEEEEF;
   }
 
   &.error &__input:not(:disabled) {
-    border-color: $error-border-color;
+    border-color: $error-color;
     color: $error-color;
     box-shadow: none;
     padding-right: 6.5em;
@@ -126,21 +112,21 @@ $disabled-background-color: #EEEEEF;
     display: flex;
   }
 
-  .react-datepicker__triangle {
-    display: none;
-  }
-
   .react-datepicker {
     border: none;
     box-shadow: 0 2px 5px rgba(0,0,0,.2);
-    padding: 10px;
+    padding: 1em;
+  }
+
+  .react-datepicker__triangle {
+    display: none;
   }
 
   .react-datepicker__close-icon {
 
     &::after {
       color: hsl(0,0%,80%);
-      font-size: 20px;
+      font-size: 2em;
       background-color: transparent;
     }
 
@@ -160,18 +146,36 @@ $disabled-background-color: #EEEEEF;
 
   .react-datepicker__day,
   .react-datepicker__day-name {
-    width: 2rem;
-    line-height: 2rem;
+    width: 2em;
+    line-height: 2em;
+    outline: none;
 
     @media screen and (max-width: 400px) {
-      width: 2rem;
-      line-height: 2rem;
+      width: 2em;
+      line-height: 2em;
     }
   }
 
+  .react-datepicker__day {
+
+    &:hover {
+      color: $white;
+      background-color: rgba($light-theme-color, .5);
+    }
+  }
+
+  .react-datepicker__day--weekend {
+    background-color: rgba($error-color, .1);
+  }
+
   .react-datepicker__day.react-datepicker__day--today {
-    color: #5469d4;
+    background-color: rgba($medium-theme-color, .2);
+    color: $medium-theme-color;
     font-weight: 700;
+  }
+
+  .react-datepicker__day.react-datepicker__day--selected {
+    background-color: $medium-theme-color;
   }
 
   .react-datepicker__day.react-datepicker__day--today.react-datepicker__day--keyboard-selected {
@@ -214,11 +218,13 @@ $disabled-background-color: #EEEEEF;
   &.--style-1c {
     display: flex;
     align-items: center;
-    border: 1px solid rgba($border-color, .5);
+    border: 1px solid rgba($theme-border-color, .5);
   }
 
   &.--style-1c &__title {
-    border-right: 1px solid rgba($border-color, .5);
+    border: none;
+    background-color: rgba($theme-border-color, .05);
+    border-right: 1px solid rgba($theme-border-color, .5);
     padding: .8em;
     font-weight: 500;
     margin: 0;
@@ -236,52 +242,7 @@ $disabled-background-color: #EEEEEF;
     border-radius: 0;
 
     &:focus {
-      box-shadow: inset 0 0 0 0.2rem rgba(0, 136, 255, 0.25);
+      box-shadow: inset 0 0 0 0.2rem rgba($medium-theme-color, .25);
     }
-  }
-
-  /** ****************** transform ************** **/
-  &.transform {
-    position: relative;
-  }
-
-  &.transform &__label {
-    position: absolute;
-    top: 10px;
-    left: 0;
-    transition: all .2s ease;
-    font-weight: 700;
-  }
-
-  $primary: #5469d4;
-  $secondary: #7fd3ed;
-
-  &.transform &__input {
-    padding: 7px 0;
-    outline: 0;
-    background: transparent;
-    border: 0;
-    border-bottom: 2px solid $gray;
-    border-radius: 0;
-    color: transparent;
-    box-shadow: none;
-
-    &::placeholder {
-      color: transparent;
-    }
-  }
-
-  &.transform.focus &__input,
-  &.transform.data &__input {
-    // border-image: linear-gradient(to right, $primary, $secondary);
-    // border-image-slice: 1;
-    color: inherit;
-  }
-
-  &.transform.focus &__label,
-  &.transform.data &__label {
-    top: -5px;
-    font-size: 10px;
-    // color: $primary;
   }
 }

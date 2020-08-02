@@ -1,7 +1,7 @@
 import React from 'react';
-import UIInput from '../UIInputV2/UIInput';
+import UIInput from '../UIInput/UIInput';
 import UIReactSelect from '../UIReactSelect/UIReactSelect';
-import UICheckBox from '../UICheckbox/UICheckbox';
+import UISemanticCheckbox from '../UISemanticCheckbox/UISemanticCheckbox';
 import UITextArea from '../UITextArea/UITextArea';
 import UIReactDatePicker from '../UIReactDatePicker/UIReactDatePicker';
 import UITextField from '../UITextField/UITextField';
@@ -14,6 +14,7 @@ const formGenerator = (list, dataSource, callback) => {
         id,
         title,
         dataKey,
+        otherProps,
       } = v || {};
       switch (type) {
         case 'input':
@@ -24,7 +25,7 @@ const formGenerator = (list, dataSource, callback) => {
               name={dataKey}
               data={(dataSource[dataKey] || dataSource[dataKey] === 0) ? dataSource[dataKey] : ''}
               callback={callback}
-              {...v.otherProps}
+              {...otherProps}
             />
           );
         case 'select':
@@ -37,17 +38,18 @@ const formGenerator = (list, dataSource, callback) => {
               name={dataKey}
               data={(dataSource[dataKey] === 0 || dataSource[dataKey]) ? dataSource[dataKey] : ''}
               callback={callback}
-              {...v.otherProps}
+              {...otherProps}
             />
           );
         case 'checkbox':
           return (
-            <UICheckBox
+            <UISemanticCheckbox
               key={id}
               title={title}
               name={dataKey}
-              data={dataSource[dataKey] || ''}
+              data={dataSource[dataKey]}
               callback={callback}
+              {...otherProps}
             />
           );
         case 'textarea':
@@ -69,7 +71,7 @@ const formGenerator = (list, dataSource, callback) => {
               name={dataKey}
               data={dataSource[dataKey] || ''}
               callback={callback}
-              {...v.otherProps}
+              {...otherProps}
             />
           );
         case 'textField':
@@ -79,7 +81,7 @@ const formGenerator = (list, dataSource, callback) => {
               title={title}
               name={dataKey}
               data={!v.subData ? (dataSource[dataKey] || '') : (dataSource[dataKey][v.subData] || '')}
-              {...v.otherProps}
+              {...otherProps}
             />
           );
         default:

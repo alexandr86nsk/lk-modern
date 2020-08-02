@@ -5,7 +5,7 @@ import { Button, Icon } from 'semantic-ui-react';
 import actions from '../../redux/actions/actions';
 import ErrorsBlock from './ErrorsBlock';
 import UILoader from '../../components/UILoader/UILoader';
-import UIInput from '../../components/UIInputV2/UIInput';
+import UIInput from '../../components/UIInput/UIInput';
 
 function AuthPage(props) {
   const {

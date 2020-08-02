@@ -97,7 +97,7 @@ export const userInfoMainTemplate = [
   {
     id: 1,
     title: 'Имя',
-    data: 'firstName',
+    dataKey: 'firstName',
     type: 'input',
     otherProps: {
       required: true,
@@ -108,7 +108,7 @@ export const userInfoMainTemplate = [
   {
     id: 2,
     title: 'Отчетсво',
-    data: 'middleName',
+    dataKey: 'middleName',
     type: 'input',
     otherProps: {
       type: '--style-1c',
@@ -117,7 +117,7 @@ export const userInfoMainTemplate = [
   {
     id: 3,
     title: 'Пароль',
-    data: 'password',
+    dataKey: 'password',
     type: 'input',
     otherProps: {
       type: '--style-1c',
@@ -126,7 +126,7 @@ export const userInfoMainTemplate = [
   {
     id: 4,
     title: 'Рабочий телефон',
-    data: 'phone',
+    dataKey: 'phone',
     type: 'input',
     otherProps: {
       required: true,
@@ -137,7 +137,7 @@ export const userInfoMainTemplate = [
   {
     id: 5,
     title: '% вознаграждения',
-    data: 'commission',
+    dataKey: 'commission',
     type: 'input',
     otherProps: {
       required: true,
@@ -149,28 +149,28 @@ export const userInfoMainTemplate = [
   {
     id: 6,
     title: 'Доступ в моб.приложение',
-    data: 'isCanUseMobileVer',
+    dataKey: 'isCanUseMobileVer',
     type: 'checkbox',
     otherProps: {
-      required: true,
       successFormat: 'Поле обязательно для заполнения',
       type: '--style-1c',
+      toggle: true,
     },
   },
   {
     id: 7,
     title: 'Доступ к отчетности',
-    data: 'isCanUseReports',
+    dataKey: 'isCanUseReports',
     type: 'checkbox',
     otherProps: {
-      required: true,
       type: '--style-1c',
+      toggle: true,
     },
   },
   {
     id: 8,
     title: 'Роль',
-    data: 'roleID',
+    dataKey: 'roleID',
     type: 'select',
     otherProps: {
       required: true,
@@ -180,10 +180,326 @@ export const userInfoMainTemplate = [
   {
     id: 9,
     title: 'Зона',
-    data: 'zoneID',
+    dataKey: 'zoneID',
     type: 'select',
     otherProps: {
       required: true,
+      type: '--style-1c',
+    },
+  },
+];
+
+export const userInfoPassportTemplate = [
+  {
+    id: 0,
+    title: 'Основные',
+    content: [
+      {
+        id: 0,
+        title: 'Дата рождения',
+        dataKey: 'birthDay',
+        type: 'input',
+        otherProps: {
+          type: '--style-1c',
+          required: true,
+          successFormat: 'Поле обязательно для заполнения',
+        },
+      },
+      {
+        id: 1,
+        title: 'Место рождения',
+        dataKey: 'birthPlace',
+        type: 'select',
+        otherProps: {
+          required: true,
+          successFormat: 'Поле обязательно для заполнения',
+          type: '--style-1c',
+        },
+      },
+      {
+        id: 2,
+        title: 'Паспорт серия',
+        dataKey: 'passSeries',
+        type: 'input',
+        otherProps: {
+          required: true,
+          successFormat: 'Поле обязательно для заполнения',
+          type: '--style-1c',
+        },
+      },
+      {
+        id: 3,
+        title: 'Паспорт номер',
+        dataKey: 'passNumber',
+        type: 'input',
+        otherProps: {
+          required: true,
+          successFormat: 'Поле обязательно для заполнения',
+          type: '--style-1c',
+        },
+      },
+      {
+        id: 4,
+        title: 'Паспорт дата выдачи',
+        dataKey: 'passIssuedDate',
+        type: 'datePicker',
+        otherProps: {
+          required: true,
+          successFormat: 'Это поле обязательно для заполнения',
+          type: '--style-1c',
+        },
+      },
+      {
+        id: 5,
+        title: 'Паспорт место выдачи',
+        dataKey: 'passIssued',
+        type: 'input',
+        otherProps: {
+          required: true,
+          successFormat: 'Поле обязательно для заполнения',
+          type: '--style-1c',
+        },
+      },
+    ],
+  },
+  {
+    id: 1,
+    title: 'Регистрация',
+    content: [
+      {
+        id: 6,
+        title: 'Регистрация город',
+        dataKey: 'regCity',
+        type: 'input',
+        otherProps: {
+          successFormat: 'Поле обязательно для заполнения',
+          type: '--style-1c',
+        },
+      },
+      {
+        id: 7,
+        title: 'Регистрация улица',
+        dataKey: 'regStreet',
+        type: 'input',
+        otherProps: {
+          type: '--style-1c',
+          toggle: true,
+        },
+      },
+      {
+        id: 8,
+        title: 'Регистрация корпус',
+        dataKey: 'regFix',
+        type: 'input',
+        otherProps: {
+          required: true,
+          type: '--style-1c',
+        },
+      },
+      {
+        id: 9,
+        title: 'Регистрация № дома',
+        dataKey: 'regHouse',
+        type: 'input',
+        otherProps: {
+          required: true,
+          type: '--style-1c',
+        },
+      },
+      {
+        id: 10,
+        title: 'Регистрация квартира',
+        dataKey: 'regFlat',
+        type: 'input',
+        otherProps: {
+          required: true,
+          type: '--style-1c',
+        },
+      },
+    ],
+  },
+  {
+    id: 2,
+    title: 'Фактическое место проживания',
+    content: [
+      {
+        id: 11,
+        title: 'Фактическое место проживания, совпадает с местом регистрации',
+        dataKey: 'isCompare',
+        type: 'checkbox',
+        otherProps: {
+          toggle: true,
+          type: '--style-1c',
+        },
+      },
+      {
+        id: 12,
+        title: 'Место проживания город',
+        dataKey: 'factCity',
+        type: 'input',
+        otherProps: {
+          successFormat: 'Поле обязательно для заполнения',
+          type: '--style-1c',
+        },
+      },
+      {
+        id: 13,
+        title: 'Место проживания улица',
+        dataKey: 'factStreet',
+        type: 'input',
+        otherProps: {
+          type: '--style-1c',
+        },
+      },
+      {
+        id: 14,
+        title: 'Место проживания корпус',
+        dataKey: 'factFix',
+        type: 'input',
+        otherProps: {
+          required: true,
+          type: '--style-1c',
+        },
+      },
+      {
+        id: 15,
+        title: 'Место проживания № дома',
+        dataKey: 'factHouse',
+        type: 'input',
+        otherProps: {
+          required: true,
+          type: '--style-1c',
+        },
+      },
+      {
+        id: 16,
+        title: 'Место проживания квартира',
+        dataKey: 'factFlat',
+        type: 'input',
+        otherProps: {
+          required: true,
+          type: '--style-1c',
+        },
+      },
+    ],
+  },
+];
+
+export const userInfoOtherTemplate = [
+  {
+    id: 0,
+    title: 'ИНН сотрудника',
+    dataKey: 'inn',
+    type: 'input',
+    otherProps: {
+      required: true,
+      successFormat: 'Поле обязательно для заполнения и должно содержать 12 цифр',
+      mask: '000000000000',
+      type: '--style-1c',
+    },
+  },
+  {
+    id: 1,
+    title: 'СНИЛС сотрудника',
+    dataKey: 'snils',
+    type: 'input',
+    otherProps: {
+      required: true,
+      successFormat: 'Поле обязательно для заполнения и должно содержать 11 цифр',
+      mask: '000-000-000 00',
+      type: '--style-1c',
+    },
+  },
+];
+
+export const userInfoBankTemplate = [
+  {
+    id: 0,
+    title: 'Счет получателя',
+    dataKey: 'account',
+    type: 'input',
+    otherProps: {
+      required: true,
+      successFormat: 'Поле обязательно для заполнения и должно содержать 20 цифр',
+      minLength: 20,
+      mask: '00000000000000000000',
+      type: '--style-1c',
+    },
+  },
+  {
+    id: 1,
+    title: 'Номер карты',
+    dataKey: 'cardNumber',
+    type: 'input',
+    otherProps: {
+      required: true,
+      successFormat: 'Поле обязательно для заполнения и должно содержать от 13 до 19 цифр',
+      minLength: 13,
+      mask: '0000000000000000000',
+      type: '--style-1c',
+    },
+  },
+  {
+    id: 2,
+    title: 'Кор.счет',
+    dataKey: 'bankCorrNumber',
+    type: 'input',
+    otherProps: {
+      required: true,
+      successFormat: 'Поле обязательно для заполнения и должно содержать 20 цифр',
+      minLength: 20,
+      mask: '00000000000000000000',
+      type: '--style-1c',
+    },
+  },
+  {
+    id: 3,
+    title: 'Банк получателя',
+    dataKey: 'bankName',
+    type: 'input',
+    otherProps: {
+      required: true,
+      successFormat: 'Поле обязательно для заполнения',
+      minLength: 250,
+      type: '--style-1c',
+    },
+  },
+  {
+    id: 4,
+    title: 'ИНН Банка получателя',
+    dataKey: 'bankINN',
+    type: 'input',
+    otherProps: {
+      required: true,
+      successFormat: 'Поле обязательно для заполнения и должно содержать 10 цифр',
+      minLength: 10,
+      mask: '0000000000',
+      type: '--style-1c',
+    },
+  },
+  {
+    id: 5,
+    title: 'КПП Банка получателя',
+    dataKey: 'bankKPP',
+    type: 'input',
+    otherProps: {
+      required: true,
+      successFormat: 'Поле обязательно для заполнения и должно содержать 9 цифр',
+      minLength: 9,
+      mask: '000000000',
+      type: '--style-1c',
+    },
+  },
+  {
+    id: 6,
+    title: 'БИК',
+    dataKey: 'bankBIK',
+    type: 'input',
+    otherProps: {
+      required: true,
+      successFormat: 'Поле обязательно для заполнения и должно содержать 9 цифр',
+      minLength: 9,
+      mask: '000000000',
       type: '--style-1c',
     },
   },

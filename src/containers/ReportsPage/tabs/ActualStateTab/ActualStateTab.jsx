@@ -8,7 +8,7 @@ import UITable from '../../../../components/UITable/UITable';
 import filterSelectedCounter from '../../../../components/UITable/common/filterSelectedCounter';
 import UIReactDatePicker from '../../../../components/UIReactDatePicker/UIReactDatePicker';
 import UIReactSelect from '../../../../components/UIReactSelect/UIReactSelect';
-import UIInput from '../../../../components/UIInputV2/UIInput';
+import UIInput from '../../../../components/UIInput/UIInput';
 
 function ActualStateTab(props) {
   const {

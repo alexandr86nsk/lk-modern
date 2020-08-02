@@ -67,7 +67,7 @@ function SettingsTab(props) {
             <div className="controls">
               <Button
                 circular
-                positive
+                primary
                 size="small"
                 onClick={handleSaveClick}
                 loading={trySaveSettings}

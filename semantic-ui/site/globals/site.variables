@@ -6,5 +6,4 @@
 @fontSize: 13px;
 @fontName: 'GothamProRRegular';
 @importGoogleFonts: false;
-@positiveColor: #922c88;
-@negativeColor: #b76dab;
+@primaryColor: #b76dab;

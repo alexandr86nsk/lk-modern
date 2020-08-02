@@ -5,14 +5,19 @@ import UILoader from '../../../../../components/UILoader/UILoader';
 import UIElementTitle from '../../../../../components/UIElementTitle/UIElementTitle';
 import UIAnimateHeightBlock from '../../../../../components/UIAnimateHeightBlock/UIAnimateHeightBlock';
 import formGenerator from '../../../../../components/utilities/formGenerator';
-import { userInfoMainTemplate } from '../settings';
+import {
+  userInfoBankTemplate,
+  userInfoMainTemplate,
+  userInfoOtherTemplate,
+  userInfoPassportTemplate
+} from '../settings';
 
 function UserEditor(props) {
   const {
     id,
     userInfo,
     userInfoLoading,
-    settingStoreSetUserInfoSection,
+    settingsStoreSetUserInfoSection,
     settingsStoreGetUserInfo,
     settingsStoreGetUserInfoCancel,
     settingsStoreSaveUserCancel,
@@ -33,13 +38,58 @@ function UserEditor(props) {
   ]);
 
   const handleChangeValue = React.useCallback((editName, editValue) => {
-    settingStoreSetUserInfoSection({
+    settingsStoreSetUserInfoSection({
       [editName]: editValue,
     });
-  }, [settingStoreSetUserInfoSection]);
+  }, [settingsStoreSetUserInfoSection]);
 
   const mainBlock = React.useMemo(
     () => formGenerator(userInfoMainTemplate, userInfo, handleChangeValue),
+    [userInfo, handleChangeValue],
+  );
+
+  const passportBlock = React.useMemo(() => {
+    const {
+      isCompare,
+    } = userInfo || {};
+    let editedTemplate = userInfoPassportTemplate;
+    if (isCompare && userInfoPassportTemplate && Array.isArray(userInfoPassportTemplate)) {
+      editedTemplate = userInfoPassportTemplate.map((v) => {
+        const { id: blockId, content } = v || {};
+        if (blockId === 2) {
+          return {
+            ...v,
+            content: [content[0]],
+          };
+        }
+        return v;
+      });
+    }
+    if (editedTemplate && Array.isArray(editedTemplate)) {
+      return editedTemplate.map((v) => {
+        const {
+          id: blockId,
+          title,
+          content,
+        } = v || {};
+        return (
+          <div key={blockId} className="add-user-popup__section">
+            <div className="add-user-popup__subtitle">{title}</div>
+            {formGenerator(content, userInfo, handleChangeValue)}
+          </div>
+        );
+      });
+    }
+    return null;
+  }, [userInfo, handleChangeValue]);
+
+  const otherBlock = React.useMemo(
+    () => formGenerator(userInfoOtherTemplate, userInfo, handleChangeValue),
+    [userInfo, handleChangeValue],
+  );
+
+  const bankBlock = React.useMemo(
+    () => formGenerator(userInfoBankTemplate, userInfo, handleChangeValue),
     [userInfo, handleChangeValue],
   );
 
@@ -55,18 +105,23 @@ function UserEditor(props) {
         {!userInfoLoading && (
           <div className="add-user-popup__table">
             <UIAnimateHeightBlock
-              title="Основные"
+              title="Основные данные"
               body={mainBlock}
               blockName="main"
             />
             <UIAnimateHeightBlock
               title="Паспортные данные"
-              body={<div>b</div>}
+              body={passportBlock}
               blockName="passport"
             />
             <UIAnimateHeightBlock
+              title="Дополнительная информация"
+              body={otherBlock}
+              blockName="other"
+            />
+            <UIAnimateHeightBlock
               title="Банковские реквизиты"
-              body={<div>c</div>}
+              body={bankBlock}
               blockName="bank"
             />
           </div>

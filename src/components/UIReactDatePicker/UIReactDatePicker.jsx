@@ -4,8 +4,8 @@ import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import ru from 'date-fns/locale/ru';
 import InputMask from 'react-input-mask';
-import ErrorIcon from '../../static/images/error-24px.svg';
-import SuccessIcon from '../../static/images/check_circle-24px.svg';
+import ErrorIcon from './error-icon.svg';
+import SuccessIcon from './check-icon.svg';
 
 registerLocale('ru', ru);
 
@@ -55,6 +55,8 @@ function UIReactDatePicker(props) {
     }
     if (data) {
       str = `${str} data`;
+    } else {
+      str = `${str} empty`;
     }
     if (focus) {
       str = `${str} focus`;

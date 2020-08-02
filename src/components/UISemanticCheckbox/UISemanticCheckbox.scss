@@ -1,0 +1,84 @@
+@import "../../static/css/colors";
+
+.ui-semantic-checkbox {
+  width: 100%;
+
+  svg {
+    width: 1.5em;
+    height: 1.5em;
+  }
+
+  &__title-wrapper {
+    margin-bottom: .5em;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    font-size: .8em;
+  }
+
+  .ui.checkbox.toggle {
+    width: 2.75rem;
+
+    input {
+      width: 2.75rem;
+    }
+
+    label {
+
+      &:before {
+        width: 2.75rem;
+        z-index: unset;
+      }
+
+      &:after {
+        top: 50%;
+        transform: translateY(-50%);
+        width: 1.3rem;
+        height: 1.3rem;
+        left: .1rem;
+        z-index: unset;
+      }
+    }
+
+    input:checked ~ label:after {
+      left: 1.35rem;
+    }
+  }
+
+  &__body {
+    position: relative;
+  }
+
+  /* ****************************** 1c style ********************************** */
+
+  &.--style-1c {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba($theme-border-color, .5);
+  }
+
+  &.--style-1c &__title-wrapper {
+    background-color: rgba(179, 179, 179, .05);
+    border: none;
+    border-right: 1px solid rgba($theme-border-color, .5);
+    padding: .8em;
+    margin: 0;
+    flex: .4;
+    overflow: hidden;
+  }
+
+  &.--style-1c &__title {
+    font-size: inherit;
+  }
+
+  &.--style-1c &__body {
+    flex: .6;
+  }
+
+  &.--style-1c &__checkbox {
+    padding: 0 .8em;
+    text-align: end;
+  }
+}

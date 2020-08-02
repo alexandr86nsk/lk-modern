@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import actions from '../../../redux/actions/actions';
-import UIInput from '../../../components/UIInputV2/UIInput';
+import UIInput from '../../../components/UIInput/UIInput';
 import UIReactSelect from '../../../components/UIReactSelect/UIReactSelect';
 
 function BriefcaseAddItem(props) {

@@ -1,16 +1,4 @@
-$red: #FF4D4D;
-$white: #FFFFFF;
-$gray: #CCCCCC;
-$dark-gray: #999999;
-$hint-color: #2185D0;
-$success-color: #19BB4F;
-$error-color: #b31616;
-$error-background-color: #ffeeec;
-$dark-error-background-color: #ffd7d3;
-$error-border-color: #ffc2c1;
-$border-color: #B3B3B3;
-$box-shadow-color: #0088FF;
-$disabled-background-color: #EEEEEF;
+@import '../../static/css/colors.scss';
 
 .ui-react-select {
   width: 100%;
@@ -32,7 +20,7 @@ $disabled-background-color: #EEEEEF;
     }
 
     .required-icon {
-      color: $red;
+      color: $error-color;
       transform: scale(1.5);
       margin-left: 2px;
     }
@@ -52,6 +40,12 @@ $disabled-background-color: #EEEEEF;
     padding: 0;
   }
 
+  &__input {
+    transform: translateY(-50%);
+    position: absolute;
+    top: 50%;
+  }
+
   &__value-container.css-g1d714-ValueContainer {
     border: none;
     padding: .8em;
@@ -64,7 +58,7 @@ $disabled-background-color: #EEEEEF;
   &__control.ui-react-select__control--is-focused {
     border-color: transparent;
     outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba($box-shadow-color, .25);
+    box-shadow: 0 0 0 0.2rem rgba($medium-theme-color, .25);
   }
 
   &__error,
@@ -88,7 +82,7 @@ $disabled-background-color: #EEEEEF;
   &__error {
 
     svg {
-      fill: $red;
+      fill: $error-color;
     }
   }
 
@@ -101,7 +95,7 @@ $disabled-background-color: #EEEEEF;
   }
 
   &.error &__control {
-    border-color: $error-border-color;
+    border-color: $error-color;
     color: $error-color;
     box-shadow: none;
     padding-right: 3.1em;
@@ -119,12 +113,12 @@ $disabled-background-color: #EEEEEF;
 
   &.read-only {
     font-weight: 600;
-    border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid $theme-border-color;
   }
 
   &__control.ui-react-select__control--is-focused {
     border-color: transparent;
-    box-shadow: 0 0 0 0.2rem rgba($box-shadow-color, .25);
+    box-shadow: 0 0 0 0.2rem rgba($medium-theme-color, .25);
   }
 
   &__control.ui-react-select__control--is-focused:hover {
@@ -136,11 +130,12 @@ $disabled-background-color: #EEEEEF;
   &.--style-1c {
     display: flex;
     align-items: center;
-    border: 1px solid rgba($border-color, .5);
+    border: 1px solid rgba($theme-border-color, .5);
   }
 
   &.--style-1c &__title {
-    border-right: 1px solid rgba($border-color, .5);
+    background-color: rgba($theme-border-color, .05);
+    border-right: 1px solid rgba($theme-border-color, .5);
     padding: .8em;
     font-weight: 500;
     margin: 0;
@@ -159,6 +154,10 @@ $disabled-background-color: #EEEEEF;
   }
 
   &.--style-1c &__control.ui-react-select__control--is-focused {
-    box-shadow: inset 0 0 0 0.2rem rgba(0, 136, 255, 0.25);
+    box-shadow: inset 0 0 0 0.2rem rgba($medium-theme-color, .25);
+  }
+
+  &.--style-1c.error &__control.ui-react-select__control--is-focused {
+    box-shadow: inset 0 0 0 0.2rem rgba($error-color, .25);
   }
 }

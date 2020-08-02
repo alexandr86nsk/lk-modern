@@ -1,5 +1,5 @@
 import React from 'react';
-import UIInput from '../../../../components/UIInputV2/UIInput';
+import UIInput from '../../../../components/UIInput/UIInput';
 
 function SettingsTabItem(props) {
   const {

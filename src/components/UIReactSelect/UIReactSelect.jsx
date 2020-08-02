@@ -35,7 +35,7 @@ function UIReactSelect(props) {
     options = [],
     defaultOptions = [],
     name,
-    data = '',
+    data,
     callback,
     fullValueCallback,
     noOptionsMessage = 'Данные не загружены',
@@ -52,17 +52,34 @@ function UIReactSelect(props) {
     if (callback) {
       if (isMulti) {
         setTimeout(
-          () => callback(name, value && value.length ? value.map((v) => v.value) : null),
-          value && value.length ? 0 : 200,
+          () => callback(
+            name,
+            value && value.length
+              ? value.map((v) => v.value)
+              : null,
+          ),
+          value && value.length
+            ? 0
+            : 200,
         );
       } else {
-        callback(name, value ? value.value : null);
+        callback(
+          name,
+          value
+            ? value.value
+            : null,
+        );
       }
     }
     if (fullValueCallback) {
       fullValueCallback(name, value || null);
     }
-  }, [callback, fullValueCallback, isMulti, name]);
+  }, [
+    callback,
+    fullValueCallback,
+    isMulti,
+    name,
+  ]);
 
   const className = React.useMemo(() => {
     let str = 'ui-react-select';
@@ -91,7 +108,9 @@ function UIReactSelect(props) {
     if (!isMulti) {
       return checkDefaultOptions().filter((v) => v.value === data)[0] || '';
     }
-    return Array.isArray(data) ? data.map((x) => checkDefaultOptions().filter((v) => v.value === x)[0]) : '';
+    return Array.isArray(data)
+      ? data.map((x) => checkDefaultOptions().filter((v) => v.value === x)[0])
+      : '';
   }, [isMulti, data, checkDefaultOptions]);
 
   const renderBody = React.useMemo(() => {

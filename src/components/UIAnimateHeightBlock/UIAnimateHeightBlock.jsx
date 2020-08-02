@@ -29,7 +29,7 @@ function UIAnimateHeightBlock(props) {
           className={`ui-animate-height-block__dropdown-icon icon ${height ? 'minus square outline' : 'plus square outline'}`}
           aria-hidden
         />
-        <div className="sui-animate-height-block__title">
+        <div className="ui-animate-height-block__title">
           <span className="ui-animate-height-block__text ellipsis-element">{title}</span>
         </div>
       </div>

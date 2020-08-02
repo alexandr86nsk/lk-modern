@@ -129,7 +129,7 @@ function UsersTab(props) {
         <div className="add-block">
           <Button
             circular
-            positive
+            primary
             size="small"
             onClick={handleAdd}
           >
