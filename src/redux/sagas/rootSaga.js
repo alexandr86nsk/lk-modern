@@ -8,6 +8,13 @@ function* rootSaga() {
   yield takeLatest('SETTINGS_STORE_SAVE_SETTINGS', settingsSaga.canBeCanceledSettingsStoreSaveSettings);
   yield takeLatest('SETTINGS_STORE_GET_USERS', settingsSaga.canBeCanceledSettingsStoreGetUsers);
   yield takeLatest('SETTINGS_STORE_GET_USER_INFO', settingsSaga.canBeCanceledSettingsStoreGetUserInfo);
+  yield takeLatest('SETTINGS_STORE_SAVE_USER', settingsSaga.canBeCanceledSettingsStoreSaveUser);
+  yield takeLatest('SETTINGS_STORE_REMOVE_USER', settingsSaga.canBeCanceledSettingsStoreRemoveUser);
+  yield takeLatest('SETTINGS_STORE_GET_TEMPLATES', settingsSaga.canBeCanceledSettingsStoreGetTemplates);
+  yield takeLatest('SETTINGS_STORE_GET_TEMPLATE_INFO', settingsSaga.canBeCanceledSettingsStoreGetTemplateInfo);
+  yield takeLatest('SETTINGS_STORE_SAVE_TEMPLATE', settingsSaga.canBeCanceledSettingsStoreSaveTemplate);
+  yield takeLatest('SETTINGS_STORE_REMOVE_TEMPLATE', settingsSaga.canBeCanceledSettingsStoreRemoveTemplate);
+  yield takeLatest('SETTINGS_STORE_GET_TEMPLATE_VAR', settingsSaga.canBeCanceledSettingsStoreGetTemplateVar);
 }
 
 export default rootSaga;

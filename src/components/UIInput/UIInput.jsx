@@ -223,9 +223,9 @@ function UIInput(props) {
       <div className="ui-input__body" ref={elRef}>
         {renderBody}
         {!disabled && !readOnly && (
-        <div role="presentation" className="ui-input__clear" title="Очистить" onClick={handleClear}>
-          <ClearIcon />
-        </div>
+          <div role="presentation" className="ui-input__clear" title="Очистить" onClick={handleClear}>
+            <ClearIcon />
+          </div>
         )}
         {!readOnly && !disabled && (
           <>

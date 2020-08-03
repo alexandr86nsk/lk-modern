@@ -85,7 +85,7 @@ function AuthPage(props) {
             </div>
             <div className="form__btn-block">
               <Button
-                positive
+                primary
                 fluid
                 disabled={!login || !password}
                 onClick={handleLogIn}

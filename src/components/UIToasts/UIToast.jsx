@@ -1,4 +1,6 @@
 import React from 'react';
+import SuccessIcon from './check-icon.svg';
+import ErrorIcon from './error-icon.svg';
 
 function UIToast(props) {
   const {
@@ -26,7 +28,15 @@ function UIToast(props) {
 
   return (
     <div className={`ui-toast${type ? ` ${type}` : ''}`}>
+      <div className="ui-toast__icon">
+        {type === 'success' && <SuccessIcon />}
+        {type === 'error' && <ErrorIcon />}
+      </div>
       <div className="ui-toast__content">
+        <div className="ui-toast__title">
+          {type === 'success' && 'Успешно.'}
+          {type === 'error' && 'Ошибка.'}
+        </div>
         {generateContent}
       </div>
       <button type="button" className="ui-toast__dismiss" onClick={onDismissClick}>

@@ -90,7 +90,7 @@
   &.--horizontal-right-25 {
     left: unset;
     width: 25%;
-    transition: all .4s ease;
+    transition: all .5s ease;
     box-shadow: -3px 1px 6px rgba(147, 147, 147, 0.3);
 
     @media screen and (max-width: 1650px) {
@@ -107,12 +107,12 @@
 
     &.entering {
       opacity: .5;
-      transform: translateX(100%);
+      transform: translateX(110%);
     }
 
     &.exiting {
       opacity: .5;
-      transform: translateX(100%);
+      transform: translateX(110%);
     }
   }
 

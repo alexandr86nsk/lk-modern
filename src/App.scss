@@ -4,6 +4,17 @@
   display: flex;
   height: 100vh;
 
+  * {
+
+    ::-webkit-scrollbar-track {
+      background-color: $theme-page-background !important;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: rgba($medium-theme-color, .3) !important;
+    }
+  }
+
   .menu-container {
     display: grid;
     grid-template-rows: 1fr;
@@ -43,10 +54,6 @@
       overflow-y: scroll;
       background-color: $theme-page-background;
       border-top-left-radius: 1.6em;
-
-      &::-webkit-scrollbar-track {
-        background-color: $theme-page-background;
-      }
 
       &.--with-page-controls {
         bottom: 30px;

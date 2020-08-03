@@ -6,77 +6,78 @@ import actions from '../../../../redux/actions/actions';
 import UIElementTitle from '../../../../components/UIElementTitle/UIElementTitle';
 import UIRsuiteTable from '../../../../components/UIRsuiteTable/UIRsuiteTable';
 import tableDefaultConfig from '../../../../components/UIRsuiteTable/tableDeafultConfig';
-import { usersTableConfig } from './settings';
+import templatesTableConfig from './settings';
 import WarningIcon from '../../../../static/images/warning-24px.svg';
-import UserEditor from './common/UserEditor';
+import TemplateEditor from './common/TemplateEditor';
 
-function UsersTab(props) {
+function TemplatesTab(props) {
   const {
-    users,
-    usersTableStore,
-    usersTableTemplate,
+    templates,
+    templatesTableStore,
+    templatesTableTemplate,
     settingsStoreSetSection,
-    settingsStoreGetUsers,
-    settingsStoreGetUsersCancel,
-    settingsStoreSetUsersTableStoreSection,
-    settingsStoreSetUsersTableTemplateSection,
-    settingsStoreRemoveUser,
-    settingsStoreRemoveUserCancel,
+    settingsStoreGetTemplates,
+    settingsStoreGetTemplatesCancel,
+    settingsStoreSetTemplatesTableStoreSection,
+    settingsStoreSetTemplatesTableTemplateSection,
+    settingsStoreRemoveTemplate,
+    settingsStoreRemoveTemplateCancel,
+    settingsStoreGetTemplateVar,
+    settingsStoreGetTemplateVarCancel,
     popUpStoreSetSection,
     modalStoreSetSection,
   } = props || {};
 
   const handleRefresh = React.useCallback(() => {
-    settingsStoreGetUsers();
-  }, [settingsStoreGetUsers]);
+    settingsStoreGetTemplates();
+  }, [settingsStoreGetTemplates]);
 
   const handleEdit = React.useCallback((value) => {
-    const { userID } = value || {};
+    const { id } = value || {};
     popUpStoreSetSection({
       show: true,
-      component: <UserEditor id={userID} />,
+      component: <TemplateEditor id={id} />,
       type: '--horizontal-right-25 --rounded',
     });
   }, [popUpStoreSetSection]);
 
-  const removeUser = React.useCallback((value) => {
-    const { userID } = value || {};
-    settingsStoreRemoveUser(userID);
-  }, [settingsStoreRemoveUser]);
+  const removeTemplate = React.useCallback((value) => {
+    const { id } = value || {};
+    settingsStoreRemoveTemplate(id);
+  }, [settingsStoreRemoveTemplate]);
 
   const handleRemove = React.useCallback((value) => {
-    const { fio } = value || {};
+    const { name } = value || {};
     modalStoreSetSection({
       show: true,
       outputBody: {
         icon: <WarningIcon />,
         title: 'Важно',
-        body: <div>{`Подтверждаете удаление ${fio ? `пользователя "${fio}"` : 'этого пользователя'}?`}</div>,
+        body: <div>{`Подтверждаете удаление ${name ? `шаблона "${name}"` : 'этого шаблона'}?`}</div>,
       },
       data: value,
       asyncClose: true,
-      callback: removeUser,
+      callback: removeTemplate,
     });
-  }, [modalStoreSetSection, removeUser]);
+  }, [modalStoreSetSection, removeTemplate]);
 
   const handleAdd = React.useCallback(() => {
     popUpStoreSetSection({
       show: true,
-      component: <UserEditor />,
+      component: <TemplateEditor />,
       hidePageControl: true,
       type: '--horizontal-right-25 --rounded',
     });
   }, [popUpStoreSetSection]);
 
   React.useEffect(() => {
-    if (!usersTableTemplate || !usersTableStore) {
+    if (!templatesTableTemplate || !templatesTableStore) {
       settingsStoreSetSection({
-        usersTableTemplate: usersTableConfig,
-        usersTableStore: {
+        templatesTableTemplate: templatesTableConfig,
+        templatesTableStore: {
           ...tableDefaultConfig,
           tableRowHeight: 36,
           filter: false,
-          customId: 'userID',
           actions: [
             {
               id: 0,
@@ -99,8 +100,8 @@ function UsersTab(props) {
       });
     }
   }, [
-    usersTableStore,
-    usersTableTemplate,
+    templatesTableStore,
+    templatesTableTemplate,
     settingsStoreSetSection,
     handleRefresh,
     handleEdit,
@@ -108,27 +109,30 @@ function UsersTab(props) {
   ]);
 
   React.useEffect(() => {
-    settingsStoreGetUsers();
-  }, [settingsStoreGetUsers]);
+    settingsStoreGetTemplates();
+    settingsStoreGetTemplateVar();
+  }, [settingsStoreGetTemplates, settingsStoreGetTemplateVar]);
 
   React.useEffect(() => () => {
-    settingsStoreGetUsersCancel();
-    settingsStoreRemoveUserCancel();
+    settingsStoreGetTemplatesCancel();
+    settingsStoreRemoveTemplateCancel();
+    settingsStoreGetTemplateVarCancel();
   }, [
-    settingsStoreGetUsersCancel,
-    settingsStoreRemoveUserCancel,
+    settingsStoreGetTemplatesCancel,
+    settingsStoreRemoveTemplateCancel,
+    settingsStoreGetTemplateVarCancel,
   ]);
 
   return (
-    <div className="settings-page__users-tab">
+    <div className="settings-page__templates-tab">
       <div className="element-wrapper --fullscreen">
-        <UIElementTitle title="Пользователи" />
+        <UIElementTitle title="Шаблоны" />
         <UIRsuiteTable
-          tableStore={usersTableStore}
-          tableStoreSetSection={settingsStoreSetUsersTableStoreSection}
-          tableTemplate={usersTableTemplate}
-          tableTemplateSetSection={settingsStoreSetUsersTableTemplateSection}
-          tableData={users}
+          tableStore={templatesTableStore}
+          tableStoreSetSection={settingsStoreSetTemplatesTableStoreSection}
+          tableTemplate={templatesTableTemplate}
+          tableTemplateSetSection={settingsStoreSetTemplatesTableTemplateSection}
+          tableData={templates}
         />
         <div className="add-block">
           <Button
@@ -147,11 +151,11 @@ function UsersTab(props) {
 }
 
 const mapStateToProps = (state) => ({
-  users: state.settingsStore.users,
-  usersTableStore: state.settingsStore.usersTableStore,
-  usersTableTemplate: state.settingsStore.usersTableTemplate,
+  templates: state.settingsStore.templates,
+  templatesTableStore: state.settingsStore.templatesTableStore,
+  templatesTableTemplate: state.settingsStore.templatesTableTemplate,
 });
 
 const mapDispatchToProps = { ...actions };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersTab);
+export default connect(mapStateToProps, mapDispatchToProps)(TemplatesTab);

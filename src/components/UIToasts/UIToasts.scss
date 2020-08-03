@@ -4,11 +4,15 @@
   bottom: 20px;
   position: fixed;
   right: 14px;
-  width: 240px;
+  width: 20%;
   z-index: 11;
 
+  @media screen and (max-width: 1500px) {
+    width: 30%;
+  }
+
   @media screen and (max-width: 767px) {
-    width: calc(50% - 2.4em);
+    width: calc(100% - 2.4em);
     right: 1.2em;
   }
 
@@ -17,9 +21,19 @@
     border-radius: .8em;
     color: $white;
     display: flex;
-    padding: 1em 1.5em;
-    margin-bottom: .5em;
+    padding: .8em 1em;
     font-size: .7em;
+
+    &__title {
+      font-size: 1.3em;
+      margin-bottom: .3em;
+    }
+
+    svg {
+      fill: currentColor;
+      width: 1.5em;
+      height: 1.5em;
+    }
 
     &.success {
       background-color: rgba($success-color, .85);
@@ -29,34 +43,33 @@
       background-color: rgba($error-color, .85);
     }
 
-    &:not(:last-child) {
-      margin: 0 0 1.2em;
-    }
-
     &__content {
       flex: 1 1 auto;
-      margin: 0 1.2em 0 0;
+      margin: 0 1.2em;
       overflow: hidden;
       text-overflow: ellipsis;
+      font-size: .9em;
 
       ul {
 
         li {
-          margin: .5em 0;
+          line-height: 1.2em;
+        }
+
+        li:not(:last-of-type) {
+          margin-bottom: .4em;
         }
       }
     }
 
     &__dismiss {
-      -webkit-appearance: none;
-      -moz-appearance: none;
       background: transparent;
       border: 0;
       color: inherit;
       cursor: pointer;
       display: block;
       flex: 0 0 auto;
-      font: inherit;
+      font-size: 1.1em;
       padding: 0;
       user-select: none;
     }

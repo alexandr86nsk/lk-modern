@@ -47,7 +47,7 @@ function* settingsStoreSaveSettings(value) {
         trySaveSettings: false,
         settings: res,
       }));
-      yield setSuccessToast('Настройки успешно сохранены');
+      yield setSuccessToast('Настройки сохранены.');
     },
     function* () {
       yield put(actions.settingsStoreSetSection({
@@ -73,15 +73,7 @@ function* settingsStoreGetUsers() {
     null,
     function* (res) {
       yield put(actions.settingsStoreSetSection({
-        users: [
-          ...res,
-          ...res,
-          ...res,
-          ...res,
-          ...res,
-          ...res,
-          ...res,
-        ],
+        users: res,
       }));
       yield put(actions.settingsStoreSetUsersTableStoreSection({
         tableLoading: false,
@@ -131,4 +123,209 @@ export function* canBeCanceledSettingsStoreGetUserInfo(action) {
   const bgSettingsStoreGetUserInfo = yield fork(settingsStoreGetUserInfo, action.value);
   yield take('SETTINGS_STORE_GET_USER_INFO_CANCEL');
   yield cancel(bgSettingsStoreGetUserInfo);
+}
+
+/* ***************************** settingsStoreSaveUser ********************** */
+function* settingsStoreSaveUser(value) {
+  yield put(actions.settingsStoreSetSection({
+    trySaveUser: true,
+  }));
+  yield queryResultAnalysis(
+    (value.id || value.id === 0) ? api.settingsStoreSaveUser : api.settingsStoreAddUser,
+    value,
+    function* () {
+      yield put(actions.settingsStoreSetSection({
+        trySaveUser: false,
+      }));
+      yield (setSuccessToast(`Пользователь ${(value.id || value.id === 0) ? 'сохранен' : 'добавлен'}.`));
+    },
+    function* () {
+      yield put(actions.settingsStoreSetSection({
+        trySaveUser: false,
+      }));
+    },
+  );
+}
+
+export function* canBeCanceledSettingsStoreSaveUser(action) {
+  const bgSettingsStoreSaveUser = yield fork(settingsStoreSaveUser, action.value);
+  yield take('SETTINGS_STORE_SAVE_USER_CANCEL');
+  yield cancel(bgSettingsStoreSaveUser);
+}
+
+/* ***************************** settingsStoreRemoveUser ********************** */
+function* settingsStoreRemoveUser(value) {
+  yield put(actions.modalStoreSetSection({
+    loading: true,
+    loadingText: 'Удаляем пользователя...',
+  }));
+  yield queryResultAnalysis(
+    api.settingsStoreRemoveUser,
+    value,
+    function* () {
+      yield put(actions.modalStoreSetSection({
+        show: false,
+      }));
+      yield (setSuccessToast('Пользователь удален.'));
+    },
+    function* () {
+      yield put(actions.modalStoreSetSection({
+        loading: false,
+        loadingText: '',
+      }));
+    },
+  );
+}
+
+export function* canBeCanceledSettingsStoreRemoveUser(action) {
+  const bgSettingsStoreRemoveUser = yield fork(settingsStoreRemoveUser, action.value);
+  yield take('SETTINGS_STORE_REMOVE_USER_CANCEL');
+  yield cancel(bgSettingsStoreRemoveUser);
+}
+
+/* ***************************** settingsStoreGetTemplates ********************** */
+function* settingsStoreGetTemplates() {
+  yield put(actions.settingsStoreSetTemplatesTableStoreSection({
+    tableLoading: true,
+  }));
+  yield queryResultAnalysis(
+    api.settingsStoreGetTemplates,
+    null,
+    function* (res) {
+      yield put(actions.settingsStoreSetSection({
+        templates: res,
+      }));
+      yield put(actions.settingsStoreSetTemplatesTableStoreSection({
+        tableLoading: false,
+      }));
+    },
+    function* () {
+      yield put(actions.settingsStoreSetSection({
+        templates: [],
+      }));
+      yield put(actions.settingsStoreSetTemplatesTableStoreSection({
+        tableLoading: false,
+      }));
+    },
+  );
+}
+
+export function* canBeCanceledSettingsStoreGetTemplates() {
+  const bgSettingsStoreGetTemplates = yield fork(settingsStoreGetTemplates);
+  yield take('SETTINGS_STORE_GET_TEMPLATES_CANCEL');
+  yield cancel(bgSettingsStoreGetTemplates);
+}
+
+/* ***************************** settingsStoreGetTemplateInfo ********************** */
+function* settingsStoreGetTemplateInfo(value) {
+  yield put(actions.settingsStoreSetSection({
+    templateInfoLoading: true,
+  }));
+  yield queryResultAnalysis(
+    api.settingsStoreGetTemplateInfo,
+    value,
+    function* (res) {
+      yield put(actions.settingsStoreSetSection({
+        templateInfo: res,
+        templateInfoLoading: false,
+      }));
+    },
+    function* () {
+      yield put(actions.settingsStoreSetSection({
+        templateInfo: {},
+        templateInfoLoading: false,
+      }));
+    },
+  );
+}
+
+export function* canBeCanceledSettingsStoreGetTemplateInfo(action) {
+  const bgSettingsStoreGetTemplateInfo = yield fork(settingsStoreGetTemplateInfo, action.value);
+  yield take('SETTINGS_STORE_GET_TEMPLATE_INFO_CANCEL');
+  yield cancel(bgSettingsStoreGetTemplateInfo);
+}
+
+/* ***************************** settingsStoreSaveTemplate ********************** */
+function* settingsStoreSaveTemplate(value) {
+  yield put(actions.settingsStoreSetSection({
+    trySaveTemplate: true,
+  }));
+  yield queryResultAnalysis(
+    (value.id || value.id === 0) ? api.settingsStoreSaveTemplate : api.settingsStoreAddTemplate,
+    value,
+    function* () {
+      yield put(actions.settingsStoreSetSection({
+        trySaveTemplate: false,
+      }));
+      yield (setSuccessToast(`Шаблон ${(value.id || value.id === 0) ? 'сохранен' : 'добавлен'}.`));
+    },
+    function* () {
+      yield put(actions.settingsStoreSetSection({
+        trySaveTemplate: false,
+      }));
+    },
+  );
+}
+
+export function* canBeCanceledSettingsStoreSaveTemplate(action) {
+  const bgSettingsStoreSaveTemplate = yield fork(settingsStoreSaveTemplate, action.value);
+  yield take('SETTINGS_STORE_SAVE_TEMPLATE_CANCEL');
+  yield cancel(bgSettingsStoreSaveTemplate);
+}
+
+/* ***************************** settingsStoreRemoveTemplate ********************** */
+function* settingsStoreRemoveTemplate(value) {
+  yield put(actions.modalStoreSetSection({
+    loading: true,
+    loadingText: 'Удаляем шаблон...',
+  }));
+  yield queryResultAnalysis(
+    api.settingsStoreRemoveTemplate,
+    value,
+    function* () {
+      yield put(actions.modalStoreSetSection({
+        show: false,
+      }));
+      yield (setSuccessToast('Шаблон удален.'));
+    },
+    function* () {
+      yield put(actions.modalStoreSetSection({
+        loading: false,
+        loadingText: '',
+      }));
+    },
+  );
+}
+
+export function* canBeCanceledSettingsStoreRemoveTemplate(action) {
+  const bgSettingsStoreRemoveTemplate = yield fork(settingsStoreRemoveTemplate, action.value);
+  yield take('SETTINGS_STORE_REMOVE_TEMPLATE_CANCEL');
+  yield cancel(bgSettingsStoreRemoveTemplate);
+}
+
+/* ***************************** settingsStoreGetTemplateVar ********************** */
+function* settingsStoreGetTemplateVar() {
+  yield put(actions.settingsStoreSetSection({
+    trySaveTemplate: true,
+  }));
+  yield queryResultAnalysis(
+    api.settingsStoreGetTemplateVar,
+    null,
+    function* (res) {
+      yield put(actions.settingsStoreSetSection({
+        templateVar: res,
+      }));
+    },
+    function* () {
+      yield put(actions.settingsStoreSetSection({
+        templateVar: [],
+      }));
+    },
+  );
+}
+
+export function* canBeCanceledSettingsStoreGetTemplateVar() {
+  const bgSettingsStoreGetTemplateVar = yield fork(settingsStoreGetTemplateVar);
+  yield take('SETTINGS_STORE_GET_TEMPLATE_VAR_CANCEL');
+  yield cancel(bgSettingsStoreGetTemplateVar);
 }

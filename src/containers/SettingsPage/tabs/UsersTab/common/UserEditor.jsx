@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Button, Icon } from 'semantic-ui-react';
 import actions from '../../../../../redux/actions/actions';
 import UILoader from '../../../../../components/UILoader/UILoader';
-import UIElementTitle from '../../../../../components/UIElementTitle/UIElementTitle';
 import UIAnimateHeightBlock from '../../../../../components/UIAnimateHeightBlock/UIAnimateHeightBlock';
 import formGenerator from '../../../../../components/utilities/formGenerator';
 import {
   userInfoBankTemplate,
   userInfoMainTemplate,
   userInfoOtherTemplate,
-  userInfoPassportTemplate
+  userInfoPassportTemplate,
 } from '../settings';
 
 function UserEditor(props) {
@@ -20,7 +20,9 @@ function UserEditor(props) {
     settingsStoreSetUserInfoSection,
     settingsStoreGetUserInfo,
     settingsStoreGetUserInfoCancel,
+    settingsStoreSaveUser,
     settingsStoreSaveUserCancel,
+    settingsStoreClearUserInfo,
   } = props;
 
   React.useEffect(() => {
@@ -32,10 +34,16 @@ function UserEditor(props) {
   React.useEffect(() => () => {
     settingsStoreGetUserInfoCancel();
     settingsStoreSaveUserCancel();
+    settingsStoreClearUserInfo();
   }, [
+    settingsStoreClearUserInfo,
     settingsStoreGetUserInfoCancel,
     settingsStoreSaveUserCancel,
   ]);
+
+  const handleSaveUser = React.useCallback(() => {
+    settingsStoreSaveUser(userInfo);
+  }, [userInfo, settingsStoreSaveUser]);
 
   const handleChangeValue = React.useCallback((editName, editValue) => {
     settingsStoreSetUserInfoSection({
@@ -95,7 +103,9 @@ function UserEditor(props) {
 
   return (
     <div className="settings-page__add-user-popup">
-      <UIElementTitle title={id ? 'Редактирование пользователя' : 'Добавление пользователя'} />
+      <div className="add-user-popup__title">
+        <span className="ellipsis-element">{id ? 'Редактирование пользователя' : 'Добавление пользователя'}</span>
+      </div>
       <div className="add-user-popup__body">
         {userInfoLoading && (
           <div className="add-user-popup__loader">
@@ -103,29 +113,41 @@ function UserEditor(props) {
           </div>
         )}
         {!userInfoLoading && (
-          <div className="add-user-popup__table">
-            <UIAnimateHeightBlock
-              title="Основные данные"
-              body={mainBlock}
-              blockName="main"
-            />
-            <UIAnimateHeightBlock
-              title="Паспортные данные"
-              body={passportBlock}
-              blockName="passport"
-            />
-            <UIAnimateHeightBlock
-              title="Дополнительная информация"
-              body={otherBlock}
-              blockName="other"
-            />
-            <UIAnimateHeightBlock
-              title="Банковские реквизиты"
-              body={bankBlock}
-              blockName="bank"
-            />
-          </div>
+            <div className="add-user-popup__table">
+              <UIAnimateHeightBlock
+                title="Основные данные"
+                body={mainBlock}
+                blockName="main"
+              />
+              <UIAnimateHeightBlock
+                title="Паспортные данные"
+                body={passportBlock}
+                blockName="passport"
+              />
+              <UIAnimateHeightBlock
+                title="Дополнительная информация"
+                body={otherBlock}
+                blockName="other"
+              />
+              <UIAnimateHeightBlock
+                title="Банковские реквизиты"
+                body={bankBlock}
+                blockName="bank"
+              />
+            </div>
         )}
+      </div>
+      <div className="add-user-popup__btn">
+        <Button
+          circular
+          positive
+          size="small"
+          disabled={userInfoLoading}
+          onClick={handleSaveUser}
+        >
+          <Icon name="check" />
+          {id ? 'Сохранить' : 'Добавить'}
+        </Button>
       </div>
     </div>
   );

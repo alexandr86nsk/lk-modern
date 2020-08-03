@@ -91,9 +91,6 @@ function UISidebarItem(props) {
       const subTarget = subMenuListElem.current;
       const coords = target.getBoundingClientRect();
       const subCoords = subTarget.getBoundingClientRect();
-      console.log('offsetWidth', target.offsetWidth);
-      console.log('coords', coords);
-      console.log('subCoords', subCoords);
       const { top, bottom } = coords;
       if (coords.bottom > subCoords.height) {
         return {

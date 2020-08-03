@@ -67,17 +67,26 @@ function UIRsuiteTableBody(props) {
       }
     }
     function handleClickMouse(event) {
-      if (contextMenuRef.current && !contextMenuRef.current.contains(event.target)) {
+      const { current } = contextMenuRef || {};
+      if (current && !current.contains(event.target)) {
         if (contextMenuData) {
           setContextMenuData(null);
         }
       }
     }
+    function handleScroll(e) {
+      const { current } = contextMenuRef || {};
+      if (e.target.contains(current)) {
+        setContextMenuData(null);
+      }
+    }
     document.addEventListener('keydown', handleClickEscape);
     document.addEventListener('mousedown', handleClickMouse);
+    document.addEventListener('scroll', handleScroll, true);
     return () => {
       document.removeEventListener('keydown', handleClickEscape);
       document.removeEventListener('mousedown', handleClickMouse);
+      document.removeEventListener('scroll', handleScroll, true);
     };
   }, [contextMenuData]);
 
@@ -151,19 +160,20 @@ function UIRsuiteTableBody(props) {
     }
 
     if (contextMenu) {
+      const { current } = contextMenuRef || {};
       const menuStyle = {
         visibility: 'unset',
         transform: 'unset',
-        left: document.body.offsetWidth - e.clientX - contextMenuRef.current.offsetWidth > 0
+        left: document.body.offsetWidth - e.clientX - current.offsetWidth > 0
           ? `${e.clientX}px`
           : undefined,
-        right: document.body.offsetWidth - e.clientX - contextMenuRef.current.offsetWidth < 0
+        right: document.body.offsetWidth - e.clientX - current.offsetWidth < 0
           ? `${document.body.offsetWidth - e.clientX}px`
           : undefined,
-        top: document.body.offsetHeight - e.clientY - contextMenuRef.current.offsetHeight > 0
+        top: document.body.offsetHeight - e.clientY - current.offsetHeight > 0
           ? `${e.button === 0 ? (e.clientY + 7) : e.clientY}px`
           : undefined,
-        bottom: document.body.offsetHeight - e.clientY - contextMenuRef.current.offsetHeight < 0
+        bottom: document.body.offsetHeight - e.clientY - current.offsetHeight < 0
           ? `${e.button === 0 ? (document.body.offsetHeight - e.clientY + 7) : document.body.offsetHeight - e.clientY}px`
           : undefined,
       };

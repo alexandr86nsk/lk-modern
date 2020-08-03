@@ -25,7 +25,7 @@ function UIRsuiteTable(props) {
     onRowDoubleClick,
     pagination,
     paginationPageNeighbours,
-    paginationCurrentPage,
+    paginationCurrentPage = 1,
     paginationNumberOfItemsToPage,
     paginationTotalItems,
     filter,
@@ -96,14 +96,15 @@ function UIRsuiteTable(props) {
   }, [tableBodySize, tableTemplate]);
 
   React.useEffect(() => {
+    const { current } = tableBodyRef || {};
     function handleResize() {
       setTableBodySize({
         width: 0,
         height: 0,
       });
       setTableBodySize({
-        width: tableBodyRef.current.offsetWidth,
-        height: tableBodyRef.current.offsetHeight,
+        width: current.offsetWidth,
+        height: current.offsetHeight,
       });
     }
     window.addEventListener('resize', handleResize);
@@ -121,7 +122,7 @@ function UIRsuiteTable(props) {
   }, [tableStoreSetSection, paginationNumberOfItemsToPage]);
 
   const memoizedTableData = React.useMemo(() => {
-    let result;
+    let result = tableData;
     if (!searchServerSide && searchString) {
       result = tableData.filter((v) => Object.keys(v).some((key) => {
         if ((v[key] || v[key] === 0) && tableTemplate.some((w) => w.dataKey === key)) {
@@ -137,8 +138,6 @@ function UIRsuiteTable(props) {
         }
         return false;
       }));
-    } else {
-      result = tableData;
     }
 
     if (!sortServerSide) {

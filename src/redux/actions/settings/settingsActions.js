@@ -14,6 +14,7 @@ export const settingsStoreClear = () => ({
   type: 'SETTINGS_STORE_CLEAR',
 });
 
+/* ************************** settings **************************** */
 export const settingsStoreGetSettings = () => ({
   type: 'SETTINGS_STORE_GET_SETTINGS',
 });
@@ -36,6 +37,7 @@ export const settingsStoreSaveSettingsCancel = () => ({
   type: 'SETTINGS_STORE_SAVE_SETTINGS_CANCEL',
 });
 
+/* ************************** users **************************** */
 export const settingsStoreGetUsers = () => ({
   type: 'SETTINGS_STORE_GET_USERS',
 });
@@ -66,4 +68,89 @@ export const settingsStoreGetUserInfoCancel = () => ({
 export const settingsStoreSetUserInfoSection = (value) => ({
   type: 'SETTINGS_STORE_SET_USER_INFO_SECTION',
   value,
+});
+
+export const settingsStoreSaveUser = (value) => ({
+  type: 'SETTINGS_STORE_SAVE_USER',
+  value,
+});
+
+export const settingsStoreSaveUserCancel = () => ({
+  type: 'SETTINGS_STORE_SAVE_USER_CANCEL',
+});
+
+export const settingsStoreRemoveUser = (value) => ({
+  type: 'SETTINGS_STORE_REMOVE_USER',
+  value,
+});
+
+export const settingsStoreRemoveUserCancel = () => ({
+  type: 'SETTINGS_STORE_REMOVE_USER_CANCEL',
+});
+
+export const settingsStoreClearUserInfo = () => ({
+  type: 'SETTINGS_STORE_CLEAR_USER_INFO',
+});
+
+/* ************************** templates **************************** */
+export const settingsStoreGetTemplates = () => ({
+  type: 'SETTINGS_STORE_GET_TEMPLATES',
+});
+
+export const settingsStoreGetTemplatesCancel = () => ({
+  type: 'SETTINGS_STORE_GET_TEMPLATES_CANCEL',
+});
+
+export const settingsStoreSetTemplatesTableStoreSection = (value) => ({
+  type: 'SETTINGS_STORE_SET_TEMPLATES_TABLE_STORE_SECTION',
+  value,
+});
+
+export const settingsStoreSetTemplatesTableTemplateSection = (value) => ({
+  type: 'SETTINGS_STORE_SET_TEMPLATES_TABLE_TEMPLATE_SECTION',
+  value,
+});
+
+export const settingsStoreGetTemplateInfo = (value) => ({
+  type: 'SETTINGS_STORE_GET_TEMPLATE_INFO',
+  value,
+});
+
+export const settingsStoreGetTemplateInfoCancel = () => ({
+  type: 'SETTINGS_STORE_GET_TEMPLATE_INFO_CANCEL',
+});
+
+export const settingsStoreSetTemplateInfoSection = (value) => ({
+  type: 'SETTINGS_STORE_SET_TEMPLATE_INFO_SECTION',
+  value,
+});
+
+export const settingsStoreSaveTemplate = (value) => ({
+  type: 'SETTINGS_STORE_SAVE_TEMPLATE',
+  value,
+});
+
+export const settingsStoreSaveTemplateCancel = () => ({
+  type: 'SETTINGS_STORE_SAVE_TEMPLATE_CANCEL',
+});
+
+export const settingsStoreRemoveTemplate = (value) => ({
+  type: 'SETTINGS_STORE_REMOVE_TEMPLATE',
+  value,
+});
+
+export const settingsStoreRemoveTemplateCancel = () => ({
+  type: 'SETTINGS_STORE_REMOVE_TEMPLATE_CANCEL',
+});
+
+export const settingsStoreClearTemplateInfo = () => ({
+  type: 'SETTINGS_STORE_CLEAR_TEMPLATE_INFO',
+});
+
+export const settingsStoreGetTemplateVar = () => ({
+  type: 'SETTINGS_STORE_GET_TEMPLATE_VAR',
+});
+
+export const settingsStoreGetTemplateVarCancel = () => ({
+  type: 'SETTINGS_STORE_GET_TEMPLATE_VAR_CANCEL',
 });

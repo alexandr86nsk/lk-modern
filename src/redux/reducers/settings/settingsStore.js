@@ -57,6 +57,45 @@ export default function settingsStore(state = initialSettingsStore, action) {
           ...action.value,
         },
       };
+    case 'SETTINGS_STORE_CLEAR_USER_INFO':
+      return {
+        ...state,
+        userInfo: {},
+      };
+    case 'SETTINGS_STORE_SET_TEMPLATES_TABLE_STORE_SECTION':
+      return {
+        ...state,
+        templatesTableStore: {
+          ...state.templatesTableStore,
+          ...action.value,
+        },
+      };
+    case 'SETTINGS_STORE_STORE_SET_TEMPLATES_TABLE_TEMPLATE_SECTION':
+      return {
+        ...state,
+        templatesTableTemplate: state.templatesTableTemplate.map((v) => {
+          if (v.dataKey === action.value.dataKey) {
+            return {
+              ...v,
+              ...action.value,
+            };
+          }
+          return v;
+        }),
+      };
+    case 'SETTINGS_STORE_SET_TEMPLATE_INFO_SECTION':
+      return {
+        ...state,
+        templateInfo: {
+          ...state.templateInfo,
+          ...action.value,
+        },
+      };
+    case 'SETTINGS_STORE_CLEAR_TEMPLATE_INFO':
+      return {
+        ...state,
+        templateInfo: {},
+      };
     case 'SETTINGS_STORE_CLEAR':
       return initialSettingsStore;
     default:

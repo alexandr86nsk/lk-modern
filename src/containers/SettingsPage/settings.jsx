@@ -1,6 +1,7 @@
 import React from 'react';
 import SettingsTab from './tabs/SettingsTab/SettingsTab';
 import UsersTab from './tabs/UsersTab/UsersTab';
+import TemplatesTab from './tabs/TemplatesTab/TemplatesTab';
 
 const settingsTabs = [
   {
@@ -16,7 +17,7 @@ const settingsTabs = [
   {
     id: 2,
     title: 'Шаблоны СМС',
-    item: <SettingsTab />,
+    item: <TemplatesTab />,
   },
 ];
 
