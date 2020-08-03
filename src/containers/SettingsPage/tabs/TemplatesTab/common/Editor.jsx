@@ -1,5 +1,29 @@
 import React from 'react';
 
+const MenuItem = (props) => {
+  const {
+    description,
+    name,
+    callback,
+  } = props || {};
+
+  const handleClick = React.useCallback(() => {
+    if (callback) {
+      callback(name);
+    }
+  }, [name, callback]);
+
+  return (
+    <div
+      role="presentation"
+      className="context-menu__item"
+      onClick={handleClick}
+    >
+      <span className="text" aria-hidden>{description || ''}</span>
+    </div>
+  );
+};
+
 function Editor(props) {
   const {
     name,
@@ -8,14 +32,40 @@ function Editor(props) {
     templateVar,
   } = props;
 
+  const textareaRef = React.useRef(null);
   const contextMenuRef = React.useRef(null);
   const [contextMenuStyle, setContextMenuStyle] = React.useState(null);
+  const [cursorPosition, setCursorPosition] = React.useState(null);
 
   const handleChange = React.useCallback((event) => {
     if (callback) {
       callback(name, event.target.value);
     }
   }, [callback, name]);
+
+  const handleInsertVar = React.useCallback((value) => {
+    if (cursorPosition && callback) {
+      const {
+        start,
+        end,
+      } = cursorPosition || {};
+      const {
+        current,
+      } = textareaRef || {};
+      callback(
+        name,
+        data.substring(0, start) + value + data.substring(end),
+      );
+      current.focus();
+      setTimeout(() => { current.selectionEnd = end + value.length; }, 0);
+      setContextMenuStyle(null);
+    }
+  }, [
+    name,
+    data,
+    callback,
+    cursorPosition,
+  ]);
 
   React.useEffect(() => {
     function handleClickEscape(event) {
@@ -51,26 +101,10 @@ function Editor(props) {
 
   const renderContextMenu = React.useMemo(() => {
     if (templateVar && Array.isArray(templateVar)) {
-      return templateVar.map((v) => {
-        const {
-          id,
-          description,
-          name,
-        } = v || {};
-        return (
-          <div
-            key={id}
-            role="presentation"
-            className="context-menu__item"
-            onClick={() => {}}
-          >
-            <span className="text" aria-hidden>{description || ''}</span>
-          </div>
-        );
-      });
+      return templateVar.map((v) => <MenuItem key={v.id} {...v} callback={handleInsertVar} />);
     }
     return null;
-  }, [templateVar]);
+  }, [templateVar, handleInsertVar]);
 
   const handleSetContextMenuStyle = React.useCallback((e) => {
     e.preventDefault();
@@ -79,6 +113,7 @@ function Editor(props) {
     const menuStyle = {
       visibility: 'unset',
       transform: 'unset',
+      opacity: '1',
       left: document.body.offsetWidth - e.clientX - current.offsetWidth > 0
         ? `${e.clientX}px`
         : undefined,
@@ -92,6 +127,10 @@ function Editor(props) {
         ? `${e.button === 0 ? (document.body.offsetHeight - e.clientY + 7) : document.body.offsetHeight - e.clientY}px`
         : undefined,
     };
+    setCursorPosition({
+      start: e.target.selectionStart,
+      end: e.target.selectionEnd,
+    });
     setContextMenuStyle(menuStyle);
   }, []);
 
@@ -102,9 +141,10 @@ function Editor(props) {
         onChange={handleChange}
         value={(data || data === 0) ? data : ''}
         onContextMenu={handleSetContextMenuStyle}
+        ref={textareaRef}
       />
       <div
-        className="add-template-popup__context-menu menu transition font-type-m-12"
+        className="add-template-popup__context-menu menu transition"
         style={contextMenuStyle}
         ref={contextMenuRef}
       >

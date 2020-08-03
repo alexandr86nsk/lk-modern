@@ -253,7 +253,7 @@ function UIRsuiteTableBody(props) {
           {memoizedTableColumns}
         </Table>
         <div
-          className="ui-rsuite-table__context-menu menu transition font-type-m-12"
+          className="ui-rsuite-table__context-menu menu transition"
           style={contextMenuData && contextMenuData.menuStyle}
           ref={contextMenuRef}
         >

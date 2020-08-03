@@ -3,11 +3,12 @@
 .App {
   display: flex;
   height: 100vh;
+  overflow: hidden;
 
   * {
 
     ::-webkit-scrollbar-track {
-      background-color: $theme-page-background !important;
+      background-color: $white !important;
     }
 
     ::-webkit-scrollbar-thumb {
@@ -53,7 +54,7 @@
       padding: 2em 3em;
       overflow-y: scroll;
       background-color: $theme-page-background;
-      border-top-left-radius: 1.6em;
+      border-radius: 1.6em 0 0 1.6em;
 
       &.--with-page-controls {
         bottom: 30px;
