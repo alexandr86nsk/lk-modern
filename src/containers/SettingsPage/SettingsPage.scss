@@ -40,6 +40,55 @@
       &__editor {
         width: 100%;
         height: 100%;
+
+        .backdrop,
+        textarea {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          padding: 1.2em;
+          outline: none;
+          line-height: 1.8em;
+          overflow-wrap: break-word;
+          display: inline-block;
+          align-items: center;
+          border: 1px solid rgba($theme-border-color, .5);
+          border-radius: .3em;
+          transition: border-color .15s ease-in-out;
+          overflow-x: hidden;
+          overflow-y: scroll;
+        }
+
+        .backdrop {
+          z-index: 1;
+          background-color: $white;
+          pointer-events: none;
+        }
+
+        .highlights {
+          white-space: pre-wrap;
+          word-wrap: break-word;
+          color: transparent;
+        }
+
+        textarea {
+          z-index: 2;
+          background-color: transparent;
+          resize: none;
+
+          &:focus {
+            box-shadow: 1px 2px 5px rgba($medium-theme-color, .5),
+            -1px 2px 5px rgba($medium-theme-color, .2);
+            border-color: transparent;
+          }
+        }
+
+        mark {
+          border-radius: .3em;
+          color: transparent;
+          padding: .3em 0;
+          background-color: rgba($light-theme-color, .3);
+        }
       }
 
       &__context-menu {
@@ -74,7 +123,7 @@
           white-space: nowrap;
 
           &:hover {
-            background: rgba(0,0,0,.05);
+            background: rgba(0, 0, 0, .05);
             z-index: 13;
           }
 
@@ -82,23 +131,6 @@
             margin-right: 0.76923077rem;
           }
         }
-      }
-
-      &__textarea {
-        padding: .6em 1.2em;
-        width: 100%;
-        height: 100%;
-        resize: vertical;
-        outline: none;
-        overflow-wrap: break-word;
-        display: inline-block;
-        align-items: center;
-        line-height: 1.5em;
-        background-color: $white;
-        background-clip: padding-box;
-        border: 1px solid rgba($theme-border-color, .5);
-        border-radius: 6px;
-        transition: border-color .15s ease-in-out;
       }
 
       &__title {
@@ -169,6 +201,15 @@
             grid-gap: .2em;
           }
         }
+      }
+    }
+
+    .add-template-popup {
+
+      &__table {
+        overflow: unset;
+        left: .7em;
+        right: .7em;
       }
     }
   }

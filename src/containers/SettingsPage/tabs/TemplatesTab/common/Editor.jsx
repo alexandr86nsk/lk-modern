@@ -34,14 +34,29 @@ function Editor(props) {
 
   const textareaRef = React.useRef(null);
   const contextMenuRef = React.useRef(null);
+  const highlightsRef = React.useRef(null);
+  const backdropRef = React.useRef(null);
   const [contextMenuStyle, setContextMenuStyle] = React.useState(null);
   const [cursorPosition, setCursorPosition] = React.useState(null);
+
+  const applyHighlights = React.useCallback((text) => {
+    return text
+      .replace(/\n$/g, '\n\n')
+      .replace(/{[A-Za-z0-9_]*}/g, '<mark>$&</mark>');
+  }, []);
 
   const handleChange = React.useCallback((event) => {
     if (callback) {
       callback(name, event.target.value);
     }
   }, [callback, name]);
+
+  React.useEffect(() => {
+    if (data) {
+      const { current } = highlightsRef || {};
+      current.innerHTML = applyHighlights(data);
+    }
+  }, [applyHighlights, data]);
 
   const handleInsertVar = React.useCallback((value) => {
     if (cursorPosition && callback) {
@@ -84,9 +99,12 @@ function Editor(props) {
       }
     }
     function handleScroll(e) {
-      const { current } = contextMenuRef || {};
-      if (e.target.contains(current)) {
-        setContextMenuStyle(null);
+      const { current: textareaCurrent } = textareaRef || {};
+      const { current: backdropCurrent } = backdropRef || {};
+      setContextMenuStyle(null);
+      if (e.target.contains(textareaCurrent)) {
+        const { scrollTop } = textareaCurrent || {};
+        backdropCurrent.scrollTop = scrollTop;
       }
     }
     document.addEventListener('keydown', handleClickEscape);
@@ -136,6 +154,9 @@ function Editor(props) {
 
   return (
     <div className="add-template-popup__editor">
+      <div className="backdrop" ref={backdropRef}>
+        <div className="highlights" ref={highlightsRef} />
+      </div>
       <textarea
         className="add-template-popup__textarea"
         onChange={handleChange}

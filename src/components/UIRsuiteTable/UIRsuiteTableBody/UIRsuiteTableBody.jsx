@@ -74,11 +74,8 @@ function UIRsuiteTableBody(props) {
         }
       }
     }
-    function handleScroll(e) {
-      const { current } = contextMenuRef || {};
-      if (e.target.contains(current)) {
-        setContextMenuData(null);
-      }
+    function handleScroll() {
+      setContextMenuData(null);
     }
     document.addEventListener('keydown', handleClickEscape);
     document.addEventListener('mousedown', handleClickMouse);
