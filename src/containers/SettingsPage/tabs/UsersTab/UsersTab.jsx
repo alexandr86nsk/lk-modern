@@ -24,6 +24,7 @@ function UsersTab(props) {
     settingsStoreRemoveUserCancel,
     popUpStoreSetSection,
     modalStoreSetSection,
+    popUpStoreClear,
   } = props || {};
 
   const handleRefresh = React.useCallback(() => {
@@ -114,9 +115,11 @@ function UsersTab(props) {
   React.useEffect(() => () => {
     settingsStoreGetUsersCancel();
     settingsStoreRemoveUserCancel();
+    popUpStoreClear();
   }, [
     settingsStoreGetUsersCancel,
     settingsStoreRemoveUserCancel,
+    popUpStoreClear,
   ]);
 
   return (

@@ -5,7 +5,6 @@ import sortBy from 'lodash/sortBy';
 import UIPagination from '../UIPagination/UIPagination';
 import UIRsuiteTableControlBlock from './UIRsuiteTableControlBlock/UIRsuiteTableControlBlock';
 import UIRsuiteTableBody from './UIRsuiteTableBody/UIRsuiteTableBody';
-import useHookWithRefCallback from '../UICustomHooks/useHookWithRefCallback/useHookWithRefCallback';
 
 function UIRsuiteTable(props) {
   const {
@@ -57,15 +56,15 @@ function UIRsuiteTable(props) {
   const tableBodyRef = React.useRef(null);
   const [tableBodySize, setTableBodySize] = React.useState({ width: 0, height: 0 });
 
-  const autoSetBodySize = React.useCallback((node) => {
-    tableBodyRef.current = node;
-    setTableBodySize({
-      width: node.offsetWidth,
-      height: node.offsetHeight,
-    });
+  React.useEffect(() => {
+    const { current } = tableBodyRef || {};
+    if (current) {
+      setTableBodySize({
+        width: current.offsetWidth,
+        height: current.offsetHeight,
+      });
+    }
   }, []);
-
-  const [ref] = useHookWithRefCallback(autoSetBodySize);
 
   React.useEffect(() => {
     if (searchString) {
@@ -82,9 +81,10 @@ function UIRsuiteTable(props) {
         const usedWidth = tableTemplate.reduce((acc, v) => (v.width ? acc + v.width : acc), 0);
         return tableTemplate.map((v) => {
           if (!v.width) {
+            const w = (tableBodySize.width - 2 - usedWidth) / nonWidthCells;
             return {
               ...v,
-              width: (tableBodySize.width - 2 - usedWidth) / nonWidthCells,
+              width: w < 0 || w === 0 ? 90 : w,
             };
           }
           return v;
@@ -98,10 +98,6 @@ function UIRsuiteTable(props) {
   React.useEffect(() => {
     const { current } = tableBodyRef || {};
     function handleResize() {
-      setTableBodySize({
-        width: 0,
-        height: 0,
-      });
       setTableBodySize({
         width: current.offsetWidth,
         height: current.offsetHeight,
@@ -247,7 +243,7 @@ function UIRsuiteTable(props) {
         )}
       </div>
 
-      <div className="ui-rsuite-table__body" ref={ref}>
+      <div className="ui-rsuite-table__body" ref={tableBodyRef}>
         <div className="ui-rsuite-table__table">
           <UIRsuiteTableBody
             customId={customId}

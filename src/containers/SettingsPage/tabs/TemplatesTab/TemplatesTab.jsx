@@ -26,6 +26,7 @@ function TemplatesTab(props) {
     settingsStoreGetTemplateVarCancel,
     popUpStoreSetSection,
     modalStoreSetSection,
+    popUpStoreClear,
   } = props || {};
 
   const handleRefresh = React.useCallback(() => {
@@ -117,10 +118,12 @@ function TemplatesTab(props) {
     settingsStoreGetTemplatesCancel();
     settingsStoreRemoveTemplateCancel();
     settingsStoreGetTemplateVarCancel();
+    popUpStoreClear();
   }, [
     settingsStoreGetTemplatesCancel,
     settingsStoreRemoveTemplateCancel,
     settingsStoreGetTemplateVarCancel,
+    popUpStoreClear,
   ]);
 
   return (
