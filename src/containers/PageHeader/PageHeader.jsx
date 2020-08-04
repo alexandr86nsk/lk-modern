@@ -24,7 +24,7 @@ function PageHeader(props) {
 }
 
 const mapStateToProps = (state) => ({
-  showSidebar: state.globalStore.showSidebar,
+  //showSidebar: state.globalStore.showSidebar,
   token: state.tokenStore.token,
 });
 

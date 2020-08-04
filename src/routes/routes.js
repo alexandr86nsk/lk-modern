@@ -1,10 +1,11 @@
 import SettingsPage from '../containers/SettingsPage/SettingsPage';
+import ZonePage from '../containers/ZonePage/ZonePage';
 
 const routes = [
   {
     path: '/zone',
     exact: true,
-    component: SettingsPage,
+    component: ZonePage,
   },
   {
     path: '/settings',

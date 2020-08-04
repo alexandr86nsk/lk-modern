@@ -8,7 +8,7 @@ import UISearch from '../UISearch/UISearch';
 
 function UISidebar(props) {
   const {
-    showSidebar,
+    showSidebar = true,
     path,
     compact = true,
   } = props;
@@ -82,7 +82,7 @@ function UISidebar(props) {
 }
 
 const mapStateToProps = (state) => ({
-  showSidebar: state.globalStore.showSidebar,
+  //showSidebar: state.globalStore.showSidebar,
   path: state.router.location.pathname,
 });
 

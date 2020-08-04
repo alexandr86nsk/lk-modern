@@ -6,11 +6,9 @@ import UISideBar from '../UISidebar/UISidebar';
 import PageHeader from '../../containers/PageHeader/PageHeader';
 import PageFooter from '../../containers/PageFooter/PageFooter';
 import PageModal from './PageModal';
-import PageControl from './PageControl';
 import PagePopUp from './PagePopUp';
 import useScrollPage from '../UICustomHooks/useScrollPage/useScrollPage';
 import UIScrollToTop from '../UIScrollToTop/UIScrollToTop';
-import PageContextMenu from './PageContextMenu';
 
 
 function PageWrapper(props) {
@@ -39,8 +37,6 @@ function PageWrapper(props) {
               </div>
               <PageFooter />
               <PageModal />
-              <PageContextMenu />
-              <PageControl />
               <UIToasts />
               <UIScrollToTop isVisible={scroll} refEl={pageEl.current} />
             </div>
