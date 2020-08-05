@@ -8,11 +8,11 @@
     height: 1.5em;
   }
 
-  &__title-wrapper {
+  &__title {
     margin-bottom: .5em;
   }
 
-  &__title {
+  &__title-content {
     display: flex;
     align-items: center;
     font-size: .8em;
@@ -59,7 +59,7 @@
     border: 1px solid rgba($theme-border-color, .5);
   }
 
-  &.--style-1c &__title-wrapper {
+  &.--style-1c &__title {
     background-color: rgba(179, 179, 179, .05);
     border: none;
     border-right: 1px solid rgba($theme-border-color, .5);
@@ -69,7 +69,7 @@
     overflow: hidden;
   }
 
-  &.--style-1c &__title {
+  &.--style-1c &__title-content {
     font-size: inherit;
   }
 

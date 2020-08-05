@@ -39,11 +39,9 @@ function Editor(props) {
   const [contextMenuStyle, setContextMenuStyle] = React.useState(null);
   const [cursorPosition, setCursorPosition] = React.useState(null);
 
-  const applyHighlights = React.useCallback((text) => {
-    return text
-      .replace(/\n$/g, '\n\n')
-      .replace(/{[A-Za-z0-9_]*}/g, '<mark>$&</mark>');
-  }, []);
+  const applyHighlights = React.useCallback((text) => text
+    .replace(/\n$/g, '\n\n')
+    .replace(/{[A-Za-z0-9_]*}/g, '<mark>$&</mark>'), []);
 
   const handleChange = React.useCallback((event) => {
     if (callback) {
@@ -154,22 +152,29 @@ function Editor(props) {
 
   return (
     <div className="add-template-popup__editor">
-      <div className="backdrop" ref={backdropRef}>
-        <div className="highlights" ref={highlightsRef} />
+      <div className="add-template-popup__editor-title">
+        <span className="ellipsis-element">
+          Текст шаблона
+        </span>
       </div>
-      <textarea
-        className="add-template-popup__textarea"
-        onChange={handleChange}
-        value={(data || data === 0) ? data : ''}
-        onContextMenu={handleSetContextMenuStyle}
-        ref={textareaRef}
-      />
-      <div
-        className="add-template-popup__context-menu menu transition"
-        style={contextMenuStyle}
-        ref={contextMenuRef}
-      >
-        {renderContextMenu}
+      <div className="add-template-popup__editor-body">
+        <div className="backdrop" ref={backdropRef}>
+          <div className="highlights" ref={highlightsRef} />
+        </div>
+        <textarea
+          className="add-template-popup__textarea"
+          onChange={handleChange}
+          value={(data || data === 0) ? data : ''}
+          onContextMenu={handleSetContextMenuStyle}
+          ref={textareaRef}
+        />
+        <div
+          className="add-template-popup__context-menu menu transition"
+          style={contextMenuStyle}
+          ref={contextMenuRef}
+        >
+          {renderContextMenu}
+        </div>
       </div>
     </div>
   );

@@ -21,6 +21,7 @@ function* authStoreLogIn(value) {
         access_token: accessToken,
         refresh_token: refreshToken,
       } = res || {};
+      console.log('refresh_token', refreshToken);
       yield put(actions.tokenStoreSetSection({
         token: accessToken,
         refreshToken,

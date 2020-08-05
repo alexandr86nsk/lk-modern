@@ -92,14 +92,14 @@
   }
 
   &.success &__input:not(:disabled) {
-    padding-right: 6.5em;
+    padding-right: 2.8em;
   }
 
   &.error &__input:not(:disabled) {
     border-color: $error-color;
     color: $error-color;
     box-shadow: none;
-    padding-right: 6.5em;
+    padding-right: 2.8em;
 
     &:focus {
       border-color: transparent;
@@ -112,6 +112,15 @@
     display: flex;
   }
 
+  &:not(.empty) &__input {
+    padding-right: 2.8em;
+  }
+
+  &:not(.empty).success &__input,
+  &:not(.empty).error &__input {
+    padding-right: 5.4em;
+  }
+
   .react-datepicker {
     border: none;
     box-shadow: 0 2px 5px rgba(0,0,0,.2);
@@ -122,7 +131,13 @@
     display: none;
   }
 
+  &.error .react-datepicker__close-icon,
+  &.success .react-datepicker__close-icon {
+    padding-right: 3em;
+  }
+
   .react-datepicker__close-icon {
+    padding-right: .8em;
 
     &::after {
       color: hsl(0,0%,80%);

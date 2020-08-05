@@ -9,54 +9,57 @@ const getRefreshToken = () => store.getState().tokenStore.refreshToken;
 /* ******************** queryConfig **************** */
 const getQueryConfig = () => ({ headers: { Authorization: `Bearer ${getToken()}` } });
 
-const requestParser = async (method, url, data) => {
+const getErrorCode = (error) => (error && error.response && error.response.status
+  ? error.response.status
+  : null);
+
+const requestParser = async (method, url, data, counter) => {
   try {
-    const res = (data || data === 0)
+    const res = data !== undefined
       ? await axios[method](`${qs}${url}`, data, getQueryConfig())
       : await axios[method](`${qs}${url}`, getQueryConfig());
-    return res.data;
+    const { data: resData } = res || {};
+    return resData;
   } catch (e) {
-    if (e.response && e.response.status && e.response.status === 401) {
+    if (getErrorCode(e) === 401) {
       const rToken = getRefreshToken();
       if (rToken) {
         try {
-          const newData = await axios.post(`${qs}login/${rToken}/refresh`);
-          if (newData && newData.data && newData.data.access_token) {
-            const {
-              access_token: token,
-              refresh_token: refreshToken,
-            } = newData.data || {};
+          const refreshRes = await axios.post(`${qs}login/${rToken}/refresh`);
+          const {
+            data: refreshResData,
+          } = refreshRes || {};
+          const {
+            access_token: token,
+            refresh_token: refreshToken,
+          } = refreshResData || {};
+          if (token && refreshToken) {
             await store.dispatch({ type: 'TOKEN_STORE_SET_SECTION', value: { token, refreshToken } });
-            try {
-              const res = (data || data === 0)
-                ? await axios[method](`${qs}${url}`, data, { headers: { Authorization: `Bearer ${newData.data.access_token}` } })
-                : await axios[method](`${qs}${url}`, { headers: { Authorization: `Bearer ${newData.data.access_token}` } });
-              return res.data;
-            } catch (error) {
-              if (error.response && error.response.status && error.response.status === 401) {
-                store.dispatch({ type: 'TOKEN_STORE_CLEAR' });
-              } else {
-                throw error;
-              }
-            }
-          } else {
-            store.dispatch({ type: 'TOKEN_STORE_CLEAR' });
+            return requestParser(method, url, data);
           }
+          store.dispatch({ type: 'TOKEN_STORE_CLEAR' });
+          return null;
         } catch (err) {
-          if (err.response
-            && err.response.status
-            && (err.response.status === 401 || err.response.status === 404)
-          ) {
+          if (getErrorCode(err) === 401) {
             store.dispatch({ type: 'TOKEN_STORE_CLEAR' });
-          } else {
-            throw err;
+            return null;
           }
+          if (getErrorCode(err) === 404) {
+            if (!counter) {
+              return requestParser(method, url, data, true);
+            }
+            store.dispatch({ type: 'TOKEN_STORE_CLEAR' });
+            return null;
+          }
+          throw err;
         }
       } else {
         store.dispatch({ type: 'TOKEN_STORE_CLEAR' });
+        return null;
       }
+    } else {
+      throw e;
     }
-    throw e;
   }
 };
 

@@ -22,7 +22,7 @@ export function* setSuccessToast(text) {
 export function* queryResultAnalysis(query, value, isSuccessFunc, isErrorFunc, hideErrorToast) {
   if (query) {
     try {
-      const result = (value || value === 0) ? yield call(query, value) : yield call(query);
+      const result = value !== undefined ? yield call(query, value) : yield call(query);
       let res;
       if (Object.prototype.hasOwnProperty.call(result, 'data')) {
         res = result.data;

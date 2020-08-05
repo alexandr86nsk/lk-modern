@@ -42,8 +42,8 @@ function UISemanticCheckbox(props) {
     <div className={className}>
       {title && type === '--style-1c'
       && (
-        <div className="ui-semantic-checkbox__title-wrapper">
-          <div className="ui-semantic-checkbox__title">
+        <div className="ui-semantic-checkbox__title">
+          <div className="ui-semantic-checkbox__title-content" title={title}>
             <span className="ellipsis-element">
               {title}
             </span>

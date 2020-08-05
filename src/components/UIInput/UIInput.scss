@@ -159,14 +159,14 @@
   }
 
   &.success &__input:not(:disabled) {
-    padding-right: 5.4em;
+    padding-right: 2.8em;
   }
 
   &.error &__input:not(:disabled) {
     border-color: $error-color;
     color: $error-color;
     box-shadow: none;
-    padding-right: 5.4em;
+    padding-right: 2.8em;
 
     &:focus {
       border-color: transparent;
@@ -188,7 +188,7 @@
     right: 3em;
   }
 
-  &:not(.empty)  &__input {
+  &:not(.empty) &__input {
     padding-right: 2.8em;
   }
 

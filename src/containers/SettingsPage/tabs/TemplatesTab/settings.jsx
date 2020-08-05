@@ -33,7 +33,7 @@ const templatesTableConfig = [
   {
     id: 3,
     title: 'Автор',
-    dataKey: 'userID',
+    dataKey: 'authorFIO',
     width: 250,
     column: {
       sortable: true,

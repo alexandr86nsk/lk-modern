@@ -203,7 +203,7 @@ function UIInput(props) {
       {title
       && (
         <div className="ui-input__title">
-          <div className="ui-input__title-content">
+          <div className="ui-input__title-content" title={title}>
             <span className="ellipsis-element">
               {title}
             </span>

@@ -4,6 +4,7 @@ import { Button, Icon } from 'semantic-ui-react';
 import actions from '../../../../../redux/actions/actions';
 import UILoader from '../../../../../components/UILoader/UILoader';
 import Editor from './Editor';
+import UIInput from '../../../../../components/UIInput/UIInput';
 
 function TemplateEditor(props) {
   const {
@@ -19,7 +20,7 @@ function TemplateEditor(props) {
     settingsStoreClearTemplateInfo,
   } = props;
 
-  const { text } = templateInfo || {};
+  const { text, name } = templateInfo || {};
 
   React.useEffect(() => {
     if (id) {
@@ -60,6 +61,13 @@ function TemplateEditor(props) {
         )}
         {!templateInfoLoading && (
           <div className="add-template-popup__table">
+            <UIInput
+              title="Название шаблона"
+              name="name"
+              data={name}
+              callback={handleChangeValue}
+              type="--style-1c"
+            />
             <Editor
               data={text}
               name="text"

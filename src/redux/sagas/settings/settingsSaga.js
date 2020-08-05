@@ -12,7 +12,7 @@ function* settingsStoreGetSettings() {
   }));
   yield queryResultAnalysis(
     api.settingsStoreGetSettings,
-    null,
+    undefined,
     function* (res) {
       yield put(actions.settingsStoreSetSection({
         settings: res,
@@ -70,7 +70,7 @@ function* settingsStoreGetUsers() {
   }));
   yield queryResultAnalysis(
     api.settingsStoreGetUsers,
-    null,
+    undefined,
     function* (res) {
       yield put(actions.settingsStoreSetSection({
         users: res,
@@ -190,7 +190,7 @@ function* settingsStoreGetTemplates() {
   }));
   yield queryResultAnalysis(
     api.settingsStoreGetTemplates,
-    null,
+    undefined,
     function* (res) {
       yield put(actions.settingsStoreSetSection({
         templates: res,
@@ -310,7 +310,7 @@ function* settingsStoreGetTemplateVar() {
   }));
   yield queryResultAnalysis(
     api.settingsStoreGetTemplateVar,
-    null,
+    undefined,
     function* (res) {
       yield put(actions.settingsStoreSetSection({
         templateVar: res,

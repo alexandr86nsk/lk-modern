@@ -1,5 +1,6 @@
 import React from 'react';
 import './UIModal.scss';
+import { Button, Icon } from 'semantic-ui-react';
 import UIButton from '../UIButton/UIButton';
 import CloseIcon from '../../static/images/close-24px.svg';
 import UILoader from '../UILoader/UILoader';
@@ -72,21 +73,40 @@ function UIModal(props) {
           <div className="confirm-block__controls">
             {(!hidePositive && !readOnly) && (
             <div className="confirm-block__accept-btn">
-              <UIButton
+              {/* <UIButton
                 title={buttons.positive}
                 type="positive"
                 callback={handleAcceptClick}
                 disabled={disabledPositive}
-              />
+              /> */}
+              <Button
+                circular
+                positive
+                size="small"
+                onClick={handleAcceptClick}
+                disabled={disabledPositive}
+              >
+                <Icon name="check" />
+                {buttons.positive}
+              </Button>
             </div>
             )}
             {!hideNegative && (
             <div className="confirm-block__reject-btn">
-              <UIButton
+              {/*<UIButton
                 title={readOnly ? 'Закрыть' : buttons.negative}
                 type="negative"
                 callback={handleClose}
-              />
+              />*/}
+              <Button
+                circular
+                negative
+                size="small"
+                onClick={handleClose}
+              >
+                <Icon name="close" />
+                {readOnly ? 'Закрыть' : buttons.negative}
+              </Button>
             </div>
             )}
           </div>
