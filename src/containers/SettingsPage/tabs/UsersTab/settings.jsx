@@ -91,6 +91,8 @@ export const userInfoMainTemplate = [
     dataKey: 'lastName',
     type: 'input',
     otherProps: {
+      required: true,
+      successFormat: 'Поле обязательно для заполнения',
       type: '--style-1c',
     },
   },
@@ -107,7 +109,7 @@ export const userInfoMainTemplate = [
   },
   {
     id: 2,
-    title: 'Отчетсво',
+    title: 'Отчество',
     dataKey: 'middleName',
     type: 'input',
     otherProps: {
@@ -130,6 +132,8 @@ export const userInfoMainTemplate = [
     type: 'input',
     otherProps: {
       required: true,
+      mask: '+7(000)000-00-00',
+      minLength: 16,
       successFormat: 'Это поле обязательно для заполнения и должно иметь корректный формат. Пример: "+7(999)888-00-00"',
       type: '--style-1c',
     },
@@ -152,7 +156,6 @@ export const userInfoMainTemplate = [
     dataKey: 'isCanUseMobileVer',
     type: 'checkbox',
     otherProps: {
-      successFormat: 'Поле обязательно для заполнения',
       type: '--style-1c',
       toggle: true,
     },
@@ -177,39 +180,29 @@ export const userInfoMainTemplate = [
       type: '--style-1c',
     },
   },
-  {
-    id: 9,
-    title: 'Зона',
-    dataKey: 'zoneID',
-    type: 'select',
-    otherProps: {
-      required: true,
-      type: '--style-1c',
-    },
-  },
 ];
 
 export const userInfoPassportTemplate = [
   {
     id: 0,
     title: 'Основные',
+    blockKey: 'main',
     content: [
       {
         id: 0,
         title: 'Дата рождения',
         dataKey: 'birthDay',
-        type: 'input',
+        type: 'datePicker',
         otherProps: {
           type: '--style-1c',
           required: true,
-          successFormat: 'Поле обязательно для заполнения',
         },
       },
       {
         id: 1,
         title: 'Место рождения',
         dataKey: 'birthPlace',
-        type: 'select',
+        type: 'input',
         otherProps: {
           required: true,
           successFormat: 'Поле обязательно для заполнения',
@@ -223,7 +216,9 @@ export const userInfoPassportTemplate = [
         type: 'input',
         otherProps: {
           required: true,
-          successFormat: 'Поле обязательно для заполнения',
+          minLength: 4,
+          successFormat: 'Поле обязательно для заполнения и должно содержать 4 цифры',
+          mask: '0000',
           type: '--style-1c',
         },
       },
@@ -234,7 +229,9 @@ export const userInfoPassportTemplate = [
         type: 'input',
         otherProps: {
           required: true,
-          successFormat: 'Поле обязательно для заполнения',
+          minLength: 6,
+          successFormat: 'Поле обязательно для заполнения и должно содержать 6 цифр',
+          mask: '000000',
           type: '--style-1c',
         },
       },
@@ -265,54 +262,50 @@ export const userInfoPassportTemplate = [
   {
     id: 1,
     title: 'Регистрация',
+    blockKey: 'addressRegistration',
     content: [
       {
         id: 6,
         title: 'Регистрация город',
-        dataKey: 'regCity',
+        dataKey: 'cityName',
         type: 'input',
         otherProps: {
-          successFormat: 'Поле обязательно для заполнения',
           type: '--style-1c',
         },
       },
       {
         id: 7,
         title: 'Регистрация улица',
-        dataKey: 'regStreet',
+        dataKey: 'streetName',
         type: 'input',
         otherProps: {
           type: '--style-1c',
-          toggle: true,
         },
       },
       {
         id: 8,
         title: 'Регистрация корпус',
-        dataKey: 'regFix',
+        dataKey: 'block',
         type: 'input',
         otherProps: {
-          required: true,
           type: '--style-1c',
         },
       },
       {
         id: 9,
         title: 'Регистрация № дома',
-        dataKey: 'regHouse',
+        dataKey: 'houseName',
         type: 'input',
         otherProps: {
-          required: true,
           type: '--style-1c',
         },
       },
       {
         id: 10,
         title: 'Регистрация квартира',
-        dataKey: 'regFlat',
+        dataKey: 'flat',
         type: 'input',
         otherProps: {
-          required: true,
           type: '--style-1c',
         },
       },
@@ -321,6 +314,7 @@ export const userInfoPassportTemplate = [
   {
     id: 2,
     title: 'Фактическое место проживания',
+    blockKey: 'addressResidence',
     content: [
       {
         id: 11,
@@ -335,17 +329,16 @@ export const userInfoPassportTemplate = [
       {
         id: 12,
         title: 'Место проживания город',
-        dataKey: 'factCity',
+        dataKey: 'cityName',
         type: 'input',
         otherProps: {
-          successFormat: 'Поле обязательно для заполнения',
           type: '--style-1c',
         },
       },
       {
         id: 13,
         title: 'Место проживания улица',
-        dataKey: 'factStreet',
+        dataKey: 'streetName',
         type: 'input',
         otherProps: {
           type: '--style-1c',
@@ -354,30 +347,27 @@ export const userInfoPassportTemplate = [
       {
         id: 14,
         title: 'Место проживания корпус',
-        dataKey: 'factFix',
+        dataKey: 'block',
         type: 'input',
         otherProps: {
-          required: true,
           type: '--style-1c',
         },
       },
       {
         id: 15,
         title: 'Место проживания № дома',
-        dataKey: 'factHouse',
+        dataKey: 'houseName',
         type: 'input',
         otherProps: {
-          required: true,
           type: '--style-1c',
         },
       },
       {
         id: 16,
         title: 'Место проживания квартира',
-        dataKey: 'factFlat',
+        dataKey: 'flat',
         type: 'input',
         otherProps: {
-          required: true,
           type: '--style-1c',
         },
       },
@@ -393,6 +383,7 @@ export const userInfoOtherTemplate = [
     type: 'input',
     otherProps: {
       required: true,
+      minLength: 12,
       successFormat: 'Поле обязательно для заполнения и должно содержать 12 цифр',
       mask: '000000000000',
       type: '--style-1c',
@@ -405,6 +396,7 @@ export const userInfoOtherTemplate = [
     type: 'input',
     otherProps: {
       required: true,
+      minLength: 11,
       successFormat: 'Поле обязательно для заполнения и должно содержать 11 цифр',
       mask: '000-000-000 00',
       type: '--style-1c',
@@ -460,7 +452,6 @@ export const userInfoBankTemplate = [
     otherProps: {
       required: true,
       successFormat: 'Поле обязательно для заполнения',
-      minLength: 250,
       type: '--style-1c',
     },
   },

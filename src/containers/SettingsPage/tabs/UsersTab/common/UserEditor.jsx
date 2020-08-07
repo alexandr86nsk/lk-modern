@@ -23,7 +23,13 @@ function UserEditor(props) {
     settingsStoreSaveUser,
     settingsStoreSaveUserCancel,
     settingsStoreClearUserInfo,
-  } = props;
+  } = props || {};
+
+  const {
+    addressRegistration,
+    addressResidence,
+    isCompare,
+  } = userInfo || {};
 
   React.useEffect(() => {
     if (id) {
@@ -57,9 +63,6 @@ function UserEditor(props) {
   );
 
   const passportBlock = React.useMemo(() => {
-    const {
-      isCompare,
-    } = userInfo || {};
     let editedTemplate = userInfoPassportTemplate;
     if (isCompare && userInfoPassportTemplate && Array.isArray(userInfoPassportTemplate)) {
       editedTemplate = userInfoPassportTemplate.map((v) => {
@@ -89,7 +92,7 @@ function UserEditor(props) {
       });
     }
     return null;
-  }, [userInfo, handleChangeValue]);
+  }, [isCompare, userInfo, handleChangeValue]);
 
   const otherBlock = React.useMemo(
     () => formGenerator(userInfoOtherTemplate, userInfo, handleChangeValue),
