@@ -501,7 +501,7 @@ export const userInfoBankTemplate = [
       successFormat: 'Поле обязательно для заполнения и должно содержать 9 цифр',
       minLength: 9,
       mask: '000000000',
-      type: '--style-1c',
+      type: '--style-1c bottom',
     },
   },
 ];

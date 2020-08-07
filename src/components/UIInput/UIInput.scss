@@ -154,6 +154,29 @@
     }
   }
 
+  &.bottom &__i-error {
+    top: unset;
+    bottom: calc(100% + .2em);
+    margin-bottom: .5em;
+    margin-top: unset;
+
+    &:after, &:before {
+      bottom: unset;
+      top: 100%;
+    }
+
+    &:after {
+      border-top-color: $error-background-color;
+      border-bottom-color: transparent;
+      transform: translateY(-1px);
+    }
+
+    &:before {
+      border-bottom-color: transparent;
+      border-top-color: $error-color;
+    }
+  }
+
   &.success &__success {
     display: flex;
   }
