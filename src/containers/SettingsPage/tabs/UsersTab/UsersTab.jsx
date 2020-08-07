@@ -20,6 +20,9 @@ function UsersTab(props) {
     settingsStoreGetUsersCancel,
     settingsStoreSetUsersTableStoreSection,
     settingsStoreSetUsersTableTemplateSection,
+    settingsStoreGetUserRoles,
+    settingsStoreGetUserRolesCancel,
+    settingsStoreSaveUserCancel,
     settingsStoreRemoveUser,
     settingsStoreRemoveUserCancel,
     popUpStoreSetSection,
@@ -110,14 +113,22 @@ function UsersTab(props) {
 
   React.useEffect(() => {
     settingsStoreGetUsers();
-  }, [settingsStoreGetUsers]);
+    settingsStoreGetUserRoles();
+  }, [
+    settingsStoreGetUsers,
+    settingsStoreGetUserRoles,
+  ]);
 
   React.useEffect(() => () => {
     settingsStoreGetUsersCancel();
+    settingsStoreGetUserRolesCancel();
+    settingsStoreSaveUserCancel();
     settingsStoreRemoveUserCancel();
     popUpStoreClear();
   }, [
     settingsStoreGetUsersCancel,
+    settingsStoreGetUserRolesCancel,
+    settingsStoreSaveUserCancel,
     settingsStoreRemoveUserCancel,
     popUpStoreClear,
   ]);

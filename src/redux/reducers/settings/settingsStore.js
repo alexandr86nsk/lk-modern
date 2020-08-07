@@ -1,28 +1,52 @@
 const initialSettingsStore = {};
 
 export default function settingsStore(state = initialSettingsStore, action) {
+  const {
+    userInfo,
+    settings,
+    usersTableStore,
+    usersTableTemplate,
+    templatesTableStore,
+    templatesTableTemplate,
+    templateInfo,
+  } = state || {};
+  const {
+    addressRegistration,
+    addressResidence,
+  } = userInfo || {};
+  const {
+    value,
+    name,
+  } = action || {};
   switch (action.type) {
     case 'SETTINGS_STORE_SET_SECTION':
       return {
         ...state,
-        ...action.value,
+        ...value,
       };
     case 'SETTINGS_STORE_SET_SUB_SECTION':
       return {
         ...state,
-        [action.name]: {
-          ...state[action.name],
-          ...action.value,
+        [name]: {
+          ...state[name],
+          ...value,
         },
       };
     case 'SETTINGS_STORE_UPDATE_SETTINGS':
       return {
         ...state,
-        settings: state.settings.map((v) => {
-          if (v.id === action.value.id) {
+        settings: settings.map((v) => {
+          const {
+            id: currentId,
+          } = v || {};
+          const {
+            id: actionId,
+            value: actionValue,
+          } = value || {};
+          if (currentId === actionId) {
             return {
               ...v,
-              value: action.value.value,
+              value: actionValue,
             };
           }
           return v;
@@ -32,18 +56,24 @@ export default function settingsStore(state = initialSettingsStore, action) {
       return {
         ...state,
         usersTableStore: {
-          ...state.usersTableStore,
-          ...action.value,
+          ...usersTableStore,
+          ...value,
         },
       };
     case 'SETTINGS_STORE_STORE_SET_USERS_TABLE_TEMPLATE_SECTION':
       return {
         ...state,
-        usersTableTemplate: state.usersTableTemplate.map((v) => {
-          if (v.dataKey === action.value.dataKey) {
+        usersTableTemplate: usersTableTemplate.map((v) => {
+          const {
+            dataKey: currentId,
+          } = v || {};
+          const {
+            dataKey: actionId,
+          } = value || {};
+          if (currentId === actionId) {
             return {
               ...v,
-              ...action.value,
+              ...value,
             };
           }
           return v;
@@ -53,31 +83,59 @@ export default function settingsStore(state = initialSettingsStore, action) {
       return {
         ...state,
         userInfo: {
-          ...state.userInfo,
-          ...action.value,
+          ...userInfo,
+          ...value,
+        },
+      };
+    case 'SETTINGS_STORE_SET_USER_INFO_ADDRESS_REGISTRATION_SECTION':
+      return {
+        ...state,
+        userInfo: {
+          ...userInfo,
+          addressRegistration: {
+            ...addressRegistration,
+            ...value,
+          },
+        },
+      };
+    case 'SETTINGS_STORE_SET_USER_INFO_ADDRESS_RESIDENCE_SECTION':
+      return {
+        ...state,
+        userInfo: {
+          ...userInfo,
+          addressResidence: {
+            ...addressResidence,
+            ...value,
+          },
         },
       };
     case 'SETTINGS_STORE_CLEAR_USER_INFO':
       return {
         ...state,
-        userInfo: {},
+        userInfo: undefined,
       };
     case 'SETTINGS_STORE_SET_TEMPLATES_TABLE_STORE_SECTION':
       return {
         ...state,
         templatesTableStore: {
-          ...state.templatesTableStore,
-          ...action.value,
+          ...templatesTableStore,
+          ...value,
         },
       };
     case 'SETTINGS_STORE_STORE_SET_TEMPLATES_TABLE_TEMPLATE_SECTION':
       return {
         ...state,
-        templatesTableTemplate: state.templatesTableTemplate.map((v) => {
-          if (v.dataKey === action.value.dataKey) {
+        templatesTableTemplate: templatesTableTemplate.map((v) => {
+          const {
+            dataKey: currentId,
+          } = v || {};
+          const {
+            dataKey: actionId,
+          } = value || {};
+          if (currentId === actionId) {
             return {
               ...v,
-              ...action.value,
+              ...value,
             };
           }
           return v;
@@ -87,14 +145,14 @@ export default function settingsStore(state = initialSettingsStore, action) {
       return {
         ...state,
         templateInfo: {
-          ...state.templateInfo,
-          ...action.value,
+          ...templateInfo,
+          ...value,
         },
       };
     case 'SETTINGS_STORE_CLEAR_TEMPLATE_INFO':
       return {
         ...state,
-        templateInfo: {},
+        templateInfo: undefined,
       };
     case 'SETTINGS_STORE_CLEAR':
       return initialSettingsStore;

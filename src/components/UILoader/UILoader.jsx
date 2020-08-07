@@ -31,7 +31,7 @@ function UILoader(props) {
   const memoizedDots = React.useMemo(() => {
     const dots = [];
     for (let i = 1; i < 4; i += 1) {
-      dots.push(<span className={`ui-loader__dot${i}`}>.</span>);
+      dots.push(<span key={`dot${i}`} className={`ui-loader__dot${i}`}>.</span>);
     }
     return dots;
   }, []);

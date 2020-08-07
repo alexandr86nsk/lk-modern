@@ -96,6 +96,44 @@ export function* canBeCanceledSettingsStoreGetUsers() {
   yield cancel(bgSettingsStoreGetUsers);
 }
 
+/* ***************************** settingsStoreGetUserRoles ********************** */
+function* settingsStoreGetUserRoles(value) {
+  yield put(actions.settingsStoreSetSection({
+    userRolesLoading: true,
+  }));
+  yield queryResultAnalysis(
+    api.settingsStoreGetUserRoles,
+    value,
+    function* (res) {
+      yield put(actions.settingsStoreSetSection({
+        userRoles: res && Array.isArray(res) && res.map((v) => {
+          const {
+            description,
+            id,
+          } = v || {};
+          return {
+            value: id,
+            label: description,
+          };
+        }),
+        userRolesLoading: false,
+      }));
+    },
+    function* () {
+      yield put(actions.settingsStoreSetSection({
+        userRoles: undefined,
+        userRolesLoading: false,
+      }));
+    },
+  );
+}
+
+export function* canBeCanceledSettingsStoreGetUserRoles(action) {
+  const bgSettingsStoreGetUserRoles = yield fork(settingsStoreGetUserRoles, action.value);
+  yield take('SETTINGS_STORE_GET_USER_ROLES_CANCEL');
+  yield cancel(bgSettingsStoreGetUserRoles);
+}
+
 /* ***************************** settingsStoreGetUserInfo ********************** */
 function* settingsStoreGetUserInfo(value) {
   yield put(actions.settingsStoreSetSection({

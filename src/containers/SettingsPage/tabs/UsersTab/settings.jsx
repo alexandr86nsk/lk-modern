@@ -329,7 +329,7 @@ export const userInfoPassportTemplate = [
       {
         id: 11,
         title: 'Фактическое место проживания, совпадает с местом регистрации',
-        dataKey: 'isCompare',
+        dataKey: 'isConcidesPlaceReg',
         type: 'checkbox',
         otherProps: {
           toggle: true,
@@ -406,7 +406,7 @@ export const userInfoOtherTemplate = [
     type: 'input',
     otherProps: {
       required: true,
-      minLength: 11,
+      minLength: 14,
       successFormat: 'Поле обязательно для заполнения и должно содержать 11 цифр',
       mask: '000-000-000 00',
       type: '--style-1c',
@@ -505,21 +505,3 @@ export const userInfoBankTemplate = [
     },
   },
 ];
-
-/* export const addUserPopupTabs = [
-  {
-    id: 0,
-    title: 'Основные',
-    item: <MainTab />,
-  },
-  /!*  {
-      id: 1,
-      title: 'Настройки перезвона',
-      item: <RecallTab />,
-    },
-    {
-      id: 2,
-      title: 'Настройки часовых поясов',
-      item: <QueuePhoneTab />,
-    }, *!/
-]; */

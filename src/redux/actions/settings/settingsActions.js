@@ -46,6 +46,14 @@ export const settingsStoreGetUsersCancel = () => ({
   type: 'SETTINGS_STORE_GET_USERS_CANCEL',
 });
 
+export const settingsStoreGetUserRoles = () => ({
+  type: 'SETTINGS_STORE_GET_USER_ROLES',
+});
+
+export const settingsStoreGetUserRolesCancel = () => ({
+  type: 'SETTINGS_STORE_GET_USER_ROLES_CANCEL',
+});
+
 export const settingsStoreSetUsersTableStoreSection = (value) => ({
   type: 'SETTINGS_STORE_SET_USERS_TABLE_STORE_SECTION',
   value,
@@ -90,6 +98,16 @@ export const settingsStoreRemoveUserCancel = () => ({
 
 export const settingsStoreClearUserInfo = () => ({
   type: 'SETTINGS_STORE_CLEAR_USER_INFO',
+});
+
+export const settingsStoreSetUserInfoAddressRegistrationSection = (value) => ({
+  type: 'SETTINGS_STORE_SET_USER_INFO_ADDRESS_REGISTRATION_SECTION',
+  value,
+});
+
+export const settingsStoreSetUserInfoAddressResidenceSection = (value) => ({
+  type: 'SETTINGS_STORE_SET_USER_INFO_ADDRESS_RESIDENCE_SECTION',
+  value,
 });
 
 /* ************************** templates **************************** */

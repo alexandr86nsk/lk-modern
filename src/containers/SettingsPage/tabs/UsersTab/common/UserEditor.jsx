@@ -17,18 +17,21 @@ function UserEditor(props) {
     id,
     userInfo,
     userInfoLoading,
+    userRoles,
+    userRolesLoading,
     settingsStoreSetUserInfoSection,
     settingsStoreGetUserInfo,
     settingsStoreGetUserInfoCancel,
     settingsStoreSaveUser,
-    settingsStoreSaveUserCancel,
     settingsStoreClearUserInfo,
+    settingsStoreSetUserInfoAddressRegistrationSection,
+    settingsStoreSetUserInfoAddressResidenceSection,
   } = props || {};
 
   const {
     addressRegistration,
     addressResidence,
-    isCompare,
+    isConcidesPlaceReg,
   } = userInfo || {};
 
   React.useEffect(() => {
@@ -39,12 +42,10 @@ function UserEditor(props) {
 
   React.useEffect(() => () => {
     settingsStoreGetUserInfoCancel();
-    settingsStoreSaveUserCancel();
     settingsStoreClearUserInfo();
   }, [
     settingsStoreClearUserInfo,
     settingsStoreGetUserInfoCancel,
-    settingsStoreSaveUserCancel,
   ]);
 
   const handleSaveUser = React.useCallback(() => {
@@ -57,17 +58,47 @@ function UserEditor(props) {
     });
   }, [settingsStoreSetUserInfoSection]);
 
-  const mainBlock = React.useMemo(
-    () => formGenerator(userInfoMainTemplate, userInfo, handleChangeValue),
-    [userInfo, handleChangeValue],
-  );
+  const handleChangeAddressRegistrationValue = React.useCallback((editName, editValue) => {
+    settingsStoreSetUserInfoAddressRegistrationSection({
+      [editName]: editValue,
+    });
+  }, [settingsStoreSetUserInfoAddressRegistrationSection]);
+
+  const handleChangeAddressResidenceValue = React.useCallback((editName, editValue) => {
+    if (editName === 'isConcidesPlaceReg') {
+      settingsStoreSetUserInfoSection({
+        isConcidesPlaceReg: editValue,
+      });
+    }
+    settingsStoreSetUserInfoAddressResidenceSection({
+      [editName]: editValue,
+    });
+  }, [
+    settingsStoreSetUserInfoAddressResidenceSection,
+    settingsStoreSetUserInfoSection,
+  ]);
+
+  const mainBlock = React.useMemo(() => {
+    const tmp = userInfoMainTemplate.map((v) => {
+      const { dataKey } = v || {};
+      if (dataKey === 'roleID') {
+        return {
+          ...v,
+          options: userRoles,
+        };
+      }
+      return v;
+    });
+    return formGenerator(tmp, userInfo, handleChangeValue);
+  },
+  [userRoles, userInfo, handleChangeValue]);
 
   const passportBlock = React.useMemo(() => {
     let editedTemplate = userInfoPassportTemplate;
-    if (isCompare && userInfoPassportTemplate && Array.isArray(userInfoPassportTemplate)) {
+    if (isConcidesPlaceReg && userInfoPassportTemplate && Array.isArray(userInfoPassportTemplate)) {
       editedTemplate = userInfoPassportTemplate.map((v) => {
-        const { id: blockId, content } = v || {};
-        if (blockId === 2) {
+        const { blockKey, content } = v || {};
+        if (blockKey === 'addressResidence') {
           return {
             ...v,
             content: [content[0]],
@@ -82,17 +113,40 @@ function UserEditor(props) {
           id: blockId,
           title,
           content,
+          blockKey,
         } = v || {};
+        let dataObj = userInfo;
+        let callbackObj = handleChangeValue;
+        if (blockKey === 'addressRegistration') {
+          dataObj = addressRegistration;
+          callbackObj = handleChangeAddressRegistrationValue;
+        }
+        if (blockKey === 'addressResidence') {
+          dataObj = addressResidence;
+          callbackObj = handleChangeAddressResidenceValue;
+        }
         return (
           <div key={blockId} className="add-user-popup__section">
             <div className="add-user-popup__subtitle">{title}</div>
-            {formGenerator(content, userInfo, handleChangeValue)}
+            {formGenerator(
+              content,
+              dataObj,
+              callbackObj,
+            )}
           </div>
         );
       });
     }
     return null;
-  }, [isCompare, userInfo, handleChangeValue]);
+  }, [
+    handleChangeAddressResidenceValue,
+    handleChangeAddressRegistrationValue,
+    addressRegistration,
+    addressResidence,
+    isConcidesPlaceReg,
+    userInfo,
+    handleChangeValue,
+  ]);
 
   const otherBlock = React.useMemo(
     () => formGenerator(userInfoOtherTemplate, userInfo, handleChangeValue),
@@ -157,8 +211,10 @@ function UserEditor(props) {
 }
 
 const mapStateToProps = (state) => ({
-  userInfoLoading: state.settingsStore.userInfoLoading,
   userInfo: state.settingsStore.userInfo,
+  userInfoLoading: state.settingsStore.userInfoLoading,
+  userRoles: state.settingsStore.userRoles,
+  userRolesLoading: state.settingsStore.userRolesLoading,
 });
 
 const mapDispatchToProps = { ...actions };
