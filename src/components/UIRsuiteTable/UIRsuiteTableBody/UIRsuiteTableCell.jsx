@@ -156,10 +156,14 @@ const UIRsuiteTableCell = (props) => {
     >
       <Cell
         {...otherProps}
-        title={typeof rowData[dataKey] === 'boolean' ? '' : memoizedData.title}
         style={type === 'actions' ? { textAlign: 'center' } : {}}
       >
-        <div className="ui-rsuite-table__cell-data ellipsis-element">{memoizedData.data}</div>
+        <div
+          className="ui-rsuite-table__cell-data ellipsis-element"
+          title={typeof rowData[dataKey] === 'boolean' ? '' : memoizedData.title}
+        >
+          {memoizedData.data}
+        </div>
       </Cell>
     </div>
   );

@@ -1,5 +1,20 @@
 import React from 'react';
 
+export const zoneInfoTemplate = [
+  {
+    title: 'Зона',
+    dataKey: 'zone',
+  },
+  {
+    title: 'Код',
+    dataKey: 'code',
+  },
+  {
+    title: 'Кол-во супервайзеров',
+    dataKey: 'users',
+  },
+];
+
 export const zonesTableConfig = [
   {
     id: 0,
@@ -82,5 +97,3 @@ export const zonesTableConfig = [
     width: 80,
   },
 ];
-
-export const addUserPopupTabs1 = [];

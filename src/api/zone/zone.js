@@ -23,7 +23,7 @@ export const zoneStoreAddZone = (data) => requestParser(
   data,
 );
 
-export const zoneStoreRemoveZone = (id) => requestParser(
-  'delete',
-  `zoneApp/${id}`,
+export const zoneStoreGetUsers = (roleName) => requestParser(
+  'get',
+  `user/role/${roleName}`,
 );

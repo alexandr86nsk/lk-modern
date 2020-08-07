@@ -45,7 +45,7 @@ function UIReactSelect(props) {
     isMulti,
     placeholder = 'Выберите значение',
     readOnly,
-    isLoading,
+    loading,
   } = props;
 
   const handleChange = React.useCallback((value) => {
@@ -127,7 +127,7 @@ function UIReactSelect(props) {
     return (
       <Select
         styles={customStyles}
-        isLoading={isLoading}
+        isLoading={loading}
         className="ui-react-select__container"
         classNamePrefix="ui-react-select"
         placeholder={placeholder}
@@ -142,7 +142,7 @@ function UIReactSelect(props) {
       />
     );
   }, [
-    isLoading,
+    loading,
     memoizedValue,
     placeholder,
     options,

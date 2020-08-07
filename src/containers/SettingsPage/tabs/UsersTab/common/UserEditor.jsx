@@ -113,28 +113,28 @@ function UserEditor(props) {
           </div>
         )}
         {!userInfoLoading && (
-            <div className="add-user-popup__table">
-              <UIAnimateHeightBlock
-                title="Основные данные"
-                body={mainBlock}
-                blockName="main"
-              />
-              <UIAnimateHeightBlock
-                title="Паспортные данные"
-                body={passportBlock}
-                blockName="passport"
-              />
-              <UIAnimateHeightBlock
-                title="Дополнительная информация"
-                body={otherBlock}
-                blockName="other"
-              />
-              <UIAnimateHeightBlock
-                title="Банковские реквизиты"
-                body={bankBlock}
-                blockName="bank"
-              />
-            </div>
+        <div className="add-user-popup__table">
+          <UIAnimateHeightBlock
+            title="Основные данные"
+            body={mainBlock}
+            blockName="main"
+          />
+          <UIAnimateHeightBlock
+            title="Паспортные данные"
+            body={passportBlock}
+            blockName="passport"
+          />
+          <UIAnimateHeightBlock
+            title="Дополнительная информация"
+            body={otherBlock}
+            blockName="other"
+          />
+          <UIAnimateHeightBlock
+            title="Банковские реквизиты"
+            body={bankBlock}
+            blockName="bank"
+          />
+        </div>
         )}
       </div>
       <div className="add-user-popup__btn">

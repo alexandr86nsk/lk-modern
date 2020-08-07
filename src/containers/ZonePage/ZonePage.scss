@@ -1,0 +1,42 @@
+@import "../../static/css/colors";
+
+.zone-page {
+
+  &__body {
+    flex: 1;
+    display: grid;
+    grid-template: 1fr 1fr / 1fr;
+    grid-gap: 1em;
+  }
+
+  &__zone {
+    flex: 1;
+    display: grid;
+    grid-template: 1fr / 1fr 1fr;
+    grid-gap: 1em;
+  }
+
+  &__zone-selector {
+    flex: 1;
+    display: grid;
+    grid-template: auto 1fr / 1fr;
+    grid-gap: 1em;
+  }
+
+  &__zone-info {
+    position: relative;
+
+    .info {
+      flex: 1;
+      display: grid;
+      grid-template: auto / 1fr;
+      grid-gap: 1em;
+      padding-bottom: 1.7em;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}

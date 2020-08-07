@@ -132,56 +132,48 @@
 
 /* Loader */
 
-.ui-dimmer.inverted .ui-loader.mini,
 .ui-loader.mini {
   width: 1rem;
   height: 1rem;
   font-size: 0.78571429em;
 }
 
-.ui-dimmer.inverted .ui-loader.tiny,
 .ui-loader.tiny {
   width: 1.14285714rem;
   height: 1.14285714rem;
   font-size: 0.85714286em;
 }
 
-.ui-dimmer.inverted .ui-loader.small,
 .ui-loader.small {
   width: 1.71428571rem;
   height: 1.71428571rem;
   font-size: 0.92857143em;
 }
 
-.ui-dimmer.inverted .ui-loader,
 .ui-loader {
   width: 2.28571429rem;
   height: 2.28571429rem;
   font-size: 1em;
 }
 
-.ui-dimmer.inverted .ui-loader.large,
 .ui-loader.large {
   width: 3.42857143rem;
   height: 3.42857143rem;
   font-size: 1.14285714em;
 }
 
-.ui-dimmer.inverted .ui-loader.big,
 .ui-loader.big {
   width: 3.71428571rem;
   height: 3.71428571rem;
   font-size: 1.28571429em;
 }
 
-.ui-dimmer.inverted .ui-loader.huge,
 .ui-loader.huge {
   width: 4.14285714rem;
   height: 4.14285714rem;
   font-size: 1.42857143em;
 }
 
-.ui-dimmer.inverted .ui-loader.massive,
 .ui-loader.massive {
   width: 4.57142857rem;
   height: 4.57142857rem;
@@ -228,4 +220,82 @@
 .ui-loader.massive.text {
   min-width: 4.57142857rem;
   padding-top: 5.35714286rem;
+}
+
+.ui-loader__dimmer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba($white, .2);
+}
+
+.ui-loader__dot1 {
+  animation: visibility1 3s linear infinite;
+}
+
+.ui-loader__dot2 {
+  animation: visibility2 3s linear infinite;
+}
+
+.ui-loader__dot3 {
+  animation: visibility3 3s linear infinite;
+}
+
+@keyframes visibility1 {
+  0% {
+    opacity: 1;
+  }
+  65% {
+    opacity: 1;
+  }
+  66% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes visibility2 {
+  0% {
+    opacity: 0;
+  }
+  21% {
+    opacity: 0;
+  }
+  22% {
+    opacity: 1;
+  }
+  65% {
+    opacity: 1;
+  }
+  66% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes visibility3 {
+  0% {
+    opacity: 0;
+  }
+  43% {
+    opacity: 0;
+  }
+  44% {
+    opacity: 1;
+  }
+  65% {
+    opacity: 1;
+  }
+  66% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
 }
