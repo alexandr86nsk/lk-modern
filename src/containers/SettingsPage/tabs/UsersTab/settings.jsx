@@ -180,6 +180,16 @@ export const userInfoMainTemplate = [
       type: '--style-1c',
     },
   },
+  {
+    id: 9,
+    title: 'Подтвердить пользователя',
+    dataKey: 'isAcceptedUser',
+    type: 'checkbox',
+    otherProps: {
+      toggle: true,
+      type: '--style-1c',
+    },
+  },
 ];
 
 export const userInfoPassportTemplate = [
