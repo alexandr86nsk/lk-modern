@@ -145,9 +145,12 @@ export const userInfoMainTemplate = [
     type: 'input',
     otherProps: {
       required: true,
-      successFormat: 'Поле обязательно для заполнения и должно содержать максимум 3 цифры',
+      successFormat: 'Поле обязательно для заполнения и должно быть не больше 100',
       mask: '000',
       type: '--style-1c',
+      isInteger: true,
+      minInteger: 0,
+      maxInteger: 100,
     },
   },
   {
@@ -319,6 +322,15 @@ export const userInfoPassportTemplate = [
           type: '--style-1c',
         },
       },
+      {
+        id: 22,
+        title: 'Полный адрес',
+        dataKey: 'fullAddress',
+        type: 'input',
+        otherProps: {
+          type: '--style-1c',
+        },
+      },
     ],
   },
   {
@@ -408,7 +420,8 @@ export const userInfoOtherTemplate = [
       required: true,
       minLength: 14,
       successFormat: 'Поле обязательно для заполнения и должно содержать 11 цифр',
-      mask: '000-000-000 00',
+      // mask: '000-000-000 00',
+      mask: '000-000-000',
       type: '--style-1c',
     },
   },

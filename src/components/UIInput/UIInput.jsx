@@ -33,20 +33,28 @@ function UIInput(props) {
     placeholder,
     readOnly,
     type,
+    isInteger,
+    maxInteger,
+    minInteger,
   } = props || {};
 
   const elRef = React.useRef(null);
 
   const handleChangeMaskInput = React.useCallback((event) => {
     if (callback) {
-      callback(
-        name,
-        (event.target.value || event.target.value === 0)
-          ? event.target.value
-          : null,
-      );
+      const { target } = event || {};
+      const { value } = target || {};
+      let res = null;
+      if (value || value === 0) {
+        if (isInteger) {
+          res = parseInt(value, 10);
+        } else {
+          res = value;
+        }
+      }
+      callback(name, res);
     }
-  }, [callback, name]);
+  }, [isInteger, callback, name]);
 
   const handleChangeNumberInput = React.useCallback((values) => {
     if (callback) {
@@ -78,6 +86,16 @@ function UIInput(props) {
     [data, minLength],
   );
 
+  const composeInteger = React.useCallback(
+    () => data >= (minInteger || -Infinity)
+      && data <= (maxInteger || Infinity),
+    [
+      data,
+      minInteger,
+      maxInteger,
+    ],
+  );
+
   const className = React.useMemo(() => {
     let str = 'ui-input';
     if (readOnly) {
@@ -96,8 +114,15 @@ function UIInput(props) {
       }
     }
     if (data || data === 0) {
-      if (minLength) {
+      if (!isInteger && minLength) {
         if (composeLength()) {
+          str = `${str} success`;
+        } else {
+          str = `${str} error`;
+        }
+      }
+      if (isInteger && (minInteger || maxInteger)) {
+        if (composeInteger()) {
           str = `${str} success`;
         } else {
           str = `${str} error`;
@@ -131,6 +156,10 @@ function UIInput(props) {
     minLength,
     required,
     url,
+    isInteger,
+    composeInteger,
+    maxInteger,
+    minInteger,
   ]);
 
   const momentDate = React.useMemo(() => {

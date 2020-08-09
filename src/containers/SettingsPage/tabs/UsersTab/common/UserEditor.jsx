@@ -54,7 +54,7 @@ function UserEditor(props) {
 
   const handleChangeValue = React.useCallback((editName, editValue) => {
     settingsStoreSetUserInfoSection({
-      [editName]: editValue,
+      [editName]: editName === 'commission' ? editValue : editValue,
     });
   }, [settingsStoreSetUserInfoSection]);
 
@@ -85,13 +85,21 @@ function UserEditor(props) {
         return {
           ...v,
           options: userRoles,
+          otherPros: {
+            loading: userRolesLoading,
+          },
         };
       }
       return v;
     });
     return formGenerator(tmp, userInfo, handleChangeValue);
   },
-  [userRoles, userInfo, handleChangeValue]);
+  [
+    userRoles,
+    userRolesLoading,
+    userInfo,
+    handleChangeValue,
+  ]);
 
   const passportBlock = React.useMemo(() => {
     let editedTemplate = userInfoPassportTemplate;
