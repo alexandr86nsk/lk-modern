@@ -93,6 +93,7 @@ export const userInfoMainTemplate = [
     otherProps: {
       required: true,
       successFormat: 'Поле обязательно для заполнения',
+      minLength: 1,
       type: '--style-1c',
     },
   },
@@ -104,6 +105,7 @@ export const userInfoMainTemplate = [
     otherProps: {
       required: true,
       successFormat: 'Поле обязательно для заполнения',
+      minLength: 1,
       type: '--style-1c',
     },
   },
@@ -219,6 +221,7 @@ export const userInfoPassportTemplate = [
         otherProps: {
           required: true,
           successFormat: 'Поле обязательно для заполнения',
+          minLength: 1,
           type: '--style-1c',
         },
       },
@@ -267,6 +270,7 @@ export const userInfoPassportTemplate = [
         otherProps: {
           required: true,
           successFormat: 'Поле обязательно для заполнения',
+          minLength: 1,
           type: '--style-1c',
         },
       },
@@ -281,7 +285,7 @@ export const userInfoPassportTemplate = [
         id: 6,
         title: 'Регистрация город',
         dataKey: 'cityName',
-        type: 'input',
+        type: 'search',
         otherProps: {
           type: '--style-1c',
         },
@@ -340,7 +344,7 @@ export const userInfoPassportTemplate = [
     content: [
       {
         id: 11,
-        title: 'Фактическое место проживания, совпадает с местом регистрации',
+        title: 'Место проживания, совпадает с местом регистрации',
         dataKey: 'isConcidesPlaceReg',
         type: 'checkbox',
         otherProps: {
@@ -420,8 +424,7 @@ export const userInfoOtherTemplate = [
       required: true,
       minLength: 14,
       successFormat: 'Поле обязательно для заполнения и должно содержать 11 цифр',
-      // mask: '000-000-000 00',
-      mask: '000-000-000',
+      mask: '000-000-000 00',
       type: '--style-1c',
     },
   },
@@ -475,6 +478,7 @@ export const userInfoBankTemplate = [
     otherProps: {
       required: true,
       successFormat: 'Поле обязательно для заполнения',
+      minLength: 1,
       type: '--style-1c',
     },
   },

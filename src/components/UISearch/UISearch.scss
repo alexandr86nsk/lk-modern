@@ -1,48 +1,89 @@
-$dark_ghost: #979faf;
-$loader-color: #767676;
-$athens-gray:  #EEEEEF;
-$silver-sand: #BFC0C1;
-$light-gray: #cccccc;
-$gray: #939393;
-$dark-gray: #999999;
-$white: #ffffff;
-$sunset-orange: #FF4D4D;
-$cosmos: #FFDBDB;
-$mona-lisa: #FF9494;
+@import '../../static/css/colors.scss';
 
 .ui-search {
   width: 100%;
-  position: relative;
+  /*position: relative;
   display: flex;
   align-items: center;
   border: 1px solid transparent;
   border-radius: .6em;
-  background: $athens-gray;
+  background: $theme-disabled-color;*/
 
   svg {
     width: 1.5em;
     height: 1.5em;
   }
 
+  &__title {
+    margin-bottom: .5em;
+  }
+
+  &__title-content {
+    display: flex;
+    align-items: center;
+    font-size: .8em;
+
+    .required-icon {
+      color: $error-color;
+      transform: scale(1.5);
+      margin-left: .2em;
+    }
+  }
+
+  &__body {
+    position: relative;
+  }
+
   &__input {
     width: 100%;
     padding: .8em;
-    border-radius: .6em;
-    border: none;
-    background: transparent;
     outline: none;
-    transition: filter 0.3s ease;
+    background-color: $white;
+    background-clip: padding-box;
+    border: 1px solid $theme-border-color;
+    border-radius: 0.30769231rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 
     &::placeholder {
-      color: $silver-sand;
+      opacity: .5;
     }
+
+    &::-ms-clear {
+      display: none;
+    }
+
+    &:not(:disabled):hover {
+      border-color: $stylish-color;
+    }
+
+    &:not(:disabled):focus {
+      border-color: transparent;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba($medium-theme-color, .25);
+    }
+
+    &:disabled {
+      background-color: $theme-disabled-color;
+    }
+  }
+
+  &__error,
+  &__success,
+  &__clear {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: .8em;
+    bottom: 0;
+    height: 100%;
   }
 
   &__input:focus + &__results {
     display: block;
   }
 
-  &__icon {
+  &__search-icon {
     position: relative;
     display: flex;
     width: 1.5em;
@@ -54,7 +95,7 @@ $mona-lisa: #FF9494;
     user-select: none;
   }
 
-  &.loading &__icon {
+  &.loading &__search-icon {
 
     svg {
       display: none;
@@ -81,7 +122,7 @@ $mona-lisa: #FF9494;
       animation: loader 0.6s linear;
       animation-iteration-count: infinite;
       border-radius: 50%;
-      border-color: $loader-color transparent transparent;
+      border-color: $theme-border-color transparent transparent;
       border-style: solid;
       border-width: 0.2em;
       box-shadow: 0 0 0 1px transparent;
@@ -100,26 +141,167 @@ $mona-lisa: #FF9494;
     min-height: 1.5em;
 
     svg {
-      fill: $light-gray;
+      fill: rgba($theme-border-color, .8);
     }
 
     &:hover {
 
       svg {
-        fill: $dark-gray;
+        fill: rgba($theme-border-color, 1);
       }
     }
   }
 
+
+  &__clear {
+    display: flex;
+    cursor: pointer;
+
+    svg {
+      fill: rgba($stylish-color, .5);
+    }
+
+    &:hover {
+
+      svg {
+        fill: $stylish-color;
+      }
+    }
+  }
+
+  &__clear:hover ~ &__input:not(:disabled) {
+    border-color: $stylish-color;
+  }
+
+  &__success {
+
+    svg {
+      fill: $success-color;
+    }
+  }
+
+  &__error {
+
+    svg {
+      fill: $error-color;
+    }
+  }
+
+  &__i-error {
+    position: absolute;
+    background: $error-background-color;
+    color: rgba($error-color, .85);
+    font-size: .9em;
+    border-radius: 0.30769231rem;
+    display: none;
+    top: calc(100% + .2em);
+    margin-top: .5em;
+    padding: .5em 1em;
+    z-index: 1;
+    border: 1px solid $error-color;
+
+    &:after, &:before {
+      content: "";
+      bottom: 100%;
+      left: 2em;
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      border: .5em solid transparent;
+      margin-left: -.5em;
+    }
+
+    &:after {
+      border-bottom-color: $error-background-color;
+      transform: translateY(1px);
+    }
+
+    &:before {
+      border-bottom-color: $error-color;
+    }
+  }
+
+  &.bottom &__i-error {
+    top: unset;
+    bottom: calc(100% + .2em);
+    margin-bottom: .5em;
+    margin-top: unset;
+
+    &:after, &:before {
+      bottom: unset;
+      top: 100%;
+    }
+
+    &:after {
+      border-top-color: $error-background-color;
+      border-bottom-color: transparent;
+      transform: translateY(-1px);
+    }
+
+    &:before {
+      border-bottom-color: transparent;
+      border-top-color: $error-color;
+    }
+  }
+
+  &.success &__success {
+    display: flex;
+  }
+
+  &.success &__input:not(:disabled) {
+    padding-right: 2.8em;
+  }
+
+  &.error &__input:not(:disabled) {
+    border-color: $error-color;
+    color: $error-color;
+    box-shadow: none;
+    padding-right: 2.8em;
+
+    &:focus {
+      border-color: transparent;
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba($error-color, .25);
+    }
+  }
+
+  &.error &__error {
+    display: flex;
+  }
+
+  &.error &__input:focus ~ &__i-error {
+    display: block;
+  }
+
+  &.success &__clear,
+  &.error &__clear {
+    right: 3em;
+  }
+
+  &:not(.empty) &__input {
+    padding-right: 2.8em;
+  }
+
+  &:not(.empty).success &__input,
+  &:not(.empty).error &__input {
+    padding-right: 5.4em;
+  }
+
+  &.empty &__clear {
+    display: none;
+  }
+
+/********************************* ***************************************/
   &.active {
-    box-shadow: 0 .5em 1em rgba($gray,.12);
+    box-shadow: 0 .5em 1em rgba($theme-border-color, .12);
     background: $white;
-    border: 1px solid rgba($dark_ghost,.1);
+    border: 1px solid rgba($theme-border-color, .1);
   }
 
   &.active.disabled,
   &.disabled {
-    background: $athens-gray;
+    background: $theme-border-color;
   }
 
   &.active.disabled &__input,
@@ -151,12 +333,12 @@ $mona-lisa: #FF9494;
       text-overflow: ellipsis;
 
       &:hover {
-        color: $sunset-orange;
-        background: $cosmos;
+        color: $white;
+        background: $medium-theme-color;
       }
 
       span {
-        color: $mona-lisa;
+        color: white;
       }
     }
   }

@@ -46,7 +46,8 @@ function UIReactSelect(props) {
     placeholder = 'Выберите значение',
     readOnly,
     loading,
-  } = props;
+    loadingMessage,
+  } = props || {};
 
   const handleChange = React.useCallback((value) => {
     if (callback) {
@@ -139,6 +140,7 @@ function UIReactSelect(props) {
         isClearable={isClearable}
         isMulti={isMulti}
         closeMenuOnSelect={!isMulti}
+        loadingMessage={loadingMessage}
       />
     );
   }, [

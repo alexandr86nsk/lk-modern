@@ -49,8 +49,15 @@ function UserEditor(props) {
   ]);
 
   const handleSaveUser = React.useCallback(() => {
-    settingsStoreSaveUser(userInfo);
-  }, [userInfo, settingsStoreSaveUser]);
+    let el;
+    if (isConcidesPlaceReg) {
+      const { addressResidence: ar, ...obj } = userInfo || {};
+      el = obj;
+    } else {
+      el = userInfo;
+    }
+    settingsStoreSaveUser(el);
+  }, [isConcidesPlaceReg, userInfo, settingsStoreSaveUser]);
 
   const handleChangeValue = React.useCallback((editName, editValue) => {
     settingsStoreSetUserInfoSection({
@@ -80,7 +87,7 @@ function UserEditor(props) {
 
   const mainBlock = React.useMemo(() => {
     const tmp = userInfoMainTemplate.map((v) => {
-      const { dataKey } = v || {};
+      const { dataKey, otherProps } = v || {};
       if (dataKey === 'roleID') {
         return {
           ...v,
@@ -90,11 +97,23 @@ function UserEditor(props) {
           },
         };
       }
+      if (!id && dataKey === 'password') {
+        return {
+          ...v,
+          otherProps: {
+            ...otherProps,
+            required: true,
+            minLength: 6,
+            successFormat: 'Это поле обязательно для заполнения и должно содержать не менее 6 символов',
+          },
+        };
+      }
       return v;
     });
     return formGenerator(tmp, userInfo, handleChangeValue);
   },
   [
+    id,
     userRoles,
     userRolesLoading,
     userInfo,

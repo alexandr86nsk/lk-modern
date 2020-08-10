@@ -10,7 +10,6 @@ import PagePopUp from './PagePopUp';
 import useScrollPage from '../UICustomHooks/useScrollPage/useScrollPage';
 import UIScrollToTop from '../UIScrollToTop/UIScrollToTop';
 
-
 function PageWrapper(props) {
   const {
     children,

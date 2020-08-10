@@ -10,7 +10,6 @@ import PrivateRoutes from './routes/privateRoutes';
 import PageWrapper from './components/PageWrapper/PageWrapper';
 import AuthPage from './containers/AuthPage/AuthPage';
 
-
 const App = (props) => {
   const { token } = props || {};
 

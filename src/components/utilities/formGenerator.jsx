@@ -4,6 +4,7 @@ import UIReactSelect from '../UIReactSelect/UIReactSelect';
 import UISemanticCheckbox from '../UISemanticCheckbox/UISemanticCheckbox';
 import UITextArea from '../UITextArea/UITextArea';
 import UIReactDatePicker from '../UIReactDatePicker/UIReactDatePicker';
+import UISearch from "../UISearch/UISearch";
 
 const formGenerator = (list, dataSource, callback) => {
   if (list && Array.isArray(list)) {
@@ -22,6 +23,17 @@ const formGenerator = (list, dataSource, callback) => {
         case 'input':
           return (
             <UIInput
+              key={id}
+              title={title}
+              name={dataKey}
+              data={value}
+              callback={callback}
+              {...otherProps}
+            />
+          );
+        case 'search':
+          return (
+            <UISearch
               key={id}
               title={title}
               name={dataKey}

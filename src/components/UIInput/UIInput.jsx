@@ -114,10 +114,15 @@ function UIInput(props) {
       }
     }
     if (data || data === 0) {
-      if (!isInteger && minLength) {
+      if (!isInteger && required && minLength) {
         if (composeLength()) {
           str = `${str} success`;
         } else {
+          str = `${str} error`;
+        }
+      }
+      if (!isInteger && minLength) {
+        if (!composeLength()) {
           str = `${str} error`;
         }
       }
@@ -143,6 +148,9 @@ function UIInput(props) {
         }
       }
     } else {
+      if (!isInteger && minLength) {
+        str = `${str} error`;
+      }
       str = `${str} empty`;
     }
     return str;

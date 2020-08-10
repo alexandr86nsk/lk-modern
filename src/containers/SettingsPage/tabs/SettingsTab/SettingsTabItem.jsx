@@ -41,6 +41,8 @@ function SettingsTabItem(props) {
         data={value}
         mask={memoizedMask}
         callback={handleChangeValue}
+        minLength={1}
+        successFormat="Поле не может быть пустым"
       />
     </div>
   );

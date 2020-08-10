@@ -20,6 +20,8 @@ function SettingsTab(props) {
     settingsStoreSaveSettingsCancel,
   } = props || {};
 
+  const [error, setError] = React.useState(false);
+
   React.useEffect(() => {
     settingsStoreGetSettings();
   }, [settingsStoreGetSettings]);
@@ -42,8 +44,12 @@ function SettingsTab(props) {
 
   const renderContent = React.useMemo(() => {
     if (settings && Array.isArray(settings)) {
-      return settings.map((v) => {
-        const { id } = v || {};
+      let err = 0;
+      const arr = settings.map((v) => {
+        const { id, value } = v || {};
+        if (!(value || value === 0)) {
+          err += 1;
+        }
         return (
           <SettingsTabItem
             key={id}
@@ -52,6 +58,12 @@ function SettingsTab(props) {
           />
         );
       });
+      if (err) {
+        setError(true);
+      } else {
+        setError(false);
+      }
+      return arr;
     }
     return null;
   }, [settings, handleChange]);
@@ -71,6 +83,7 @@ function SettingsTab(props) {
                 size="small"
                 onClick={handleSaveClick}
                 loading={trySaveSettings}
+                disabled={error}
               >
                 <Icon name="check" />
                 Сохранить

@@ -24,7 +24,7 @@ function UIRsuiteTableBody(props) {
     tableRowHeight = 28,
     tableIsResizable = true,
     tableBodyHeight,
-    tableVirtualized,
+    tableVirtualized = true,
     cellBordered,
   } = props || {};
 

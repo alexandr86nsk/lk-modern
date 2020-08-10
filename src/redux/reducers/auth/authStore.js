@@ -1,6 +1,6 @@
 const initialAuthStore = {
   login: '70000000000',
-  password: 'Password',
+  password: '000000',
 };
 
 export default function authStore(state = initialAuthStore, action) {
