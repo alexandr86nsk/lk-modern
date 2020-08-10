@@ -144,6 +144,7 @@ function UIReactSelect(props) {
       />
     );
   }, [
+    loadingMessage,
     loading,
     memoizedValue,
     placeholder,

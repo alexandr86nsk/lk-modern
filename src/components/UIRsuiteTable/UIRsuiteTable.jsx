@@ -185,9 +185,9 @@ function UIRsuiteTable(props) {
     }
   }, [tableTemplateSetSection]);
 
-  const searchSetString = React.useCallback((value) => {
+  const searchSetString = React.useCallback((editName, editValue) => {
     handleTableStoreSetSection({
-      searchString: value,
+      searchString: editValue,
     });
   }, [handleTableStoreSetSection]);
 

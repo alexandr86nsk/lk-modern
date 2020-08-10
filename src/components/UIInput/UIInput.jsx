@@ -258,12 +258,12 @@ function UIInput(props) {
         </div>
       )}
       <div className="ui-input__body" ref={elRef}>
-        {renderBody}
         {!disabled && !readOnly && (
           <div role="presentation" className="ui-input__clear" title="Очистить" onClick={handleClear}>
             <ClearIcon />
           </div>
         )}
+        {renderBody}
         {!readOnly && !disabled && (
           <>
             <div className="ui-input__error" title="Ошибка в поле">

@@ -5,10 +5,20 @@ import ClearIcon from './clear-icon.svg';
 import ErrorIcon from './error-icon.svg';
 import SuccessIcon from './check-icon.svg';
 
+const topStyle = {
+  top: 'calc(100% + 2px)',
+  maxHeight: '160px',
+};
+
+const bottomStyle = {
+  bottom: 'calc(100% + 2px)',
+  maxHeight: '160px',
+};
+
 function UISearch(props) {
   const {
     placeholder = 'Поиск',
-    results = [],
+    results,
     customResults,
     hideResults,
     callback,
@@ -21,27 +31,23 @@ function UISearch(props) {
     type,
     asInput,
     successFormat,
+    name,
     title,
   } = props || {};
 
   const inputRef = React.useRef(null);
-  const resultsEl = React.useRef(null);
   const [loading, setLoading] = React.useState(false);
-  const [resultsStyle, setResultsStyle] = React.useState({
-    top: 'calc(100% + 2px)',
-    maxHeight: '300px',
-  });
+  const [resultsStyle, setResultsStyle] = React.useState(topStyle);
 
   const calculateStyle = React.useCallback(() => {
     const { current } = inputRef || {};
     if (current) {
       const inputCoords = current.getBoundingClientRect();
       const { bottom, top } = inputCoords;
-      if (window.innerHeight - 107 - bottom < 350 && top > 360) {
-        setResultsStyle({
-          bottom: 'calc(100% + 2px)',
-          maxHeight: '300px',
-        });
+      if (window.innerHeight - bottom < 165 && top > 165) {
+        setResultsStyle(bottomStyle);
+      } else {
+        setResultsStyle(topStyle);
       }
     }
   }, []);
@@ -50,11 +56,8 @@ function UISearch(props) {
     calculateStyle();
   }, [calculateStyle]);
 
-  const onWheel = React.useCallback((e) => {
-    if (e.target && e.target.contains(inputRef.current)) {
-      calculateStyle();
-      e.stopPropagation();
-    }
+  const onWheel = React.useCallback(() => {
+    calculateStyle();
   }, [calculateStyle]);
 
   React.useEffect(() => {
@@ -69,16 +72,18 @@ function UISearch(props) {
 
   const handleChangeInput = React.useCallback((event) => {
     if (callback) {
+      const { target } = event || {};
+      const { value } = target || {};
       if (!searchServerSide) {
         setLoading(true);
         setTimeout(() => setLoading(false), 300);
       }
-      callback(event.target.value);
+      callback(name, value);
     }
-  }, [searchServerSide, callback]);
+  }, [name, searchServerSide, callback]);
 
   const memoizedResults = React.useMemo(() => {
-    if (results.length) {
+    if (results && Array.isArray(results) && results.length) {
       return results.map((v) => (
         <li key={v.id}>{v}</li>
       ));
@@ -90,13 +95,13 @@ function UISearch(props) {
 
   const handleClear = React.useCallback(() => {
     if (callback) {
-      callback('');
+      callback(name, null);
       if (inputRef) {
         const { current } = inputRef || {};
         current.focus();
       }
     }
-  }, [callback]);
+  }, [name, callback]);
 
   const className = React.useMemo(() => {
     let str = 'ui-search';
@@ -105,6 +110,9 @@ function UISearch(props) {
     }
     if (type) {
       str = `${str} ${type}`;
+    }
+    if (asInput) {
+      str = `${str} input`;
     }
     if (loading || loadingData) {
       str = `${str} loading`;
@@ -122,6 +130,7 @@ function UISearch(props) {
     }
     return str;
   }, [
+    asInput,
     required,
     disabled,
     loading,
@@ -144,6 +153,11 @@ function UISearch(props) {
         </div>
       )}
       <div className="ui-search__body">
+        {data && !disabled && (
+          <div role="presentation" className="ui-search__clear" title="Очистить" onClick={handleClear}>
+            <ClearIcon />
+          </div>
+        )}
         <input
           ref={inputRef}
           type="text"
@@ -154,20 +168,16 @@ function UISearch(props) {
           disabled={disabled}
           maxLength={maxLength}
         />
-        {/* && (!searchServerSide ? !loading : !loadingData) */}
         {data && !hideResults && (
-          <ul className="ui-search__results" ref={resultsEl} style={resultsStyle}>
+          <ul className="ui-search__results" style={resultsStyle}>
             {customResults || memoizedResults}
           </ul>
         )}
-        {data && !disabled && (
-          <div role="presentation" className="ui-search__clear" title="Очистить" onClick={handleClear}>
-            <ClearIcon />
-          </div>
-        )}
         {!disabled && !asInput && (
-          <div className="ui-search__search-icon">
-            <SearchIcon />
+          <div className="ui-search__loading">
+            <div className="ui-search__search-icon">
+              <SearchIcon />
+            </div>
           </div>
         )}
         {!disabled && asInput && (

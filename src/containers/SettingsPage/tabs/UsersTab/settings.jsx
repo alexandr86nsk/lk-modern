@@ -287,6 +287,8 @@ export const userInfoPassportTemplate = [
         dataKey: 'cityName',
         type: 'search',
         otherProps: {
+          asInput: true,
+          required: true,
           type: '--style-1c',
         },
       },

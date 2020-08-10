@@ -2,12 +2,6 @@
 
 .ui-search {
   width: 100%;
-  /*position: relative;
-  display: flex;
-  align-items: center;
-  border: 1px solid transparent;
-  border-radius: .6em;
-  background: $theme-disabled-color;*/
 
   svg {
     width: 1.5em;
@@ -69,6 +63,7 @@
 
   &__error,
   &__success,
+  &__loading,
   &__clear {
     display: none;
     justify-content: center;
@@ -79,8 +74,8 @@
     height: 100%;
   }
 
-  &__input:focus + &__results {
-    display: block;
+  &__loading {
+    display: flex;
   }
 
   &__search-icon {
@@ -88,10 +83,7 @@
     display: flex;
     width: 1.5em;
     height: 1.5em;
-    min-width: 1.5em;
-    min-height: 1.5em;
     align-items: center;
-    margin-right: .8em;
     user-select: none;
   }
 
@@ -104,6 +96,7 @@
     &:before {
       position: absolute;
       content: '';
+      display: inline-block;
       top: 0;
       left: 0;
       width: 90%;
@@ -115,6 +108,7 @@
     &:after {
       position: absolute;
       content: '';
+      display: inline-block;
       top: 0;
       left: 0;
       width: 90%;
@@ -131,14 +125,8 @@
 
   &__clear {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    right: 3em;
     cursor: pointer;
-    margin-right: .8em;
-    width: 1.5em;
-    height: 1.5em;
-    min-width: 1.5em;
-    min-height: 1.5em;
 
     svg {
       fill: rgba($theme-border-color, .8);
@@ -152,24 +140,11 @@
     }
   }
 
-
-  &__clear {
-    display: flex;
-    cursor: pointer;
-
-    svg {
-      fill: rgba($stylish-color, .5);
-    }
-
-    &:hover {
-
-      svg {
-        fill: $stylish-color;
-      }
-    }
+  &.input &__clear {
+    right: .8em;
   }
 
-  &__clear:hover ~ &__input:not(:disabled) {
+  &__clear:hover ~ &__input:not(:disabled):not(:focus) {
     border-color: $stylish-color;
   }
 
@@ -279,8 +254,16 @@
     right: 3em;
   }
 
+  &.empty &__input {
+    padding-right: 2.4em;
+  }
+
   &:not(.empty) &__input {
-    padding-right: 2.8em;
+    padding-right: 5.4em;
+  }
+
+  &:not(.empty).input &__input {
+    padding-right: 2.4em;
   }
 
   &:not(.empty).success &__input,
@@ -290,23 +273,6 @@
 
   &.empty &__clear {
     display: none;
-  }
-
-/********************************* ***************************************/
-  &.active {
-    box-shadow: 0 .5em 1em rgba($theme-border-color, .12);
-    background: $white;
-    border: 1px solid rgba($theme-border-color, .1);
-  }
-
-  &.active.disabled,
-  &.disabled {
-    background: $theme-border-color;
-  }
-
-  &.active.disabled &__input,
-  &.disabled &__input {
-    padding: 0 .8em;
   }
 
   &__results {
@@ -319,7 +285,7 @@
     margin: 0;
     border-radius: .6em;
     z-index: 1;
-    box-shadow: 0 1em 2em rgba(0,0,0,.2);
+    box-shadow: 0 .1em .3em 0.2rem rgba($theme-border-color, .25);
     overflow-y: auto;
     overflow-x: hidden;
     background: $white;
@@ -341,6 +307,57 @@
         color: white;
       }
     }
+  }
+
+  &__input:focus + &__results {
+    display: block;
+  }
+
+  /* ****************************** 1c style ********************************** */
+  &.--style-1c {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba($theme-border-color, .5);
+  }
+
+  &.--style-1c &__title {
+    background-color: rgba($theme-border-color, .05);
+    border: none;
+    border-right: 1px solid rgba($theme-border-color, .5);
+    padding: .8em;
+    margin: 0;
+    flex: .4;
+    overflow: hidden;
+  }
+
+  &.--style-1c &__title-content {
+    font-size: inherit;
+  }
+
+  &.--style-1c &__body {
+    flex: .6;
+  }
+
+  &.--style-1c &__input {
+    border: none;
+    border-radius: 0;
+
+    &:focus {
+      box-shadow: inset 0 0 0 0.2rem rgba($medium-theme-color, .25);
+    }
+  }
+
+  &.--style-1c.error &__input:not(:disabled) {
+
+    &:focus {
+      box-shadow: inset 0 0 0 0.2rem rgba($error-color, .25);
+    }
+  }
+
+  &.--style-1c &__results {
+    border-radius: 0;
+    padding: 0;
+    box-shadow: 0 .1em .3em .2em rgba($theme-border-color, .5);
   }
 }
 
