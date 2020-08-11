@@ -148,7 +148,7 @@ function UISearch(props) {
             <span className="ellipsis-element">
               {title}
             </span>
-            {required && !disabled && <div className="required-icon">*</div>}
+            {required && <div className="required-icon">*</div>}
           </div>
         </div>
       )}
