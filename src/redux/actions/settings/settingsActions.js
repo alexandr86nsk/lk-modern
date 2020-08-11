@@ -172,3 +172,13 @@ export const settingsStoreGetTemplateVar = () => ({
 export const settingsStoreGetTemplateVarCancel = () => ({
   type: 'SETTINGS_STORE_GET_TEMPLATE_VAR_CANCEL',
 });
+
+/* ************************** dadata **************************** */
+export const settingsStoreDadataGetAddress = (value) => ({
+  type: 'SETTINGS_STORE_DADATA_GET_ADDRESS',
+  value,
+});
+
+export const settingsStoreDadataGetAddressCancel = () => ({
+  type: 'SETTINGS_STORE_DADATA_GET_ADDRESS_CANCEL',
+});

@@ -170,7 +170,8 @@ function UISearch(props) {
         />
         {data && !hideResults && (
           <ul className="ui-search__results" style={resultsStyle}>
-            {customResults || memoizedResults}
+            {(loadingData || loading) && <li className="loading loading-ellipsis-emulator">Идет поиск</li>}
+            {!(loadingData || loading) && (customResults || memoizedResults)}
           </ul>
         )}
         {!disabled && !asInput && (

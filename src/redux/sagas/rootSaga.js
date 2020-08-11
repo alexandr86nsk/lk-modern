@@ -17,6 +17,7 @@ function* rootSaga() {
   yield takeLatest('SETTINGS_STORE_SAVE_TEMPLATE', settingsSaga.canBeCanceledSettingsStoreSaveTemplate);
   yield takeLatest('SETTINGS_STORE_REMOVE_TEMPLATE', settingsSaga.canBeCanceledSettingsStoreRemoveTemplate);
   yield takeLatest('SETTINGS_STORE_GET_TEMPLATE_VAR', settingsSaga.canBeCanceledSettingsStoreGetTemplateVar);
+  yield takeLatest('SETTINGS_STORE_DADATA_GET_ADDRESS', settingsSaga.canBeCanceledSettingsStoreDadataGetAddress);
   yield takeLatest('ZONE_STORE_GET_ZONES', zoneSaga.canBeCanceledZoneStoreGetZones);
   yield takeLatest('ZONE_STORE_GET_ZONE_INFO', zoneSaga.canBeCanceledZoneStoreGetZoneInfo);
   yield takeEvery('ZONE_STORE_GET_USERS', zoneSaga.canBeCanceledZoneStoreGetUsers);

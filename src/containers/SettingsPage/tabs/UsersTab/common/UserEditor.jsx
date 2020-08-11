@@ -12,6 +12,35 @@ import {
   userInfoPassportTemplate,
 } from '../settings';
 
+const KladrItem = (props) => {
+  const {
+    name,
+    item,
+    callback,
+  } = props || {};
+
+  const {
+    data,
+    unrestricted_value: value,
+  } = item || {};
+
+  const handleClick = React.useCallback(() => {
+    if (callback) {
+      callback(name, data);
+    }
+  }, [callback, name, data]);
+
+  return (
+    <li
+      role="presentation"
+      title={value}
+      onClick={handleClick}
+    >
+      {value}
+    </li>
+  );
+};
+
 function UserEditor(props) {
   const {
     id,
@@ -19,6 +48,10 @@ function UserEditor(props) {
     userInfoLoading,
     userRoles,
     userRolesLoading,
+    addressRegistrationCityNameLoading,
+    addressRegistrationStreetNameLoading,
+    addressRegistrationCityNameResults,
+    addressRegistrationStreetNameResults,
     settingsStoreSetUserInfoSection,
     settingsStoreGetUserInfo,
     settingsStoreGetUserInfoCancel,
@@ -26,6 +59,8 @@ function UserEditor(props) {
     settingsStoreClearUserInfo,
     settingsStoreSetUserInfoAddressRegistrationSection,
     settingsStoreSetUserInfoAddressResidenceSection,
+    settingsStoreDadataGetAddress,
+    settingsStoreDadataGetAddressCancel,
   } = props || {};
 
   const {
@@ -33,6 +68,13 @@ function UserEditor(props) {
     addressResidence,
     isConcidesPlaceReg,
   } = userInfo || {};
+
+  const {
+    cityName: addressRegistrationCityName,
+    streetName: addressRegistrationStreetName,
+  } = addressRegistration || {};
+
+  const isFirstRun = React.useRef(true);
 
   React.useEffect(() => {
     if (id) {
@@ -43,9 +85,39 @@ function UserEditor(props) {
   React.useEffect(() => () => {
     settingsStoreGetUserInfoCancel();
     settingsStoreClearUserInfo();
+    settingsStoreDadataGetAddressCancel();
   }, [
     settingsStoreClearUserInfo,
     settingsStoreGetUserInfoCancel,
+    settingsStoreDadataGetAddressCancel,
+  ]);
+
+  React.useEffect(() => {
+    if (isFirstRun.current) {
+      isFirstRun.current = false;
+    } else if (addressRegistrationCityName) {
+      settingsStoreDadataGetAddress({
+        id: 'addressRegistrationCityName',
+        query: {
+          from_bound: { value: 'city' },
+          query: addressRegistrationCityName,
+          to_bound: { value: 'settlement' },
+        },
+      });
+    } else if (addressRegistrationStreetName) {
+      settingsStoreDadataGetAddress({
+        id: 'addressRegistrationStreetName',
+        query: {
+          from_bound: { value: 'street' },
+          query: addressRegistrationStreetName,
+          to_bound: { value: 'street' },
+        },
+      });
+    }
+  }, [
+    settingsStoreDadataGetAddress,
+    addressRegistrationCityName,
+    addressRegistrationStreetName,
   ]);
 
   const handleSaveUser = React.useCallback(() => {
@@ -61,7 +133,7 @@ function UserEditor(props) {
 
   const handleChangeValue = React.useCallback((editName, editValue) => {
     settingsStoreSetUserInfoSection({
-      [editName]: editName === 'commission' ? editValue : editValue,
+      [editName]: editValue,
     });
   }, [settingsStoreSetUserInfoSection]);
 
@@ -84,6 +156,19 @@ function UserEditor(props) {
     settingsStoreSetUserInfoAddressResidenceSection,
     settingsStoreSetUserInfoSection,
   ]);
+
+  const handleSetDadataValue = React.useCallback((editName, editValue) => {
+    if (editName.includes('addressRegistration')) {
+      settingsStoreSetUserInfoAddressRegistrationSection({
+        [editName]: editValue,
+      });
+    }
+    if (editName === 'addressResCityName') {
+      settingsStoreSetUserInfoAddressRegistrationSection({
+        [editName]: editValue,
+      });
+    }
+  }, [settingsStoreSetUserInfoAddressRegistrationSection]);
 
   const mainBlock = React.useMemo(() => {
     const tmp = userInfoMainTemplate.map((v) => {
@@ -142,6 +227,72 @@ function UserEditor(props) {
           content,
           blockKey,
         } = v || {};
+        let templateArr = [];
+        if (content && Array.isArray(content)) {
+          templateArr = content.map((x) => {
+            const {
+              dataKey,
+              otherProps,
+            } = x || {};
+            if (dataKey === 'cityName') {
+              return {
+                ...x,
+                otherProps: {
+                  ...otherProps,
+                  loadingData: addressRegistrationCityNameLoading,
+                  customResults: addressRegistrationCityNameResults
+                  && Array.isArray(addressRegistrationCityNameResults)
+                    ? addressRegistrationCityNameResults.map((w) => {
+                      const {
+                        data: thisData,
+                      } = w || {};
+                      const {
+                        kladr_id: kladrId,
+                      } = thisData || {};
+                      return (
+                        <KladrItem
+                          name="addressRegistrationCityName"
+                          key={kladrId}
+                          item={w}
+                          callback={handleSetDadataValue}
+                        />
+                      );
+                    })
+                    : <li>Поиск не дал результатов</li>,
+                },
+              };
+            }
+            if (dataKey === 'streetName') {
+              return {
+                ...x,
+                otherProps: {
+                  ...otherProps,
+                  loadingData: addressRegistrationStreetNameLoading,
+                  customResults: addressRegistrationStreetNameResults
+                  && Array.isArray(addressRegistrationStreetNameResults)
+                    ? addressRegistrationStreetNameResults.map((w) => {
+                      const {
+                        data: thisData,
+                      } = w || {};
+                      const {
+                        kladr_id: kladrId,
+                      } = thisData || {};
+                      return (
+                        <KladrItem
+                          key={kladrId}
+                          name="addressRegistrationStreetName"
+                          item={w}
+                          callback={handleSetDadataValue}
+                        />
+                      );
+                    })
+                    : <li>Поиск не дал результатов</li>,
+                },
+              };
+            }
+            return x;
+          });
+        }
         let dataObj = userInfo;
         let callbackObj = handleChangeValue;
         if (blockKey === 'addressRegistration') {
@@ -156,7 +307,7 @@ function UserEditor(props) {
           <div key={blockId} className="add-user-popup__section">
             <div className="add-user-popup__subtitle">{title}</div>
             {formGenerator(
-              content,
+              templateArr,
               dataObj,
               callbackObj,
             )}
@@ -168,6 +319,10 @@ function UserEditor(props) {
   }, [
     handleChangeAddressResidenceValue,
     handleChangeAddressRegistrationValue,
+    addressRegistrationCityNameLoading,
+    addressRegistrationStreetNameLoading,
+    addressRegistrationCityNameResults,
+    addressRegistrationStreetNameResults,
     addressRegistration,
     addressResidence,
     isConcidesPlaceReg,
@@ -242,6 +397,10 @@ const mapStateToProps = (state) => ({
   userInfoLoading: state.settingsStore.userInfoLoading,
   userRoles: state.settingsStore.userRoles,
   userRolesLoading: state.settingsStore.userRolesLoading,
+  addressRegistrationCityNameLoading: state.settingsStore.addressRegistrationCityNameLoading,
+  addressRegistrationStreetNameLoading: state.settingsStore.addressRegistrationStreetNameLoading,
+  addressRegistrationCityNameResults: state.settingsStore.addressRegistrationCityNameResults,
+  addressRegistrationStreetNameResults: state.settingsStore.addressRegistrationStreetNameResults,
 });
 
 const mapDispatchToProps = { ...actions };

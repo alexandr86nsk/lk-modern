@@ -367,3 +367,37 @@ export function* canBeCanceledSettingsStoreGetTemplateVar() {
   yield take('SETTINGS_STORE_GET_TEMPLATE_VAR_CANCEL');
   yield cancel(bgSettingsStoreGetTemplateVar);
 }
+
+/* ***************************** settingsStoreDadataGetAddress ********************** */
+function* settingsStoreDadataGetAddress(value) {
+  const {
+    id,
+    query,
+  } = value || {};
+  // const setStoreFn = actions[`settingsStoreSetA${id.slice(1)}`];
+  yield put(actions.settingsStoreSetSection({
+    [`${id}Loading`]: true,
+  }));
+  yield queryResultAnalysis(
+    api.dadataGetAddress,
+    query,
+    function* (res) {
+      yield put(actions.settingsStoreSetSection({
+        [`${id}Loading`]: false,
+        [`${id}Results`]: res.suggestions,
+      }));
+    },
+    function* () {
+      yield put(actions.settingsStoreSetSection({
+        [`${id}Loading`]: false,
+        [`${id}Results`]: [],
+      }));
+    },
+  );
+}
+
+export function* canBeCanceledSettingsStoreDadataGetAddress(action) {
+  const bgSettingsStoreDadataGetAddress = yield fork(settingsStoreDadataGetAddress, action.value);
+  yield take('SETTINGS_STORE_DADATA_GET_ADDRESS_CANCEL');
+  yield cancel(bgSettingsStoreDadataGetAddress);
+}

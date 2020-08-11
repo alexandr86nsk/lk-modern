@@ -37,28 +37,6 @@
     border-top: none;
   }
 
-  .animated-enter {
-    opacity: 0;
-    transform: scale(1.1);
-  }
-
-  .animated-enter-active {
-    opacity: 1;
-    transform: scale(1);
-    transition: opacity 300ms, transform 300ms;
-  }
-
-  .animated-exit {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  .animated-exit-active {
-    opacity: 0;
-    transform: scale(0.9);
-    transition: opacity 300ms, transform 300ms;
-  }
-
   .page {
     display: grid;
     grid-template-rows: 1fr;

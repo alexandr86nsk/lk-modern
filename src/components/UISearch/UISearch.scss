@@ -298,6 +298,11 @@
       white-space: nowrap;
       text-overflow: ellipsis;
 
+      &.loading {
+        padding: 0.3em 1.55em 0.3em 0.3em;
+        margin: auto;
+      }
+
       &:hover {
         color: $white;
         background: $medium-theme-color;

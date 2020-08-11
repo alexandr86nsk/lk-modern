@@ -80,7 +80,7 @@
     svg {
       width: 2em;
       height: 2em;
-      fill: rgba($theme-border-color, .7);
+      fill: $theme-border-color;
     }
 
     &:hover {
@@ -88,7 +88,7 @@
       border: 1px solid rgba($theme-border-color, .2);
 
       svg {
-        fill: rgba($theme-border-color, 1);
+        fill: rgba($medium-theme-color, .7);
       }
     }
 
@@ -97,7 +97,7 @@
       border: 1px solid rgba($theme-border-color, .3);
 
       svg {
-        fill: $medium-theme-color;
+        fill: rgba($medium-theme-color, 1);
       }
     }
   }

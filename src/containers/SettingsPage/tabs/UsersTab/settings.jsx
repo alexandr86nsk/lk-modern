@@ -283,7 +283,7 @@ export const userInfoPassportTemplate = [
     content: [
       {
         id: 6,
-        title: 'Регистрация город',
+        title: 'Регистрация город / н.п.',
         dataKey: 'cityName',
         type: 'search',
         otherProps: {
@@ -296,8 +296,10 @@ export const userInfoPassportTemplate = [
         id: 7,
         title: 'Регистрация улица',
         dataKey: 'streetName',
-        type: 'input',
+        type: 'search',
         otherProps: {
+          asInput: true,
+          required: true,
           type: '--style-1c',
         },
       },
@@ -323,15 +325,6 @@ export const userInfoPassportTemplate = [
         id: 10,
         title: 'Регистрация квартира',
         dataKey: 'flat',
-        type: 'input',
-        otherProps: {
-          type: '--style-1c',
-        },
-      },
-      {
-        id: 22,
-        title: 'Полный адрес',
-        dataKey: 'fullAddress',
         type: 'input',
         otherProps: {
           type: '--style-1c',
