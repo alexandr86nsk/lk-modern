@@ -12,6 +12,8 @@ import {
   userInfoPassportTemplate,
 } from '../settings';
 
+const a = {};
+
 const addressVariables = {
   area: 'areaName',
   area_fias_id: 'areaFiasID',
