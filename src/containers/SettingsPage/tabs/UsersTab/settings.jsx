@@ -284,7 +284,7 @@ export const userInfoPassportTemplate = [
       {
         id: 6,
         title: 'Регистрация город / н.п.',
-        dataKey: 'cityName',
+        dataKey: 'cityNameX',
         type: 'search',
         otherProps: {
           asInput: true,

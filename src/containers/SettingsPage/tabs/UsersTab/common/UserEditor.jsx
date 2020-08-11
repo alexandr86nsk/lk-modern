@@ -12,6 +12,47 @@ import {
   userInfoPassportTemplate,
 } from '../settings';
 
+const addressVariables = {
+  area: 'areaName',
+  area_fias_id: 'areaFiasID',
+  area_type: 'areaType',
+  area_type_full: 'areaTypeFull',
+  block: 'block',
+  block_type: 'blockType',
+  block_type_full: 'blockTypeFull',
+  city: 'cityName',
+  city_district: 'cityDistrictName',
+  city_district_fias_id: 'cityDistrictFiasID',
+  city_district_type: 'cityDistrictType',
+  city_district_type_full: 'cityDistrictTypeFull',
+  city_fias_id: 'cityFiasID',
+  city_type: 'cityType',
+  city_type_full: 'cityTypeFull',
+  fias_id: 'fiasId',
+  flat: 'flat',
+  flat_type: 'flatType',
+  flat_type_full: 'flatTypeFull',
+  geo_lat: 'latitude',
+  geo_lon: 'longitude',
+  house: 'houseName',
+  source: 'fullAddress',
+  house_fias_id: 'houseFiasID',
+  house_type: 'houseType',
+  house_type_full: 'houseTypeFull',
+  region: 'regionName',
+  region_fias_id: 'regionFiasID',
+  region_type: 'regionType',
+  region_type_full: 'regionTypeFull',
+  settlement: 'settlementName',
+  settlement_fias_id: 'settlementFiasID',
+  settlement_type: 'settlementType',
+  settlement_type_full: 'settlementTypeFull',
+  street: 'streetName',
+  street_fias_id: 'streetFiasID',
+  street_type: 'streetType',
+  street_type_full: 'streetTypeFull',
+};
+
 const KladrItem = (props) => {
   const {
     name,
@@ -20,21 +61,20 @@ const KladrItem = (props) => {
   } = props || {};
 
   const {
-    data,
     unrestricted_value: value,
   } = item || {};
 
   const handleClick = React.useCallback(() => {
     if (callback) {
-      callback(name, data);
+      callback(name, item);
     }
-  }, [callback, name, data]);
+  }, [callback, name, item]);
 
   return (
     <li
       role="presentation"
       title={value}
-      onClick={handleClick}
+      onMouseDown={handleClick}
     >
       {value}
     </li>
@@ -71,7 +111,10 @@ function UserEditor(props) {
 
   const {
     cityName: addressRegistrationCityName,
+    cityNameX: addressRegistrationCityNameX,
     streetName: addressRegistrationStreetName,
+    settlementName: addressRegistrationSettlementName,
+    fiasId: addressRegistrationFiasId,
   } = addressRegistration || {};
 
   const isFirstRun = React.useRef(true);
@@ -93,14 +136,24 @@ function UserEditor(props) {
   ]);
 
   React.useEffect(() => {
+    settingsStoreSetUserInfoAddressRegistrationSection({
+      cityNameX: addressRegistrationCityName || addressRegistrationSettlementName,
+    });
+  }, [
+    addressRegistrationSettlementName,
+    settingsStoreSetUserInfoAddressRegistrationSection,
+    addressRegistrationCityName,
+  ]);
+
+  React.useEffect(() => {
     if (isFirstRun.current) {
       isFirstRun.current = false;
-    } else if (addressRegistrationCityName) {
+    } else if (addressRegistrationCityNameX && !addressRegistrationFiasId) {
       settingsStoreDadataGetAddress({
         id: 'addressRegistrationCityName',
         query: {
           from_bound: { value: 'city' },
-          query: addressRegistrationCityName,
+          query: addressRegistrationCityNameX,
           to_bound: { value: 'settlement' },
         },
       });
@@ -116,8 +169,9 @@ function UserEditor(props) {
     }
   }, [
     settingsStoreDadataGetAddress,
-    addressRegistrationCityName,
+    addressRegistrationCityNameX,
     addressRegistrationStreetName,
+    addressRegistrationFiasId,
   ]);
 
   const handleSaveUser = React.useCallback(() => {
@@ -138,10 +192,19 @@ function UserEditor(props) {
   }, [settingsStoreSetUserInfoSection]);
 
   const handleChangeAddressRegistrationValue = React.useCallback((editName, editValue) => {
-    settingsStoreSetUserInfoAddressRegistrationSection({
-      [editName]: editValue,
-    });
-  }, [settingsStoreSetUserInfoAddressRegistrationSection]);
+    if (editName === 'cityNameX') {
+      settingsStoreSetUserInfoSection({
+        addressRegistration: { cityName: editValue },
+      });
+    } else {
+      settingsStoreSetUserInfoAddressRegistrationSection({
+        [editName]: editValue,
+      });
+    }
+  }, [
+    settingsStoreSetUserInfoSection,
+    settingsStoreSetUserInfoAddressRegistrationSection,
+  ]);
 
   const handleChangeAddressResidenceValue = React.useCallback((editName, editValue) => {
     if (editName === 'isConcidesPlaceReg') {
@@ -158,17 +221,27 @@ function UserEditor(props) {
   ]);
 
   const handleSetDadataValue = React.useCallback((editName, editValue) => {
+    const {
+      data,
+    } = editValue || {};
+    const tmpObj = {};
+    Object.keys(addressVariables).forEach((v) => {
+      if (data[v] || data[v] === 0) {
+        tmpObj[addressVariables[v]] = data[v];
+      }
+    });
     if (editName.includes('addressRegistration')) {
-      settingsStoreSetUserInfoAddressRegistrationSection({
+      settingsStoreSetUserInfoSection({ addressRegistration: tmpObj });
+    }
+    if (editName.includes('addressResidence')) {
+      settingsStoreSetUserInfoAddressResidenceSection({
         [editName]: editValue,
       });
     }
-    if (editName === 'addressResCityName') {
-      settingsStoreSetUserInfoAddressRegistrationSection({
-        [editName]: editValue,
-      });
-    }
-  }, [settingsStoreSetUserInfoAddressRegistrationSection]);
+  }, [
+    settingsStoreSetUserInfoSection,
+    settingsStoreSetUserInfoAddressResidenceSection,
+  ]);
 
   const mainBlock = React.useMemo(() => {
     const tmp = userInfoMainTemplate.map((v) => {
@@ -234,7 +307,7 @@ function UserEditor(props) {
               dataKey,
               otherProps,
             } = x || {};
-            if (dataKey === 'cityName') {
+            if (dataKey === 'cityNameX') {
               return {
                 ...x,
                 otherProps: {
@@ -317,6 +390,7 @@ function UserEditor(props) {
     }
     return null;
   }, [
+    handleSetDadataValue,
     handleChangeAddressResidenceValue,
     handleChangeAddressRegistrationValue,
     addressRegistrationCityNameLoading,

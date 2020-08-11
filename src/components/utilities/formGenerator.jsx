@@ -4,7 +4,7 @@ import UIReactSelect from '../UIReactSelect/UIReactSelect';
 import UISemanticCheckbox from '../UISemanticCheckbox/UISemanticCheckbox';
 import UITextArea from '../UITextArea/UITextArea';
 import UIReactDatePicker from '../UIReactDatePicker/UIReactDatePicker';
-import UISearch from "../UISearch/UISearch";
+import UISearch from '../UISearch/UISearch';
 
 const formGenerator = (list, dataSource, callback) => {
   if (list && Array.isArray(list)) {
