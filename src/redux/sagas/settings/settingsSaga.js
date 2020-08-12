@@ -172,19 +172,23 @@ export function* canBeCanceledSettingsStoreGetUserInfo(action) {
 
 /* ***************************** settingsStoreSaveUser ********************** */
 function* settingsStoreSaveUser(value) {
+  const {
+    el,
+    callback,
+  } = value || {};
   yield put(actions.settingsStoreSetSection({
     trySaveUser: true,
   }));
   yield queryResultAnalysis(
-    (value.id || value.id === 0) ? api.settingsStoreSaveUser : api.settingsStoreAddUser,
-    value,
+    (el.id || el.id === '0') ? api.settingsStoreSaveUser : api.settingsStoreAddUser,
+    el,
     function* () {
       yield put(actions.popUpStoreClear());
       yield put(actions.settingsStoreSetSection({
         trySaveUser: false,
       }));
       yield (setSuccessToast(`Пользователь ${(value.id || value.id === 0) ? 'сохранен' : 'добавлен'}.`));
-      yield settingsStoreGetUsers();
+      yield call(callback);
     },
     function* () {
       yield put(actions.settingsStoreSetSection({

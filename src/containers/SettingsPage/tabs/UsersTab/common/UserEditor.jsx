@@ -39,6 +39,7 @@ function UserEditor(props) {
     settingsStoreSetUserInfoAddressResidenceSection,
     settingsStoreDadataGetAddress,
     settingsStoreDadataGetAddressCancel,
+    hideCallback,
   } = props || {};
 
   const {
@@ -250,8 +251,11 @@ function UserEditor(props) {
     } else {
       el = userInfo;
     }
-    settingsStoreSaveUser(el);
-  }, [isConcidesPlaceReg, userInfo, settingsStoreSaveUser]);
+    settingsStoreSaveUser({
+      el,
+      callback: hideCallback,
+    });
+  }, [hideCallback, isConcidesPlaceReg, userInfo, settingsStoreSaveUser]);
 
   const handleChangeValue = React.useCallback((editName, editValue) => {
     if (editName === 'phone') {

@@ -84,10 +84,10 @@ function UsersTab(props) {
     const { userID } = value || {};
     popUpStoreSetSection({
       show: true,
-      component: <UserEditor id={userID} />,
+      component: <UserEditor id={userID} hideCallback={getUsers} />,
       type: '--horizontal-right-25 --rounded',
     });
-  }, [popUpStoreSetSection]);
+  }, [getUsers, popUpStoreSetSection]);
 
   const removeUser = React.useCallback((value) => {
     const { userID } = value || {};
@@ -112,11 +112,11 @@ function UsersTab(props) {
   const handleAdd = React.useCallback(() => {
     popUpStoreSetSection({
       show: true,
-      component: <UserEditor />,
+      component: <UserEditor hideCallback={getUsers} />,
       hidePageControl: true,
       type: '--horizontal-right-25 --rounded',
     });
-  }, [popUpStoreSetSection]);
+  }, [getUsers, popUpStoreSetSection]);
 
   React.useEffect(() => {
     if (!usersTableTemplate || !usersTableStore) {
