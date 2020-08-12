@@ -38,8 +38,9 @@ export const settingsStoreSaveSettingsCancel = () => ({
 });
 
 /* ************************** users **************************** */
-export const settingsStoreGetUsers = () => ({
+export const settingsStoreGetUsers = (value) => ({
   type: 'SETTINGS_STORE_GET_USERS',
+  value,
 });
 
 export const settingsStoreGetUsersCancel = () => ({

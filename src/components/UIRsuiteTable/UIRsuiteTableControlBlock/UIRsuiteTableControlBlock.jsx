@@ -23,6 +23,7 @@ function UIRsuiteTableControlBlock(props) {
     searchPlaceholder,
     searchString,
     searchSetString,
+    searchCustom,
     refresh,
     refreshCallback,
   } = props || {};
@@ -60,7 +61,7 @@ function UIRsuiteTableControlBlock(props) {
             filterBodyTitle={filterBodyTitle}
           />
         )}
-        {search && (
+        {search && !searchCustom && (
           <div className="search-wrapper">
             <UISearch
               hideResults
@@ -76,6 +77,11 @@ function UIRsuiteTableControlBlock(props) {
           </div>
         )}
       </div>
+      {search && searchCustom && (
+      <div className="control-block__bottom-side">
+        {searchCustom}
+      </div>
+      )}
     </>
   );
 }

@@ -5,81 +5,14 @@ import actions from '../../../../../redux/actions/actions';
 import UILoader from '../../../../../components/UILoader/UILoader';
 import UIAnimateHeightBlock from '../../../../../components/UIAnimateHeightBlock/UIAnimateHeightBlock';
 import formGenerator from '../../../../../components/utilities/formGenerator';
+import KladrItem from './KladrItem';
 import {
   userInfoBankTemplate,
   userInfoMainTemplate,
   userInfoOtherTemplate,
   userInfoPassportTemplate,
+  addressVariables,
 } from '../settings';
-
-const addressVariables = {
-  area: 'areaName',
-  area_fias_id: 'areaFiasID',
-  area_type: 'areaType',
-  area_type_full: 'areaTypeFull',
-  block: 'block',
-  block_type: 'blockType',
-  block_type_full: 'blockTypeFull',
-  city: 'cityName',
-  city_district: 'cityDistrictName',
-  city_district_fias_id: 'cityDistrictFiasID',
-  city_district_type: 'cityDistrictType',
-  city_district_type_full: 'cityDistrictTypeFull',
-  city_fias_id: 'cityFiasID',
-  city_type: 'cityType',
-  city_type_full: 'cityTypeFull',
-  fias_id: 'fiasId',
-  flat: 'flat',
-  flat_type: 'flatType',
-  flat_type_full: 'flatTypeFull',
-  geo_lat: 'latitude',
-  geo_lon: 'longitude',
-  house: 'houseName',
-  source: 'fullAddress',
-  house_fias_id: 'houseFiasID',
-  house_type: 'houseType',
-  house_type_full: 'houseTypeFull',
-  region: 'regionName',
-  region_fias_id: 'regionFiasID',
-  region_type: 'regionType',
-  region_type_full: 'regionTypeFull',
-  settlement: 'settlementName',
-  settlement_fias_id: 'settlementFiasID',
-  settlement_type: 'settlementType',
-  settlement_type_full: 'settlementTypeFull',
-  street: 'streetName',
-  street_fias_id: 'streetFiasID',
-  street_type: 'streetType',
-  street_type_full: 'streetTypeFull',
-};
-
-const KladrItem = (props) => {
-  const {
-    name,
-    item,
-    callback,
-  } = props || {};
-
-  const {
-    unrestricted_value: value,
-  } = item || {};
-
-  const handleClick = React.useCallback(() => {
-    if (callback) {
-      callback(name, item);
-    }
-  }, [callback, name, item]);
-
-  return (
-    <li
-      role="presentation"
-      title={value}
-      onMouseDown={handleClick}
-    >
-      {value}
-    </li>
-  );
-};
 
 function UserEditor(props) {
   const {
@@ -88,10 +21,15 @@ function UserEditor(props) {
     userInfoLoading,
     userRoles,
     userRolesLoading,
+    trySaveUser,
     addressRegistrationCityNameLoading,
     addressRegistrationStreetNameLoading,
     addressRegistrationCityNameResults,
     addressRegistrationStreetNameResults,
+    addressResidenceCityNameLoading,
+    addressResidenceStreetNameLoading,
+    addressResidenceCityNameResults,
+    addressResidenceStreetNameResults,
     settingsStoreSetUserInfoSection,
     settingsStoreGetUserInfo,
     settingsStoreGetUserInfoCancel,
@@ -107,15 +45,33 @@ function UserEditor(props) {
     addressRegistration,
     addressResidence,
     isConcidesPlaceReg,
+    password,
+    commission,
   } = userInfo || {};
 
   const {
     cityName: addressRegistrationCityName,
     cityNameX: addressRegistrationCityNameX,
     streetName: addressRegistrationStreetName,
+    streetNameX: addressRegistrationStreetNameX,
     settlementName: addressRegistrationSettlementName,
-    fiasId: addressRegistrationFiasId,
+    cityFiasID: addressRegistrationCityFiasID,
+    countryIsoCode: addressRegistrationCountryIsoCode,
+    regionFiasID: addressRegistrationRegionFiasID,
+    regionIsoCode: addressRegistrationRegionIsoCode,
   } = addressRegistration || {};
+
+  const {
+    cityName: addressResidenceCityName,
+    cityNameX: addressResidenceCityNameX,
+    streetName: addressResidenceStreetName,
+    streetNameX: addressResidenceStreetNameX,
+    settlementName: addressResidenceSettlementName,
+    cityFiasID: addressResidenceCityFiasID,
+    countryIsoCode: addressResidenceCountryIsoCode,
+    regionFiasID: addressResidenceRegionFiasID,
+    regionIsoCode: addressResidenceRegionIsoCode,
+  } = addressResidence || {};
 
   const isFirstRun = React.useRef(true);
 
@@ -136,9 +92,11 @@ function UserEditor(props) {
   ]);
 
   React.useEffect(() => {
-    settingsStoreSetUserInfoAddressRegistrationSection({
-      cityNameX: addressRegistrationCityName || addressRegistrationSettlementName,
-    });
+    if (addressRegistrationCityName || addressRegistrationSettlementName) {
+      settingsStoreSetUserInfoAddressRegistrationSection({
+        cityNameX: addressRegistrationCityName || addressRegistrationSettlementName,
+      });
+    }
   }, [
     addressRegistrationSettlementName,
     settingsStoreSetUserInfoAddressRegistrationSection,
@@ -146,9 +104,52 @@ function UserEditor(props) {
   ]);
 
   React.useEffect(() => {
+    if (addressResidenceCityName || addressResidenceSettlementName) {
+      settingsStoreSetUserInfoAddressResidenceSection({
+        cityNameX: addressResidenceCityName || addressResidenceSettlementName,
+      });
+    }
+  }, [
+    addressResidenceSettlementName,
+    settingsStoreSetUserInfoAddressResidenceSection,
+    addressResidenceCityName,
+  ]);
+
+  React.useEffect(() => {
+    if (addressRegistrationStreetName) {
+      settingsStoreSetUserInfoAddressRegistrationSection({
+        streetNameX: addressRegistrationStreetName,
+      });
+    }
+  }, [
+    settingsStoreSetUserInfoAddressRegistrationSection,
+    addressRegistrationStreetName,
+  ]);
+
+  React.useEffect(() => {
+    if (addressResidenceStreetName) {
+      settingsStoreSetUserInfoAddressResidenceSection({
+        streetNameX: addressResidenceStreetName,
+      });
+    }
+  }, [
+    settingsStoreSetUserInfoAddressResidenceSection,
+    addressResidenceStreetName,
+  ]);
+
+  React.useEffect(() => {
+    settingsStoreSetUserInfoAddressResidenceSection({
+      isConcidesPlaceReg,
+    });
+  }, [
+    settingsStoreSetUserInfoAddressResidenceSection,
+    isConcidesPlaceReg,
+  ]);
+
+  React.useEffect(() => {
     if (isFirstRun.current) {
       isFirstRun.current = false;
-    } else if (addressRegistrationCityNameX && !addressRegistrationFiasId) {
+    } else if (addressRegistrationCityNameX && !addressRegistrationCityName) {
       settingsStoreDadataGetAddress({
         id: 'addressRegistrationCityName',
         query: {
@@ -157,21 +158,88 @@ function UserEditor(props) {
           to_bound: { value: 'settlement' },
         },
       });
-    } else if (addressRegistrationStreetName) {
+    }
+  }, [
+    settingsStoreDadataGetAddress,
+    addressRegistrationCityNameX,
+    addressRegistrationCityName,
+  ]);
+
+  React.useEffect(() => {
+    if (isFirstRun.current) {
+      isFirstRun.current = false;
+    } else if (addressRegistrationStreetNameX && !addressRegistrationStreetName) {
       settingsStoreDadataGetAddress({
         id: 'addressRegistrationStreetName',
         query: {
           from_bound: { value: 'street' },
-          query: addressRegistrationStreetName,
+          locations: [{
+            city_fias_id: addressRegistrationCityFiasID,
+            country_iso_code: addressRegistrationCountryIsoCode,
+            region_fias_id: addressRegistrationRegionFiasID,
+            region_iso_code: addressRegistrationRegionIsoCode,
+          }],
+          query: addressRegistrationStreetNameX,
           to_bound: { value: 'street' },
         },
       });
     }
   }, [
+    addressRegistrationCityFiasID,
+    addressRegistrationCountryIsoCode,
+    addressRegistrationRegionFiasID,
+    addressRegistrationRegionIsoCode,
     settingsStoreDadataGetAddress,
-    addressRegistrationCityNameX,
+    addressRegistrationStreetNameX,
     addressRegistrationStreetName,
-    addressRegistrationFiasId,
+  ]);
+
+  React.useEffect(() => {
+    if (isFirstRun.current) {
+      isFirstRun.current = false;
+    } else if (addressResidenceCityNameX && !addressResidenceCityName) {
+      settingsStoreDadataGetAddress({
+        id: 'addressResidenceCityName',
+        query: {
+          from_bound: { value: 'city' },
+          query: addressResidenceCityNameX,
+          to_bound: { value: 'settlement' },
+        },
+      });
+    }
+  }, [
+    settingsStoreDadataGetAddress,
+    addressResidenceCityNameX,
+    addressResidenceCityName,
+  ]);
+
+  React.useEffect(() => {
+    if (isFirstRun.current) {
+      isFirstRun.current = false;
+    } else if (addressResidenceStreetNameX && !addressResidenceStreetName) {
+      settingsStoreDadataGetAddress({
+        id: 'addressResidenceStreetName',
+        query: {
+          from_bound: { value: 'street' },
+          locations: [{
+            city_fias_id: addressResidenceCityFiasID,
+            country_iso_code: addressResidenceCountryIsoCode,
+            region_fias_id: addressResidenceRegionFiasID,
+            region_iso_code: addressResidenceRegionIsoCode,
+          }],
+          query: addressResidenceStreetNameX,
+          to_bound: { value: 'street' },
+        },
+      });
+    }
+  }, [
+    addressResidenceCityFiasID,
+    addressResidenceCountryIsoCode,
+    addressResidenceRegionFiasID,
+    addressResidenceRegionIsoCode,
+    settingsStoreDadataGetAddress,
+    addressResidenceStreetNameX,
+    addressResidenceStreetName,
   ]);
 
   const handleSaveUser = React.useCallback(() => {
@@ -186,15 +254,29 @@ function UserEditor(props) {
   }, [isConcidesPlaceReg, userInfo, settingsStoreSaveUser]);
 
   const handleChangeValue = React.useCallback((editName, editValue) => {
-    settingsStoreSetUserInfoSection({
-      [editName]: editValue,
-    });
+    if (editName === 'phone') {
+      settingsStoreSetUserInfoSection({
+        [editName]: editValue.replace(/[(]|[)]|[-]/g, ''),
+      });
+    } else {
+      settingsStoreSetUserInfoSection({
+        [editName]: editValue,
+      });
+    }
   }, [settingsStoreSetUserInfoSection]);
 
   const handleChangeAddressRegistrationValue = React.useCallback((editName, editValue) => {
     if (editName === 'cityNameX') {
       settingsStoreSetUserInfoSection({
-        addressRegistration: { cityName: editValue },
+        addressRegistration: { cityNameX: editValue },
+      });
+    } else if (editName === 'streetNameX') {
+      settingsStoreSetUserInfoSection({
+        addressRegistration: {
+          ...addressRegistration,
+          streetNameX: editValue,
+          streetName: undefined,
+        },
       });
     } else {
       settingsStoreSetUserInfoAddressRegistrationSection({
@@ -202,6 +284,7 @@ function UserEditor(props) {
       });
     }
   }, [
+    addressRegistration,
     settingsStoreSetUserInfoSection,
     settingsStoreSetUserInfoAddressRegistrationSection,
   ]);
@@ -211,11 +294,25 @@ function UserEditor(props) {
       settingsStoreSetUserInfoSection({
         isConcidesPlaceReg: editValue,
       });
+    } else if (editName === 'cityNameX') {
+      settingsStoreSetUserInfoSection({
+        addressResidence: { cityNameX: editValue },
+      });
+    } else if (editName === 'streetNameX') {
+      settingsStoreSetUserInfoSection({
+        addressResidence: {
+          ...addressResidence,
+          streetNameX: editValue,
+          streetName: undefined,
+        },
+      });
+    } else {
+      settingsStoreSetUserInfoAddressResidenceSection({
+        [editName]: editValue,
+      });
     }
-    settingsStoreSetUserInfoAddressResidenceSection({
-      [editName]: editValue,
-    });
   }, [
+    addressResidence,
     settingsStoreSetUserInfoAddressResidenceSection,
     settingsStoreSetUserInfoSection,
   ]);
@@ -223,24 +320,30 @@ function UserEditor(props) {
   const handleSetDadataValue = React.useCallback((editName, editValue) => {
     const {
       data,
+      unrestricted_value: value,
     } = editValue || {};
+    const {
+      city,
+    } = data || {};
     const tmpObj = {};
     Object.keys(addressVariables).forEach((v) => {
       if (data[v] || data[v] === 0) {
         tmpObj[addressVariables[v]] = data[v];
+        tmpObj.cityNameX = city;
+        tmpObj.fullAddress = value;
+        tmpObj.block = undefined;
+        tmpObj.houseName = undefined;
+        tmpObj.flat = undefined;
       }
     });
     if (editName.includes('addressRegistration')) {
       settingsStoreSetUserInfoSection({ addressRegistration: tmpObj });
     }
     if (editName.includes('addressResidence')) {
-      settingsStoreSetUserInfoAddressResidenceSection({
-        [editName]: editValue,
-      });
+      settingsStoreSetUserInfoSection({ addressResidence: tmpObj });
     }
   }, [
     settingsStoreSetUserInfoSection,
-    settingsStoreSetUserInfoAddressResidenceSection,
   ]);
 
   const mainBlock = React.useMemo(() => {
@@ -300,6 +403,99 @@ function UserEditor(props) {
           content,
           blockKey,
         } = v || {};
+        const isRegistration = blockKey === 'addressRegistration';
+        const isResidence = blockKey === 'addressResidence';
+        let loadingCities;
+        let loadingStreets;
+        let customResultsCities;
+        let customResultsStreets;
+        let disabled;
+        if (isRegistration) {
+          loadingCities = addressRegistrationCityNameLoading;
+          loadingStreets = addressRegistrationStreetNameLoading;
+          disabled = !(addressRegistrationCityName || addressRegistrationSettlementName);
+          customResultsCities = addressRegistrationCityNameResults
+          && Array.isArray(addressRegistrationCityNameResults)
+            ? addressRegistrationCityNameResults.map((w) => {
+              const {
+                data: thisData,
+              } = w || {};
+              const {
+                kladr_id: kladrId,
+              } = thisData || {};
+              return (
+                <KladrItem
+                  name="addressRegistrationCityName"
+                  key={kladrId}
+                  item={w}
+                  callback={handleSetDadataValue}
+                />
+              );
+            })
+            : <li>Поиск не дал результатов</li>;
+          customResultsStreets = addressRegistrationStreetNameResults
+          && Array.isArray(addressRegistrationStreetNameResults)
+            ? addressRegistrationStreetNameResults.map((w) => {
+              const {
+                data: thisData,
+              } = w || {};
+              const {
+                kladr_id: kladrId,
+              } = thisData || {};
+              return (
+                <KladrItem
+                  key={kladrId}
+                  name="addressRegistrationStreetName"
+                  item={w}
+                  callback={handleSetDadataValue}
+                />
+              );
+            })
+            : <li>Поиск не дал результатов</li>;
+        }
+        if (isResidence) {
+          loadingCities = addressResidenceCityNameLoading;
+          loadingStreets = addressResidenceStreetNameLoading;
+          disabled = !(addressResidenceCityName || addressResidenceSettlementName);
+          customResultsCities = addressResidenceCityNameResults
+          && Array.isArray(addressResidenceCityNameResults)
+            ? addressResidenceCityNameResults.map((w) => {
+              const {
+                data: thisData,
+              } = w || {};
+              const {
+                kladr_id: kladrId,
+              } = thisData || {};
+              return (
+                <KladrItem
+                  name="addressResidenceCityName"
+                  key={kladrId}
+                  item={w}
+                  callback={handleSetDadataValue}
+                />
+              );
+            })
+            : <li>Поиск не дал результатов</li>;
+          customResultsStreets = addressResidenceStreetNameResults
+          && Array.isArray(addressResidenceStreetNameResults)
+            ? addressResidenceStreetNameResults.map((w) => {
+              const {
+                data: thisData,
+              } = w || {};
+              const {
+                kladr_id: kladrId,
+              } = thisData || {};
+              return (
+                <KladrItem
+                  key={kladrId}
+                  name="addressResidenceStreetName"
+                  item={w}
+                  callback={handleSetDadataValue}
+                />
+              );
+            })
+            : <li>Поиск не дал результатов</li>;
+        }
         let templateArr = [];
         if (content && Array.isArray(content)) {
           templateArr = content.map((x) => {
@@ -312,54 +508,19 @@ function UserEditor(props) {
                 ...x,
                 otherProps: {
                   ...otherProps,
-                  loadingData: addressRegistrationCityNameLoading,
-                  customResults: addressRegistrationCityNameResults
-                  && Array.isArray(addressRegistrationCityNameResults)
-                    ? addressRegistrationCityNameResults.map((w) => {
-                      const {
-                        data: thisData,
-                      } = w || {};
-                      const {
-                        kladr_id: kladrId,
-                      } = thisData || {};
-                      return (
-                        <KladrItem
-                          name="addressRegistrationCityName"
-                          key={kladrId}
-                          item={w}
-                          callback={handleSetDadataValue}
-                        />
-                      );
-                    })
-                    : <li>Поиск не дал результатов</li>,
+                  loadingData: loadingCities,
+                  customResults: customResultsCities,
                 },
               };
             }
-            if (dataKey === 'streetName') {
+            if (dataKey === 'streetNameX') {
               return {
                 ...x,
                 otherProps: {
                   ...otherProps,
-                  loadingData: addressRegistrationStreetNameLoading,
-                  customResults: addressRegistrationStreetNameResults
-                  && Array.isArray(addressRegistrationStreetNameResults)
-                    ? addressRegistrationStreetNameResults.map((w) => {
-                      const {
-                        data: thisData,
-                      } = w || {};
-                      const {
-                        kladr_id: kladrId,
-                      } = thisData || {};
-                      return (
-                        <KladrItem
-                          key={kladrId}
-                          name="addressRegistrationStreetName"
-                          item={w}
-                          callback={handleSetDadataValue}
-                        />
-                      );
-                    })
-                    : <li>Поиск не дал результатов</li>,
+                  disabled,
+                  loadingData: loadingStreets,
+                  customResults: customResultsStreets,
                 },
               };
             }
@@ -368,11 +529,11 @@ function UserEditor(props) {
         }
         let dataObj = userInfo;
         let callbackObj = handleChangeValue;
-        if (blockKey === 'addressRegistration') {
+        if (isRegistration) {
           dataObj = addressRegistration;
           callbackObj = handleChangeAddressRegistrationValue;
         }
-        if (blockKey === 'addressResidence') {
+        if (isResidence) {
           dataObj = addressResidence;
           callbackObj = handleChangeAddressResidenceValue;
         }
@@ -393,10 +554,18 @@ function UserEditor(props) {
     handleSetDadataValue,
     handleChangeAddressResidenceValue,
     handleChangeAddressRegistrationValue,
+    addressRegistrationCityName,
+    addressRegistrationSettlementName,
     addressRegistrationCityNameLoading,
     addressRegistrationStreetNameLoading,
     addressRegistrationCityNameResults,
     addressRegistrationStreetNameResults,
+    addressResidenceCityName,
+    addressResidenceSettlementName,
+    addressResidenceCityNameLoading,
+    addressResidenceStreetNameLoading,
+    addressResidenceCityNameResults,
+    addressResidenceStreetNameResults,
     addressRegistration,
     addressResidence,
     isConcidesPlaceReg,
@@ -413,6 +582,85 @@ function UserEditor(props) {
     () => formGenerator(userInfoBankTemplate, userInfo, handleChangeValue),
     [userInfo, handleChangeValue],
   );
+
+  const disableSaveBtn = React.useMemo(() => {
+    let errors = 0;
+
+    const checkValueFn = (el) => {
+      const {
+        dataKey,
+        otherProps,
+      } = el || {};
+      const {
+        required,
+        minLength,
+      } = otherProps || {};
+      const {
+        [dataKey]: value,
+      } = userInfo || {};
+      if (required && minLength) {
+        if (!(value && value.length >= minLength)) {
+          errors += 1;
+        }
+      }
+      if (required && !minLength) {
+        if (!value) {
+          errors += 1;
+        }
+      }
+    };
+
+    if (userInfoMainTemplate && Array.isArray(userInfoMainTemplate)) {
+      userInfoMainTemplate.forEach((v) => {
+        checkValueFn(v);
+      });
+    }
+
+    if (userInfoBankTemplate && Array.isArray(userInfoBankTemplate)) {
+      userInfoBankTemplate.forEach((v) => {
+        checkValueFn(v);
+      });
+    }
+
+    if (userInfoOtherTemplate && Array.isArray(userInfoOtherTemplate)) {
+      userInfoOtherTemplate.forEach((v) => {
+        checkValueFn(v);
+      });
+    }
+
+    if (userInfoPassportTemplate
+      && Array.isArray(userInfoPassportTemplate)
+      && userInfoPassportTemplate[0]
+      && userInfoPassportTemplate[0].content
+      && Array.isArray(userInfoPassportTemplate[0].content)
+    ) {
+      userInfoPassportTemplate[0].content.forEach((v) => {
+        checkValueFn(v);
+      });
+    }
+
+    if ((!id && !password && !(password && password.length >= 6))
+      || !(commission && commission >= 0 && commission <= 100)
+      || !addressRegistrationCityName
+      || !addressRegistrationStreetName
+      || (!isConcidesPlaceReg && !addressResidenceCityName)
+      || (!isConcidesPlaceReg && !addressResidenceStreetName)
+    ) {
+      errors += 1;
+    }
+
+    return !!errors;
+  }, [
+    id,
+    password,
+    commission,
+    userInfo,
+    addressRegistrationCityName,
+    addressRegistrationStreetName,
+    addressResidenceCityName,
+    addressResidenceStreetName,
+    isConcidesPlaceReg,
+  ]);
 
   return (
     <div className="settings-page__add-user-popup">
@@ -455,8 +703,9 @@ function UserEditor(props) {
           circular
           positive
           size="small"
-          disabled={userInfoLoading}
+          disabled={userInfoLoading || disableSaveBtn}
           onClick={handleSaveUser}
+          loading={trySaveUser}
         >
           <Icon name="check" />
           {id ? 'Сохранить' : 'Добавить'}
@@ -475,6 +724,11 @@ const mapStateToProps = (state) => ({
   addressRegistrationStreetNameLoading: state.settingsStore.addressRegistrationStreetNameLoading,
   addressRegistrationCityNameResults: state.settingsStore.addressRegistrationCityNameResults,
   addressRegistrationStreetNameResults: state.settingsStore.addressRegistrationStreetNameResults,
+  addressResidenceCityNameLoading: state.settingsStore.addressResidenceCityNameLoading,
+  addressResidenceStreetNameLoading: state.settingsStore.addressResidenceStreetNameLoading,
+  addressResidenceCityNameResults: state.settingsStore.addressResidenceCityNameResults,
+  addressResidenceStreetNameResults: state.settingsStore.addressResidenceStreetNameResults,
+  trySaveUser: state.settingsStore.trySaveUser,
 });
 
 const mapDispatchToProps = { ...actions };

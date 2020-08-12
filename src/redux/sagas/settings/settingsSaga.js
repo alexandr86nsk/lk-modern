@@ -64,16 +64,23 @@ export function* canBeCanceledSettingsStoreSaveSettings(action) {
 }
 
 /* ***************************** settingsStoreGetUsers ********************** */
-function* settingsStoreGetUsers() {
+function* settingsStoreGetUsers(value) {
   yield put(actions.settingsStoreSetUsersTableStoreSection({
     tableLoading: true,
   }));
   yield queryResultAnalysis(
     api.settingsStoreGetUsers,
-    undefined,
+    value,
     function* (res) {
+      const {
+        users,
+        usersTotal,
+      } = res || {};
       yield put(actions.settingsStoreSetSection({
-        users: res,
+        users,
+      }));
+      yield put(actions.settingsStoreSetUsersTableStoreSection({
+        paginationTotalItems: usersTotal,
       }));
       yield put(actions.settingsStoreSetUsersTableStoreSection({
         tableLoading: false,
@@ -90,8 +97,8 @@ function* settingsStoreGetUsers() {
   );
 }
 
-export function* canBeCanceledSettingsStoreGetUsers() {
-  const bgSettingsStoreGetUsers = yield fork(settingsStoreGetUsers);
+export function* canBeCanceledSettingsStoreGetUsers(action) {
+  const bgSettingsStoreGetUsers = yield fork(settingsStoreGetUsers, action.value);
   yield take('SETTINGS_STORE_GET_USERS_CANCEL');
   yield cancel(bgSettingsStoreGetUsers);
 }
@@ -172,10 +179,12 @@ function* settingsStoreSaveUser(value) {
     (value.id || value.id === 0) ? api.settingsStoreSaveUser : api.settingsStoreAddUser,
     value,
     function* () {
+      yield put(actions.popUpStoreClear());
       yield put(actions.settingsStoreSetSection({
         trySaveUser: false,
       }));
       yield (setSuccessToast(`Пользователь ${(value.id || value.id === 0) ? 'сохранен' : 'добавлен'}.`));
+      yield settingsStoreGetUsers();
     },
     function* () {
       yield put(actions.settingsStoreSetSection({

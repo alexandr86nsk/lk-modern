@@ -325,7 +325,7 @@
     border: 1px solid rgba($theme-border-color, .5);
   }
 
-  &.--style-1c &__title {
+  &.input.--style-1c &__title {
     background-color: rgba($theme-border-color, .05);
     border: none;
     border-right: 1px solid rgba($theme-border-color, .5);
@@ -339,8 +339,12 @@
     font-size: inherit;
   }
 
-  &.--style-1c &__body {
+  &.input.--style-1c &__body {
     flex: .6;
+  }
+
+  &.--style-1c &__body {
+    flex: 1;
   }
 
   &.--style-1c &__input {

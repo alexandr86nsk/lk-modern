@@ -36,6 +36,7 @@ function UIRsuiteTable(props) {
     search,
     searchPlaceholder,
     searchString,
+    searchCustom,
     refresh,
     refreshCallback,
     contextMenu,
@@ -237,6 +238,7 @@ function UIRsuiteTable(props) {
             searchPlaceholder={searchPlaceholder}
             searchString={searchString}
             searchSetString={searchSetString}
+            searchCustom={searchCustom}
             refresh={refresh}
             refreshCallback={refreshCallback}
           />

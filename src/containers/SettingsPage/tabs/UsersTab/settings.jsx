@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React from 'react';
 // import MainTab from './addUserPopupTabs/MainTab/MainTab';
 
@@ -24,8 +25,8 @@ export const usersTableConfig = [
   },
   {
     id: 2,
-    title: 'Телефон',
-    dataKey: 'phone',
+    title: 'Зона',
+    dataKey: 'zoneName',
     width: 110,
     column: {
       sortable: true,
@@ -33,42 +34,15 @@ export const usersTableConfig = [
   },
   {
     id: 3,
-    title: 'Статус',
-    dataKey: 'isAcceptedUser',
-    type: 'component',
-    width: 140,
-    component: (data) => {
-      const { isAcceptedUser } = data || {};
-      return (
-        <div className={`status ellipsis-element ${isAcceptedUser ? 'success' : 'error'}`}>
-          {isAcceptedUser ? 'Подтвержден' : 'Не подтвержден'}
-        </div>
-      );
-    },
+    title: 'Подзона',
+    dataKey: 'subZoneName',
+    width: 110,
     column: {
       sortable: true,
     },
   },
   {
     id: 4,
-    title: 'Доступ в моб.приложение',
-    dataKey: 'isCanUseMobileVer',
-    type: 'component',
-    width: 185,
-    component: (data) => {
-      const { isCanUseMobileVer } = data || {};
-      return (
-        <div className={`status ellipsis-element ${isCanUseMobileVer ? 'success' : 'error'}`}>
-          {isCanUseMobileVer ? 'Разрешен' : 'Запрещен'}
-        </div>
-      );
-    },
-    column: {
-      sortable: true,
-    },
-  },
-  {
-    id: 5,
     title: 'Роль',
     dataKey: 'roleDescription',
     column: {
@@ -76,7 +50,7 @@ export const usersTableConfig = [
     },
   },
   {
-    id: 6,
+    id: 5,
     title: 'Действия',
     type: 'actions',
     fixed: 'right',
@@ -135,7 +109,7 @@ export const userInfoMainTemplate = [
     otherProps: {
       required: true,
       mask: '+7(000)000-00-00',
-      minLength: 16,
+      minLength: 12,
       successFormat: 'Это поле обязательно для заполнения и должно иметь корректный формат. Пример: "+7(999)888-00-00"',
       type: '--style-1c',
     },
@@ -350,18 +324,22 @@ export const userInfoPassportTemplate = [
       {
         id: 12,
         title: 'Место проживания город',
-        dataKey: 'cityName',
-        type: 'input',
+        dataKey: 'cityNameX',
+        type: 'search',
         otherProps: {
+          asInput: true,
+          required: true,
           type: '--style-1c',
         },
       },
       {
         id: 13,
         title: 'Место проживания улица',
-        dataKey: 'streetName',
-        type: 'input',
+        dataKey: 'streetNameX',
+        type: 'search',
         otherProps: {
+          asInput: true,
+          required: true,
           type: '--style-1c',
         },
       },
@@ -514,6 +492,102 @@ export const userInfoBankTemplate = [
       minLength: 9,
       mask: '000000000',
       type: '--style-1c bottom',
+    },
+  },
+];
+
+export const addressVariables = {
+  country_iso_code: 'countryIsoCode',
+  region_iso_code: 'regionIsoCode',
+  area: 'areaName',
+  area_fias_id: 'areaFiasID',
+  area_type: 'areaType',
+  area_type_full: 'areaTypeFull',
+  block: 'block',
+  block_type: 'blockType',
+  block_type_full: 'blockTypeFull',
+  city: 'cityName',
+  city_district: 'cityDistrictName',
+  city_district_fias_id: 'cityDistrictFiasID',
+  city_district_type: 'cityDistrictType',
+  city_district_type_full: 'cityDistrictTypeFull',
+  city_fias_id: 'cityFiasID',
+  city_type: 'cityType',
+  city_type_full: 'cityTypeFull',
+  fias_id: 'fiasId',
+  flat: 'flat',
+  flat_type: 'flatType',
+  flat_type_full: 'flatTypeFull',
+  // geo_lat: 'latitude',
+  // geo_lon: 'longitude',
+  // source: 'fullAddress',
+  house: 'houseName',
+  house_fias_id: 'houseFiasID',
+  house_type: 'houseType',
+  house_type_full: 'houseTypeFull',
+  region: 'regionName',
+  region_fias_id: 'regionFiasID',
+  region_type: 'regionType',
+  region_type_full: 'regionTypeFull',
+  settlement: 'settlementName',
+  settlement_fias_id: 'settlementFiasID',
+  settlement_type: 'settlementType',
+  settlement_type_full: 'settlementTypeFull',
+  street: 'streetName',
+  street_fias_id: 'streetFiasID',
+  street_type: 'streetType',
+  street_type_full: 'streetTypeFull',
+};
+
+export const usersFilterTemplate = [
+  {
+    id: 0,
+    dataKey: 'fio',
+    type: 'search',
+    otherProps: {
+      type: '--style-1c',
+      placeholder: 'Ф.И.О сотрудника',
+      hideResults: true,
+    },
+  },
+  {
+    id: 1,
+    dataKey: 'birthDay',
+    type: 'datePicker',
+    otherProps: {
+      type: '--style-1c',
+      placeholder: 'Дата рождения',
+      endOfDay: true,
+    },
+  },
+  {
+    id: 2,
+    dataKey: 'zoneName',
+    type: 'search',
+    otherProps: {
+      type: '--style-1c',
+      placeholder: 'Зона',
+      hideResults: true,
+    },
+  },
+  {
+    id: 3,
+    dataKey: 'subZoneName',
+    type: 'search',
+    otherProps: {
+      type: '--style-1c',
+      placeholder: 'Подзона',
+      hideResults: true,
+    },
+  },
+  {
+    id: 4,
+    dataKey: 'roleDescription',
+    type: 'search',
+    otherProps: {
+      type: '--style-1c',
+      placeholder: 'Роль',
+      hideResults: true,
     },
   },
 ];

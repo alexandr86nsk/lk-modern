@@ -26,6 +26,23 @@
     height: 100%;
   }
 
+  &__users-tab {
+
+    .users-filter {
+      display: grid;
+      grid-template: auto / repeat(5, 1fr);
+      grid-gap: 1em;
+    }
+
+    .ui-rsuite-table {
+      grid-template: 90px 1fr 50px/1fr;
+
+      &__control-block {
+        z-index: 3;
+      }
+    }
+  }
+
   &__add-user-popup,
   &__add-template-popup {
     width: 100%;

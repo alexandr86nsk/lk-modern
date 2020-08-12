@@ -59,7 +59,7 @@ function UISemanticCheckbox(props) {
             toggle={toggle}
             onChange={handleChange}
             readOnly={readOnly}
-            checked={data}
+            checked={!!data}
           />
         </div>
       </div>

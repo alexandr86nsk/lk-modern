@@ -12,9 +12,10 @@ export const settingsStoreSaveSettings = (data) => requestParser(
   data,
 );
 
-export const settingsStoreGetUsers = () => requestParser(
-  'get',
-  'user',
+export const settingsStoreGetUsers = (data) => requestParser(
+  'post',
+  'user/GetPagination',
+  data,
 );
 
 export const settingsStoreGetUserRoles = () => requestParser(

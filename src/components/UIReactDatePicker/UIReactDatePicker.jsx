@@ -23,7 +23,7 @@ function UIReactDatePicker(props) {
     hint,
     endOfDay,
     disabled,
-    placeholderText = 'Выберите дату',
+    placeholder = 'Выберите дату',
     isClearable = true,
     ...moreProps
   } = props;
@@ -61,6 +61,9 @@ function UIReactDatePicker(props) {
     if (focus) {
       str = `${str} focus`;
     }
+    if (title) {
+      str = `${str} title`;
+    }
     if (required) {
       str = `${str} required`;
       if (!data) {
@@ -70,7 +73,7 @@ function UIReactDatePicker(props) {
       }
     }
     return str;
-  }, [data, focus, required, type]);
+  }, [title, data, focus, required, type]);
 
   return (
     <div className={className}>
@@ -89,7 +92,7 @@ function UIReactDatePicker(props) {
           onChange={handleChange}
           locale="ru"
           disabled={disabled}
-          placeholderText={placeholderText}
+          placeholderText={placeholder}
           dateFormat="dd.MM.yyyy HH:mm:ss"
           showYearDropdown
           showTimeSelect={showTimeSelect}

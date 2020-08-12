@@ -9,12 +9,14 @@ import tableDefaultConfig from '../../../../components/UIRsuiteTable/tableDeaful
 import { usersTableConfig } from './settings';
 import WarningIcon from '../../../../static/images/warning-24px.svg';
 import UserEditor from './common/UserEditor';
+import UsersFilter from './common/UsersFilter';
 
 function UsersTab(props) {
   const {
     users,
     usersTableStore,
     usersTableTemplate,
+    filterUsers,
     settingsStoreSetSection,
     settingsStoreGetUsers,
     settingsStoreGetUsersCancel,
@@ -30,9 +32,53 @@ function UsersTab(props) {
     popUpStoreClear,
   } = props || {};
 
+  const {
+    paginationCurrentPage,
+    paginationNumberOfItemsToPage,
+    sortSortingValue,
+  } = usersTableStore || {};
+
+  const {
+    fio,
+    birthDay,
+    zoneName,
+    subZoneName,
+    roleDescription,
+  } = filterUsers || {};
+
+  const getUsers = React.useCallback(() => {
+    const {
+      sortColumn,
+      sortType,
+    } = sortSortingValue || {};
+    if (paginationNumberOfItemsToPage && paginationCurrentPage) {
+      settingsStoreGetUsers({
+        countPerPage: parseInt(paginationNumberOfItemsToPage, 10),
+        pageNumber: paginationCurrentPage,
+        orderColumnName: sortColumn,
+        orderDirection: sortType,
+        fio: fio || undefined,
+        birthDay: birthDay || undefined,
+        zoneName: zoneName || undefined,
+        subZoneName: subZoneName || undefined,
+        roleName: roleDescription || undefined,
+      });
+    }
+  }, [
+    fio,
+    birthDay,
+    zoneName,
+    subZoneName,
+    roleDescription,
+    paginationNumberOfItemsToPage,
+    paginationCurrentPage,
+    sortSortingValue,
+    settingsStoreGetUsers,
+  ]);
+
   const handleRefresh = React.useCallback(() => {
-    settingsStoreGetUsers();
-  }, [settingsStoreGetUsers]);
+    getUsers();
+  }, [getUsers]);
 
   const handleEdit = React.useCallback((value) => {
     const { userID } = value || {};
@@ -49,13 +95,13 @@ function UsersTab(props) {
   }, [settingsStoreRemoveUser]);
 
   const handleRemove = React.useCallback((value) => {
-    const { fio } = value || {};
+    const { fio: userFio } = value || {};
     modalStoreSetSection({
       show: true,
       outputBody: {
         icon: <WarningIcon />,
         title: 'Важно',
-        body: <div>{`Подтверждаете удаление ${fio ? `пользователя "${fio}"` : 'этого пользователя'}?`}</div>,
+        body: <div>{`Подтверждаете удаление ${userFio ? `пользователя "${userFio}"` : 'этого пользователя'}?`}</div>,
       },
       data: value,
       asyncClose: true,
@@ -78,6 +124,9 @@ function UsersTab(props) {
         usersTableTemplate: usersTableConfig,
         usersTableStore: {
           ...tableDefaultConfig,
+          paginationServerSide: true,
+          searchServerSide: true,
+          sortServerSide: true,
           tableRowHeight: 36,
           filter: false,
           customId: 'userID',
@@ -97,8 +146,14 @@ function UsersTab(props) {
               hideTitle: true,
             },
           ],
-          refreshCallback: handleRefresh,
+          sortSortingValue: {
+            sortColumn: 'fio',
+            sortType: 'asc',
+          },
+          refresh: false,
+          // refreshCallback: handleRefresh,
           onRowDoubleClick: handleEdit,
+          searchCustom: <UsersFilter />,
         },
       });
     }
@@ -111,11 +166,21 @@ function UsersTab(props) {
     handleRemove,
   ]);
 
+  /*  React.useEffect(() => {
+    settingsStoreSetUsersTableStoreSection({
+      refreshCallback: handleRefresh,
+    });
+  }, [handleRefresh, settingsStoreSetUsersTableStoreSection]); */
+
   React.useEffect(() => {
-    settingsStoreGetUsers();
+    getUsers();
+  }, [
+    getUsers,
+  ]);
+
+  React.useEffect(() => {
     settingsStoreGetUserRoles();
   }, [
-    settingsStoreGetUsers,
     settingsStoreGetUserRoles,
   ]);
 
@@ -147,9 +212,19 @@ function UsersTab(props) {
         <div className="add-block">
           <Button
             circular
+            basic
+            //color="purple"
+            size="small"
+            onClick={handleRefresh}
+            icon="refresh"
+            title="Обновить таблицу"
+          />
+          <Button
+            circular
             primary
             size="small"
             onClick={handleAdd}
+            title="Добавить пользователя"
           >
             <Icon name="add" />
             Добавить
@@ -164,6 +239,7 @@ const mapStateToProps = (state) => ({
   users: state.settingsStore.users,
   usersTableStore: state.settingsStore.usersTableStore,
   usersTableTemplate: state.settingsStore.usersTableTemplate,
+  filterUsers: state.settingsStore.filterUsers,
 });
 
 const mapDispatchToProps = { ...actions };

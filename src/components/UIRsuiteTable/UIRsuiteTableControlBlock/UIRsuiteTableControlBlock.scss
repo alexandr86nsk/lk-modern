@@ -12,7 +12,9 @@
 }
 
 .ui-rsuite-table__control-block {
-  @include flexUnsetCenter;
+  display: grid;
+  grid-template: auto / repeat(2, 1fr);
+  grid-gap: 1em;
 
   @media screen and (max-width: 767px) {
     flex-direction: column;
@@ -65,6 +67,10 @@
       .ui-filter {
         margin-right: 1em;
       }
+    }
+
+    &__bottom-side {
+      grid-column-end: span 2;
     }
   }
 

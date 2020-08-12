@@ -3,7 +3,7 @@ const tableDefaultConfig = {
   tableLoadingMessage: undefined,
   pagination: true,
   paginationPageNeighbours: 0,
-  paginationCurrentPage: undefined,
+  paginationCurrentPage: 1,
   paginationNumberOfItemsToPage: 20,
   paginationTotalItems: undefined,
   filter: true,

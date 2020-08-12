@@ -236,7 +236,7 @@
     border: 1px solid rgba($theme-border-color, .5);
   }
 
-  &.--style-1c &__title {
+  &.title.--style-1c &__title {
     border: none;
     background-color: rgba($theme-border-color, .05);
     border-right: 1px solid rgba($theme-border-color, .5);
@@ -249,6 +249,10 @@
   }
 
   &.--style-1c &__body {
+    flex: 1;
+  }
+
+  &.title.--style-1c &__body {
     flex: .6;
   }
 
