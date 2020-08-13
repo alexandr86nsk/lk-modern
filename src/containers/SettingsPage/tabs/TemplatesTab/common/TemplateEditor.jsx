@@ -12,13 +12,15 @@ function TemplateEditor(props) {
     templateInfo,
     templateInfoLoading,
     templateVar,
+    templateVarLoading,
+    trySaveTemplate,
     settingsStoreSetTemplateInfoSection,
     settingsStoreGetTemplateInfo,
     settingsStoreGetTemplateInfoCancel,
     settingsStoreSaveTemplate,
     settingsStoreSaveTemplateCancel,
     settingsStoreClearTemplateInfo,
-  } = props;
+  } = props || {};
 
   const { text, name } = templateInfo || {};
 
@@ -65,6 +67,8 @@ function TemplateEditor(props) {
               title="Название шаблона"
               name="name"
               data={name}
+              required
+              minLength={1}
               callback={handleChangeValue}
               type="--style-1c"
             />
@@ -73,6 +77,7 @@ function TemplateEditor(props) {
               name="text"
               callback={handleChangeValue}
               templateVar={templateVar}
+              templateVarLoading={templateVarLoading}
             />
           </div>
         )}
@@ -82,8 +87,9 @@ function TemplateEditor(props) {
           circular
           positive
           size="small"
-          disabled={templateInfoLoading}
+          disabled={templateInfoLoading || !name || !text}
           onClick={handleSaveTemplate}
+          loading={trySaveTemplate}
         >
           <Icon name="check" />
           {id ? 'Сохранить' : 'Добавить'}
@@ -97,6 +103,8 @@ const mapStateToProps = (state) => ({
   templateInfoLoading: state.settingsStore.templateInfoLoading,
   templateInfo: state.settingsStore.templateInfo,
   templateVar: state.settingsStore.templateVar,
+  templateVarLoading: state.settingsStore.templateVarLoading,
+  trySaveTemplate: state.settingsStore.trySaveTemplate,
 });
 
 const mapDispatchToProps = { ...actions };

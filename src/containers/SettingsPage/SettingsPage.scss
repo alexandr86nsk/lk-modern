@@ -118,6 +118,15 @@
         padding: .8em;
         overflow: hidden;
         text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .required-icon {
+          color: $error-color;
+          transform: scale(1.5);
+          margin-left: .2em;
+        }
       }
 
       &__editor-body {
@@ -138,6 +147,11 @@
         text-align: left;
         border-radius: 0.30769231rem;
         box-shadow: 0 2px 4px 0 rgba($theme-border-color, 0.35), 0 2px 10px 0 rgba($theme-border-color, 0.45);
+
+        &.loading {
+          width: 140px;
+          height: 100px;
+        }
 
         .context-menu__item {
           position: relative;

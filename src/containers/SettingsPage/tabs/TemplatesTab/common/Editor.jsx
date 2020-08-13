@@ -1,4 +1,5 @@
 import React from 'react';
+import UILoader from "../../../../../components/UILoader/UILoader";
 
 const MenuItem = (props) => {
   const {
@@ -30,7 +31,8 @@ function Editor(props) {
     data,
     callback,
     templateVar,
-  } = props;
+    templateVarLoading,
+  } = props || {};
 
   const textareaRef = React.useRef(null);
   const contextMenuRef = React.useRef(null);
@@ -156,6 +158,7 @@ function Editor(props) {
         <span className="ellipsis-element">
           Текст шаблона
         </span>
+        <div className="required-icon">*</div>
       </div>
       <div className="add-template-popup__editor-body">
         <div className="backdrop" ref={backdropRef}>
@@ -167,13 +170,14 @@ function Editor(props) {
           value={(data || data === 0) ? data : ''}
           onContextMenu={handleSetContextMenuStyle}
           ref={textareaRef}
+          placeholder="Введите текст шаблона..."
         />
         <div
-          className="add-template-popup__context-menu menu transition"
+          className={`add-template-popup__context-menu menu transition${templateVarLoading ? ' loading' : ''}`}
           style={contextMenuStyle}
           ref={contextMenuRef}
         >
-          {renderContextMenu}
+          {templateVarLoading ? <UILoader text="Загрузка переменных" dimmed /> : renderContextMenu}
         </div>
       </div>
     </div>

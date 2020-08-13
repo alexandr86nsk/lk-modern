@@ -100,8 +100,8 @@ function UserEditor(props) {
     }
   }, [
     addressRegistrationSettlementName,
-    settingsStoreSetUserInfoAddressRegistrationSection,
     addressRegistrationCityName,
+    settingsStoreSetUserInfoAddressRegistrationSection,
   ]);
 
   React.useEffect(() => {
@@ -112,8 +112,8 @@ function UserEditor(props) {
     }
   }, [
     addressResidenceSettlementName,
-    settingsStoreSetUserInfoAddressResidenceSection,
     addressResidenceCityName,
+    settingsStoreSetUserInfoAddressResidenceSection,
   ]);
 
   React.useEffect(() => {
@@ -608,7 +608,7 @@ function UserEditor(props) {
         }
       }
       if (required && !minLength) {
-        if (!value) {
+        if (!(value || value === 0)) {
           errors += 1;
         }
       }
@@ -644,7 +644,8 @@ function UserEditor(props) {
     }
 
     if ((!id && !password && !(password && password.length >= 6))
-      || !(commission && commission >= 0 && commission <= 100)
+      || commission > 100
+      || commission < 0
       || !addressRegistrationCityName
       || !addressRegistrationStreetName
       || (!isConcidesPlaceReg && !addressResidenceCityName)

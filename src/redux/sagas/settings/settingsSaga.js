@@ -145,6 +145,7 @@ export function* canBeCanceledSettingsStoreGetUserRoles(action) {
 function* settingsStoreGetUserInfo(value) {
   yield put(actions.settingsStoreSetSection({
     userInfoLoading: true,
+    userInfo: undefined,
   }));
   yield queryResultAnalysis(
     api.settingsStoreGetUserInfo,
@@ -157,7 +158,7 @@ function* settingsStoreGetUserInfo(value) {
     },
     function* () {
       yield put(actions.settingsStoreSetSection({
-        userInfo: {},
+        userInfo: undefined,
         userInfoLoading: false,
       }));
     },
@@ -271,6 +272,7 @@ export function* canBeCanceledSettingsStoreGetTemplates() {
 function* settingsStoreGetTemplateInfo(value) {
   yield put(actions.settingsStoreSetSection({
     templateInfoLoading: true,
+    templateInfo: undefined,
   }));
   yield queryResultAnalysis(
     api.settingsStoreGetTemplateInfo,
@@ -283,7 +285,7 @@ function* settingsStoreGetTemplateInfo(value) {
     },
     function* () {
       yield put(actions.settingsStoreSetSection({
-        templateInfo: {},
+        templateInfo: undefined,
         templateInfoLoading: false,
       }));
     },
@@ -357,7 +359,7 @@ export function* canBeCanceledSettingsStoreRemoveTemplate(action) {
 /* ***************************** settingsStoreGetTemplateVar ********************** */
 function* settingsStoreGetTemplateVar() {
   yield put(actions.settingsStoreSetSection({
-    trySaveTemplate: true,
+    templateVarLoading: true,
   }));
   yield queryResultAnalysis(
     api.settingsStoreGetTemplateVar,
@@ -365,11 +367,13 @@ function* settingsStoreGetTemplateVar() {
     function* (res) {
       yield put(actions.settingsStoreSetSection({
         templateVar: res,
+        templateVarLoading: false,
       }));
     },
     function* () {
       yield put(actions.settingsStoreSetSection({
         templateVar: [],
+        templateVarLoading: false,
       }));
     },
   );
