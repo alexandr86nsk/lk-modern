@@ -5,14 +5,14 @@
   &__body {
     flex: 1;
     display: grid;
-    grid-template: 1fr 1fr / 1fr;
+    grid-template: 1fr / 1fr 1fr;
     grid-gap: 1em;
   }
 
   &__zone {
     flex: 1;
     display: grid;
-    grid-template: 1fr / 1fr 1fr;
+    grid-template: auto 1fr / 1fr;
     grid-gap: 1em;
   }
 
@@ -21,6 +21,8 @@
     display: grid;
     grid-template: auto 1fr / 1fr;
     grid-gap: 1em;
+    z-index: 1;
+    background-color: $white;
   }
 
   &__zone-info {
@@ -38,5 +40,107 @@
       display: flex;
       justify-content: flex-end;
     }
+
+    .flip-card-inner.element-wrapper.--fullscreen {
+      height: 200px;
+    }
+  }
+
+  &__user-selector {
+    opacity: 0;
+    transform: translateY(-50%);
+    transition: transform 0.8s ease-in-out, opacity .3s ease-out;
+
+    &.active {
+      opacity: 1;
+      transform: translateY(0);
+      transition: transform 0.8s ease-in-out, opacity .6s ease-in;
+    }
+
+    .add-user {
+      display: grid;
+      grid-template: auto / 1fr auto;
+      grid-gap: 1em;
+      padding-bottom: .5em;
+
+      button {
+        align-self: center;
+      }
+    }
+
+    .list {
+      position: relative;
+      flex: 1;
+
+      &__body {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        overflow-y: auto;
+        padding-right: .5em;
+      }
+
+      &__item {
+        display: grid;
+        grid-template: auto / repeat(3, 1fr) auto;
+        grid-gap: 1em;
+        margin: .3em 0;
+      }
+
+      &__item-column {
+
+        .title {
+          font-size: .8em;
+          color: $theme-border-color;
+          padding-bottom: .5em;
+        }
+
+        &.controls {
+          align-self: center;
+        }
+      }
+    }
+  }
+
+  .flip-card {
+    perspective: 1000px;
+  }
+
+  .flip-card-inner {
+    position: relative;
+    transition: transform 0.8s ease-in-out;
+    transform-style: preserve-3d;
+  }
+
+  .flip-card.active .flip-card-inner {
+    transform: rotateX(180deg);
+  }
+
+  .flip-card-front, .flip-card-back {
+    position: absolute;
+    top: 2em;
+    right: 2em;
+    bottom: 2em;
+    left: 2em;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  .flip-card-front {
+    //background-color: #bbb;
+    //color: black;
+    display: flex;
+    flex-direction: column;
+    transform: rotateX(180deg);
+  }
+
+  .flip-card-back {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    //background-color: dodgerblue;
+    //color: white;
   }
 }

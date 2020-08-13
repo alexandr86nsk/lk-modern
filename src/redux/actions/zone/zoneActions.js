@@ -51,3 +51,21 @@ export const zoneStoreAddZone = (value) => ({
 export const zoneStoreAddZoneCancel = () => ({
   type: 'ZONE_STORE_ADD_ZONE_CANCEL',
 });
+
+export const zoneStoreAddZoneUser = (value) => ({
+  type: 'ZONE_STORE_ADD_ZONE_USER',
+  value,
+});
+
+export const zoneStoreAddZoneUserCancel = () => ({
+  type: 'ZONE_STORE_ADD_ZONE_USER_CANCEL',
+});
+
+export const zoneStoreRemoveZoneUser = (value) => ({
+  type: 'ZONE_STORE_REMOVE_ZONE_USER',
+  value,
+});
+
+export const zoneStoreRemoveZoneUserCancel = () => ({
+  type: 'ZONE_STORE_REMOVE_ZONE_USER_CANCEL',
+});

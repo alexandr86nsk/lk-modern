@@ -1,15 +1,12 @@
 import React from 'react';
 import './ZonePage.scss';
 import { connect } from 'react-redux';
-import { Button, Icon } from 'semantic-ui-react';
 import actions from '../../redux/actions/actions';
-import UIElementTitle from '../../components/UIElementTitle/UIElementTitle';
 import ZoneEditor from './common/ZoneEditor';
 import UIBlockTitle from '../../components/UIBlockTitle/UIBlockTitle';
-import UIReactSelect from '../../components/UIReactSelect/UIReactSelect';
-import UILoader from '../../components/UILoader/UILoader';
-import ZoneInfoItem from './common/ZoneInfoItem/ZoneInfoItem';
 import stringFromData from '../../components/utilities/stringFromData';
+import WarningIcon from '../../static/images/warning-24px.svg';
+import Zone from './common/Zone';
 
 function ZonePage(props) {
   const {
@@ -21,6 +18,7 @@ function ZonePage(props) {
     zoneUsers,
     zoneUsersLoading,
     selectedZoneUser,
+    tryAddZoneUser,
     zoneStoreSetSection,
     zoneStoreGetZones,
     zoneStoreGetZonesCancel,
@@ -28,25 +26,50 @@ function ZonePage(props) {
     zoneStoreGetZoneInfoCancel,
     zoneStoreGetUsers,
     zoneStoreGetUsersCancel,
-    popUpStoreSetSection,
+    zoneStoreAddZoneUser,
+    zoneStoreAddZoneUserCancel,
+    zoneStoreRemoveZoneUser,
+    zoneStoreRemoveZoneUserCancel,
     modalStoreSetSection,
+    popUpStoreSetSection,
   } = props || {};
 
   const {
     regionName,
     regionTypeFull,
     users,
+    id: zoneId,
     code,
   } = zoneInfo || {};
 
-  const handleEdit = React.useCallback((value) => {
+  /*  const handleEdit = React.useCallback((value) => {
     const { ZoneID } = value || {};
     popUpStoreSetSection({
       show: true,
       component: <ZoneEditor id={ZoneID} />,
       type: '--horizontal-right-25 --rounded',
     });
-  }, [popUpStoreSetSection]);
+  }, [popUpStoreSetSection]); */
+
+  const removeZoneUser = React.useCallback((value) => {
+    const { userID } = value || {};
+    zoneStoreRemoveZoneUser(userID);
+  }, [zoneStoreRemoveZoneUser]);
+
+  const handleRemoveZoneUser = React.useCallback((value) => {
+    const { fio: userFio } = value || {};
+    modalStoreSetSection({
+      show: true,
+      outputBody: {
+        icon: <WarningIcon />,
+        title: 'Важно',
+        body: <div>{`Подтверждаете открепление ${userFio ? `пользователя "${userFio}"` : 'этого пользователя'} от зоны?`}</div>,
+      },
+      data: value,
+      asyncClose: true,
+      callback: removeZoneUser,
+    });
+  }, [modalStoreSetSection, removeZoneUser]);
 
   const handleAdd = React.useCallback(() => {
     popUpStoreSetSection({
@@ -57,22 +80,18 @@ function ZonePage(props) {
     });
   }, [popUpStoreSetSection]);
 
-  const renderZoneInfo = React.useMemo(() => (
-    <>
-      <ZoneInfoItem
-        title="Зона:"
-        value={stringFromData([regionTypeFull, regionName])}
-      />
-      <ZoneInfoItem
-        title="Код:"
-        value={code}
-      />
-      <ZoneInfoItem
-        title="Кол-во супервайзеров:"
-        value={users && Array.isArray(users) && users.length}
-      />
-    </>
-  ), [code, users, regionTypeFull, regionName]);
+  const handleAddZoneUser = React.useCallback(() => {
+    zoneStoreAddZoneUser({
+      zoneID: zoneId,
+      users: [
+        ...users.map((v) => {
+          const { userID } = v || {};
+          return userID;
+        }),
+        selectedZoneUser,
+      ],
+    });
+  }, [users, selectedZoneUser, zoneId, zoneStoreAddZoneUser]);
 
   const handleChangeValue = React.useCallback((editName, editValue) => {
     zoneStoreSetSection({ [editName]: editValue });
@@ -110,10 +129,14 @@ function ZonePage(props) {
     zoneStoreGetZonesCancel();
     zoneStoreGetZoneInfoCancel();
     zoneStoreGetUsersCancel();
+    zoneStoreAddZoneUserCancel();
+    zoneStoreRemoveZoneUserCancel();
   }, [
     zoneStoreGetZonesCancel,
     zoneStoreGetZoneInfoCancel,
     zoneStoreGetUsersCancel,
+    zoneStoreAddZoneUserCancel,
+    zoneStoreRemoveZoneUserCancel,
   ]);
   /* ********************************************************** */
 
@@ -121,77 +144,25 @@ function ZonePage(props) {
     <div className="zone-page page__content">
       <UIBlockTitle title="Список зон" />
       <div className="zone-page__body">
-        <div className="element-wrapper">
-          <UIElementTitle title="Зоны" />
-          <div className="add-block">
-            <Button
-              circular
-              primary
-              size="small"
-              onClick={handleAdd}
-            >
-              <Icon name="add" />
-              Добавить зону
-            </Button>
-          </div>
-          <div className="zone-page__zone">
-            <div className="zone-page__zone-selector">
-              <UIReactSelect
-                name="selectedZone"
-                title="Выберите зону"
-                data={selectedZone}
-                type="--style-1c"
-                options={zones}
-                loading={zonesLoading}
-                callback={handleChangeValue}
-              />
-              <div className="zone-page__zone-info element-wrapper --fullscreen">
-                {zoneInfoLoading && <UILoader text="Загружаем данные" dimmed />}
-                <UIElementTitle title="Выбранная зона" />
-                <div className="info">
-                  {!zoneInfoLoading && zoneInfo && renderZoneInfo}
-                </div>
-                <div className="controls">
-                  <Button
-                    circular
-                    basic
-                    size="small"
-                    onClick={handleAdd}
-                  >
-                    <Icon name="edit" />
-                    Изменить
-                  </Button>
-                </div>
-              </div>
-            </div>
-            <div className="zone-page__user-selector element-wrapper --fullscreen">
-              <UIElementTitle title="Супервайзеры" />
-              <UIReactSelect
-                name="selectedZoneUser"
-                title="Выберите пользователя"
-                data={selectedZoneUser}
-                type="--style-1c"
-                options={zoneUsers}
-                loading={zoneUsersLoading}
-                callback={handleChangeValue}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="element-wrapper">
-          <UIElementTitle title="Подзоны" />
-          <div className="add-block">
-            <Button
-              circular
-              primary
-              size="small"
-              onClick={handleAdd}
-            >
-              <Icon name="add" />
-              Добавить
-            </Button>
-          </div>
-        </div>
+        <Zone
+          addZoneCallback={() => {}}
+          addZoneUserCallback={handleAddZoneUser}
+          removeZoneUserCallback={handleRemoveZoneUser}
+          changeZoneCallback={() => {}}
+          selectedZone={selectedZone}
+          selectedZoneUser={selectedZoneUser}
+          tryAddZoneUser={tryAddZoneUser}
+          zones={zones}
+          zonesLoading={zonesLoading}
+          zoneUsers={zoneUsers}
+          zoneUsersLoading={zoneUsersLoading}
+          changeValueCallback={handleChangeValue}
+          zoneInfoLoading={zoneInfoLoading}
+          isZone
+          users={users}
+          code={code}
+          name={stringFromData([regionTypeFull, regionName])}
+        />
       </div>
     </div>
   );
@@ -206,6 +177,7 @@ const mapStateToProps = (state) => ({
   zoneUsers: state.zoneStore.zoneUsers,
   zoneUsersLoading: state.zoneStore.zoneUsersLoading,
   selectedZoneUser: state.zoneStore.selectedZoneUser,
+  tryAddZoneUser: state.zoneStore.tryAddZoneUser,
 });
 
 const mapDispatchToProps = { ...actions };

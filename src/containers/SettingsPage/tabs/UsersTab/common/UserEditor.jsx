@@ -420,6 +420,7 @@ function UserEditor(props) {
           disabled = !(addressRegistrationCityName || addressRegistrationSettlementName);
           customResultsCities = addressRegistrationCityNameResults
           && Array.isArray(addressRegistrationCityNameResults)
+          && addressRegistrationCityNameResults.length > 0
             ? addressRegistrationCityNameResults.map((w) => {
               const {
                 data: thisData,
@@ -439,6 +440,7 @@ function UserEditor(props) {
             : <li>Поиск не дал результатов</li>;
           customResultsStreets = addressRegistrationStreetNameResults
           && Array.isArray(addressRegistrationStreetNameResults)
+          && addressRegistrationStreetNameResults.length > 0
             ? addressRegistrationStreetNameResults.map((w) => {
               const {
                 data: thisData,
@@ -463,6 +465,7 @@ function UserEditor(props) {
           disabled = !(addressResidenceCityName || addressResidenceSettlementName);
           customResultsCities = addressResidenceCityNameResults
           && Array.isArray(addressResidenceCityNameResults)
+          && addressResidenceCityNameResults.length > 0
             ? addressResidenceCityNameResults.map((w) => {
               const {
                 data: thisData,
@@ -482,6 +485,7 @@ function UserEditor(props) {
             : <li>Поиск не дал результатов</li>;
           customResultsStreets = addressResidenceStreetNameResults
           && Array.isArray(addressResidenceStreetNameResults)
+          && addressResidenceStreetNameResults.length > 0
             ? addressResidenceStreetNameResults.map((w) => {
               const {
                 data: thisData,

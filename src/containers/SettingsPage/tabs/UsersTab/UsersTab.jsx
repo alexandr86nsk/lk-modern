@@ -91,8 +91,11 @@ function UsersTab(props) {
 
   const removeUser = React.useCallback((value) => {
     const { userID } = value || {};
-    settingsStoreRemoveUser(userID);
-  }, [settingsStoreRemoveUser]);
+    settingsStoreRemoveUser({
+      el: userID,
+      callback: getUsers,
+    });
+  }, [getUsers, settingsStoreRemoveUser]);
 
   const handleRemove = React.useCallback((value) => {
     const { fio: userFio } = value || {};
@@ -130,28 +133,11 @@ function UsersTab(props) {
           tableRowHeight: 36,
           filter: false,
           customId: 'userID',
-          actions: [
-            {
-              id: 0,
-              action: handleEdit,
-              title: 'Изменить',
-              icon: 'edit',
-              hideTitle: true,
-            },
-            {
-              id: 1,
-              action: handleRemove,
-              title: 'Удалить',
-              icon: 'trash',
-              hideTitle: true,
-            },
-          ],
           sortSortingValue: {
             sortColumn: 'fio',
             sortType: 'asc',
           },
           refresh: false,
-          // refreshCallback: handleRefresh,
           onRowDoubleClick: handleEdit,
           searchCustom: <UsersFilter />,
         },
@@ -166,11 +152,30 @@ function UsersTab(props) {
     handleRemove,
   ]);
 
-  /*  React.useEffect(() => {
+  React.useEffect(() => {
     settingsStoreSetUsersTableStoreSection({
-      refreshCallback: handleRefresh,
+      actions: [
+        {
+          id: 0,
+          action: handleEdit,
+          title: 'Изменить',
+          icon: 'edit',
+          hideTitle: true,
+        },
+        {
+          id: 1,
+          action: handleRemove,
+          title: 'Удалить',
+          icon: 'trash',
+          hideTitle: true,
+        },
+      ],
     });
-  }, [handleRefresh, settingsStoreSetUsersTableStoreSection]); */
+  }, [
+    handleEdit,
+    handleRemove,
+    settingsStoreSetUsersTableStoreSection,
+  ]);
 
   React.useEffect(() => {
     getUsers();
@@ -213,7 +218,6 @@ function UsersTab(props) {
           <Button
             circular
             basic
-            //color="purple"
             size="small"
             onClick={handleRefresh}
             icon="refresh"

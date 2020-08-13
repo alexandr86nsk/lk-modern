@@ -207,18 +207,23 @@ export function* canBeCanceledSettingsStoreSaveUser(action) {
 
 /* ***************************** settingsStoreRemoveUser ********************** */
 function* settingsStoreRemoveUser(value) {
+  const {
+    el,
+    callback,
+  } = value || {};
   yield put(actions.modalStoreSetSection({
     loading: true,
-    loadingText: 'Удаляем пользователя...',
+    loadingText: 'Удаляем пользователя',
   }));
   yield queryResultAnalysis(
     api.settingsStoreRemoveUser,
-    value,
+    el,
     function* () {
       yield put(actions.modalStoreSetSection({
         show: false,
       }));
       yield (setSuccessToast('Пользователь удален.'));
+      yield call(callback);
     },
     function* () {
       yield put(actions.modalStoreSetSection({
@@ -311,6 +316,7 @@ function* settingsStoreSaveTemplate(value) {
         trySaveTemplate: false,
       }));
       yield (setSuccessToast(`Шаблон ${(value.id || value.id === 0) ? 'сохранен' : 'добавлен'}.`));
+      yield settingsStoreGetTemplates();
     },
     function* () {
       yield put(actions.settingsStoreSetSection({
@@ -330,7 +336,7 @@ export function* canBeCanceledSettingsStoreSaveTemplate(action) {
 function* settingsStoreRemoveTemplate(value) {
   yield put(actions.modalStoreSetSection({
     loading: true,
-    loadingText: 'Удаляем шаблон...',
+    loadingText: 'Удаляем шаблон',
   }));
   yield queryResultAnalysis(
     api.settingsStoreRemoveTemplate,
@@ -340,6 +346,7 @@ function* settingsStoreRemoveTemplate(value) {
         show: false,
       }));
       yield (setSuccessToast('Шаблон удален.'));
+      yield settingsStoreGetTemplates();
     },
     function* () {
       yield put(actions.modalStoreSetSection({

@@ -27,3 +27,15 @@ export const zoneStoreGetUsers = (roleName) => requestParser(
   'get',
   `user/role/${roleName}`,
 );
+
+export const zoneStoreAddZoneUser = (data) => requestParser(
+  'post',
+  'zoneApp/users',
+  data,
+);
+
+export const zoneStoreRemoveZoneUser = (data) => requestParser(
+  'delete',
+  'zoneApp/users',
+  data,
+);
