@@ -236,6 +236,8 @@ function ZonePage(props) {
     } else {
       zoneStoreSetSection({
         zoneInfo: undefined,
+        selectedSubZone: undefined,
+        selectedUserForZone: undefined,
       });
     }
   }, [
@@ -255,6 +257,7 @@ function ZonePage(props) {
     } else {
       zoneStoreSetSection({
         subZoneInfo: undefined,
+        selectedUserForSubZone: undefined,
       });
     }
   }, [
