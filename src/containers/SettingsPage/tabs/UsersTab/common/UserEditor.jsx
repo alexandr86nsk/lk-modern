@@ -543,8 +543,8 @@ function UserEditor(props) {
           callbackObj = handleChangeAddressResidenceValue;
         }
         return (
-          <div key={blockId} className="add-user-popup__section">
-            <div className="add-user-popup__subtitle">{title}</div>
+          <div key={blockId} className="add-item-popup__section">
+            <div className="add-item-popup__subtitle">{title}</div>
             {formGenerator(
               templateArr,
               dataObj,

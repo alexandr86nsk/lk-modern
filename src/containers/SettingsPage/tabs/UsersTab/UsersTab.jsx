@@ -85,7 +85,7 @@ function UsersTab(props) {
     popUpStoreSetSection({
       show: true,
       component: <UserEditor id={userID} hideCallback={getUsers} />,
-      type: '--horizontal-right-25 --rounded',
+      type: '--horizontal-right --35 --rounded',
     });
   }, [getUsers, popUpStoreSetSection]);
 
@@ -116,7 +116,7 @@ function UsersTab(props) {
     popUpStoreSetSection({
       show: true,
       component: <UserEditor hideCallback={getUsers} />,
-      type: '--horizontal-right-25 --rounded',
+      type: '--horizontal-right --35 --rounded',
     });
   }, [getUsers, popUpStoreSetSection]);
 

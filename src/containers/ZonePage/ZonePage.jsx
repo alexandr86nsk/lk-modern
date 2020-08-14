@@ -86,7 +86,7 @@ function ZonePage(props) {
     popUpStoreSetSection({
       show: true,
       component: <ZoneEditor isZone={isZone} />,
-      type: '--horizontal-right-25 --rounded',
+      type: '--horizontal-right --35 --rounded',
     });
   }, [
     popUpStoreSetSection,
@@ -98,7 +98,7 @@ function ZonePage(props) {
       zoneInfoToEdit: isZone ? zoneInfo : subZoneInfo,
       show: true,
       component: <ZoneEditor isZone={isZone} />,
-      type: '--horizontal-right-25 --rounded',
+      type: '--horizontal-right --35 --rounded',
     });
   }, [zoneInfo, subZoneInfo, popUpStoreSetSection]);
 

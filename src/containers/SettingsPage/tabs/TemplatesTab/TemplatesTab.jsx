@@ -38,7 +38,7 @@ function TemplatesTab(props) {
     popUpStoreSetSection({
       show: true,
       component: <TemplateEditor id={id} />,
-      type: '--horizontal-right-25 --rounded',
+      type: '--horizontal-right --35 --rounded',
     });
   }, [popUpStoreSetSection]);
 
@@ -67,7 +67,7 @@ function TemplatesTab(props) {
       show: true,
       component: <TemplateEditor />,
       hidePageControl: true,
-      type: '--horizontal-right-25 --rounded',
+      type: '--horizontal-right --35 --rounded',
     });
   }, [popUpStoreSetSection]);
 
