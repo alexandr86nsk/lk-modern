@@ -54,12 +54,14 @@
   &__user-selector {
     opacity: 0;
     transform: translateY(-50%);
+    z-index: -1;
     transition: transform 0.4s ease-in-out, opacity .2s ease-out;
 
     &.active {
       opacity: 1;
       transform: translateY(0);
       transition: transform 0.4s ease-in-out, opacity .4s ease-in;
+      z-index: unset;
     }
 
     .add-user {
@@ -89,7 +91,7 @@
 
       &__item {
         display: grid;
-        grid-template: auto / repeat(3, 1fr) auto;
+        grid-template: auto / .6fr .3fr .1fr auto;
         grid-gap: 1em;
         margin: .3em 0;
         padding: 1em;
@@ -110,6 +112,7 @@
 
         &.controls {
           align-self: center;
+          justify-self: end;
         }
       }
     }
@@ -128,6 +131,15 @@
       opacity: 1;
       transform: translateX(0);
       transition: transform 0.4s ease-in-out, opacity .3s ease-in;
+    }
+  }
+
+  &__add-zone-popup {
+
+    .content {
+      display: grid;
+      grid-template: auto / minmax(0, 1fr);
+      grid-gap: .5em;
     }
   }
 

@@ -4,6 +4,11 @@ export const zoneStoreSetSection = (value) => ({
   value,
 });
 
+export const zoneStoreSetZoneInfoToEditSection = (value) => ({
+  type: 'ZONE_STORE_SET_ZONE_INFO_TO_EDIT_SECTION',
+  value,
+});
+
 export const zoneStoreClear = () => ({
   type: 'ZONE_STORE_CLEAR',
 });
@@ -69,4 +74,13 @@ export const zoneStoreRemoveZoneUser = (value) => ({
 
 export const zoneStoreRemoveZoneUserCancel = () => ({
   type: 'ZONE_STORE_REMOVE_ZONE_USER_CANCEL',
+});
+
+export const zoneStoreDadataGetAddress = (value) => ({
+  type: 'ZONE_STORE_DADATA_GET_ADDRESS',
+  value,
+});
+
+export const zoneStoreDadataGetAddressCancel = () => ({
+  type: 'ZONE_STORE_DADATA_GET_ADDRESS_CANCEL',
 });

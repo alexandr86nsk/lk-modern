@@ -1,99 +1,106 @@
-import React from 'react';
-
 export const zoneInfoTemplate = [
   {
-    title: 'Зона',
-    dataKey: 'zone',
-  },
-  {
-    title: 'Код',
-    dataKey: 'code',
-  },
-  {
-    title: 'Кол-во супервайзеров',
-    dataKey: 'users',
-  },
-];
-
-export const zonesTableConfig = [
-  {
     id: 0,
-    title: 'Ф.И.О',
-    dataKey: 'fio',
-    width: 230,
-    fixed: true,
-    column: {
-      sortable: true,
+    title: 'Название региона',
+    dataKey: 'regionNameX',
+    type: 'search',
+    otherProps: {
+      asInput: true,
+      minLength: 1,
+      required: true,
+      type: '--style-1c --wrap-results',
     },
   },
   {
     id: 1,
-    title: 'Дата рождения',
-    dataKey: 'birthDay',
-    type: 'date',
-    width: 120,
-    column: {
-      sortable: true,
+    title: 'Тип региона',
+    dataKey: 'regionTypeFull',
+    type: 'input',
+    otherProps: {
+      type: '--style-1c',
+      disabled: true,
     },
   },
   {
     id: 2,
-    title: 'Телефон',
-    dataKey: 'phone',
-    width: 110,
-    column: {
-      sortable: true,
+    title: 'Код региона',
+    dataKey: 'code',
+    type: 'input',
+    otherProps: {
+      required: true,
+      minLength: 1,
+      isInteger: true,
+      mask: '0000000',
+      type: '--style-1c',
+    },
+  },
+];
+
+export const subZoneInfoTemplate = [
+  {
+    id: 0,
+    title: 'Название населенного пункта',
+    dataKey: 'cityNameX',
+    type: 'search',
+    otherProps: {
+      asInput: true,
+      minLength: 1,
+      required: true,
+      type: '--style-1c --wrap-results',
+    },
+  },
+  {
+    id: 2,
+    title: 'Тип населенного пункта',
+    dataKey: 'cityTypeFull',
+    type: 'input',
+    otherProps: {
+      type: '--style-1c',
+      disabled: true,
     },
   },
   {
     id: 3,
-    title: 'Статус',
-    dataKey: 'isAcceptedUser',
-    type: 'component',
-    width: 140,
-    component: (data) => {
-      const { isAcceptedUser } = data || {};
-      return (
-        <div className={`status ellipsis-element ${isAcceptedUser ? 'success' : 'error'}`}>
-          {isAcceptedUser ? 'Подтвержден' : 'Не подтвержден'}
-        </div>
-      );
+    title: 'Код населенного пункта',
+    dataKey: 'subZoneCode',
+    type: 'input',
+    otherProps: {
+      required: true,
+      minLength: 1,
+      isInteger: true,
+      mask: '0000000',
+      type: '--style-1c',
     },
-    column: {
-      sortable: true,
-    },
-  },
-  {
-    id: 4,
-    title: 'Доступ в моб.приложение',
-    dataKey: 'isCanUseMobileVer',
-    type: 'component',
-    width: 185,
-    component: (data) => {
-      const { isCanUseMobileVer } = data || {};
-      return (
-        <div className={`status ellipsis-element ${isCanUseMobileVer ? 'success' : 'error'}`}>
-          {isCanUseMobileVer ? 'Разрешен' : 'Запрещен'}
-        </div>
-      );
-    },
-    column: {
-      sortable: true,
-    },
-  },
-  {
-    id: 5,
-    title: 'Роль',
-    dataKey: 'roleDescription',
-    column: {
-      sortable: true,
-    },
-  },
-  {
-    id: 6,
-    title: 'Действия',
-    type: 'actions',
-    fixed: 'right',
-    width: 80,
   },
 ];
+
+export const zoneAddressVariables = {
+  country_iso_code: 'countryIsoCode',
+  region_iso_code: 'regionIsoCode',
+  area: 'areaName',
+  area_fias_id: 'areaFiasID',
+  area_type: 'areaType',
+  area_type_full: 'areaTypeFull',
+  city: 'cityName',
+  // city_district: 'cityDistrictName',
+  // city_district_fias_id: 'cityDistrictFiasID',
+  // city_district_type: 'cityDistrictType',
+  // city_district_type_full: 'cityDistrictTypeFull',
+  city_fias_id: 'cityFiasID',
+  city_type: 'cityType',
+  city_type_full: 'cityTypeFull',
+  // city_kladr_id: 'cityKladrId',
+  fias_id: 'fiasId',
+  // geo_lat: 'latitude',
+  // geo_lon: 'longitude',
+  source: 'fullAddress',
+  kladr_id: 'kladrId',
+  region: 'regionName',
+  region_fias_id: 'regionFiasID',
+  region_type: 'regionType',
+  region_type_full: 'regionTypeFull',
+  settlement: 'settlementName',
+  settlement_fias_id: 'settlementFiasID',
+  settlement_type: 'settlementType',
+  settlement_type_full: 'settlementTypeFull',
+};

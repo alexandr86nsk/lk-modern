@@ -60,6 +60,7 @@ function ZonePage(props) {
     zoneStoreClear,
     modalStoreSetSection,
     popUpStoreSetSection,
+    popUpStoreClear,
   } = props || {};
 
   const {
@@ -74,25 +75,32 @@ function ZonePage(props) {
     users: subZoneUsers,
     id: subZoneId,
     code: subZoneCode,
+    cityTypeFull,
+    cityName,
+    settlementTypeFull,
+    settlementName,
   } = subZoneInfo || {};
 
-  const handleAdd = React.useCallback(() => {
+  const handleAdd = React.useCallback((value) => {
+    const isZone = value === 'zone';
     popUpStoreSetSection({
       show: true,
-      component: <ZoneEditor />,
-      hidePageControl: true,
+      component: <ZoneEditor isZone={isZone} />,
       type: '--horizontal-right-25 --rounded',
     });
-  }, [popUpStoreSetSection]);
+  }, [
+    popUpStoreSetSection,
+  ]);
 
-  /*  const handleEdit = React.useCallback((value) => {
-    const { ZoneID } = value || {};
+  const handleEdit = React.useCallback((value) => {
+    const isZone = value === 'zone';
     popUpStoreSetSection({
+      zoneInfoToEdit: isZone ? zoneInfo : subZoneInfo,
       show: true,
-      component: <ZoneEditor id={ZoneID} />,
+      component: <ZoneEditor isZone={isZone} />,
       type: '--horizontal-right-25 --rounded',
     });
-  }, [popUpStoreSetSection]); */
+  }, [zoneInfo, subZoneInfo, popUpStoreSetSection]);
 
   const removeZoneUser = React.useCallback((value) => {
     const { key, user } = value || {};
@@ -125,14 +133,15 @@ function ZonePage(props) {
   ]);
 
   const handleRemoveZoneUser = React.useCallback((value) => {
-    const { user } = value || {};
+    const { user, key } = value || {};
     const { fio: userFio } = user || {};
+    const isZone = key === 'zone';
     modalStoreSetSection({
       show: true,
       outputBody: {
         icon: <WarningIcon />,
         title: 'Важно',
-        body: <div>{`Подтверждаете открепление ${userFio ? `пользователя "${userFio}"` : 'этого пользователя'} от зоны?`}</div>,
+        body: <div>{`Подтверждаете открепление ${userFio ? `пользователя "${userFio}"` : 'этого пользователя'} от данной ${isZone ? 'зоны' : 'подзоны'}?`}</div>,
       },
       data: value,
       asyncClose: true,
@@ -264,6 +273,7 @@ function ZonePage(props) {
     zoneStoreRemoveZoneUserCancel();
     zoneStoreGetUsersCancel();
     zoneStoreClear();
+    popUpStoreClear();
   }, [
     zoneStoreGetZonesCancel,
     zoneStoreGetZoneInfoCancel,
@@ -271,6 +281,7 @@ function ZonePage(props) {
     zoneStoreRemoveZoneUserCancel,
     zoneStoreGetUsersCancel,
     zoneStoreClear,
+    popUpStoreClear,
   ]);
   /* ********************************************************** */
 
@@ -284,7 +295,7 @@ function ZonePage(props) {
           usersForZone={filteredUsersForZone}
           usersForZoneLoading={usersForZoneLoading}
           selectedUserForZone={selectedUserForZone}
-          editZoneCallback={() => {}}
+          editZoneCallback={handleEdit}
           changeValueCallback={handleChangeValue}
           selectedZone={selectedZone}
           zoneInfo={zoneInfo}
@@ -292,7 +303,7 @@ function ZonePage(props) {
           code={zoneCode}
           name={stringFromData([regionTypeFull, regionName])}
           users={zoneUsers}
-          addZoneCallback={() => {}}
+          addZoneCallback={handleAdd}
           addZoneUserCallback={handleAddZoneUser}
           tryAddZoneUser={tryAddZoneUser}
           removeZoneUserCallback={handleRemoveZoneUser}
@@ -305,14 +316,14 @@ function ZonePage(props) {
           usersForZone={filteredUsersForSubZone}
           usersForZoneLoading={usersForSubZoneLoading}
           selectedUserForZone={selectedUserForSubZone}
-          editZoneCallback={() => {}}
+          editZoneCallback={handleEdit}
           changeValueCallback={handleChangeValue}
           selectedZone={selectedSubZone}
           zoneInfoLoading={subZoneInfoLoading}
           code={subZoneCode}
-          name={stringFromData([regionTypeFull, regionName])}
+          name={stringFromData([cityTypeFull, cityName, settlementTypeFull, settlementName])}
           users={subZoneUsers}
-          addZoneCallback={() => {}}
+          addZoneCallback={handleAdd}
           addZoneUserCallback={handleAddZoneUser}
           tryAddZoneUser={tryAddSubZoneUser}
           removeZoneUserCallback={handleRemoveZoneUser}

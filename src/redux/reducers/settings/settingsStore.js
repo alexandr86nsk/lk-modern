@@ -17,8 +17,9 @@ export default function settingsStore(state = initialSettingsStore, action) {
   const {
     value,
     name,
+    type,
   } = action || {};
-  switch (action.type) {
+  switch (type) {
     case 'SETTINGS_STORE_SET_SECTION':
       return {
         ...state,

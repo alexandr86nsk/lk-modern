@@ -27,9 +27,21 @@ export const zoneStoreSaveZone = (data) => requestParser(
   data,
 );
 
+export const zoneStoreSaveSubZone = (data) => requestParser(
+  'put',
+  'subZoneApp',
+  data,
+);
+
 export const zoneStoreAddZone = (data) => requestParser(
   'post',
   'zoneApp',
+  data,
+);
+
+export const zoneStoreAddSubZone = (data) => requestParser(
+  'post',
+  'subZoneApp',
   data,
 );
 

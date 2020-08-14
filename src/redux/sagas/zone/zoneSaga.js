@@ -25,10 +25,16 @@ function* zoneStoreGetZones(value) {
             id,
             regionTypeShort,
             regionName,
+            cityName,
+            cityTypeShort,
+            settlementName,
+            settlementTypeShort,
           } = v || {};
           return {
             value: id,
-            label: `${regionTypeShort ? `${regionTypeShort} ` : ''}${regionName || 'Неизвестное'}`,
+            label: isZone
+              ? `${regionTypeShort ? `${regionTypeShort} ` : ''}${regionName || 'Неизвестное'}`
+              : `${cityTypeShort || settlementTypeShort ? `${cityTypeShort || settlementTypeShort} ` : ''}${cityName || settlementName || 'Неизвестное'}`,
           };
         }),
         [`${key}sLoading`]: false,
@@ -210,20 +216,32 @@ export function* canBeCanceledZoneStoreRemoveZoneUser(action) {
 
 /* ***************************** zoneStoreSaveZone ********************** */
 function* zoneStoreSaveZone(value) {
-  yield put(actions.zoneStoreSetSection({
+  const {
+    key,
+    zoneId,
+    el,
+  } = value || {};
+  const {
+    id,
+  } = el || {};
+  const isZone = key === 'zone';
+  const saveZoneMethod = (id || id === 0) ? api.zoneStoreSaveZone : api.zoneStoreAddZone;
+  const saveSubZoneMethod = (id || id === 0) ? api.zoneStoreSaveSubZone : api.zoneStoreAddSubZone;
+  const sendData = (id || id === 0) ? el : { ...el, zoneAppID: zoneId };
+  yield put(actions.popUpStoreSetSection({
     trySaveZone: true,
   }));
   yield queryResultAnalysis(
-    (value.id || value.id === 0) ? api.zoneStoreSaveZone : api.zoneStoreAddZone,
-    value,
+    isZone ? saveZoneMethod : saveSubZoneMethod,
+    sendData,
     function* () {
-      yield put(actions.zoneStoreSetSection({
+      yield put(actions.popUpStoreSetSection({
         trySaveZone: false,
       }));
-      yield (setSuccessToast(`Зона ${(value.id || value.id === 0) ? 'сохранена' : 'добавлена'}.`));
+      yield (setSuccessToast(`${isZone ? 'Зона' : 'Подзона'} ${(id || id === 0) ? 'сохранена' : 'добавлена'}.`));
     },
     function* () {
-      yield put(actions.zoneStoreSetSection({
+      yield put(actions.popUpStoreSetSection({
         trySaveZone: false,
       }));
     },
@@ -234,4 +252,33 @@ export function* canBeCanceledZoneStoreSaveZone(action) {
   const bgZoneStoreSaveZone = yield fork(zoneStoreSaveZone, action.value);
   yield take('SETTINGS_STORE_SAVE_ZONE_CANCEL');
   yield cancel(bgZoneStoreSaveZone);
+}
+
+/* ***************************** zoneStoreDadataGetAddress ********************** */
+function* zoneStoreDadataGetAddress(value) {
+  yield put(actions.popUpStoreSetSection({
+    zonesSearchResultsLoading: true,
+  }));
+  yield queryResultAnalysis(
+    api.dadataGetAddress,
+    value,
+    function* (res) {
+      yield put(actions.popUpStoreSetSection({
+        zonesSearchResultsLoading: false,
+        zonesSearchResults: res.suggestions,
+      }));
+    },
+    function* () {
+      yield put(actions.popUpStoreSetSection({
+        zonesSearchResultsLoading: false,
+        zonesSearchResults: undefined,
+      }));
+    },
+  );
+}
+
+export function* canBeCanceledZoneStoreDadataGetAddress(action) {
+  const bgZoneStoreDadataGetAddress = yield fork(zoneStoreDadataGetAddress, action.value);
+  yield take('ZONE_STORE_DADATA_GET_ADDRESS_CANCEL');
+  yield cancel(bgZoneStoreDadataGetAddress);
 }

@@ -32,6 +32,10 @@ const Zone = (props) => {
     addZoneCallback(isZone ? 'zone' : 'subZone');
   }, [isZone, addZoneCallback]);
 
+  const handleEditZone = React.useCallback(() => {
+    editZoneCallback(isZone ? 'zone' : 'subZone');
+  }, [isZone, editZoneCallback]);
+
   const handleAddUser = React.useCallback(() => {
     addZoneUserCallback(isZone ? 'zone' : 'subZone');
   }, [isZone, addZoneUserCallback]);
@@ -115,7 +119,7 @@ const Zone = (props) => {
                       basic
                       size="tiny"
                       disabled={zoneInfoLoading}
-                      onClick={editZoneCallback}
+                      onClick={handleEditZone}
                     >
                       <Icon name="edit" />
                       Изменить

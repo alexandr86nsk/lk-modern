@@ -1,24 +1,33 @@
-const initialPopUpStore = {
-  item: {},
-  show: false,
-  loading: false,
-};
+const initialPopUpStore = {};
 
 export default function popUpStore(state = initialPopUpStore, action) {
-  switch (action.type) {
+  const {
+    name,
+    value,
+    type,
+  } = action || {};
+  switch (type) {
     case 'POP_UP_STORE_SET':
-      return action.value;
+      return value;
     case 'POP_UP_STORE_CLEAR':
       return initialPopUpStore;
     case 'POP_UP_STORE_SET_SECTION':
       return {
         ...state,
-        ...action.value,
+        ...value,
+      };
+    case 'POP_UP_STORE_SET_SUB_SECTION':
+      return {
+        ...state,
+        [name]: {
+          ...state[name],
+          ...value,
+        },
       };
     case 'POP_UP_STORE_SET_VALUE':
       return {
         ...state,
-        [action.name]: action.value,
+        [name]: value,
       };
     default:
       return state;

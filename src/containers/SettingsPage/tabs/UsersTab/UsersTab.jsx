@@ -116,7 +116,6 @@ function UsersTab(props) {
     popUpStoreSetSection({
       show: true,
       component: <UserEditor hideCallback={getUsers} />,
-      hidePageControl: true,
       type: '--horizontal-right-25 --rounded',
     });
   }, [getUsers, popUpStoreSetSection]);

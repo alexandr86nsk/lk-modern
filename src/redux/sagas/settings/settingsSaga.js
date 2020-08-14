@@ -213,7 +213,7 @@ function* settingsStoreSaveUser(value) {
     callback,
   } = value || {};
   const {
-    id,
+    userID: id,
     addressRegistration,
     addressResidence,
     isConcidesPlaceReg,
