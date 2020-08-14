@@ -22,6 +22,7 @@ const KladrItem = (props) => {
       role="presentation"
       title={value}
       onMouseDown={handleClick}
+      className="kladr-item"
     >
       {value}
     </li>

@@ -263,7 +263,7 @@ export const userInfoPassportTemplate = [
         otherProps: {
           asInput: true,
           required: true,
-          type: '--style-1c',
+          type: '--style-1c --wrap-results',
         },
       },
       {
@@ -274,7 +274,7 @@ export const userInfoPassportTemplate = [
         otherProps: {
           asInput: true,
           required: true,
-          type: '--style-1c',
+          type: '--style-1c --wrap-results',
         },
       },
       {
@@ -329,7 +329,7 @@ export const userInfoPassportTemplate = [
         otherProps: {
           asInput: true,
           required: true,
-          type: '--style-1c',
+          type: '--style-1c --wrap-results',
         },
       },
       {
@@ -340,7 +340,7 @@ export const userInfoPassportTemplate = [
         otherProps: {
           asInput: true,
           required: true,
-          type: '--style-1c',
+          type: '--style-1c --wrap-results',
         },
       },
       {

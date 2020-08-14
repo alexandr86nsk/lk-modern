@@ -314,6 +314,10 @@
     }
   }
 
+  &.--wrap-results &__results li {
+    white-space: unset;
+  }
+
   &__input:focus + &__results {
     display: block;
   }
