@@ -14,6 +14,7 @@
     display: grid;
     grid-template: auto 1fr / 1fr;
     grid-gap: 1em;
+    padding-top: .5em;
   }
 
   &__zone-selector {
@@ -32,8 +33,12 @@
       flex: 1;
       display: grid;
       grid-template: auto / 1fr;
-      grid-gap: 1em;
-      padding-bottom: 1.7em;
+      grid-gap: .5em;
+      padding-bottom: .3em;
+    }
+
+    .ui-element-title {
+      margin-bottom: 1em;
     }
 
     .controls {
@@ -42,19 +47,19 @@
     }
 
     .flip-card-inner.element-wrapper.--fullscreen {
-      height: 200px;
+      height: 155px;
     }
   }
 
   &__user-selector {
     opacity: 0;
     transform: translateY(-50%);
-    transition: transform 0.8s ease-in-out, opacity .3s ease-out;
+    transition: transform 0.4s ease-in-out, opacity .2s ease-out;
 
     &.active {
       opacity: 1;
       transform: translateY(0);
-      transition: transform 0.8s ease-in-out, opacity .6s ease-in;
+      transition: transform 0.4s ease-in-out, opacity .4s ease-in;
     }
 
     .add-user {
@@ -79,7 +84,7 @@
         bottom: 0;
         left: 0;
         overflow-y: auto;
-        padding-right: .5em;
+        padding: .3em .5em;
       }
 
       &__item {
@@ -111,12 +116,12 @@
   .sub-zone {
     opacity: 0;
     transform: translateX(-50%);
-    transition: transform 0.8s ease-in-out, opacity .3s ease-out;
+    transition: transform 0.4s ease-in-out, opacity .2s ease-out;
 
     &.active {
       opacity: 1;
       transform: translateX(0);
-      transition: transform 0.8s ease-in-out, opacity .6s ease-in;
+      transition: transform 0.4s ease-in-out, opacity .3s ease-in;
     }
   }
 
@@ -126,7 +131,7 @@
 
   .flip-card-inner {
     position: relative;
-    transition: transform 0.8s ease-in-out;
+    transition: transform 0.4s ease-in-out;
     transform-style: preserve-3d;
   }
 
@@ -145,8 +150,6 @@
   }
 
   .flip-card-front {
-    //background-color: #bbb;
-    //color: black;
     display: flex;
     flex-direction: column;
     transform: rotateX(180deg);
@@ -156,7 +159,5 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    //background-color: dodgerblue;
-    //color: white;
   }
 }

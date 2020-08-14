@@ -1,12 +1,30 @@
 import React from 'react';
 import './ZonePage.scss';
 import { connect } from 'react-redux';
+import differenceBy from 'lodash/differenceBy';
 import actions from '../../redux/actions/actions';
 import ZoneEditor from './common/ZoneEditor';
 import UIBlockTitle from '../../components/UIBlockTitle/UIBlockTitle';
 import stringFromData from '../../components/utilities/stringFromData';
 import WarningIcon from '../../static/images/warning-24px.svg';
 import Zone from './common/Zone';
+
+const getUserInfo = (res) => {
+  if (res && Array.isArray(res)) {
+    return res.map((v) => {
+      const {
+        userID,
+        fio,
+        phone,
+      } = v || {};
+      return {
+        value: userID,
+        label: `${fio || ''}${phone ? ` тел. ${phone}` : ''}`,
+      };
+    });
+  }
+  return undefined;
+};
 
 function ZonePage(props) {
   const {
@@ -58,6 +76,15 @@ function ZonePage(props) {
     code: subZoneCode,
   } = subZoneInfo || {};
 
+  const handleAdd = React.useCallback(() => {
+    popUpStoreSetSection({
+      show: true,
+      component: <ZoneEditor />,
+      hidePageControl: true,
+      type: '--horizontal-right-25 --rounded',
+    });
+  }, [popUpStoreSetSection]);
+
   /*  const handleEdit = React.useCallback((value) => {
     const { ZoneID } = value || {};
     popUpStoreSetSection({
@@ -68,12 +95,38 @@ function ZonePage(props) {
   }, [popUpStoreSetSection]); */
 
   const removeZoneUser = React.useCallback((value) => {
-    const { userID } = value || {};
-    zoneStoreRemoveZoneUser(userID);
-  }, [zoneStoreRemoveZoneUser]);
+    const { key, user } = value || {};
+    const { userID } = user || {};
+    const isZone = key === 'zone';
+    const usr = isZone ? zoneUsers : subZoneUsers;
+    let calcUsr = [];
+    if (usr && Array.isArray(usr)) {
+      calcUsr = usr.filter((v) => {
+        const { userID: thisUserId } = v || {};
+        return userID !== thisUserId;
+      }).map((v) => {
+        const { userID: thisUserId } = v || {};
+        return thisUserId;
+      });
+    }
+    zoneStoreRemoveZoneUser({
+      key,
+      id: isZone ? zoneId : subZoneId,
+      users: [
+        ...calcUsr,
+      ],
+    });
+  }, [
+    zoneUsers,
+    subZoneUsers,
+    zoneId,
+    subZoneId,
+    zoneStoreRemoveZoneUser,
+  ]);
 
   const handleRemoveZoneUser = React.useCallback((value) => {
-    const { fio: userFio } = value || {};
+    const { user } = value || {};
+    const { fio: userFio } = user || {};
     modalStoreSetSection({
       show: true,
       outputBody: {
@@ -87,27 +140,33 @@ function ZonePage(props) {
     });
   }, [modalStoreSetSection, removeZoneUser]);
 
-  const handleAdd = React.useCallback(() => {
-    popUpStoreSetSection({
-      show: true,
-      component: <ZoneEditor />,
-      hidePageControl: true,
-      type: '--horizontal-right-25 --rounded',
-    });
-  }, [popUpStoreSetSection]);
-
-  const handleAddZoneUser = React.useCallback(() => {
+  const handleAddZoneUser = React.useCallback((key) => {
+    const isZone = key === 'zone';
+    const usr = isZone ? zoneUsers : subZoneUsers;
+    let calcUsr = [];
+    if (usr && Array.isArray(usr)) {
+      calcUsr = usr.map((v) => {
+        const { userID } = v || {};
+        return userID;
+      });
+    }
     zoneStoreAddZoneUser({
-      id: zoneId,
+      key,
+      id: isZone ? zoneId : subZoneId,
       users: [
-        ...usersForZone.map((v) => {
-          const { userID } = v || {};
-          return userID;
-        }),
-        selectedUserForSubZone,
+        ...calcUsr,
+        isZone ? selectedUserForZone : selectedUserForSubZone,
       ],
     });
-  }, [usersForZone, selectedUserForSubZone, zoneId, zoneStoreAddZoneUser]);
+  }, [
+    zoneUsers,
+    subZoneUsers,
+    selectedUserForZone,
+    selectedUserForSubZone,
+    zoneId,
+    subZoneId,
+    zoneStoreAddZoneUser,
+  ]);
 
   const handleChangeValue = React.useCallback((editName, editValue) => {
     zoneStoreSetSection({ [editName]: editValue });
@@ -119,6 +178,30 @@ function ZonePage(props) {
     }
     return 'sub-zone';
   }, [selectedZone]);
+
+  const filteredUsersForZone = React.useMemo(() => {
+    if (usersForZone
+      && Array.isArray(usersForZone)
+      && zoneUsers
+      && Array.isArray(zoneUsers)
+    ) {
+      const res = differenceBy(usersForZone, zoneUsers, 'userID');
+      return getUserInfo(res);
+    }
+    return undefined;
+  }, [usersForZone, zoneUsers]);
+
+  const filteredUsersForSubZone = React.useMemo(() => {
+    if (usersForSubZone
+      && Array.isArray(usersForSubZone)
+      && subZoneUsers
+      && Array.isArray(subZoneUsers)
+    ) {
+      const res = differenceBy(usersForSubZone, subZoneUsers, 'userID');
+      return getUserInfo(res);
+    }
+    return undefined;
+  }, [usersForSubZone, subZoneUsers]);
 
   /* ***************************** mount ********************** */
   React.useEffect(() => {
@@ -198,7 +281,7 @@ function ZonePage(props) {
         <Zone
           zones={zones}
           zonesLoading={zonesLoading}
-          usersForZone={usersForZone}
+          usersForZone={filteredUsersForZone}
           usersForZoneLoading={usersForZoneLoading}
           selectedUserForZone={selectedUserForZone}
           editZoneCallback={() => {}}
@@ -219,7 +302,7 @@ function ZonePage(props) {
           className={subZoneClassName}
           zones={subZones}
           zonesLoading={subZonesLoading}
-          usersForZone={usersForSubZone}
+          usersForZone={filteredUsersForSubZone}
           usersForZoneLoading={usersForSubZoneLoading}
           selectedUserForZone={selectedUserForSubZone}
           editZoneCallback={() => {}}

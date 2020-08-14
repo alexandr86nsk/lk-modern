@@ -28,6 +28,14 @@ const Zone = (props) => {
     isZone,
   } = props || {};
 
+  const handleAddUser = React.useCallback(() => {
+    addZoneUserCallback(isZone ? 'zone' : 'subZone');
+  }, [isZone, addZoneUserCallback]);
+
+  const handleRemoveUser = React.useCallback((value) => {
+    removeZoneUserCallback({ key: isZone ? 'zone' : 'subZone', user: value });
+  }, [isZone, removeZoneUserCallback]);
+
   const renderZoneInfo = React.useMemo(() => (
     <>
       <ZoneInfoItem
@@ -53,17 +61,13 @@ const Zone = (props) => {
           <ListItem
             key={userID}
             item={v}
-            removeCallback={removeZoneUserCallback}
+            removeCallback={handleRemoveUser}
           />
         );
       });
     }
     return null;
-  }, [removeZoneUserCallback, users]);
-
-  const handleAddUser = React.useCallback(() => {
-    addZoneUserCallback(isZone ? 'zone' : 'subZone');
-  }, [isZone, addZoneUserCallback]);
+  }, [handleRemoveUser, users]);
 
   return (
     <div className={`zone${className ? ` ${className}` : ''}`}>
@@ -75,9 +79,10 @@ const Zone = (props) => {
             primary
             size="small"
             onClick={addZoneCallback}
+            title={`Добавить ${isZone ? 'зону' : 'подзону'}`}
           >
             <Icon name="add" />
-            {`Добавить ${isZone ? 'зону' : 'подзону'}`}
+            Добавить
           </Button>
         </div>
         <div className="zone-page__zone">

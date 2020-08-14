@@ -217,7 +217,7 @@ function UsersTab(props) {
         <div className="add-block">
           <Button
             circular
-            basic
+            primary
             size="small"
             onClick={handleRefresh}
             icon="refresh"

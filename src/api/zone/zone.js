@@ -44,8 +44,8 @@ export const zoneStoreAddZoneUser = (data) => requestParser(
   data,
 );
 
-export const zoneStoreRemoveZoneUser = (data) => requestParser(
-  'delete',
-  'zoneApp/users',
+export const zoneStoreAddSubZoneUser = (data) => requestParser(
+  'post',
+  'subZoneApp/users',
   data,
 );

@@ -143,6 +143,7 @@ function TemplatesTab(props) {
             primary
             size="small"
             onClick={handleAdd}
+            title="Добавить шаблон"
           >
             <Icon name="add" />
             Добавить

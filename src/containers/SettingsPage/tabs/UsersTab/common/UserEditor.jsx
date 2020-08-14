@@ -712,6 +712,7 @@ function UserEditor(props) {
           disabled={userInfoLoading || disableSaveBtn}
           onClick={handleSaveUser}
           loading={trySaveUser}
+          title={`${id ? 'Сохранить' : 'Добавить'} пользователя`}
         >
           <Icon name="check" />
           {id ? 'Сохранить' : 'Добавить'}

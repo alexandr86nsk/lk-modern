@@ -84,6 +84,7 @@ function SettingsTab(props) {
                 onClick={handleSaveClick}
                 loading={trySaveSettings}
                 disabled={error}
+                title="Сохранить настройки"
               >
                 <Icon name="check" />
                 Сохранить

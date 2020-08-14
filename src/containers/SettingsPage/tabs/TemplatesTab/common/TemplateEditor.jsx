@@ -90,6 +90,7 @@ function TemplateEditor(props) {
           disabled={templateInfoLoading || !name || !text}
           onClick={handleSaveTemplate}
           loading={trySaveTemplate}
+          title={`${id ? 'Сохранить' : 'Добавить'} шаблон`}
         >
           <Icon name="check" />
           {id ? 'Сохранить' : 'Добавить'}

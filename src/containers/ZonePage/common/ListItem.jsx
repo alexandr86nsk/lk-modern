@@ -47,7 +47,7 @@ const ListItem = (props) => {
           onClick={removeClick}
         >
           <Icon name="remove" />
-          Удалить
+          Открепить
         </Button>
       </div>
     </div>
