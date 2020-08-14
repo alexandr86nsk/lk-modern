@@ -51,18 +51,18 @@ function TemplateEditor(props) {
   }, [settingsStoreSetTemplateInfoSection]);
 
   return (
-    <div className="settings-page__add-template-popup">
-      <div className="add-template-popup__title">
+    <div className="settings-page__add-template-popup add-item-popup">
+      <div className="add-item-popup__title">
         <span className="ellipsis-element">{id ? 'Редактирование шаблона' : 'Добавление шаблона'}</span>
       </div>
-      <div className="add-template-popup__body">
+      <div className="add-item-popup__body">
         {templateInfoLoading && (
-          <div className="add-template-popup__loader">
+          <div className="add-item-popup__loader">
             <UILoader text="Загрузка данных..." />
           </div>
         )}
         {!templateInfoLoading && (
-          <div className="add-template-popup__table">
+          <div className="add-item-popup__table">
             <UIInput
               title="Название шаблона"
               name="name"
@@ -82,7 +82,7 @@ function TemplateEditor(props) {
           </div>
         )}
       </div>
-      <div className="add-template-popup__btn">
+      <div className="add-item-popup__btn">
         <Button
           circular
           positive

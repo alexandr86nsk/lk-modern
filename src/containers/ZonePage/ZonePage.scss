@@ -92,6 +92,12 @@
         grid-template: auto / repeat(3, 1fr) auto;
         grid-gap: 1em;
         margin: .3em 0;
+        padding: 1em;
+        transition: all .3s ease-in-out;
+
+        &:hover {
+          box-shadow: 0 .1em .7em rgba(0,0,0,.25);
+        }
       }
 
       &__item-column {

@@ -669,18 +669,18 @@ function UserEditor(props) {
   ]);
 
   return (
-    <div className="settings-page__add-user-popup">
-      <div className="add-user-popup__title">
+    <div className="settings-page__add-user-popup add-item-popup">
+      <div className="add-item-popup__title">
         <span className="ellipsis-element">{id ? 'Редактирование пользователя' : 'Добавление пользователя'}</span>
       </div>
-      <div className="add-user-popup__body">
+      <div className="add-item-popup__body">
         {userInfoLoading && (
-          <div className="add-user-popup__loader">
+          <div className="add-item-popup__loader">
             <UILoader text="Загрузка данных..." />
           </div>
         )}
         {!userInfoLoading && (
-        <div className="add-user-popup__table">
+        <div className="add-item-popup__table">
           <UIAnimateHeightBlock
             title="Основные данные"
             body={mainBlock}
@@ -704,7 +704,7 @@ function UserEditor(props) {
         </div>
         )}
       </div>
-      <div className="add-user-popup__btn">
+      <div className="add-item-popup__btn">
         <Button
           circular
           positive

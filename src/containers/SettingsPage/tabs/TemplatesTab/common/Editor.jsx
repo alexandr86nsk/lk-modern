@@ -153,19 +153,19 @@ function Editor(props) {
   }, []);
 
   return (
-    <div className="add-template-popup__editor">
-      <div className="add-template-popup__editor-title">
+    <div className="template-editor">
+      <div className="template-editor__title">
         <span className="ellipsis-element">
           Текст шаблона
         </span>
         <div className="required-icon">*</div>
       </div>
-      <div className="add-template-popup__editor-body">
+      <div className="template-editor__body">
         <div className="backdrop" ref={backdropRef}>
           <div className="highlights" ref={highlightsRef} />
         </div>
         <textarea
-          className="add-template-popup__textarea"
+          className="template-editor__textarea"
           onChange={handleChange}
           value={(data || data === 0) ? data : ''}
           onContextMenu={handleSetContextMenuStyle}
@@ -173,7 +173,7 @@ function Editor(props) {
           placeholder="Введите текст шаблона..."
         />
         <div
-          className={`add-template-popup__context-menu menu transition${templateVarLoading ? ' loading' : ''}`}
+          className={`template-editor__context-menu menu transition${templateVarLoading ? ' loading' : ''}`}
           style={contextMenuStyle}
           ref={contextMenuRef}
         >

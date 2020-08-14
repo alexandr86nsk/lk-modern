@@ -28,6 +28,10 @@ const Zone = (props) => {
     isZone,
   } = props || {};
 
+  const handleAddZone = React.useCallback(() => {
+    addZoneCallback(isZone ? 'zone' : 'subZone');
+  }, [isZone, addZoneCallback]);
+
   const handleAddUser = React.useCallback(() => {
     addZoneUserCallback(isZone ? 'zone' : 'subZone');
   }, [isZone, addZoneUserCallback]);
@@ -78,7 +82,7 @@ const Zone = (props) => {
             circular
             primary
             size="small"
-            onClick={addZoneCallback}
+            onClick={handleAddZone}
             title={`Добавить ${isZone ? 'зону' : 'подзону'}`}
           >
             <Icon name="add" />
