@@ -15,21 +15,31 @@ function ZonePage(props) {
     selectedZone,
     zoneInfo,
     zoneInfoLoading,
-    zoneUsers,
-    zoneUsersLoading,
-    selectedZoneUser,
+    usersForZone,
+    usersForZoneLoading,
+    selectedUserForZone,
     tryAddZoneUser,
-    zoneStoreSetSection,
+    subZones,
+    subZonesLoading,
+    selectedSubZone,
+    subZoneInfo,
+    subZoneInfoLoading,
+    usersForSubZone,
+    usersForSubZoneLoading,
+    selectedUserForSubZone,
+    tryAddSubZoneUser,
     zoneStoreGetZones,
     zoneStoreGetZonesCancel,
     zoneStoreGetZoneInfo,
     zoneStoreGetZoneInfoCancel,
-    zoneStoreGetUsers,
-    zoneStoreGetUsersCancel,
     zoneStoreAddZoneUser,
     zoneStoreAddZoneUserCancel,
     zoneStoreRemoveZoneUser,
     zoneStoreRemoveZoneUserCancel,
+    zoneStoreSetSection,
+    zoneStoreGetUsers,
+    zoneStoreGetUsersCancel,
+    zoneStoreClear,
     modalStoreSetSection,
     popUpStoreSetSection,
   } = props || {};
@@ -37,10 +47,16 @@ function ZonePage(props) {
   const {
     regionName,
     regionTypeFull,
-    users,
+    users: zoneUsers,
     id: zoneId,
-    code,
+    code: zoneCode,
   } = zoneInfo || {};
+
+  const {
+    users: subZoneUsers,
+    id: subZoneId,
+    code: subZoneCode,
+  } = subZoneInfo || {};
 
   /*  const handleEdit = React.useCallback((value) => {
     const { ZoneID } = value || {};
@@ -82,26 +98,32 @@ function ZonePage(props) {
 
   const handleAddZoneUser = React.useCallback(() => {
     zoneStoreAddZoneUser({
-      zoneID: zoneId,
+      id: zoneId,
       users: [
-        ...users.map((v) => {
+        ...usersForZone.map((v) => {
           const { userID } = v || {};
           return userID;
         }),
-        selectedZoneUser,
+        selectedUserForSubZone,
       ],
     });
-  }, [users, selectedZoneUser, zoneId, zoneStoreAddZoneUser]);
+  }, [usersForZone, selectedUserForSubZone, zoneId, zoneStoreAddZoneUser]);
 
   const handleChangeValue = React.useCallback((editName, editValue) => {
     zoneStoreSetSection({ [editName]: editValue });
   }, [zoneStoreSetSection]);
 
+  const subZoneClassName = React.useMemo(() => {
+    if (selectedZone) {
+      return 'sub-zone active';
+    }
+    return 'sub-zone';
+  }, [selectedZone]);
+
   /* ***************************** mount ********************** */
   React.useEffect(() => {
-    zoneStoreGetZones();
-    zoneStoreGetUsers('zoneUsers');
-    zoneStoreGetUsers('subZoneUsers');
+    zoneStoreGetZones({ key: 'zone' });
+    zoneStoreGetUsers({ key: 'zone' });
   }, [
     zoneStoreGetZones,
     zoneStoreGetUsers,
@@ -110,8 +132,15 @@ function ZonePage(props) {
 
   /* ***************************** update ********************** */
   React.useEffect(() => {
-    if (selectedZone) {
-      zoneStoreGetZoneInfo(selectedZone);
+    if (selectedZone || selectedZone === 0) {
+      zoneStoreGetZoneInfo({
+        key: 'zone',
+        id: selectedZone,
+      });
+      zoneStoreGetZones({
+        key: 'subZone',
+        zoneId: selectedZone,
+      });
     } else {
       zoneStoreSetSection({
         zoneInfo: undefined,
@@ -119,7 +148,27 @@ function ZonePage(props) {
     }
   }, [
     selectedZone,
+    zoneStoreGetZones,
     zoneStoreGetZoneInfo,
+    zoneStoreSetSection,
+  ]);
+
+  React.useEffect(() => {
+    if (selectedSubZone || selectedSubZone === 0) {
+      zoneStoreGetZoneInfo({
+        key: 'subZone',
+        id: selectedSubZone,
+      });
+      zoneStoreGetUsers({ key: 'subZone' });
+    } else {
+      zoneStoreSetSection({
+        subZoneInfo: undefined,
+      });
+    }
+  }, [
+    selectedSubZone,
+    zoneStoreGetZoneInfo,
+    zoneStoreGetUsers,
     zoneStoreSetSection,
   ]);
   /* ********************************************************** */
@@ -128,15 +177,17 @@ function ZonePage(props) {
   React.useEffect(() => () => {
     zoneStoreGetZonesCancel();
     zoneStoreGetZoneInfoCancel();
-    zoneStoreGetUsersCancel();
     zoneStoreAddZoneUserCancel();
     zoneStoreRemoveZoneUserCancel();
+    zoneStoreGetUsersCancel();
+    zoneStoreClear();
   }, [
     zoneStoreGetZonesCancel,
     zoneStoreGetZoneInfoCancel,
-    zoneStoreGetUsersCancel,
     zoneStoreAddZoneUserCancel,
     zoneStoreRemoveZoneUserCancel,
+    zoneStoreGetUsersCancel,
+    zoneStoreClear,
   ]);
   /* ********************************************************** */
 
@@ -145,23 +196,43 @@ function ZonePage(props) {
       <UIBlockTitle title="Список зон" />
       <div className="zone-page__body">
         <Zone
-          addZoneCallback={() => {}}
-          addZoneUserCallback={handleAddZoneUser}
-          removeZoneUserCallback={handleRemoveZoneUser}
-          changeZoneCallback={() => {}}
-          selectedZone={selectedZone}
-          selectedZoneUser={selectedZoneUser}
-          tryAddZoneUser={tryAddZoneUser}
           zones={zones}
           zonesLoading={zonesLoading}
-          zoneUsers={zoneUsers}
-          zoneUsersLoading={zoneUsersLoading}
+          usersForZone={usersForZone}
+          usersForZoneLoading={usersForZoneLoading}
+          selectedUserForZone={selectedUserForZone}
+          editZoneCallback={() => {}}
           changeValueCallback={handleChangeValue}
+          selectedZone={selectedZone}
+          zoneInfo={zoneInfo}
           zoneInfoLoading={zoneInfoLoading}
-          isZone
-          users={users}
-          code={code}
+          code={zoneCode}
           name={stringFromData([regionTypeFull, regionName])}
+          users={zoneUsers}
+          addZoneCallback={() => {}}
+          addZoneUserCallback={handleAddZoneUser}
+          tryAddZoneUser={tryAddZoneUser}
+          removeZoneUserCallback={handleRemoveZoneUser}
+          isZone
+        />
+        <Zone
+          className={subZoneClassName}
+          zones={subZones}
+          zonesLoading={subZonesLoading}
+          usersForZone={usersForSubZone}
+          usersForZoneLoading={usersForSubZoneLoading}
+          selectedUserForZone={selectedUserForSubZone}
+          editZoneCallback={() => {}}
+          changeValueCallback={handleChangeValue}
+          selectedZone={selectedSubZone}
+          zoneInfoLoading={subZoneInfoLoading}
+          code={subZoneCode}
+          name={stringFromData([regionTypeFull, regionName])}
+          users={subZoneUsers}
+          addZoneCallback={() => {}}
+          addZoneUserCallback={handleAddZoneUser}
+          tryAddZoneUser={tryAddSubZoneUser}
+          removeZoneUserCallback={handleRemoveZoneUser}
         />
       </div>
     </div>
@@ -174,10 +245,19 @@ const mapStateToProps = (state) => ({
   selectedZone: state.zoneStore.selectedZone,
   zoneInfo: state.zoneStore.zoneInfo,
   zoneInfoLoading: state.zoneStore.zoneInfoLoading,
-  zoneUsers: state.zoneStore.zoneUsers,
-  zoneUsersLoading: state.zoneStore.zoneUsersLoading,
-  selectedZoneUser: state.zoneStore.selectedZoneUser,
+  usersForZone: state.zoneStore.usersForZone,
+  usersForZoneLoading: state.zoneStore.usersForZoneLoading,
+  selectedUserForZone: state.zoneStore.selectedUserForZone,
   tryAddZoneUser: state.zoneStore.tryAddZoneUser,
+  subZones: state.zoneStore.subZones,
+  subZonesLoading: state.zoneStore.subZonesLoading,
+  selectedSubZone: state.zoneStore.selectedSubZone,
+  subZoneInfo: state.zoneStore.subZoneInfo,
+  subZoneInfoLoading: state.zoneStore.subZoneInfoLoading,
+  usersForSubZone: state.zoneStore.usersForSubZone,
+  usersForSubZoneLoading: state.zoneStore.usersForSubZoneLoading,
+  selectedUserForSubZone: state.zoneStore.selectedUserForSubZone,
+  tryAddSubZoneUser: state.zoneStore.tryAddZoneUser,
 });
 
 const mapDispatchToProps = { ...actions };

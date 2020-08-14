@@ -279,8 +279,8 @@ export const userInfoPassportTemplate = [
       },
       {
         id: 8,
-        title: 'Регистрация корпус',
-        dataKey: 'block',
+        title: 'Регистрация № дома',
+        dataKey: 'houseName',
         type: 'input',
         otherProps: {
           type: '--style-1c',
@@ -288,8 +288,8 @@ export const userInfoPassportTemplate = [
       },
       {
         id: 9,
-        title: 'Регистрация № дома',
-        dataKey: 'houseName',
+        title: 'Регистрация корпус',
+        dataKey: 'block',
         type: 'input',
         otherProps: {
           type: '--style-1c',
@@ -345,8 +345,8 @@ export const userInfoPassportTemplate = [
       },
       {
         id: 14,
-        title: 'Место проживания корпус',
-        dataKey: 'block',
+        title: 'Место проживания № дома',
+        dataKey: 'houseName',
         type: 'input',
         otherProps: {
           type: '--style-1c',
@@ -354,8 +354,8 @@ export const userInfoPassportTemplate = [
       },
       {
         id: 15,
-        title: 'Место проживания № дома',
-        dataKey: 'houseName',
+        title: 'Место проживания корпус',
+        dataKey: 'block',
         type: 'input',
         otherProps: {
           type: '--style-1c',
@@ -514,17 +514,19 @@ export const addressVariables = {
   city_fias_id: 'cityFiasID',
   city_type: 'cityType',
   city_type_full: 'cityTypeFull',
+  city_kladr_id: 'cityKladrId',
   fias_id: 'fiasId',
   flat: 'flat',
   flat_type: 'flatType',
   flat_type_full: 'flatTypeFull',
   // geo_lat: 'latitude',
   // geo_lon: 'longitude',
-  // source: 'fullAddress',
+  source: 'fullAddress',
   house: 'houseName',
   house_fias_id: 'houseFiasID',
   house_type: 'houseType',
   house_type_full: 'houseTypeFull',
+  kladr_id: 'kladrId',
   region: 'regionName',
   region_fias_id: 'regionFiasID',
   region_type: 'regionType',

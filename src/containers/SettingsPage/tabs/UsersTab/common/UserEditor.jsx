@@ -335,9 +335,6 @@ function UserEditor(props) {
         tmpObj[addressVariables[v]] = data[v];
         tmpObj.cityNameX = city;
         tmpObj.fullAddress = value;
-        tmpObj.block = undefined;
-        tmpObj.houseName = undefined;
-        tmpObj.flat = undefined;
       }
     });
     if (editName.includes('addressRegistration')) {

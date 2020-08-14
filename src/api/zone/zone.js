@@ -6,9 +6,19 @@ export const zoneStoreGetZones = () => requestParser(
   'zoneApp',
 );
 
+export const zoneStoreGetSubZones = (zoneId) => requestParser(
+  'get',
+  `subZoneApp/zone/${zoneId}`,
+);
+
 export const zoneStoreGetZoneInfo = (id) => requestParser(
   'get',
   `zoneApp/${id}`,
+);
+
+export const zoneStoreGetSubZoneInfo = (id) => requestParser(
+  'get',
+  `subZoneApp/${id}`,
 );
 
 export const zoneStoreSaveZone = (data) => requestParser(

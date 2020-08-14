@@ -3,7 +3,8 @@ import {
 } from 'redux-saga/effects';
 import api from '../../../api/api';
 import actions from '../../actions/actions';
-import { queryResultAnalysis, setSuccessToast } from '../common/globalSaga';
+import { queryResultAnalysis, setErrorToast, setSuccessToast } from '../common/globalSaga';
+import { addressVariables } from '../../../containers/SettingsPage/tabs/UsersTab/settings';
 
 /* ***************************** settingsStoreGetSettings ********************** */
 function* settingsStoreGetSettings() {
@@ -171,7 +172,7 @@ export function* canBeCanceledSettingsStoreGetUserInfo(action) {
   yield cancel(bgSettingsStoreGetUserInfo);
 }
 
-/* ***************************** settingsStoreSaveUser ********************** */
+/* /!* ***************************** settingsStoreSaveUser ********************** *!/
 function* settingsStoreSaveUser(value) {
   const {
     el,
@@ -197,6 +198,158 @@ function* settingsStoreSaveUser(value) {
       }));
     },
   );
+}
+
+export function* canBeCanceledSettingsStoreSaveUser(action) {
+  const bgSettingsStoreSaveUser = yield fork(settingsStoreSaveUser, action.value);
+  yield take('SETTINGS_STORE_SAVE_USER_CANCEL');
+  yield cancel(bgSettingsStoreSaveUser);
+} */
+
+/* ***************************** settingsStoreSaveUser ********************** */
+function* settingsStoreSaveUser(value) {
+  const {
+    el,
+    callback,
+  } = value || {};
+  const {
+    id,
+    addressRegistration,
+    addressResidence,
+    isConcidesPlaceReg,
+  } = el || {};
+  const {
+    houseName: addressRegistrationHouseName,
+    block: addressRegistrationBlock,
+    flat: addressRegistrationFlat,
+    cityKladrId: addressRegistrationCityKladrId,
+    cityFiasID: addressRegistrationCityFiasId,
+    countryIsoCode: addressRegistrationCountryIsoCode,
+    regionFiasID: addressRegistrationRegionFiasId,
+    streetFiasID: addressRegistrationStreetFiasId,
+    regionIsoCode: addressRegistrationRegionIsoCode,
+  } = addressRegistration || {};
+  const {
+    houseName: addressResidenceHouseName,
+    block: addressResidenceBlock,
+    flat: addressResidenceFlat,
+    cityKladrId: addressResidenceCityKladrId,
+    cityFiasID: addressResidenceCityFiasId,
+    countryIsoCode: addressResidenceCountryIsoCode,
+    regionFiasID: addressResidenceRegionFiasId,
+    streetFiasID: addressResidenceStreetFiasId,
+    regionIsoCode: addressResidenceRegionIsoCode,
+  } = addressResidence || {};
+  const addressRegistrationQueryString = `${addressRegistrationHouseName
+    ? `д ${addressRegistrationHouseName}`
+    : ''}${addressRegistrationBlock
+    ? ` к ${addressRegistrationBlock}`
+    : ''}`;
+  const addressRegistrationQuery = {
+    from_bound: { value: 'house' },
+    locations: [{
+      city_fias_id: addressRegistrationCityFiasId,
+      country_iso_code: addressRegistrationCountryIsoCode,
+      region_fias_id: addressRegistrationRegionFiasId,
+      region_iso_code: addressRegistrationRegionIsoCode,
+      street_fias_id: addressRegistrationStreetFiasId,
+    }],
+    locations_boost: [{
+      kladr_id: addressRegistrationCityKladrId,
+    }],
+    query: addressRegistrationQueryString,
+    restrict_value: true,
+  };
+  const addressResidenceQueryString = `${addressResidenceHouseName
+    ? `д ${addressResidenceHouseName}`
+    : ''}${addressResidenceBlock
+    ? ` к ${addressResidenceBlock}`
+    : ''}`;
+  const addressResidenceQuery = {
+    from_bound: { value: 'house' },
+    locations: [{
+      city_fias_id: addressResidenceCityFiasId,
+      country_iso_code: addressResidenceCountryIsoCode,
+      region_fias_id: addressResidenceRegionFiasId,
+      region_iso_code: addressResidenceRegionIsoCode,
+      street_fias_id: addressResidenceStreetFiasId,
+    }],
+    locations_boost: [{
+      kladr_id: addressResidenceCityKladrId,
+    }],
+    query: addressResidenceQueryString,
+    restrict_value: true,
+  };
+  yield put(actions.settingsStoreSetSection({
+    trySaveUser: true,
+  }));
+  const replaceObject = ({ dataObj, varString, flat }) => {
+    const calcObj = {};
+    if (dataObj && dataObj.data && dataObj.data.suggestions
+      && Array.isArray(dataObj.data.suggestions)) {
+      dataObj.data.suggestions.forEach((x) => {
+        const { value: thisValue, data: thisData, unrestricted_value: thisUnValue } = x || {};
+        if (thisValue === varString) {
+          Object.keys(addressVariables).forEach((v) => {
+            if (thisData[v] || thisData[v] === 0) {
+              calcObj[addressVariables[v]] = thisData[v];
+            }
+          });
+          calcObj.fullAddress = `${thisUnValue}${flat ? `, ${flat}` : ''}`;
+          calcObj.flat = flat;
+        }
+      });
+    }
+    return calcObj;
+  };
+  try {
+    const regRes = yield call(api.dadataGetAddress, addressRegistrationQuery);
+    const regCalcObj = yield call(replaceObject, {
+      dataObj: regRes,
+      varString: addressRegistrationQueryString,
+      flat: addressRegistrationFlat,
+    });
+    let resCalcObj = {};
+    if (!isConcidesPlaceReg) {
+      const resRes = yield call(api.dadataGetAddress, addressResidenceQuery);
+      resCalcObj = yield call(replaceObject, {
+        dataObj: resRes,
+        varString: addressResidenceQueryString,
+        flat: addressResidenceFlat,
+      });
+    }
+    yield queryResultAnalysis(
+      (id || id === '0') ? api.settingsStoreSaveUser : api.settingsStoreAddUser,
+      isConcidesPlaceReg
+        ? {
+          ...el,
+          addressRegistration: { ...addressRegistration, ...regCalcObj },
+        }
+        : {
+          ...el,
+          addressRegistration: { ...addressRegistration, ...regCalcObj },
+          addressResidence: { ...addressResidence, ...resCalcObj },
+        },
+      function* () {
+        yield put(actions.popUpStoreClear());
+        yield put(actions.settingsStoreSetSection({
+          trySaveUser: false,
+        }));
+        yield (setSuccessToast(`Пользователь ${(id || id === 0) ? 'сохранен' : 'добавлен'}.`));
+        yield call(callback);
+      },
+      function* () {
+        yield put(actions.settingsStoreSetSection({
+          trySaveUser: false,
+        }));
+      },
+    );
+  } catch (e) {
+    yield (setErrorToast(`Ошибка при ${(id || id === 0) ? 'сохранении' : 'добавлении'} пользователя. Попробуйте обновить страницу.`));
+    yield put(actions.settingsStoreSetSection({
+      trySaveUser: false,
+    }));
+  }
 }
 
 export function* canBeCanceledSettingsStoreSaveUser(action) {

@@ -8,8 +8,9 @@ export const zoneStoreClear = () => ({
   type: 'ZONE_STORE_CLEAR',
 });
 
-export const zoneStoreGetZones = () => ({
+export const zoneStoreGetZones = (value) => ({
   type: 'ZONE_STORE_GET_ZONES',
+  value,
 });
 
 export const zoneStoreGetZonesCancel = () => ({

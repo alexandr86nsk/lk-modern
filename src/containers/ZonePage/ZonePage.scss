@@ -104,6 +104,22 @@
     }
   }
 
+  .zone:not(.sub-zone) {
+    z-index: 1;
+  }
+
+  .sub-zone {
+    opacity: 0;
+    transform: translateX(-50%);
+    transition: transform 0.8s ease-in-out, opacity .3s ease-out;
+
+    &.active {
+      opacity: 1;
+      transform: translateX(0);
+      transition: transform 0.8s ease-in-out, opacity .6s ease-in;
+    }
+  }
+
   .flip-card {
     perspective: 1000px;
   }

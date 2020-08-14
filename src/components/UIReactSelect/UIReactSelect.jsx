@@ -46,6 +46,7 @@ function UIReactSelect(props) {
     placeholder = 'Выберите значение',
     readOnly,
     loading,
+    disabled,
     loadingMessage,
   } = props || {};
 
@@ -141,9 +142,11 @@ function UIReactSelect(props) {
         isMulti={isMulti}
         closeMenuOnSelect={!isMulti}
         loadingMessage={loadingMessage}
+        isDisabled={disabled}
       />
     );
   }, [
+    disabled,
     loadingMessage,
     loading,
     memoizedValue,

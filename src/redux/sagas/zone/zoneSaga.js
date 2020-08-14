@@ -6,16 +6,21 @@ import actions from '../../actions/actions';
 import { queryResultAnalysis, setSuccessToast } from '../common/globalSaga';
 
 /* ***************************** zoneStoreGetZones ********************** */
-function* zoneStoreGetZones() {
+function* zoneStoreGetZones(value) {
+  const {
+    key,
+    zoneId,
+  } = value || {};
+  const isZone = key === 'zone';
   yield put(actions.zoneStoreSetSection({
-    zonesLoading: true,
+    [`${key}sLoading`]: true,
   }));
   yield queryResultAnalysis(
-    api.zoneStoreGetZones,
-    null,
+    isZone ? api.zoneStoreGetZones : api.zoneStoreGetSubZones,
+    isZone ? null : zoneId,
     function* (res) {
       yield put(actions.zoneStoreSetSection({
-        zones: res && Array.isArray(res) && res.map((v) => {
+        [`${key}s`]: res && Array.isArray(res) && res.map((v) => {
           const {
             id,
             regionTypeShort,
@@ -26,43 +31,48 @@ function* zoneStoreGetZones() {
             label: `${regionTypeShort ? `${regionTypeShort} ` : ''}${regionName || 'Неизвестное'}`,
           };
         }),
-        zonesLoading: false,
+        [`${key}sLoading`]: false,
       }));
     },
     function* () {
       yield put(actions.zoneStoreSetSection({
-        zones: [],
-        zonesLoading: false,
+        [`${key}s`]: undefined,
+        [`${key}sLoading`]: false,
       }));
     },
   );
 }
 
-export function* canBeCanceledZoneStoreGetZones() {
-  const bgZoneStoreGetZones = yield fork(zoneStoreGetZones);
+export function* canBeCanceledZoneStoreGetZones(action) {
+  const bgZoneStoreGetZones = yield fork(zoneStoreGetZones, action.value);
   yield take('SETTINGS_STORE_GET_ZONES_CANCEL');
   yield cancel(bgZoneStoreGetZones);
 }
 
 /* ***************************** zoneStoreGetZoneInfo ********************** */
 function* zoneStoreGetZoneInfo(value) {
+  const {
+    key,
+    id,
+  } = value || {};
+  const isZone = key === 'zone';
   yield put(actions.zoneStoreSetSection({
-    zoneInfoLoading: true,
-    zoneInfo: undefined,
+    [`${key}InfoLoading`]: true,
+    [`${key}Info`]: undefined,
   }));
   yield queryResultAnalysis(
-    api.zoneStoreGetZoneInfo,
-    value,
+    isZone ? api.zoneStoreGetZoneInfo : api.zoneStoreGetSubZoneInfo,
+    id,
     function* (res) {
       yield put(actions.zoneStoreSetSection({
-        zoneInfo: res,
-        zoneInfoLoading: false,
+        [`${key}Info`]: res,
+        [`${key}InfoLoading`]: false,
       }));
     },
     function* () {
       yield put(actions.zoneStoreSetSection({
-        zoneInfo: undefined,
-        zoneInfoLoading: false,
+        [`${key}Info`]: undefined,
+        [`${key}InfoLoading`]: false,
       }));
     },
   );
@@ -76,19 +86,23 @@ export function* canBeCanceledZoneStoreGetZoneInfo(action) {
 
 /* ***************************** zoneStoreGetUsers ********************** */
 function* zoneStoreGetUsers(value) {
-  const userRole = {
-    zoneUsers: 'SUPERVISOR',
-    subZoneUsers: 'FINANCIAL_CONSULTANT',
+  const usersVariable = {
+    zone: 'usersForZone',
+    subZone: 'usersForSubZone',
   };
+  const {
+    key,
+  } = value || {};
+  const isZone = key === 'zone';
   yield put(actions.zoneStoreSetSection({
-    zoneUsersLoading: true,
+    [`${usersVariable[key]}Loading`]: true,
   }));
   yield queryResultAnalysis(
     api.zoneStoreGetUsers,
-    userRole[value],
+    isZone ? 'SUPERVISOR' : 'FINANCIAL_CONSULTANT',
     function* (res) {
       yield put(actions.zoneStoreSetSection({
-        [value]: res && Array.isArray(res) && res.map((v) => {
+        [usersVariable[key]]: res && Array.isArray(res) && res.map((v) => {
           const {
             userID,
             fio,
@@ -99,13 +113,13 @@ function* zoneStoreGetUsers(value) {
             label: `${fio || ''}${phone ? ` тел. ${phone}` : ''}`,
           };
         }),
-        [`${value}Loading`]: false,
+        [`${usersVariable[key]}Loading`]: false,
       }));
     },
     function* () {
       yield put(actions.zoneStoreSetSection({
-        [value]: undefined,
-        [`${value}Loading`]: false,
+        [usersVariable[key]]: undefined,
+        [`${usersVariable[key]}Loading`]: false,
       }));
     },
   );
@@ -148,7 +162,8 @@ export function* canBeCanceledZoneStoreSaveZone(action) {
 /* ***************************** zoneStoreAddZoneUser ********************** */
 function* zoneStoreAddZoneUser(value) {
   const {
-    zoneID,
+    key,
+    id,
   } = value || {};
   yield put(actions.zoneStoreSetSection({
     tryAddZoneUser: true,
@@ -161,7 +176,10 @@ function* zoneStoreAddZoneUser(value) {
         tryAddZoneUser: false,
       }));
       yield (setSuccessToast('Пользователь назначен.'));
-      yield zoneStoreGetZoneInfo(zoneID);
+      yield zoneStoreGetZoneInfo({
+        key,
+        id,
+      });
     },
     function* () {
       yield put(actions.zoneStoreSetSection({
