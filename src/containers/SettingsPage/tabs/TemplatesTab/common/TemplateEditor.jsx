@@ -14,12 +14,10 @@ function TemplateEditor(props) {
     templateVar,
     templateVarLoading,
     trySaveTemplate,
-    settingsStoreSetTemplateInfoSection,
     settingsStoreGetTemplateInfo,
     settingsStoreGetTemplateInfoCancel,
     settingsStoreSaveTemplate,
-    settingsStoreSaveTemplateCancel,
-    settingsStoreClearTemplateInfo,
+    popUpStoreSetSubSection,
   } = props || {};
 
   const { text, name } = templateInfo || {};
@@ -32,12 +30,8 @@ function TemplateEditor(props) {
 
   React.useEffect(() => () => {
     settingsStoreGetTemplateInfoCancel();
-    settingsStoreSaveTemplateCancel();
-    settingsStoreClearTemplateInfo();
   }, [
-    settingsStoreClearTemplateInfo,
     settingsStoreGetTemplateInfoCancel,
-    settingsStoreSaveTemplateCancel,
   ]);
 
   const handleSaveTemplate = React.useCallback(() => {
@@ -45,10 +39,10 @@ function TemplateEditor(props) {
   }, [templateInfo, settingsStoreSaveTemplate]);
 
   const handleChangeValue = React.useCallback((editName, editValue) => {
-    settingsStoreSetTemplateInfoSection({
+    popUpStoreSetSubSection('templateInfo', {
       [editName]: editValue,
     });
-  }, [settingsStoreSetTemplateInfoSection]);
+  }, [popUpStoreSetSubSection]);
 
   return (
     <div className="settings-page__add-template-popup add-item-popup">
@@ -101,11 +95,11 @@ function TemplateEditor(props) {
 }
 
 const mapStateToProps = (state) => ({
-  templateInfoLoading: state.settingsStore.templateInfoLoading,
-  templateInfo: state.settingsStore.templateInfo,
+  templateInfoLoading: state.popUpStore.templateInfoLoading,
+  templateInfo: state.popUpStore.templateInfo,
+  trySaveTemplate: state.popUpStore.trySaveTemplate,
   templateVar: state.settingsStore.templateVar,
   templateVarLoading: state.settingsStore.templateVarLoading,
-  trySaveTemplate: state.settingsStore.trySaveTemplate,
 });
 
 const mapDispatchToProps = { ...actions };

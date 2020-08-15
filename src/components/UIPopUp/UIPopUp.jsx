@@ -10,20 +10,22 @@ function UIPopUp(props) {
     component,
     noEscape,
     type,
-  } = props;
+    closingImpossible,
+  } = props || {};
 
   const [scroll, setScroll] = React.useState(false);
   const pageEl = React.useRef(null);
   useScrollPage(setScroll, pageEl);
-
   const [state, setState] = React.useState('entering');
 
   const handleClose = React.useCallback(() => {
-    setState('exiting');
-    if (callback) {
-      setTimeout(() => callback(), 500);
+    if (!closingImpossible) {
+      setState('exiting');
+      if (callback) {
+        setTimeout(() => callback(), 500);
+      }
     }
-  }, [callback]);
+  }, [closingImpossible, callback]);
 
   React.useEffect(() => {
     function handleClickEscape(event) {

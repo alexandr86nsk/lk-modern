@@ -5,10 +5,11 @@ import UIPopUp from '../UIPopUp/UIPopUp';
 
 function PagePopUp(props) {
   const {
-    show,
-    item,
+    popUpStore,
     popUpStoreClear,
-  } = props;
+  } = props || {};
+
+  const { show } = popUpStore || {};
 
   const handleHidePopUp = React.useCallback(() => {
     popUpStoreClear();
@@ -16,15 +17,13 @@ function PagePopUp(props) {
 
   return (
     <>
-      {show && <UIPopUp {...item} callback={handleHidePopUp} />}
+      {show && <UIPopUp {...popUpStore} callback={handleHidePopUp} />}
     </>
   );
 }
 
 const mapStateToProps = (state) => ({
-  show: state.popUpStore.show,
-  hidePageControl: state.popUpStore.hidePageControl,
-  item: state.popUpStore,
+  popUpStore: state.popUpStore,
 });
 
 const mapDispatchToProps = { ...actions };

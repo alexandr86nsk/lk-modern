@@ -26,6 +26,7 @@ function UIRsuiteTableControlBlock(props) {
     searchCustom,
     refresh,
     refreshCallback,
+    refreshTitle,
   } = props || {};
 
   return (
@@ -72,8 +73,14 @@ function UIRsuiteTableControlBlock(props) {
           </div>
         )}
         {refresh && (
-          <div title="Обновить" role="presentation" className="refresh-wrapper" onClick={refreshCallback}>
+          <div
+            title="Обновить таблицу"
+            role="presentation"
+            className={`refresh-wrapper${refreshTitle ? ' --with-title' : ''}`}
+            onClick={refreshCallback}
+          >
             <RefreshIcon />
+            {refreshTitle && <span>{refreshTitle}</span>}
           </div>
         )}
       </div>

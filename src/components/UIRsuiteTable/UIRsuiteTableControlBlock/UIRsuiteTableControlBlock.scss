@@ -82,29 +82,29 @@
     cursor: pointer;
     margin: 0 1em;
     user-select: none;
+    color: $theme-border-color;
+
+    &.--with-title {
+      border-radius: 10em;
+      padding: 0.5em 1em;
+    }
 
     svg {
       width: 2em;
       height: 2em;
-      fill: $theme-border-color;
+      fill: currentColor;
     }
 
     &:hover {
       background-color: rgba($theme-border-color, .1);
       border: 1px solid rgba($theme-border-color, .2);
-
-      svg {
-        fill: rgba($medium-theme-color, .7);
-      }
+      color: rgba($medium-theme-color, .7);
     }
 
     &:active {
       background-color: rgba($theme-border-color, .2);
       border: 1px solid rgba($theme-border-color, .3);
-
-      svg {
-        fill: rgba($medium-theme-color, 1);
-      }
+      color: rgba($medium-theme-color, 1);
     }
   }
 

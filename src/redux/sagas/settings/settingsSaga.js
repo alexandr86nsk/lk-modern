@@ -172,40 +172,6 @@ export function* canBeCanceledSettingsStoreGetUserInfo(action) {
   yield cancel(bgSettingsStoreGetUserInfo);
 }
 
-/* /!* ***************************** settingsStoreSaveUser ********************** *!/
-function* settingsStoreSaveUser(value) {
-  const {
-    el,
-    callback,
-  } = value || {};
-  yield put(actions.settingsStoreSetSection({
-    trySaveUser: true,
-  }));
-  yield queryResultAnalysis(
-    (el.id || el.id === '0') ? api.settingsStoreSaveUser : api.settingsStoreAddUser,
-    el,
-    function* () {
-      yield put(actions.popUpStoreClear());
-      yield put(actions.settingsStoreSetSection({
-        trySaveUser: false,
-      }));
-      yield (setSuccessToast(`Пользователь ${(value.id || value.id === 0) ? 'сохранен' : 'добавлен'}.`));
-      yield call(callback);
-    },
-    function* () {
-      yield put(actions.settingsStoreSetSection({
-        trySaveUser: false,
-      }));
-    },
-  );
-}
-
-export function* canBeCanceledSettingsStoreSaveUser(action) {
-  const bgSettingsStoreSaveUser = yield fork(settingsStoreSaveUser, action.value);
-  yield take('SETTINGS_STORE_SAVE_USER_CANCEL');
-  yield cancel(bgSettingsStoreSaveUser);
-} */
-
 /* ***************************** settingsStoreSaveUser ********************** */
 function* settingsStoreSaveUser(value) {
   const {
@@ -331,10 +297,10 @@ function* settingsStoreSaveUser(value) {
           addressResidence: { ...addressResidence, ...resCalcObj },
         },
       function* () {
-        yield put(actions.popUpStoreClear());
         yield put(actions.settingsStoreSetSection({
           trySaveUser: false,
         }));
+        yield put(actions.popUpStoreClear());
         yield (setSuccessToast(`Пользователь ${(id || id === 0) ? 'сохранен' : 'добавлен'}.`));
         yield call(callback);
       },
@@ -428,7 +394,7 @@ export function* canBeCanceledSettingsStoreGetTemplates() {
 
 /* ***************************** settingsStoreGetTemplateInfo ********************** */
 function* settingsStoreGetTemplateInfo(value) {
-  yield put(actions.settingsStoreSetSection({
+  yield put(actions.popUpStoreSetSection({
     templateInfoLoading: true,
     templateInfo: undefined,
   }));
@@ -436,13 +402,13 @@ function* settingsStoreGetTemplateInfo(value) {
     api.settingsStoreGetTemplateInfo,
     value,
     function* (res) {
-      yield put(actions.settingsStoreSetSection({
+      yield put(actions.popUpStoreSetSection({
         templateInfo: res,
         templateInfoLoading: false,
       }));
     },
     function* () {
-      yield put(actions.settingsStoreSetSection({
+      yield put(actions.popUpStoreSetSection({
         templateInfo: undefined,
         templateInfoLoading: false,
       }));
@@ -458,21 +424,24 @@ export function* canBeCanceledSettingsStoreGetTemplateInfo(action) {
 
 /* ***************************** settingsStoreSaveTemplate ********************** */
 function* settingsStoreSaveTemplate(value) {
-  yield put(actions.settingsStoreSetSection({
+  const { id } = value || {};
+  const isSave = id || id === 0;
+  yield put(actions.popUpStoreSetSection({
     trySaveTemplate: true,
   }));
   yield queryResultAnalysis(
-    (value.id || value.id === 0) ? api.settingsStoreSaveTemplate : api.settingsStoreAddTemplate,
+    isSave ? api.settingsStoreSaveTemplate : api.settingsStoreAddTemplate,
     value,
     function* () {
-      yield put(actions.settingsStoreSetSection({
+      yield put(actions.popUpStoreSetSection({
         trySaveTemplate: false,
       }));
-      yield (setSuccessToast(`Шаблон ${(value.id || value.id === 0) ? 'сохранен' : 'добавлен'}.`));
+      yield put(actions.popUpStoreClear());
+      yield (setSuccessToast(`Шаблон ${isSave ? 'сохранен' : 'добавлен'}.`));
       yield settingsStoreGetTemplates();
     },
     function* () {
-      yield put(actions.settingsStoreSetSection({
+      yield put(actions.popUpStoreSetSection({
         trySaveTemplate: false,
       }));
     },

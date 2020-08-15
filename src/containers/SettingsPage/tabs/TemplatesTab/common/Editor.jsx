@@ -1,5 +1,5 @@
 import React from 'react';
-import UILoader from "../../../../../components/UILoader/UILoader";
+import UILoader from '../../../../../components/UILoader/UILoader';
 
 const MenuItem = (props) => {
   const {

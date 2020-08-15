@@ -17,6 +17,7 @@ function UsersTab(props) {
     usersTableStore,
     usersTableTemplate,
     filterUsers,
+    trySaveUser,
     settingsStoreSetSection,
     settingsStoreGetUsers,
     settingsStoreGetUsersCancel,
@@ -89,6 +90,12 @@ function UsersTab(props) {
     });
   }, [getUsers, popUpStoreSetSection]);
 
+  React.useEffect(() => {
+    popUpStoreSetSection({
+      closingImpossible: trySaveUser,
+    });
+  }, [popUpStoreSetSection, trySaveUser]);
+
   const removeUser = React.useCallback((value) => {
     const { userID } = value || {};
     settingsStoreRemoveUser({
@@ -112,13 +119,13 @@ function UsersTab(props) {
     });
   }, [modalStoreSetSection, removeUser]);
 
-  const handleAdd = React.useCallback(() => {
+/*  const handleAdd = React.useCallback(() => {
     popUpStoreSetSection({
       show: true,
       component: <UserEditor hideCallback={getUsers} />,
       type: '--horizontal-right --35 --rounded',
     });
-  }, [getUsers, popUpStoreSetSection]);
+  }, [getUsers, popUpStoreSetSection]);*/
 
   React.useEffect(() => {
     if (!usersTableTemplate || !usersTableStore) {
@@ -128,6 +135,7 @@ function UsersTab(props) {
           ...tableDefaultConfig,
           paginationServerSide: true,
           searchServerSide: true,
+          searchCustom: <UsersFilter />,
           sortServerSide: true,
           tableRowHeight: 36,
           filter: false,
@@ -136,9 +144,8 @@ function UsersTab(props) {
             sortColumn: 'fio',
             sortType: 'asc',
           },
-          refresh: false,
+          refreshTitle: 'Обновить таблицу',
           onRowDoubleClick: handleEdit,
-          searchCustom: <UsersFilter />,
         },
       });
     }
@@ -153,6 +160,7 @@ function UsersTab(props) {
 
   React.useEffect(() => {
     settingsStoreSetUsersTableStoreSection({
+      refreshCallback: getUsers,
       actions: [
         {
           id: 0,
@@ -171,6 +179,7 @@ function UsersTab(props) {
       ],
     });
   }, [
+    getUsers,
     handleEdit,
     handleRemove,
     settingsStoreSetUsersTableStoreSection,
@@ -218,15 +227,7 @@ function UsersTab(props) {
             circular
             primary
             size="small"
-            onClick={handleRefresh}
-            icon="refresh"
-            title="Обновить таблицу"
-          />
-          <Button
-            circular
-            primary
-            size="small"
-            onClick={handleAdd}
+            onClick={handleEdit}
             title="Добавить пользователя"
           >
             <Icon name="add" />
@@ -243,6 +244,7 @@ const mapStateToProps = (state) => ({
   usersTableStore: state.settingsStore.usersTableStore,
   usersTableTemplate: state.settingsStore.usersTableTemplate,
   filterUsers: state.settingsStore.filterUsers,
+  trySaveUser: state.settingsStore.trySaveUser,
 });
 
 const mapDispatchToProps = { ...actions };

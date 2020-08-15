@@ -34,23 +34,25 @@ function PageModal(props) {
   }, [show, modalStoreClear]);
 
   const handleCloseModal = React.useCallback((value) => {
-    if (value) {
-      if (data || data === 0) {
-        callback(data, tempData);
+    if (!loading) {
+      if (value || value === 0) {
+        if (data || data === 0) {
+          callback(data, tempData);
+        } else {
+          callback(tempData);
+        }
+        if (!asyncClose) {
+          modalStoreSetSection({
+            show: false,
+          });
+        }
       } else {
-        callback(tempData);
-      }
-      if (!asyncClose) {
         modalStoreSetSection({
           show: false,
         });
       }
-    } else {
-      modalStoreSetSection({
-        show: false,
-      });
     }
-  }, [modalStoreSetSection, asyncClose, callback, data, tempData]);
+  }, [loading, modalStoreSetSection, asyncClose, callback, data, tempData]);
 
   const memoizedValidationForm = React.useMemo(() => {
     let errors = 0;

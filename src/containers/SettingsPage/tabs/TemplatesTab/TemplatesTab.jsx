@@ -15,6 +15,7 @@ function TemplatesTab(props) {
     templates,
     templatesTableStore,
     templatesTableTemplate,
+    trySaveTemplate,
     settingsStoreSetSection,
     settingsStoreGetTemplates,
     settingsStoreGetTemplatesCancel,
@@ -24,6 +25,7 @@ function TemplatesTab(props) {
     settingsStoreRemoveTemplateCancel,
     settingsStoreGetTemplateVar,
     settingsStoreGetTemplateVarCancel,
+    settingsStoreSaveTemplateCancel,
     popUpStoreSetSection,
     modalStoreSetSection,
     popUpStoreClear,
@@ -41,6 +43,12 @@ function TemplatesTab(props) {
       type: '--horizontal-right --35 --rounded',
     });
   }, [popUpStoreSetSection]);
+
+  React.useEffect(() => {
+    popUpStoreSetSection({
+      closingImpossible: trySaveTemplate,
+    });
+  }, [popUpStoreSetSection, trySaveTemplate]);
 
   const removeTemplate = React.useCallback((value) => {
     const { id } = value || {};
@@ -61,15 +69,6 @@ function TemplatesTab(props) {
       callback: removeTemplate,
     });
   }, [modalStoreSetSection, removeTemplate]);
-
-  const handleAdd = React.useCallback(() => {
-    popUpStoreSetSection({
-      show: true,
-      component: <TemplateEditor />,
-      hidePageControl: true,
-      type: '--horizontal-right --35 --rounded',
-    });
-  }, [popUpStoreSetSection]);
 
   React.useEffect(() => {
     if (!templatesTableTemplate || !templatesTableStore) {
@@ -118,11 +117,13 @@ function TemplatesTab(props) {
     settingsStoreGetTemplatesCancel();
     settingsStoreRemoveTemplateCancel();
     settingsStoreGetTemplateVarCancel();
+    settingsStoreSaveTemplateCancel();
     popUpStoreClear();
   }, [
     settingsStoreGetTemplatesCancel,
     settingsStoreRemoveTemplateCancel,
     settingsStoreGetTemplateVarCancel,
+    settingsStoreSaveTemplateCancel,
     popUpStoreClear,
   ]);
 
@@ -142,7 +143,7 @@ function TemplatesTab(props) {
             circular
             primary
             size="small"
-            onClick={handleAdd}
+            onClick={handleEdit}
             title="Добавить шаблон"
           >
             <Icon name="add" />
@@ -158,6 +159,7 @@ const mapStateToProps = (state) => ({
   templates: state.settingsStore.templates,
   templatesTableStore: state.settingsStore.templatesTableStore,
   templatesTableTemplate: state.settingsStore.templatesTableTemplate,
+  trySaveTemplate: state.popUpStore.trySaveTemplate,
 });
 
 const mapDispatchToProps = { ...actions };
