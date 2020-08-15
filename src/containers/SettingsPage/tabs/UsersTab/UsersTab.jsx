@@ -119,14 +119,6 @@ function UsersTab(props) {
     });
   }, [modalStoreSetSection, removeUser]);
 
-/*  const handleAdd = React.useCallback(() => {
-    popUpStoreSetSection({
-      show: true,
-      component: <UserEditor hideCallback={getUsers} />,
-      type: '--horizontal-right --35 --rounded',
-    });
-  }, [getUsers, popUpStoreSetSection]);*/
-
   React.useEffect(() => {
     if (!usersTableTemplate || !usersTableStore) {
       settingsStoreSetSection({
@@ -244,7 +236,7 @@ const mapStateToProps = (state) => ({
   usersTableStore: state.settingsStore.usersTableStore,
   usersTableTemplate: state.settingsStore.usersTableTemplate,
   filterUsers: state.settingsStore.filterUsers,
-  trySaveUser: state.settingsStore.trySaveUser,
+  trySaveUser: state.popUpStore.trySaveUser,
 });
 
 const mapDispatchToProps = { ...actions };

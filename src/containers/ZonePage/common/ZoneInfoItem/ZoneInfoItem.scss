@@ -4,7 +4,7 @@
 
   &__item {
     display: grid;
-    grid-template: auto / .4fr .6fr;
+    grid-template: auto / .6fr .4fr;
     grid-gap: 1em;
 
     .title {

@@ -30,11 +30,10 @@ function UserEditor(props) {
     addressResidenceStreetNameLoading,
     addressResidenceCityNameResults,
     addressResidenceStreetNameResults,
-    settingsStoreSetUserInfoSection,
+    popUpStoreSetSubSection,
     settingsStoreGetUserInfo,
     settingsStoreGetUserInfoCancel,
     settingsStoreSaveUser,
-    settingsStoreClearUserInfo,
     settingsStoreSetUserInfoAddressRegistrationSection,
     settingsStoreSetUserInfoAddressResidenceSection,
     settingsStoreDadataGetAddress,
@@ -84,10 +83,8 @@ function UserEditor(props) {
 
   React.useEffect(() => () => {
     settingsStoreGetUserInfoCancel();
-    settingsStoreClearUserInfo();
     settingsStoreDadataGetAddressCancel();
   }, [
-    settingsStoreClearUserInfo,
     settingsStoreGetUserInfoCancel,
     settingsStoreDadataGetAddressCancel,
   ]);
@@ -723,19 +720,19 @@ function UserEditor(props) {
 }
 
 const mapStateToProps = (state) => ({
-  userInfo: state.settingsStore.userInfo,
-  userInfoLoading: state.settingsStore.userInfoLoading,
   userRoles: state.settingsStore.userRoles,
   userRolesLoading: state.settingsStore.userRolesLoading,
-  addressRegistrationCityNameLoading: state.settingsStore.addressRegistrationCityNameLoading,
-  addressRegistrationStreetNameLoading: state.settingsStore.addressRegistrationStreetNameLoading,
-  addressRegistrationCityNameResults: state.settingsStore.addressRegistrationCityNameResults,
-  addressRegistrationStreetNameResults: state.settingsStore.addressRegistrationStreetNameResults,
-  addressResidenceCityNameLoading: state.settingsStore.addressResidenceCityNameLoading,
-  addressResidenceStreetNameLoading: state.settingsStore.addressResidenceStreetNameLoading,
-  addressResidenceCityNameResults: state.settingsStore.addressResidenceCityNameResults,
-  addressResidenceStreetNameResults: state.settingsStore.addressResidenceStreetNameResults,
-  trySaveUser: state.settingsStore.trySaveUser,
+  userInfo: state.popUpStore.userInfo,
+  userInfoLoading: state.popUpStore.userInfoLoading,
+  addressRegistrationCityNameLoading: state.popUpStore.addressRegistrationCityNameLoading,
+  addressRegistrationStreetNameLoading: state.popUpStore.addressRegistrationStreetNameLoading,
+  addressRegistrationCityNameResults: state.popUpStore.addressRegistrationCityNameResults,
+  addressRegistrationStreetNameResults: state.popUpStore.addressRegistrationStreetNameResults,
+  addressResidenceCityNameLoading: state.popUpStore.addressResidenceCityNameLoading,
+  addressResidenceStreetNameLoading: state.popUpStore.addressResidenceStreetNameLoading,
+  addressResidenceCityNameResults: state.popUpStore.addressResidenceCityNameResults,
+  addressResidenceStreetNameResults: state.popUpStore.addressResidenceStreetNameResults,
+  trySaveUser: state.popUpStore.trySaveUser,
 });
 
 const mapDispatchToProps = { ...actions };
