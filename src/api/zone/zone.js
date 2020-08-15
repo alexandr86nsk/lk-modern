@@ -45,6 +45,16 @@ export const zoneStoreAddSubZone = (data) => requestParser(
   data,
 );
 
+export const zoneStoreRemoveZone = (id) => requestParser(
+  'delete',
+  `zoneApp/${id}`,
+);
+
+export const zoneStoreRemoveSubZone = (id) => requestParser(
+  'delete',
+  `subZoneApp/${id}`,
+);
+
 export const zoneStoreGetUsers = (roleName) => requestParser(
   'get',
   `user/role/${roleName}`,
