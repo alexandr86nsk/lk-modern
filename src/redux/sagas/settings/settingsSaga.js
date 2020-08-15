@@ -144,7 +144,7 @@ export function* canBeCanceledSettingsStoreGetUserRoles(action) {
 
 /* ***************************** settingsStoreGetUserInfo ********************** */
 function* settingsStoreGetUserInfo(value) {
-  yield put(actions.settingsStoreSetSection({
+  yield put(actions.popUpStoreSetSection({
     userInfoLoading: true,
     userInfo: undefined,
   }));
@@ -152,13 +152,13 @@ function* settingsStoreGetUserInfo(value) {
     api.settingsStoreGetUserInfo,
     value,
     function* (res) {
-      yield put(actions.settingsStoreSetSection({
+      yield put(actions.popUpStoreSetSection({
         userInfo: res,
         userInfoLoading: false,
       }));
     },
     function* () {
-      yield put(actions.settingsStoreSetSection({
+      yield put(actions.popUpStoreSetSection({
         userInfo: undefined,
         userInfoLoading: false,
       }));
@@ -174,6 +174,9 @@ export function* canBeCanceledSettingsStoreGetUserInfo(action) {
 
 /* ***************************** settingsStoreSaveUser ********************** */
 function* settingsStoreSaveUser(value) {
+  yield put(actions.popUpStoreSetSection({
+    trySaveUser: true,
+  }));
   const {
     el,
     callback,
@@ -246,9 +249,6 @@ function* settingsStoreSaveUser(value) {
     query: addressResidenceQueryString,
     restrict_value: true,
   };
-  yield put(actions.settingsStoreSetSection({
-    trySaveUser: true,
-  }));
   const replaceObject = ({ dataObj, varString, flat }) => {
     const calcObj = {};
     if (dataObj && dataObj.data && dataObj.data.suggestions
@@ -297,7 +297,7 @@ function* settingsStoreSaveUser(value) {
           addressResidence: { ...addressResidence, ...resCalcObj },
         },
       function* () {
-        yield put(actions.settingsStoreSetSection({
+        yield put(actions.popUpStoreSetSection({
           trySaveUser: false,
         }));
         yield put(actions.popUpStoreClear());
@@ -305,14 +305,14 @@ function* settingsStoreSaveUser(value) {
         yield call(callback);
       },
       function* () {
-        yield put(actions.settingsStoreSetSection({
+        yield put(actions.popUpStoreSetSection({
           trySaveUser: false,
         }));
       },
     );
   } catch (e) {
     yield (setErrorToast(`Ошибка при ${(id || id === 0) ? 'сохранении' : 'добавлении'} пользователя. Попробуйте обновить страницу.`));
-    yield put(actions.settingsStoreSetSection({
+    yield put(actions.popUpStoreSetSection({
       trySaveUser: false,
     }));
   }
@@ -521,20 +521,20 @@ function* settingsStoreDadataGetAddress(value) {
     query,
   } = value || {};
   // const setStoreFn = actions[`settingsStoreSetA${id.slice(1)}`];
-  yield put(actions.settingsStoreSetSection({
+  yield put(actions.popUpStoreSetSection({
     [`${id}Loading`]: true,
   }));
   yield queryResultAnalysis(
     api.dadataGetAddress,
     query,
     function* (res) {
-      yield put(actions.settingsStoreSetSection({
+      yield put(actions.popUpStoreSetSection({
         [`${id}Loading`]: false,
         [`${id}Results`]: res.suggestions,
       }));
     },
     function* () {
-      yield put(actions.settingsStoreSetSection({
+      yield put(actions.popUpStoreSetSection({
         [`${id}Loading`]: false,
         [`${id}Results`]: [],
       }));

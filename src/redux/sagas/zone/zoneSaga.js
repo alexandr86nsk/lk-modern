@@ -1,5 +1,5 @@
 import {
-  call, put, fork, take, cancel,
+  put, fork, take, cancel,
 } from 'redux-saga/effects';
 import api from '../../../api/api';
 import actions from '../../actions/actions';
@@ -216,6 +216,9 @@ export function* canBeCanceledZoneStoreRemoveZoneUser(action) {
 
 /* ***************************** zoneStoreSaveZone ********************** */
 function* zoneStoreSaveZone(value) {
+  yield put(actions.popUpStoreSetSection({
+    trySaveZone: true,
+  }));
   const {
     key,
     zoneId,
@@ -228,9 +231,6 @@ function* zoneStoreSaveZone(value) {
   const saveZoneMethod = (id || id === 0) ? api.zoneStoreSaveZone : api.zoneStoreAddZone;
   const saveSubZoneMethod = (id || id === 0) ? api.zoneStoreSaveSubZone : api.zoneStoreAddSubZone;
   const sendData = (id || id === 0) ? el : { ...el, zoneAppID: zoneId };
-  yield put(actions.popUpStoreSetSection({
-    trySaveZone: true,
-  }));
   yield queryResultAnalysis(
     isZone ? saveZoneMethod : saveSubZoneMethod,
     sendData,
@@ -238,7 +238,12 @@ function* zoneStoreSaveZone(value) {
       yield put(actions.popUpStoreSetSection({
         trySaveZone: false,
       }));
+      yield put(actions.popUpStoreClear());
       yield (setSuccessToast(`${isZone ? 'Зона' : 'Подзона'} ${(id || id === 0) ? 'сохранена' : 'добавлена'}.`));
+      yield zoneStoreGetZones({
+        key,
+        zoneId,
+      });
     },
     function* () {
       yield put(actions.popUpStoreSetSection({

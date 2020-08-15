@@ -4,11 +4,6 @@ export const zoneStoreSetSection = (value) => ({
   value,
 });
 
-export const zoneStoreSetZoneInfoToEditSection = (value) => ({
-  type: 'ZONE_STORE_SET_ZONE_INFO_TO_EDIT_SECTION',
-  value,
-});
-
 export const zoneStoreClear = () => ({
   type: 'ZONE_STORE_CLEAR',
 });

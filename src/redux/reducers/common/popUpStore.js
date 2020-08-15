@@ -3,9 +3,16 @@ const initialPopUpStore = {};
 export default function popUpStore(state = initialPopUpStore, action) {
   const {
     name,
+    subName,
     value,
     type,
   } = action || {};
+  const {
+    [name]: stateName,
+  } = state || {};
+  const {
+    [subName]: stateSubName,
+  } = stateName || {};
   switch (type) {
     case 'POP_UP_STORE_SET':
       return value;
@@ -20,8 +27,19 @@ export default function popUpStore(state = initialPopUpStore, action) {
       return {
         ...state,
         [name]: {
-          ...state[name],
+          ...stateName,
           ...value,
+        },
+      };
+    case 'POP_UP_STORE_SET_SUB_SECTION_SECTION':
+      return {
+        ...state,
+        [name]: {
+          ...stateName,
+          [subName]: {
+            ...stateSubName,
+            ...value,
+          },
         },
       };
     case 'POP_UP_STORE_SET_VALUE':

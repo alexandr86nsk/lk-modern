@@ -2,23 +2,18 @@ const initialSettingsStore = {};
 
 export default function settingsStore(state = initialSettingsStore, action) {
   const {
-    userInfo,
+    value,
+    name,
+    type,
+  } = action || {};
+  const {
     settings,
     usersTableStore,
     usersTableTemplate,
     templatesTableStore,
     templatesTableTemplate,
-    templateInfo,
+    [name]: stateName,
   } = state || {};
-  const {
-    addressRegistration,
-    addressResidence,
-  } = userInfo || {};
-  const {
-    value,
-    name,
-    type,
-  } = action || {};
   switch (type) {
     case 'SETTINGS_STORE_SET_SECTION':
       return {
@@ -29,7 +24,7 @@ export default function settingsStore(state = initialSettingsStore, action) {
       return {
         ...state,
         [name]: {
-          ...state[name],
+          ...stateName,
           ...value,
         },
       };
@@ -80,41 +75,6 @@ export default function settingsStore(state = initialSettingsStore, action) {
           return v;
         }),
       };
-    case 'SETTINGS_STORE_SET_USER_INFO_SECTION':
-      return {
-        ...state,
-        userInfo: {
-          ...userInfo,
-          ...value,
-        },
-      };
-    case 'SETTINGS_STORE_SET_USER_INFO_ADDRESS_REGISTRATION_SECTION':
-      return {
-        ...state,
-        userInfo: {
-          ...userInfo,
-          addressRegistration: {
-            ...addressRegistration,
-            ...value,
-          },
-        },
-      };
-    case 'SETTINGS_STORE_SET_USER_INFO_ADDRESS_RESIDENCE_SECTION':
-      return {
-        ...state,
-        userInfo: {
-          ...userInfo,
-          addressResidence: {
-            ...addressResidence,
-            ...value,
-          },
-        },
-      };
-    case 'SETTINGS_STORE_CLEAR_USER_INFO':
-      return {
-        ...state,
-        userInfo: undefined,
-      };
     case 'SETTINGS_STORE_SET_TEMPLATES_TABLE_STORE_SECTION':
       return {
         ...state,
@@ -141,19 +101,6 @@ export default function settingsStore(state = initialSettingsStore, action) {
           }
           return v;
         }),
-      };
-    case 'SETTINGS_STORE_SET_TEMPLATE_INFO_SECTION':
-      return {
-        ...state,
-        templateInfo: {
-          ...templateInfo,
-          ...value,
-        },
-      };
-    case 'SETTINGS_STORE_CLEAR_TEMPLATE_INFO':
-      return {
-        ...state,
-        templateInfo: undefined,
       };
     case 'SETTINGS_STORE_CLEAR':
       return initialSettingsStore;

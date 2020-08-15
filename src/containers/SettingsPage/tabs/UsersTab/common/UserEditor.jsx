@@ -31,11 +31,10 @@ function UserEditor(props) {
     addressResidenceCityNameResults,
     addressResidenceStreetNameResults,
     popUpStoreSetSubSection,
+    popUpStoreSetSubSectionSection,
     settingsStoreGetUserInfo,
     settingsStoreGetUserInfoCancel,
     settingsStoreSaveUser,
-    settingsStoreSetUserInfoAddressRegistrationSection,
-    settingsStoreSetUserInfoAddressResidenceSection,
     settingsStoreDadataGetAddress,
     settingsStoreDadataGetAddressCancel,
     hideCallback,
@@ -90,61 +89,67 @@ function UserEditor(props) {
   ]);
 
   React.useEffect(() => {
+    console.log('1');
     if (addressRegistrationCityName || addressRegistrationSettlementName) {
-      settingsStoreSetUserInfoAddressRegistrationSection({
+      popUpStoreSetSubSectionSection('userInfo', 'addressRegistration', {
         cityNameX: addressRegistrationCityName || addressRegistrationSettlementName,
       });
     }
   }, [
     addressRegistrationSettlementName,
     addressRegistrationCityName,
-    settingsStoreSetUserInfoAddressRegistrationSection,
+    popUpStoreSetSubSectionSection,
   ]);
 
   React.useEffect(() => {
+    console.log('2');
     if (addressResidenceCityName || addressResidenceSettlementName) {
-      settingsStoreSetUserInfoAddressResidenceSection({
+      popUpStoreSetSubSectionSection('userInfo', 'addressResidence', {
         cityNameX: addressResidenceCityName || addressResidenceSettlementName,
       });
     }
   }, [
+    popUpStoreSetSubSectionSection,
     addressResidenceSettlementName,
     addressResidenceCityName,
-    settingsStoreSetUserInfoAddressResidenceSection,
   ]);
 
   React.useEffect(() => {
+    console.log('3');
     if (addressRegistrationStreetName) {
-      settingsStoreSetUserInfoAddressRegistrationSection({
+      popUpStoreSetSubSectionSection('userInfo', 'addressRegistration', {
         streetNameX: addressRegistrationStreetName,
       });
     }
   }, [
-    settingsStoreSetUserInfoAddressRegistrationSection,
+    popUpStoreSetSubSectionSection,
     addressRegistrationStreetName,
   ]);
 
   React.useEffect(() => {
+    console.log('4');
     if (addressResidenceStreetName) {
-      settingsStoreSetUserInfoAddressResidenceSection({
+      popUpStoreSetSubSectionSection('userInfo', 'addressResidence', {
         streetNameX: addressResidenceStreetName,
       });
     }
   }, [
-    settingsStoreSetUserInfoAddressResidenceSection,
+    popUpStoreSetSubSectionSection,
     addressResidenceStreetName,
   ]);
 
   React.useEffect(() => {
-    settingsStoreSetUserInfoAddressResidenceSection({
+    console.log('5');
+    popUpStoreSetSubSectionSection('userInfo', 'addressResidence', {
       isConcidesPlaceReg,
     });
   }, [
-    settingsStoreSetUserInfoAddressResidenceSection,
+    popUpStoreSetSubSectionSection,
     isConcidesPlaceReg,
   ]);
 
   React.useEffect(() => {
+    console.log('6');
     if (isFirstRun.current) {
       isFirstRun.current = false;
     } else if (addressRegistrationCityNameX && !addressRegistrationCityName) {
@@ -164,6 +169,7 @@ function UserEditor(props) {
   ]);
 
   React.useEffect(() => {
+    console.log('7');
     if (isFirstRun.current) {
       isFirstRun.current = false;
     } else if (addressRegistrationStreetNameX && !addressRegistrationStreetName) {
@@ -193,6 +199,7 @@ function UserEditor(props) {
   ]);
 
   React.useEffect(() => {
+    console.log('8');
     if (isFirstRun.current) {
       isFirstRun.current = false;
     } else if (addressResidenceCityNameX && !addressResidenceCityName) {
@@ -212,6 +219,7 @@ function UserEditor(props) {
   ]);
 
   React.useEffect(() => {
+    console.log('9');
     if (isFirstRun.current) {
       isFirstRun.current = false;
     } else if (addressResidenceStreetNameX && !addressResidenceStreetName) {
@@ -256,66 +264,58 @@ function UserEditor(props) {
 
   const handleChangeValue = React.useCallback((editName, editValue) => {
     if (editName === 'phone') {
-      settingsStoreSetUserInfoSection({
+      popUpStoreSetSubSection('userInfo', {
         [editName]: editValue.replace(/[(]|[)]|[-]/g, ''),
       });
     } else {
-      settingsStoreSetUserInfoSection({
+      popUpStoreSetSubSection('userInfo', {
         [editName]: editValue,
       });
     }
-  }, [settingsStoreSetUserInfoSection]);
+  }, [popUpStoreSetSubSection]);
 
   const handleChangeAddressRegistrationValue = React.useCallback((editName, editValue) => {
     if (editName === 'cityNameX') {
-      settingsStoreSetUserInfoSection({
+      popUpStoreSetSubSection('userInfo', {
         addressRegistration: { cityNameX: editValue },
       });
     } else if (editName === 'streetNameX') {
-      settingsStoreSetUserInfoSection({
-        addressRegistration: {
-          ...addressRegistration,
-          streetNameX: editValue,
-          streetName: undefined,
-        },
+      popUpStoreSetSubSectionSection('userInfo', 'addressRegistration', {
+        streetNameX: editValue,
+        streetName: undefined,
       });
     } else {
-      settingsStoreSetUserInfoAddressRegistrationSection({
+      popUpStoreSetSubSectionSection('userInfo', 'addressRegistration', {
         [editName]: editValue,
       });
     }
   }, [
-    addressRegistration,
-    settingsStoreSetUserInfoSection,
-    settingsStoreSetUserInfoAddressRegistrationSection,
+    popUpStoreSetSubSection,
+    popUpStoreSetSubSectionSection,
   ]);
 
   const handleChangeAddressResidenceValue = React.useCallback((editName, editValue) => {
     if (editName === 'isConcidesPlaceReg') {
-      settingsStoreSetUserInfoSection({
+      popUpStoreSetSubSection('userInfo', {
         isConcidesPlaceReg: editValue,
       });
     } else if (editName === 'cityNameX') {
-      settingsStoreSetUserInfoSection({
+      popUpStoreSetSubSection('userInfo', {
         addressResidence: { cityNameX: editValue },
       });
     } else if (editName === 'streetNameX') {
-      settingsStoreSetUserInfoSection({
-        addressResidence: {
-          ...addressResidence,
-          streetNameX: editValue,
-          streetName: undefined,
-        },
+      popUpStoreSetSubSectionSection('userInfo', 'addressResidence', {
+        streetNameX: editValue,
+        streetName: undefined,
       });
     } else {
-      settingsStoreSetUserInfoAddressResidenceSection({
+      popUpStoreSetSubSectionSection('userInfo', 'addressResidence', {
         [editName]: editValue,
       });
     }
   }, [
-    addressResidence,
-    settingsStoreSetUserInfoAddressResidenceSection,
-    settingsStoreSetUserInfoSection,
+    popUpStoreSetSubSection,
+    popUpStoreSetSubSectionSection,
   ]);
 
   const handleSetDadataValue = React.useCallback((editName, editValue) => {
@@ -335,13 +335,13 @@ function UserEditor(props) {
       }
     });
     if (editName.includes('addressRegistration')) {
-      settingsStoreSetUserInfoSection({ addressRegistration: tmpObj });
+      popUpStoreSetSubSection('userInfo', { addressRegistration: tmpObj });
     }
     if (editName.includes('addressResidence')) {
-      settingsStoreSetUserInfoSection({ addressResidence: tmpObj });
+      popUpStoreSetSubSection('userInfo', { addressResidence: tmpObj });
     }
   }, [
-    settingsStoreSetUserInfoSection,
+    popUpStoreSetSubSection,
   ]);
 
   const mainBlock = React.useMemo(() => {
@@ -737,4 +737,4 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = { ...actions };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserEditor);
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(UserEditor));

@@ -225,6 +225,10 @@ function ZonePage(props) {
   /* ***************************** update ********************** */
   React.useEffect(() => {
     if (selectedZone || selectedZone === 0) {
+      zoneStoreSetSection({
+        selectedSubZone: undefined,
+        selectedUserForZone: undefined,
+      });
       zoneStoreGetZoneInfo({
         key: 'zone',
         id: selectedZone,

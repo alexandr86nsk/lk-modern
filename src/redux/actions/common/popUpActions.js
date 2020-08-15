@@ -19,6 +19,13 @@ export const popUpStoreSetSubSection = (name, value) => ({
   value,
 });
 
+export const popUpStoreSetSubSectionSection = (name, subName, value) => ({
+  type: 'POP_UP_STORE_SET_SUB_SECTION_SECTION',
+  name,
+  subName,
+  value,
+});
+
 export const popUpStoreSetValue = (name, value) => ({
   type: 'POP_UP_STORE_SET_VALUE',
   name,
