@@ -223,6 +223,7 @@ function* zoneStoreSaveZone(value) {
     key,
     zoneId,
     el,
+    subZoneId,
   } = value || {};
   const {
     id,
@@ -240,10 +241,12 @@ function* zoneStoreSaveZone(value) {
       }));
       yield put(actions.popUpStoreClear());
       yield (setSuccessToast(`${isZone ? 'Зона' : 'Подзона'} ${(id || id === 0) ? 'сохранена' : 'добавлена'}.`));
-      yield zoneStoreGetZones({
-        key,
-        zoneId,
-      });
+      yield (id || id === 0)
+        ? zoneStoreGetZoneInfo({ key, id })
+        : zoneStoreGetZones({ key, zoneId });
+      if (subZoneId || subZoneId === 0) {
+        yield zoneStoreGetZoneInfo({ key: 'subZone', id: subZoneId });
+      }
     },
     function* () {
       yield put(actions.popUpStoreSetSection({

@@ -18,6 +18,7 @@ function ZoneEditor(props) {
     zoneStoreDadataGetAddress,
     zoneStoreDadataGetAddressCancel,
     popUpStoreSetSubSection,
+    selectedSubZone,
   } = props || {};
 
   const {
@@ -171,8 +172,9 @@ function ZoneEditor(props) {
       key: isZone ? 'zone' : 'subZone',
       el: zoneInfoToEdit,
       zoneId,
+      subZoneId: isZone ? selectedSubZone : undefined,
     });
-  }, [zoneId, isZone, zoneInfoToEdit, zoneStoreSaveZone]);
+  }, [selectedSubZone, zoneId, isZone, zoneInfoToEdit, zoneStoreSaveZone]);
 
   const handleChangeValue = React.useCallback((editName, editValue) => {
     if (editName === 'cityNameX') {
@@ -236,6 +238,7 @@ const mapStateToProps = (state) => ({
   trySaveZone: state.popUpStore.trySaveZone,
   zonesSearchResultsLoading: state.popUpStore.zonesSearchResultsLoading,
   zonesSearchResults: state.popUpStore.zonesSearchResults,
+  selectedSubZone: state.zoneStore.selectedSubZone,
 });
 
 const mapDispatchToProps = { ...actions };

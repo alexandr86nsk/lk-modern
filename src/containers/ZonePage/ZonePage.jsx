@@ -76,7 +76,7 @@ function ZonePage(props) {
   const {
     users: subZoneUsers,
     id: subZoneId,
-    code: subZoneCode,
+    subZoneCode,
     cityTypeFull,
     cityName,
     settlementTypeFull,

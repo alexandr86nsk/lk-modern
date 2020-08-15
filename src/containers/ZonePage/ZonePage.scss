@@ -91,7 +91,7 @@
 
       &__item {
         display: grid;
-        grid-template: auto / .7fr .3fr auto minmax(100px, max-content);
+        grid-template: auto / 1fr minmax(100px, max-content) auto minmax(100px, max-content);
         grid-gap: 1em;
         margin: .3em 0;
         padding: 1em;
