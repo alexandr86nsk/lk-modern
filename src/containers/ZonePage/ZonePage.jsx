@@ -58,9 +58,11 @@ function ZonePage(props) {
     zoneStoreGetUsers,
     zoneStoreGetUsersCancel,
     zoneStoreClear,
+    zoneStoreSaveZoneCancel,
     modalStoreSetSection,
     popUpStoreSetSection,
     popUpStoreClear,
+    trySaveZone,
   } = props || {};
 
   const {
@@ -101,6 +103,12 @@ function ZonePage(props) {
       type: '--horizontal-right --35 --rounded',
     });
   }, [zoneInfo, subZoneInfo, popUpStoreSetSection]);
+
+  React.useEffect(() => {
+    popUpStoreSetSection({
+      closingImpossible: trySaveZone,
+    });
+  }, [popUpStoreSetSection, trySaveZone]);
 
   const removeZoneUser = React.useCallback((value) => {
     const { key, user } = value || {};
@@ -279,6 +287,7 @@ function ZonePage(props) {
     zoneStoreAddZoneUserCancel();
     zoneStoreRemoveZoneUserCancel();
     zoneStoreGetUsersCancel();
+    zoneStoreSaveZoneCancel();
     zoneStoreClear();
     popUpStoreClear();
   }, [
@@ -287,6 +296,7 @@ function ZonePage(props) {
     zoneStoreAddZoneUserCancel,
     zoneStoreRemoveZoneUserCancel,
     zoneStoreGetUsersCancel,
+    zoneStoreSaveZoneCancel,
     zoneStoreClear,
     popUpStoreClear,
   ]);
@@ -358,7 +368,8 @@ const mapStateToProps = (state) => ({
   usersForSubZone: state.zoneStore.usersForSubZone,
   usersForSubZoneLoading: state.zoneStore.usersForSubZoneLoading,
   selectedUserForSubZone: state.zoneStore.selectedUserForSubZone,
-  tryAddSubZoneUser: state.zoneStore.tryAddZoneUser,
+  tryAddSubZoneUser: state.zoneStore.tryAddSubZoneUser,
+  trySaveZone: state.popUpStore.trySaveZone,
 });
 
 const mapDispatchToProps = { ...actions };

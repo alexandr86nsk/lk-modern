@@ -34,7 +34,7 @@
       display: grid;
       grid-template: auto / 1fr;
       grid-gap: .5em;
-      padding-bottom: .3em;
+      padding-bottom: 1em;
     }
 
     .ui-element-title {
@@ -47,7 +47,7 @@
     }
 
     .flip-card-inner.element-wrapper.--fullscreen {
-      height: 155px;
+      height: 165px;
     }
   }
 
@@ -91,7 +91,7 @@
 
       &__item {
         display: grid;
-        grid-template: auto / .6fr .3fr .1fr auto;
+        grid-template: auto / .7fr .3fr auto minmax(100px, max-content);
         grid-gap: 1em;
         margin: .3em 0;
         padding: 1em;

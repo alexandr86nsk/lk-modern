@@ -15,7 +15,6 @@ function ZoneEditor(props) {
     zonesSearchResultsLoading,
     zonesSearchResults,
     zoneStoreSaveZone,
-    zoneStoreSaveZoneCancel,
     zoneStoreDadataGetAddress,
     zoneStoreDadataGetAddressCancel,
     popUpStoreSetSubSection,
@@ -40,10 +39,8 @@ function ZoneEditor(props) {
   const isFirstRun = React.useRef(true);
 
   React.useEffect(() => () => {
-    zoneStoreSaveZoneCancel();
     zoneStoreDadataGetAddressCancel();
   }, [
-    zoneStoreSaveZoneCancel,
     zoneStoreDadataGetAddressCancel,
   ]);
 

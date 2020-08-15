@@ -51,7 +51,7 @@ function* zoneStoreGetZones(value) {
 
 export function* canBeCanceledZoneStoreGetZones(action) {
   const bgZoneStoreGetZones = yield fork(zoneStoreGetZones, action.value);
-  yield take('SETTINGS_STORE_GET_ZONES_CANCEL');
+  yield take('ZONE_STORE_GET_ZONES_CANCEL');
   yield cancel(bgZoneStoreGetZones);
 }
 
@@ -86,7 +86,7 @@ function* zoneStoreGetZoneInfo(value) {
 
 export function* canBeCanceledZoneStoreGetZoneInfo(action) {
   const bgZoneStoreGetZoneInfo = yield fork(zoneStoreGetZoneInfo, action.value);
-  yield take('SETTINGS_STORE_GET_ZONE_INFO_CANCEL');
+  yield take('ZONE_STORE_GET_ZONE_INFO_CANCEL');
   yield cancel(bgZoneStoreGetZoneInfo);
 }
 
@@ -123,7 +123,7 @@ function* zoneStoreGetUsers(value) {
 
 export function* canBeCanceledZoneStoreGetUsers(action) {
   const bgZoneStoreGetUsers = yield fork(zoneStoreGetUsers, action.value);
-  yield take('SETTINGS_STORE_GET_USERS_CANCEL');
+  yield take('ZONE_STORE_GET_USERS_CANCEL');
   yield cancel(bgZoneStoreGetUsers);
 }
 
@@ -170,7 +170,7 @@ function* zoneStoreAddZoneUser(value) {
 
 export function* canBeCanceledZoneStoreAddZoneUser(action) {
   const bgZoneStoreAddZoneUser = yield fork(zoneStoreAddZoneUser, action.value);
-  yield take('SETTINGS_STORE_ADD_ZONE_USER_CANCEL');
+  yield take('ZONE_STORE_ADD_ZONE_USER_CANCEL');
   yield cancel(bgZoneStoreAddZoneUser);
 }
 
@@ -210,7 +210,7 @@ function* zoneStoreRemoveZoneUser(value) {
 
 export function* canBeCanceledZoneStoreRemoveZoneUser(action) {
   const bgZoneStoreRemoveZoneUser = yield fork(zoneStoreRemoveZoneUser, action.value);
-  yield take('SETTINGS_STORE_REMOVE_ZONE_USER_CANCEL');
+  yield take('ZONE_STORE_REMOVE_ZONE_USER_CANCEL');
   yield cancel(bgZoneStoreRemoveZoneUser);
 }
 
@@ -255,7 +255,7 @@ function* zoneStoreSaveZone(value) {
 
 export function* canBeCanceledZoneStoreSaveZone(action) {
   const bgZoneStoreSaveZone = yield fork(zoneStoreSaveZone, action.value);
-  yield take('SETTINGS_STORE_SAVE_ZONE_CANCEL');
+  yield take('ZONE_STORE_SAVE_ZONE_CANCEL');
   yield cancel(bgZoneStoreSaveZone);
 }
 

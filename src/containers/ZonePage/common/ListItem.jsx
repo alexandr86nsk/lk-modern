@@ -42,7 +42,7 @@ const ListItem = (props) => {
       <div className="list__item-column controls">
         <Button
           circular
-          negative
+          basic
           size="mini"
           onClick={removeClick}
         >

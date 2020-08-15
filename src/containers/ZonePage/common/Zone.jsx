@@ -120,9 +120,21 @@ const Zone = (props) => {
                       size="tiny"
                       disabled={zoneInfoLoading}
                       onClick={handleEditZone}
+                      title={`Изменить ${isZone ? 'зону' : 'подзону'}`}
                     >
                       <Icon name="edit" />
                       Изменить
+                    </Button>
+                    <Button
+                      circular
+                      basic
+                      size="tiny"
+                      disabled={zoneInfoLoading}
+                      onClick={handleEditZone}
+                      title={`Удалить ${isZone ? 'зону' : 'подзону'}`}
+                    >
+                      <Icon name="close" />
+                      Удалить
                     </Button>
                   </div>
                 </div>
