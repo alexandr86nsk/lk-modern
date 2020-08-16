@@ -22,6 +22,7 @@ function* rootSaga() {
   yield takeLatest('ZONE_STORE_GET_ZONE_INFO', zoneSaga.canBeCanceledZoneStoreGetZoneInfo);
   yield takeEvery('ZONE_STORE_GET_USERS', zoneSaga.canBeCanceledZoneStoreGetUsers);
   yield takeLatest('ZONE_STORE_SAVE_ZONE', zoneSaga.canBeCanceledZoneStoreSaveZone);
+  yield takeLatest('ZONE_STORE_REMOVE_ZONE', zoneSaga.canBeCanceledZoneStoreRemoveZone);
   yield takeLatest('ZONE_STORE_ADD_ZONE_USER', zoneSaga.canBeCanceledZoneStoreAddZoneUser);
   yield takeLatest('ZONE_STORE_REMOVE_ZONE_USER', zoneSaga.canBeCanceledZoneStoreRemoveZoneUser);
   yield takeLatest('ZONE_STORE_DADATA_GET_ADDRESS', zoneSaga.canBeCanceledZoneStoreDadataGetAddress);

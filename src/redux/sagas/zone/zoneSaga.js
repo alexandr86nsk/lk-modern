@@ -262,6 +262,63 @@ export function* canBeCanceledZoneStoreSaveZone(action) {
   yield cancel(bgZoneStoreSaveZone);
 }
 
+/* ***************************** zoneStoreRemoveZone ********************** */
+function* zoneStoreRemoveZone(value) {
+  const {
+    key,
+    zoneId,
+    subZoneId,
+  } = value || {};
+  const isZone = key === 'zone';
+  yield put(actions.modalStoreSetSection({
+    loading: true,
+    loadingText: `Удаляем ${isZone ? 'зону' : 'подзону'}`,
+  }));
+  yield queryResultAnalysis(
+    isZone ? api.zoneStoreRemoveZone : api.zoneStoreRemoveSubZone,
+    isZone ? zoneId : subZoneId,
+    function* () {
+      yield put(actions.modalStoreSetSection({
+        show: false,
+      }));
+      if (isZone) {
+        yield put(actions.zoneStoreSetSection({
+          zoneInfo: undefined,
+          selectedZone: undefined,
+          selectedSubZone: undefined,
+          selectedUserForZone: undefined,
+        }));
+        yield zoneStoreGetZones({
+          key: 'zone',
+        });
+      } else {
+        yield put(actions.zoneStoreSetSection({
+          subZoneInfo: undefined,
+          selectedSubZone: undefined,
+          selectedUserForSubZone: undefined,
+        }));
+        yield zoneStoreGetZones({
+          key: 'subZone',
+          zoneId,
+        });
+      }
+      yield (setSuccessToast(`${isZone ? 'Зона' : 'Подзона'} удалена.`));
+    },
+    function* () {
+      yield put(actions.modalStoreSetSection({
+        loading: false,
+        loadingText: '',
+      }));
+    },
+  );
+}
+
+export function* canBeCanceledZoneStoreRemoveZone(action) {
+  const bgZoneStoreRemoveZone = yield fork(zoneStoreRemoveZone, action.value);
+  yield take('ZONE_STORE_REMOVE_ZONE_CANCEL');
+  yield cancel(bgZoneStoreRemoveZone);
+}
+
 /* ***************************** zoneStoreDadataGetAddress ********************** */
 function* zoneStoreDadataGetAddress(value) {
   yield put(actions.popUpStoreSetSection({

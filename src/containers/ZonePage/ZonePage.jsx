@@ -59,6 +59,8 @@ function ZonePage(props) {
     zoneStoreGetUsersCancel,
     zoneStoreClear,
     zoneStoreSaveZoneCancel,
+    zoneStoreRemoveZone,
+    zoneStoreRemoveZoneCancel,
     modalStoreSetSection,
     popUpStoreSetSection,
     popUpStoreClear,
@@ -109,6 +111,31 @@ function ZonePage(props) {
       closingImpossible: trySaveZone,
     });
   }, [popUpStoreSetSection, trySaveZone]);
+
+  const removeZone = React.useCallback((value) => {
+    const { key } = value || {};
+    zoneStoreRemoveZone({
+      key,
+      zoneId,
+      subZoneId,
+    });
+  }, [zoneId, subZoneId, zoneStoreRemoveZone]);
+
+  const handleRemoveZone = React.useCallback((value) => {
+    const { name, key } = value || {};
+    const isZone = key === 'zone';
+    modalStoreSetSection({
+      show: true,
+      outputBody: {
+        icon: <WarningIcon />,
+        title: 'Важно',
+        body: <div>{`Подтверждаете удаление ${isZone ? 'зоны' : 'подзоны'} "${name}"?`}</div>,
+      },
+      data: value,
+      asyncClose: true,
+      callback: removeZone,
+    });
+  }, [removeZone, modalStoreSetSection]);
 
   const removeZoneUser = React.useCallback((value) => {
     const { key, user } = value || {};
@@ -288,6 +315,7 @@ function ZonePage(props) {
     zoneStoreRemoveZoneUserCancel();
     zoneStoreGetUsersCancel();
     zoneStoreSaveZoneCancel();
+    zoneStoreRemoveZoneCancel();
     zoneStoreClear();
     popUpStoreClear();
   }, [
@@ -297,6 +325,7 @@ function ZonePage(props) {
     zoneStoreRemoveZoneUserCancel,
     zoneStoreGetUsersCancel,
     zoneStoreSaveZoneCancel,
+    zoneStoreRemoveZoneCancel,
     zoneStoreClear,
     popUpStoreClear,
   ]);
@@ -313,6 +342,7 @@ function ZonePage(props) {
           usersForZoneLoading={usersForZoneLoading}
           selectedUserForZone={selectedUserForZone}
           editZoneCallback={handleEdit}
+          removeZoneCallback={handleRemoveZone}
           changeValueCallback={handleChangeValue}
           selectedZone={selectedZone}
           zoneInfo={zoneInfo}
@@ -334,6 +364,7 @@ function ZonePage(props) {
           usersForZoneLoading={usersForSubZoneLoading}
           selectedUserForZone={selectedUserForSubZone}
           editZoneCallback={handleEdit}
+          removeZoneCallback={handleRemoveZone}
           changeValueCallback={handleChangeValue}
           selectedZone={selectedSubZone}
           zoneInfoLoading={subZoneInfoLoading}

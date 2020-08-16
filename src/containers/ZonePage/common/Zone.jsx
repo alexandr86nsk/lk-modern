@@ -15,6 +15,7 @@ const Zone = (props) => {
     usersForZoneLoading,
     selectedUserForZone,
     editZoneCallback,
+    removeZoneCallback,
     changeValueCallback,
     selectedZone,
     zoneInfoLoading,
@@ -35,6 +36,10 @@ const Zone = (props) => {
   const handleEditZone = React.useCallback(() => {
     editZoneCallback(isZone ? 'zone' : 'subZone');
   }, [isZone, editZoneCallback]);
+
+  const handleRemoveZone = React.useCallback(() => {
+    removeZoneCallback({ name, key: isZone ? 'zone' : 'subZone' });
+  }, [isZone, name, removeZoneCallback]);
 
   const handleAddUser = React.useCallback(() => {
     addZoneUserCallback(isZone ? 'zone' : 'subZone');
@@ -130,7 +135,7 @@ const Zone = (props) => {
                       basic
                       size="tiny"
                       disabled={zoneInfoLoading}
-                      onClick={handleEditZone}
+                      onClick={handleRemoveZone}
                       title={`Удалить ${isZone ? 'зону' : 'подзону'}`}
                     >
                       <Icon name="close" />

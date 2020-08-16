@@ -53,6 +53,15 @@ export const zoneStoreAddZoneCancel = () => ({
   type: 'ZONE_STORE_ADD_ZONE_CANCEL',
 });
 
+export const zoneStoreRemoveZone = (value) => ({
+  type: 'ZONE_STORE_REMOVE_ZONE',
+  value,
+});
+
+export const zoneStoreRemoveZoneCancel = () => ({
+  type: 'ZONE_STORE_REMOVE_ZONE_CANCEL',
+});
+
 export const zoneStoreAddZoneUser = (value) => ({
   type: 'ZONE_STORE_ADD_ZONE_USER',
   value,
