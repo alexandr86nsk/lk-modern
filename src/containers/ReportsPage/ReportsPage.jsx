@@ -9,13 +9,34 @@ import reportsTabs from './settings';
 function ReportsPage() {
   // const {} = props || {};
 
+  /* ***************************** mount ********************** */
   React.useEffect(() => {
-    console.log('mount');
-  }, []);
+    zoneStoreGetZones({ key: 'zone' });
+    zoneStoreGetUsers({ key: 'zone' });
+    zoneStoreGetUsers({ key: 'subZone' });
+  }, [
+    zoneStoreGetZones,
+    zoneStoreGetUsers,
+  ]);
+  /* ********************************************************** */
 
+  /* ***************************** update ********************** */
+
+  /* ********************************************************** */
+
+  /* ***************************** unmount ********************** */
   React.useEffect(() => () => {
-    console.log('unmount');
-  }, []);
+    zoneStoreGetZonesCancel();
+    zoneStoreGetUsersCancel();
+    reportsStoreGetRatingReportBySettlementsCancel();
+    zoneStoreClear();
+  }, [
+    zoneStoreGetZonesCancel,
+    zoneStoreGetUsersCancel,
+    reportsStoreGetRatingReportBySettlementsCancel,
+    zoneStoreClear,
+  ]);
+  /* ********************************************************** */
 
   return (
     <div className="reports-page page__content">

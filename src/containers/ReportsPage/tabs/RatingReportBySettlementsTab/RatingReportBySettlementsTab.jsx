@@ -14,11 +14,17 @@ function RatingReportBySettlementsTab(props) {
     tryGetRatingReportBySettlements,
     reportsStoreGetRatingReportBySettlements,
     reportsStoreGetRatingReportBySettlementsCancel,
-    reportStoreGetZones,
-    reportStoreGetZonesCancel,
-    reportStoreGetUsers,
-    reportStoreGetUsersCancel,
+    zoneStoreGetZones,
+    zoneStoreGetZonesCancel,
+    zoneStoreGetUsers,
+    zoneStoreGetUsersCancel,
+    zoneStoreClear,
   } = props || {};
+
+  const {
+    financeConsultId,
+    supervisorId,
+  } = filterForRatingReportBySettlements || {};
 
   const handleChangeValue = React.useCallback((editName, editValue) => {
     reportsStoreSetSubSection('filterForRatingReportBySettlements', { [editName]: editValue });
@@ -41,12 +47,9 @@ function RatingReportBySettlementsTab(props) {
 
   /* ***************************** mount ********************** */
   React.useEffect(() => {
-    reportStoreGetZones({ key: 'zone' });
-    reportStoreGetUsers({ key: 'zone' });
-    reportStoreGetUsers({ key: 'subZone' });
+
   }, [
-    reportStoreGetZones,
-    reportStoreGetUsers,
+    
   ]);
   /* ********************************************************** */
 
@@ -56,13 +59,15 @@ function RatingReportBySettlementsTab(props) {
 
   /* ***************************** unmount ********************** */
   React.useEffect(() => () => {
-    reportStoreGetZonesCancel();
-    reportStoreGetUsersCancel();
+    zoneStoreGetZonesCancel();
+    zoneStoreGetUsersCancel();
     reportsStoreGetRatingReportBySettlementsCancel();
+    zoneStoreClear();
   }, [
-    reportStoreGetZonesCancel,
-    reportStoreGetUsersCancel,
+    zoneStoreGetZonesCancel,
+    zoneStoreGetUsersCancel,
     reportsStoreGetRatingReportBySettlementsCancel,
+    zoneStoreClear,
   ]);
   /* ********************************************************** */
 
@@ -98,6 +103,18 @@ function RatingReportBySettlementsTab(props) {
 const mapStateToProps = (state) => ({
   filterForRatingReportBySettlements: state.reportsStore.filterForRatingReportBySettlements,
   tryGetRatingReportBySettlements: state.reportsStore.tryGetRatingReportBySettlements,
+  zones: state.zoneStore.zones,
+  zonesLoading: state.zoneStore.zonesLoading,
+  zoneInfo: state.zoneStore.zoneInfo,
+  zoneInfoLoading: state.zoneStore.zoneInfoLoading,
+  subZones: state.zoneStore.subZones,
+  subZonesLoading: state.zoneStore.subZonesLoading,
+  subZoneInfo: state.zoneStore.subZoneInfo,
+  subZoneInfoLoading: state.zoneStore.subZoneInfoLoading,
+  usersForZone: state.zoneStore.usersForZone,
+  usersForZoneLoading: state.zoneStore.usersForZoneLoading,
+  usersForSubZone: state.zoneStore.usersForSubZone,
+  usersForSubZoneLoading: state.zoneStore.usersForSubZoneLoading,
 });
 
 const mapDispatchToProps = { ...actions };
