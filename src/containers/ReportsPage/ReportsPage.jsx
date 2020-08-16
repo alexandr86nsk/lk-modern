@@ -6,8 +6,14 @@ import UIBlockTitle from '../../components/UIBlockTitle/UIBlockTitle';
 import UITab from '../../components/UITab/UITab';
 import reportsTabs from './settings';
 
-function ReportsPage() {
-  // const {} = props || {};
+function ReportsPage(props) {
+  const {
+    zoneStoreGetZones,
+    zoneStoreGetZonesCancel,
+    zoneStoreGetUsers,
+    zoneStoreGetUsersCancel,
+    zoneStoreClear,
+  } = props || {};
 
   /* ***************************** mount ********************** */
   React.useEffect(() => {
@@ -28,12 +34,10 @@ function ReportsPage() {
   React.useEffect(() => () => {
     zoneStoreGetZonesCancel();
     zoneStoreGetUsersCancel();
-    reportsStoreGetRatingReportBySettlementsCancel();
     zoneStoreClear();
   }, [
     zoneStoreGetZonesCancel,
     zoneStoreGetUsersCancel,
-    reportsStoreGetRatingReportBySettlementsCancel,
     zoneStoreClear,
   ]);
   /* ********************************************************** */

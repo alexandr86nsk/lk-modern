@@ -9,7 +9,7 @@ import stringFromData from '../../components/utilities/stringFromData';
 import WarningIcon from '../../static/images/warning-24px.svg';
 import Zone from './common/Zone';
 
-const getUserInfo = (res) => {
+export const getUsersOptions = (res) => {
   if (res && Array.isArray(res)) {
     return res.map((v) => {
       const {
@@ -20,6 +20,42 @@ const getUserInfo = (res) => {
       return {
         value: userID,
         label: `${fio || ''}${phone ? ` тел. ${phone}` : ''}`,
+      };
+    });
+  }
+  return undefined;
+};
+
+export const getZonesOptions = (res) => {
+  if (res && Array.isArray(res)) {
+    return res.map((v) => {
+      const {
+        id: thisId,
+        regionTypeShort: thisRegionTypeShort,
+        regionName: thisRegionName,
+      } = v || {};
+      return {
+        value: thisId,
+        label: `${thisRegionTypeShort ? `${thisRegionTypeShort} ` : ''}${thisRegionName || 'Неизвестное'}`,
+      };
+    });
+  }
+  return undefined;
+};
+
+export const getSubZonesOptions = (res) => {
+  if (res && Array.isArray(res)) {
+    return res.map((v) => {
+      const {
+        id: thisId,
+        cityName: thisCityName,
+        cityTypeShort: thisCityTypeShort,
+        settlementName: thisSettlementName,
+        settlementTypeShort: thisSettlementTypeShort,
+      } = v || {};
+      return {
+        value: thisId,
+        label: `${thisCityTypeShort || thisSettlementTypeShort ? `${thisCityTypeShort || thisSettlementTypeShort} ` : ''}${thisCityName || thisSettlementName || 'Неизвестное'}`,
       };
     });
   }
@@ -230,7 +266,7 @@ function ZonePage(props) {
       && Array.isArray(zoneUsers)
     ) {
       const res = differenceBy(usersForZone, zoneUsers, 'userID');
-      return getUserInfo(res);
+      return getUsersOptions(res);
     }
     return undefined;
   }, [usersForZone, zoneUsers]);
@@ -242,10 +278,14 @@ function ZonePage(props) {
       && Array.isArray(subZoneUsers)
     ) {
       const res = differenceBy(usersForSubZone, subZoneUsers, 'userID');
-      return getUserInfo(res);
+      return getUsersOptions(res);
     }
     return undefined;
   }, [usersForSubZone, subZoneUsers]);
+
+  const zoneOptions = React.useMemo(() => getZonesOptions(zones), [zones]);
+
+  const subZoneOptions = React.useMemo(() => getSubZonesOptions(subZones), [subZones]);
 
   /* ***************************** mount ********************** */
   React.useEffect(() => {
@@ -336,7 +376,7 @@ function ZonePage(props) {
       <UIBlockTitle title="Список зон" />
       <div className="zone-page__body">
         <Zone
-          zones={zones}
+          zones={zoneOptions}
           zonesLoading={zonesLoading}
           usersForZone={filteredUsersForZone}
           usersForZoneLoading={usersForZoneLoading}
@@ -358,7 +398,7 @@ function ZonePage(props) {
         />
         <Zone
           className={subZoneClassName}
-          zones={subZones}
+          zones={subZoneOptions}
           zonesLoading={subZonesLoading}
           usersForZone={filteredUsersForSubZone}
           usersForZoneLoading={usersForSubZoneLoading}

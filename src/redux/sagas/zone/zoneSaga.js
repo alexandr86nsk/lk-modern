@@ -20,23 +20,7 @@ function* zoneStoreGetZones(value) {
     isZone ? null : zoneId,
     function* (res) {
       yield put(actions.zoneStoreSetSection({
-        [`${key}s`]: res && Array.isArray(res) && res.map((v) => {
-          const {
-            id,
-            regionTypeShort,
-            regionName,
-            cityName,
-            cityTypeShort,
-            settlementName,
-            settlementTypeShort,
-          } = v || {};
-          return {
-            value: id,
-            label: isZone
-              ? `${regionTypeShort ? `${regionTypeShort} ` : ''}${regionName || 'Неизвестное'}`
-              : `${cityTypeShort || settlementTypeShort ? `${cityTypeShort || settlementTypeShort} ` : ''}${cityName || settlementName || 'Неизвестное'}`,
-          };
-        }),
+        [`${key}s`]: res,
         [`${key}sLoading`]: false,
       }));
     },
