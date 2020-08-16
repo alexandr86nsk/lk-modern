@@ -34,14 +34,14 @@ function RatingReportBySettlementsTab(props) {
   } = props || {};
 
   const {
-    fromDate,
-    toDate,
     zoneName,
     zoneCode,
     subZoneName,
     subZoneCode,
+    /* fromDate,
+    toDate,
     financeConsultId,
-    supervisorId,
+    supervisorId, */
   } = filterForRatingReportBySettlements || {};
 
   const {
@@ -57,8 +57,11 @@ function RatingReportBySettlementsTab(props) {
   }, [reportsStoreSetSubSection]);
 
   const handleGetReport = React.useCallback(() => {
-    reportsStoreGetRatingReportBySettlements();
-  }, [reportsStoreGetRatingReportBySettlements]);
+    reportsStoreGetRatingReportBySettlements(filterForRatingReportBySettlements);
+  }, [
+    filterForRatingReportBySettlements,
+    reportsStoreGetRatingReportBySettlements,
+  ]);
 
   const zoneOptions = React.useMemo(() => {
     if (zones && Array.isArray(zones)) {

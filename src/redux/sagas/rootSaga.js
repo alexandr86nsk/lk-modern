@@ -2,6 +2,7 @@ import { takeLatest, takeEvery } from 'redux-saga/effects';
 import canBeCanceledAuthStoreLogIn from './auth/authSaga';
 import * as settingsSaga from './settings/settingsSaga';
 import * as zoneSaga from './zone/zoneSaga';
+import * as reportsSaga from './reports/reportsSaga';
 
 function* rootSaga() {
   yield takeLatest('AUTH_STORE_LOG_IN', canBeCanceledAuthStoreLogIn);
@@ -26,6 +27,7 @@ function* rootSaga() {
   yield takeLatest('ZONE_STORE_ADD_ZONE_USER', zoneSaga.canBeCanceledZoneStoreAddZoneUser);
   yield takeLatest('ZONE_STORE_REMOVE_ZONE_USER', zoneSaga.canBeCanceledZoneStoreRemoveZoneUser);
   yield takeLatest('ZONE_STORE_DADATA_GET_ADDRESS', zoneSaga.canBeCanceledZoneStoreDadataGetAddress);
+  yield takeLatest('REPORTS_STORE_GET_RATING_REPORT_BY_SETTLEMENTS', reportsSaga.canBeCanceledReportsStoreGetRatingReportBySettlements);
 }
 
 export default rootSaga;

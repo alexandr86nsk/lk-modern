@@ -1,42 +1,14 @@
-import axios from 'axios';
-import qs from '../qs';
+/* ********************* reports ***************** */
+import requestParser from '../requestParser';
 
-export const getActualStateReport = (data) => axios.get(
-  `${qs}Reports/CallReport?startDate=${
-    data.actualStateFrom ? JSON.stringify(data.actualStateFrom).replace(/"/g, '') : ''
-  }&endDate=${
-    data.actualStateTo ? JSON.stringify(data.actualStateTo).replace(/"/g, '') : ''
-  }&briefcaseId=${
-    data.selectedActualStateBriefcase || ''
-  }&phone=${
-    data.selectedActualStatePhone || ''}`,
+export const reportsStoreGetRatingReportBySettlements = (data) => requestParser(
+  'post',
+  'report',
+  data,
 );
 
-export const getHistoryReport = (data) => axios.get(
-  `${qs}Reports/CallTotalValuesReport?briefcaseId=${
-    data.selectedHistoryBriefcase || ''
-  }&startDate=${
-    data.historyFrom ? JSON.stringify(data.historyFrom).replace(/"/g, '') : ''
-  }&endDate=${
-    data.historyTo ? JSON.stringify(data.historyTo).replace(/"/g, '') : ''
-  }`,
+export const reportsStoreGetRatingReportBySettlements2 = (data) => requestParser(
+  'put',
+  'setting/bulk',
+  data,
 );
-
-export const getHistoryExcell = (data) => axios.get(
-  `${qs}Reports/CallTotalValuesReportFile?briefcaseId=${
-    data.selectedHistoryBriefcase || ''
-  }&startDate=${
-    data.historyFrom ? JSON.stringify(data.historyFrom).replace(/"/g, '') : ''
-  }&endDate=${
-    data.historyTo ? JSON.stringify(data.historyTo).replace(/"/g, '') : ''
-  }`,
-);
-
-export const getCallStatisticReport = (data) => {
-  if (data === 0 || data) {
-    return axios.get(`${qs}CallStatistic/Get?queue=${data}`);
-  }
-  return axios.get(`${qs}CallStatistic/GetList`);
-};
-
-export const getOperatorInfoReport = () => axios.get(`${qs}MemberQueue/GetOperatorInfo`);
