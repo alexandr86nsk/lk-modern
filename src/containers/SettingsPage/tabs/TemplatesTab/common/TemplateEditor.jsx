@@ -63,6 +63,7 @@ function TemplateEditor(props) {
               data={name}
               required
               minLength={1}
+              successFormat="Поле обязательно для заполнения"
               callback={handleChangeValue}
               type="--style-1c"
             />

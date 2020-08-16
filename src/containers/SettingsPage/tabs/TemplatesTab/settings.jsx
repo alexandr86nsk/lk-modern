@@ -1,6 +1,3 @@
-import React from 'react';
-// import MainTab from './addUserPopupTabs/MainTab/MainTab';
-
 const templatesTableConfig = [
   {
     id: 0,
