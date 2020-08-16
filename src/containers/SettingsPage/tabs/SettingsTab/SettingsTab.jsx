@@ -69,7 +69,7 @@ function SettingsTab(props) {
   }, [settings, handleChange]);
 
   return (
-    <div className="settings-page__settings-tab">
+    <div className="settings-page__tab settings">
       {!settingsLoaded && <UILoader text="Загрузка настроек..." size="large" />}
       {settingsLoaded && renderContent
         && (

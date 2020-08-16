@@ -1,5 +1,6 @@
 import SettingsPage from '../containers/SettingsPage/SettingsPage';
 import ZonePage from '../containers/ZonePage/ZonePage';
+import ReportsPage from '../containers/ReportsPage/ReportsPage';
 
 const routes = [
   {
@@ -15,7 +16,7 @@ const routes = [
   {
     path: '/reports',
     exact: true,
-    component: SettingsPage,
+    component: ReportsPage,
   },
 ];
 

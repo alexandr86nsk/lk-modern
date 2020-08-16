@@ -128,7 +128,7 @@ function TemplatesTab(props) {
   ]);
 
   return (
-    <div className="settings-page__templates-tab">
+    <div className="settings-page__tab templates">
       <div className="element-wrapper --fullscreen">
         <UIElementTitle title="Шаблоны" />
         <UIRsuiteTable

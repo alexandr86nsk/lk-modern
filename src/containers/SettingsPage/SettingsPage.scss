@@ -10,7 +10,7 @@
     margin-top: 12px;
   }
 
-  &__settings-tab {
+  &__tab {
     position: relative;
     width: 100%;
     height: 100%;
@@ -20,13 +20,7 @@
     }
   }
 
-  &__users-tab,
-  &__templates-tab {
-    width: 100%;
-    height: 100%;
-  }
-
-  &__users-tab {
+  &__tab.users {
 
     .users-filter {
       display: grid;

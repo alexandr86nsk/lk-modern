@@ -204,7 +204,7 @@ function UsersTab(props) {
   ]);
 
   return (
-    <div className="settings-page__users-tab">
+    <div className="settings-page__tab users">
       <div className="element-wrapper --fullscreen">
         <UIElementTitle title="Пользователи" />
         <UIRsuiteTable
