@@ -1,7 +1,5 @@
 import React from 'react';
 import RatingReportBySettlementsTab from './tabs/RatingReportBySettlementsTab/RatingReportBySettlementsTab';
-import HistoryTab from './tabs/HistoryTab/HistoryTab';
-import IndicatorsTab from './tabs/IndicatorsTab/IndicatorsTab';
 
 const reportsTabs = [
   {

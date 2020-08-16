@@ -6,21 +6,16 @@ import UIBlockTitle from '../../components/UIBlockTitle/UIBlockTitle';
 import UITab from '../../components/UITab/UITab';
 import reportsTabs from './settings';
 
-function ReportsPage(props) {
-  const {
-    reportsStoreGetBriefcases,
-    reportsStoreGetBriefcasesCancel,
-    reportsStoreClear,
-  } = props || {};
+function ReportsPage() {
+  // const {} = props || {};
 
   React.useEffect(() => {
-    reportsStoreGetBriefcases();
-  }, [reportsStoreGetBriefcases]);
+    console.log('mount');
+  }, []);
 
   React.useEffect(() => () => {
-    reportsStoreGetBriefcasesCancel();
-    reportsStoreClear();
-  }, [reportsStoreGetBriefcasesCancel, reportsStoreClear]);
+    console.log('unmount');
+  }, []);
 
   return (
     <div className="reports-page page__content">
