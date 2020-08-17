@@ -2,9 +2,37 @@ import {
   call, put, fork, take, cancel,
 } from 'redux-saga/effects';
 import saveAs from 'file-saver';
+import moment from 'moment';
 import api from '../../../api/api';
 import actions from '../../actions/actions';
-import { queryResultAnalysis, setSuccessToast } from '../common/globalSaga';
+import { queryResultAnalysis } from '../common/globalSaga';
+import ratingReportBySettlementsFilterTemplate
+  from '../../../containers/ReportsPage/tabs/RatingReportBySettlementsTab/settings';
+import operationalReportFilterTemplate from '../../../containers/ReportsPage/tabs/OperationalReportTab/settings';
+
+const getReportFileName = (name, obj, objVar) => {
+  if (objVar && Array.isArray(objVar)) {
+    let str = name;
+    objVar.forEach((v) => {
+      const {
+        title,
+        dataKey,
+        type,
+      } = v || {};
+      const titleValue = title.replace(/\s+/g, '_').trim();
+      /* if (obj[dataKey] && obj[dataKey] !== 0 && type !== 'datePicker') {
+        str = `${str}_${titleValue}(${obj[dataKey]})`;
+      } */
+      if (obj[dataKey] && obj[dataKey] !== 0 && type === 'datePicker') {
+        moment.locale('ru');
+        const dateValue = moment(obj[dataKey]).format('L').replace(/[.]/g, '_');
+        str = `${str}_${titleValue}(${dateValue})`;
+      }
+    });
+    return str;
+  }
+  return '';
+};
 
 /* ***************************** reportsStoreGetRatingReportBySettlements ********************** */
 function* reportsStoreGetRatingReportBySettlements(value) {
@@ -15,16 +43,21 @@ function* reportsStoreGetRatingReportBySettlements(value) {
     api.reportsStoreGetRatingReportBySettlements,
     value,
     function* (res) {
+      const blob = new Blob(
+        [res],
+        { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' },
+      );
+      /* const fileURL = URL.createObjectURL(blob);
+      window.open(fileURL, '_blank'); */
+      const fileName = getReportFileName(
+        'Рейтинговый_отчёт_по_населённым_пунктам',
+        value,
+        ratingReportBySettlementsFilterTemplate,
+      );
+      saveAs(blob, fileName);
       yield put(actions.reportsStoreSetSection({
         tryGetRatingReportBySettlements: false,
       }));
-      const bytes = new Uint8Array(res.length);
-
-      for (let i = 0; i < bytes.length; i += 1) {
-        bytes[i] = res.charCodeAt(i);
-      }
-      const blob = new Blob([bytes], 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-      saveAs(blob, 'action.xlsx');
     },
     function* () {
       yield put(actions.reportsStoreSetSection({
@@ -52,8 +85,19 @@ function* reportsStoreGetOperationalReport(value) {
     api.reportsStoreGetOperationalReport,
     value,
     function* (res) {
+      const blob = new Blob(
+        [res],
+        { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' },
+      );
+      /* const fileURL = URL.createObjectURL(blob);
+      window.open(fileURL, '_blank'); */
+      const fileName = getReportFileName(
+        'Операционный_отчет',
+        value,
+        ratingReportBySettlementsFilterTemplate,
+      );
+      saveAs(blob, fileName);
       yield put(actions.reportsStoreSetSection({
-        res,
         tryGetOperationalReport: false,
       }));
     },

@@ -7,6 +7,9 @@ export const reportsStoreGetRatingReportBySettlements = (data) => requestParser(
   params: {
     ...data,
   },
+  requestConfig: {
+    responseType: 'arraybuffer',
+  },
 });
 
 export const reportsStoreGetOperationalReport = (data) => requestParser({
@@ -14,5 +17,8 @@ export const reportsStoreGetOperationalReport = (data) => requestParser({
   url: 'report/buildOperationReport',
   params: {
     ...data,
+  },
+  requestConfig: {
+    responseType: 'arraybuffer',
   },
 });

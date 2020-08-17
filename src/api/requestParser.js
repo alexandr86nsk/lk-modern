@@ -7,7 +7,7 @@ const getToken = () => store.getState().tokenStore.token;
 const getRefreshToken = () => store.getState().tokenStore.refreshToken;
 
 /* ******************** queryConfig **************** */
-const getQueryConfig = (params) => ({ headers: { Authorization: `Bearer ${getToken()}` }, params });
+const getHeadersAuthorization = () => ({ Authorization: `Bearer ${getToken()}` });
 
 const getErrorCode = (error) => (error && error.response && error.response.status
   ? error.response.status
@@ -19,12 +19,22 @@ const requestParser = async (props) => {
     url,
     data,
     params,
+    headers,
+    requestConfig,
     repeated,
   } = props || {};
+  const config = {
+    headers: {
+      ...getHeadersAuthorization(),
+      ...headers,
+    },
+    params,
+    ...requestConfig,
+  };
   try {
     const res = data !== undefined
-      ? await axios[method](`${qs}${url}`, data, getQueryConfig(params))
-      : await axios[method](`${qs}${url}`, getQueryConfig(params));
+      ? await axios[method](`${qs}${url}`, data, config)
+      : await axios[method](`${qs}${url}`, config);
     const { data: resData } = res || {};
     return resData;
   } catch (e) {
@@ -42,7 +52,14 @@ const requestParser = async (props) => {
           } = refreshResData || {};
           if (token && refreshToken) {
             await store.dispatch({ type: 'TOKEN_STORE_SET_SECTION', value: { token, refreshToken } });
-            return requestParser({ method, url, data });
+            return requestParser({
+              method,
+              url,
+              data,
+              params,
+              headers,
+              requestConfig,
+            });
           }
           store.dispatch({ type: 'TOKEN_STORE_CLEAR' });
           return null;
@@ -54,7 +71,13 @@ const requestParser = async (props) => {
           if (getErrorCode(err) === 404) {
             if (!repeated) {
               return requestParser({
-                method, url, data, repeated: true,
+                method,
+                url,
+                data,
+                params,
+                headers,
+                requestConfig,
+                repeated: true,
               });
             }
             store.dispatch({ type: 'TOKEN_STORE_CLEAR' });

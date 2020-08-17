@@ -17,7 +17,7 @@ function* zoneStoreGetZones(value) {
   }));
   yield queryResultAnalysis(
     isZone ? api.zoneStoreGetZones : api.zoneStoreGetSubZones,
-    isZone ? null : zoneId,
+    isZone ? undefined : zoneId,
     function* (res) {
       yield put(actions.zoneStoreSetSection({
         [`${key}s`]: res,
