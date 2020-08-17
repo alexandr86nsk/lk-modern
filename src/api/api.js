@@ -2,6 +2,7 @@ import logIn from './auth/auth';
 import * as settings from './settings/settings';
 import * as zone from './zone/zone';
 import * as reports from './reports/reports';
+import * as calendar from './calendar/calendar';
 import dadataGetAddress from './dadata/dadata';
 
 const api = {
@@ -10,6 +11,7 @@ const api = {
   ...reports,
   ...settings,
   ...zone,
+  ...calendar,
 };
 
 export default api;

@@ -129,7 +129,7 @@ function UIRsuiteTableBody(props) {
                   ? handleCustomAction(action)
                   : () => {}}
               >
-                {icon && <i className={`icon ${icon} `} aria-hidden />}
+                {icon && <i className={`icon ${icon}`} aria-hidden />}
                 <span className="text" aria-hidden>{title || ''}</span>
               </div>
             );

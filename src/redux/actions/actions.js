@@ -5,11 +5,12 @@ import * as settings from './settings/settingsActions';
 import * as reports from './reports/reportsActions';
 import * as user from './user/userActions';
 import * as zone from './zone/zoneActions';
-import * as popUpActions from './common/popUpActions';
-import * as authActions from './auth/authActions';
+import * as popUp from './common/popUpActions';
+import * as auth from './auth/authActions';
+import * as calendar from './calendar/calendarActions';
 
 const actions = {
-  ...authActions,
+  ...auth,
   ...modal,
   ...zone,
   ...toasts,
@@ -17,7 +18,8 @@ const actions = {
   ...settings,
   ...reports,
   ...user,
-  ...popUpActions,
+  ...popUp,
+  ...calendar,
 };
 
 export default actions;

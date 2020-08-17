@@ -13,6 +13,7 @@ function ReportsPage(props) {
     zoneStoreGetUsers,
     zoneStoreGetUsersCancel,
     zoneStoreClear,
+    modalStoreClear,
   } = props || {};
 
   /* ***************************** mount ********************** */
@@ -35,10 +36,12 @@ function ReportsPage(props) {
     zoneStoreGetZonesCancel();
     zoneStoreGetUsersCancel();
     zoneStoreClear();
+    modalStoreClear();
   }, [
     zoneStoreGetZonesCancel,
     zoneStoreGetUsersCancel,
     zoneStoreClear,
+    modalStoreClear,
   ]);
   /* ********************************************************** */
 

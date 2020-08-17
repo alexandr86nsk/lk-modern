@@ -9,6 +9,7 @@ import settingsStore from './settings/settingsStore';
 import reportsStore from './reports/reportsStore';
 import zoneStore from './zone/zoneStore';
 import popUpStore from './common/popUpStore';
+import calendarStore from './calendar/calendarStore';
 
 const rootReducer = (history) => combineReducers({
   router: connectRouter(history),
@@ -21,6 +22,7 @@ const rootReducer = (history) => combineReducers({
   toastsStore,
   popUpStore,
   zoneStore,
+  calendarStore,
 });
 
 export default rootReducer;

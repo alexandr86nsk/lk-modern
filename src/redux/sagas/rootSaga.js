@@ -3,6 +3,7 @@ import canBeCanceledAuthStoreLogIn from './auth/authSaga';
 import * as settingsSaga from './settings/settingsSaga';
 import * as zoneSaga from './zone/zoneSaga';
 import * as reportsSaga from './reports/reportsSaga';
+import * as calendarSaga from './calendar/calendarSaga';
 
 function* rootSaga() {
   yield takeLatest('AUTH_STORE_LOG_IN', canBeCanceledAuthStoreLogIn);
@@ -28,6 +29,8 @@ function* rootSaga() {
   yield takeLatest('ZONE_STORE_REMOVE_ZONE_USER', zoneSaga.canBeCanceledZoneStoreRemoveZoneUser);
   yield takeLatest('ZONE_STORE_DADATA_GET_ADDRESS', zoneSaga.canBeCanceledZoneStoreDadataGetAddress);
   yield takeLatest('REPORTS_STORE_GET_RATING_REPORT_BY_SETTLEMENTS', reportsSaga.canBeCanceledReportsStoreGetRatingReportBySettlements);
+  yield takeLatest('CALENDAR_STORE_GET_HOLIDAYS', calendarSaga.canBeCanceledCalendarStoreGetHolidays);
+  yield takeLatest('CALENDAR_STORE_CHANGE_DAY', calendarSaga.canBeCanceledCalendarStoreChangeDay);
 }
 
 export default rootSaga;

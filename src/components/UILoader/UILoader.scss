@@ -9,6 +9,17 @@
   -webkit-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
   user-select: none;
+  z-index: 2;
+}
+
+.ui-loader__dimmer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba($white, .6);
+  z-index: 1;
 }
 
 /* Static Shape */
@@ -220,15 +231,6 @@
 .ui-loader.massive.text {
   min-width: 4.57142857rem;
   padding-top: 5.35714286rem;
-}
-
-.ui-loader__dimmer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba($white, .2);
 }
 
 .ui-loader__dot1 {

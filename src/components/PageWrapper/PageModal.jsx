@@ -35,7 +35,7 @@ function PageModal(props) {
 
   const handleCloseModal = React.useCallback((value) => {
     if (!loading) {
-      if (value || value === 0) {
+      if (value) {
         if (data || data === 0) {
           callback(data, tempData);
         } else {

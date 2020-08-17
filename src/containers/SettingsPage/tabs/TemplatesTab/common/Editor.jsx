@@ -173,7 +173,7 @@ function Editor(props) {
           placeholder="Введите текст шаблона..."
         />
         <div
-          className={`template-editor__context-menu menu transition${templateVarLoading ? ' loading' : ''}`}
+          className={`template-editor__context-menu context-menu menu transition${templateVarLoading ? ' loading' : ''}`}
           style={contextMenuStyle}
           ref={contextMenuRef}
         >

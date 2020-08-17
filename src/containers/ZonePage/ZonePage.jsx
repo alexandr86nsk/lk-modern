@@ -31,12 +31,12 @@ export const getZonesOptions = (res) => {
     return res.map((v) => {
       const {
         id: thisId,
-        regionTypeShort: thisRegionTypeShort,
+        regionType: thisRegionType,
         regionName: thisRegionName,
       } = v || {};
       return {
         value: thisId,
-        label: `${thisRegionTypeShort ? `${thisRegionTypeShort} ` : ''}${thisRegionName || 'Неизвестное'}`,
+        label: `${thisRegionType ? `${thisRegionType} ` : ''}${thisRegionName || 'Неизвестное'}`,
       };
     });
   }
@@ -101,6 +101,7 @@ function ZonePage(props) {
     popUpStoreSetSection,
     popUpStoreClear,
     trySaveZone,
+    modalStoreClear,
   } = props || {};
 
   const {
@@ -358,6 +359,7 @@ function ZonePage(props) {
     zoneStoreRemoveZoneCancel();
     zoneStoreClear();
     popUpStoreClear();
+    modalStoreClear();
   }, [
     zoneStoreGetZonesCancel,
     zoneStoreGetZoneInfoCancel,
@@ -368,6 +370,7 @@ function ZonePage(props) {
     zoneStoreRemoveZoneCancel,
     zoneStoreClear,
     popUpStoreClear,
+    modalStoreClear,
   ]);
   /* ********************************************************** */
 
