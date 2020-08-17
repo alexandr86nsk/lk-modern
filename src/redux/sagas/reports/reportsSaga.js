@@ -6,13 +6,6 @@ import api from '../../../api/api';
 import actions from '../../actions/actions';
 import { queryResultAnalysis, setSuccessToast } from '../common/globalSaga';
 
-const s2ab = (s) => {
-  const buf = new ArrayBuffer(s.length);
-  const view = new Uint8Array(buf);
-  for (let i = 0; i < s.length; i += 1) view[i] = s.charCodeAt(i) & 0xFF;
-  return buf;
-};
-
 /* ***************************** reportsStoreGetRatingReportBySettlements ********************** */
 function* reportsStoreGetRatingReportBySettlements(value) {
   yield put(actions.reportsStoreSetSection({
@@ -25,12 +18,13 @@ function* reportsStoreGetRatingReportBySettlements(value) {
       yield put(actions.reportsStoreSetSection({
         tryGetRatingReportBySettlements: false,
       }));
-      /* const file = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      const fileURL = URL.createObjectURL(file);
-      window.open(fileURL); */
-      // window.open(`data:application/vnd.ms-excel;base64,${res}`, '_blank');
-      // window.open(`data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,${res}`, '_blank');
-      saveAs(new File([res], 'Slot.xlsx', { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }));
+      const bytes = new Uint8Array(res.length);
+
+      for (let i = 0; i < bytes.length; i += 1) {
+        bytes[i] = res.charCodeAt(i);
+      }
+      const blob = new Blob([bytes], 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      saveAs(blob, 'action.xlsx');
     },
     function* () {
       yield put(actions.reportsStoreSetSection({
