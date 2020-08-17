@@ -22,3 +22,13 @@ export const reportsStoreGetRatingReportBySettlements = (value) => ({
 export const reportsStoreGetRatingReportBySettlementsCancel = () => ({
   type: 'REPORTS_STORE_GET_RATING_REPORT_BY_SETTLEMENTS_CANCEL',
 });
+
+
+export const reportsStoreGetOperationalReport = (value) => ({
+  type: 'REPORTS_STORE_GET_OPERATIONAL_REPORT',
+  value,
+});
+
+export const reportsStoreGetOperationalReportCancel = () => ({
+  type: 'REPORTS_STORE_GET_OPERATIONAL_REPORT_CANCEL',
+});

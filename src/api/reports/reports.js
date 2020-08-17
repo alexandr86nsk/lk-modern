@@ -9,8 +9,10 @@ export const reportsStoreGetRatingReportBySettlements = (data) => requestParser(
   },
 });
 
-export const reportsStoreGetRatingReportBySettlements2 = (data) => requestParser({
-  method: 'put',
-  url: 'setting/bulk',
-  data,
+export const reportsStoreGetOperationalReport = (data) => requestParser({
+  method: 'get',
+  url: 'report/buildOperationReport',
+  params: {
+    ...data,
+  },
 });

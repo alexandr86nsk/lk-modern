@@ -1,5 +1,6 @@
 import React from 'react';
 import RatingReportBySettlementsTab from './tabs/RatingReportBySettlementsTab/RatingReportBySettlementsTab';
+import OperationalReportTab from './tabs/OperationalReportTab/OperationalReportTab';
 
 const reportsTabs = [
   {
@@ -10,7 +11,7 @@ const reportsTabs = [
   {
     id: 1,
     title: 'Операционный отчёт',
-    item: <RatingReportBySettlementsTab />,
+    item: <OperationalReportTab />,
   },
   {
     id: 2,

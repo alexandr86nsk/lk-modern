@@ -228,9 +228,7 @@ function RatingReportBySettlementsTab(props) {
   ]);
 
   /* ***************************** mount ********************** */
-  React.useEffect(() => {
-    console.log('mount');
-  }, []);
+
   /* ********************************************************** */
 
   /* ***************************** update ********************** */
@@ -300,17 +298,17 @@ function RatingReportBySettlementsTab(props) {
   /* ********************************************************** */
 
   return (
-    <div className="reports-page__tab rating-report-by-settlements">
+    <div className="reports-page__tab rating-report-by-settlements report">
       <div className="element-wrapper">
         <UIElementTitle title="Рейтинговый отчёт по населённым пунктам" />
-        <div className="rating-report-by-settlements__body">
+        <div className="report__body">
           {formGenerator(
             editedTemplate,
             filterForRatingReportBySettlements,
             handleChangeValue,
           )}
         </div>
-        <div className="rating-report-by-settlements__controls">
+        <div className="report__controls">
           <Button
             circular
             primary

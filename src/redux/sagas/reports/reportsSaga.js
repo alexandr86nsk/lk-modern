@@ -49,13 +49,33 @@ export function* canBeCanceledReportsStoreGetRatingReportBySettlements(action) {
   yield cancel(bgReportsStoreGetRatingReportBySettlements);
 }
 
-/* ***************************** reportsStoreGetRatingReportBySettlements2 ********************** */
-function* reportsStoreGetRatingReportBySettlements2(value) {
-  yield call(console.log, value);
+/* ***************************** reportsStoreGetOperationalReport ********************** */
+function* reportsStoreGetOperationalReport(value) {
+  yield put(actions.reportsStoreSetSection({
+    tryGetOperationalReport: true,
+  }));
+  yield queryResultAnalysis(
+    api.reportsStoreGetOperationalReport,
+    value,
+    function* (res) {
+      yield put(actions.reportsStoreSetSection({
+        res,
+        tryGetOperationalReport: false,
+      }));
+    },
+    function* () {
+      yield put(actions.reportsStoreSetSection({
+        tryGetOperationalReport: false,
+      }));
+    },
+  );
 }
 
-export function* canBeCanceledZoneStoreGetZoneInfo(action) {
-  const bgZoneStoreGetZoneInfo = yield fork(reportsStoreGetRatingReportBySettlements2, action.value);
-  yield take('ZONE_STORE_GET_ZONE_INFO_CANCEL');
-  yield cancel(bgZoneStoreGetZoneInfo);
+export function* canBeCanceledReportsStoreGetOperationalReport(action) {
+  const bgReportsStoreGetOperationalReport = yield fork(
+    reportsStoreGetOperationalReport,
+    action.value,
+  );
+  yield take('REPORTS_STORE_GET_OPERATIONAL_REPORT_CANCEL');
+  yield cancel(bgReportsStoreGetOperationalReport);
 }

@@ -28,9 +28,10 @@ function* rootSaga() {
   yield takeLatest('ZONE_STORE_ADD_ZONE_USER', zoneSaga.canBeCanceledZoneStoreAddZoneUser);
   yield takeLatest('ZONE_STORE_REMOVE_ZONE_USER', zoneSaga.canBeCanceledZoneStoreRemoveZoneUser);
   yield takeLatest('ZONE_STORE_DADATA_GET_ADDRESS', zoneSaga.canBeCanceledZoneStoreDadataGetAddress);
-  yield takeLatest('REPORTS_STORE_GET_RATING_REPORT_BY_SETTLEMENTS', reportsSaga.canBeCanceledReportsStoreGetRatingReportBySettlements);
   yield takeLatest('CALENDAR_STORE_GET_HOLIDAYS', calendarSaga.canBeCanceledCalendarStoreGetHolidays);
   yield takeLatest('CALENDAR_STORE_CHANGE_DAY', calendarSaga.canBeCanceledCalendarStoreChangeDay);
+  yield takeLatest('REPORTS_STORE_GET_RATING_REPORT_BY_SETTLEMENTS', reportsSaga.canBeCanceledReportsStoreGetRatingReportBySettlements);
+  yield takeLatest('REPORTS_STORE_GET_OPERATIONAL_REPORT', reportsSaga.canBeCanceledReportsStoreGetOperationalReport);
 }
 
 export default rootSaga;
