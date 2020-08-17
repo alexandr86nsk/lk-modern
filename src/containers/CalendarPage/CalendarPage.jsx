@@ -74,7 +74,7 @@ function CalendarPage(props) {
         } = v || {};
         return {
           id: thisId,
-          color: 'rgba(183, 109, 171, .7)',
+          color: 'rgba(183, 109, 171, .85)',
           name: description,
           startDate: new Date(dateHoliday),
           endDate: new Date(dateHoliday),

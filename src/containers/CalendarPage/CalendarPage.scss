@@ -16,4 +16,16 @@
     display: grid;
     grid-gap: 1em;
   }
+
+  .year-title {
+    color: $medium-theme-color;
+  }
+
+  .year-title.year-neighbor {
+    color: $light-theme-color;
+  }
+
+  .year-title.year-neighbor2 {
+    color: rgba($light-theme-color, .8);
+  }
 }

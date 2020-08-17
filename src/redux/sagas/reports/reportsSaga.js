@@ -1,9 +1,17 @@
 import {
   call, put, fork, take, cancel,
 } from 'redux-saga/effects';
+import saveAs from 'file-saver';
 import api from '../../../api/api';
 import actions from '../../actions/actions';
 import { queryResultAnalysis, setSuccessToast } from '../common/globalSaga';
+
+const s2ab = (s) => {
+  const buf = new ArrayBuffer(s.length);
+  const view = new Uint8Array(buf);
+  for (let i = 0; i < s.length; i += 1) view[i] = s.charCodeAt(i) & 0xFF;
+  return buf;
+};
 
 /* ***************************** reportsStoreGetRatingReportBySettlements ********************** */
 function* reportsStoreGetRatingReportBySettlements(value) {
@@ -15,9 +23,14 @@ function* reportsStoreGetRatingReportBySettlements(value) {
     value,
     function* (res) {
       yield put(actions.reportsStoreSetSection({
-        report: res,
         tryGetRatingReportBySettlements: false,
       }));
+      /* const file = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL); */
+      // window.open(`data:application/vnd.ms-excel;base64,${res}`, '_blank');
+      // window.open(`data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,${res}`, '_blank');
+      saveAs(new File([res], 'Slot.xlsx', { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }));
     },
     function* () {
       yield put(actions.reportsStoreSetSection({
