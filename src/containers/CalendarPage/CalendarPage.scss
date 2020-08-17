@@ -12,6 +12,21 @@
 
 .calendar {
 
+  &__info-item {
+
+    &:before {
+      content: '';
+      display: inline-block;
+      width: .8em;
+      height: .8em;
+      margin-right: .5em;
+    }
+
+    &.holiday:before {
+      background-color: rgba($light-theme-color, .85);
+    }
+  }
+
   &__change-day-modal-body {
     display: grid;
     grid-gap: 1em;

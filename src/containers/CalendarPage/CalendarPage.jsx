@@ -223,6 +223,9 @@ function CalendarPage(props) {
       <div className="element-wrapper">
         <UIElementTitle title="Календарь" />
         {holidaysLoading && <UILoader text="Загружаем нерабочие дни" dimmed />}
+        <div className="add-block">
+          <span className="calendar__info-item holiday">Нерабочие дни</span>
+        </div>
         <div className="calendar">
           <Calendar
             style="background"
