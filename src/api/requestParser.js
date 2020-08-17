@@ -7,17 +7,24 @@ const getToken = () => store.getState().tokenStore.token;
 const getRefreshToken = () => store.getState().tokenStore.refreshToken;
 
 /* ******************** queryConfig **************** */
-const getQueryConfig = () => ({ headers: { Authorization: `Bearer ${getToken()}` } });
+const getQueryConfig = (params) => ({ headers: { Authorization: `Bearer ${getToken()}` }, params });
 
 const getErrorCode = (error) => (error && error.response && error.response.status
   ? error.response.status
   : null);
 
-const requestParser = async (method, url, data, counter) => {
+const requestParser = async (props) => {
+  const {
+    method,
+    url,
+    data,
+    params,
+    repeated,
+  } = props || {};
   try {
     const res = data !== undefined
-      ? await axios[method](`${qs}${url}`, data, getQueryConfig())
-      : await axios[method](`${qs}${url}`, getQueryConfig());
+      ? await axios[method](`${qs}${url}`, data, getQueryConfig(params))
+      : await axios[method](`${qs}${url}`, getQueryConfig(params));
     const { data: resData } = res || {};
     return resData;
   } catch (e) {
@@ -35,7 +42,7 @@ const requestParser = async (method, url, data, counter) => {
           } = refreshResData || {};
           if (token && refreshToken) {
             await store.dispatch({ type: 'TOKEN_STORE_SET_SECTION', value: { token, refreshToken } });
-            return requestParser(method, url, data);
+            return requestParser({ method, url, data });
           }
           store.dispatch({ type: 'TOKEN_STORE_CLEAR' });
           return null;
@@ -45,8 +52,10 @@ const requestParser = async (method, url, data, counter) => {
             return null;
           }
           if (getErrorCode(err) === 404) {
-            if (!counter) {
-              return requestParser(method, url, data, true);
+            if (!repeated) {
+              return requestParser({
+                method, url, data, repeated: true,
+              });
             }
             store.dispatch({ type: 'TOKEN_STORE_CLEAR' });
             return null;

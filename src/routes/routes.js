@@ -1,6 +1,7 @@
 import SettingsPage from '../containers/SettingsPage/SettingsPage';
 import ZonePage from '../containers/ZonePage/ZonePage';
 import ReportsPage from '../containers/ReportsPage/ReportsPage';
+import CalendarPage from '../containers/CalendarPage/CalendarPage';
 
 const routes = [
   {
@@ -17,6 +18,11 @@ const routes = [
     path: '/reports',
     exact: true,
     component: ReportsPage,
+  },
+  {
+    path: '/calendar',
+    exact: true,
+    component: CalendarPage,
   },
 ];
 

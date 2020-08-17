@@ -65,10 +65,11 @@ export const subZoneInfoTemplate = [
     dataKey: 'subZoneCode',
     type: 'input',
     otherProps: {
-      required: true,
+      /*required: true,
       minLength: 1,
       isInteger: true,
-      mask: '0000000',
+      mask: '0000000',*/
+      disabled: true,
       type: '--style-1c',
     },
   },
