@@ -10,6 +10,7 @@ import ratingReportBySettlementsFilterTemplate
   from '../../../containers/ReportsPage/tabs/RatingReportBySettlementsTab/settings';
 import operationalReportFilterTemplate from '../../../containers/ReportsPage/tabs/OperationalReportTab/settings';
 import rewardReportFilterTemplate from '../../../containers/ReportsPage/tabs/RewardReportTab/settings';
+import activationReportFilterTemplate from '../../../containers/ReportsPage/tabs/ActivationReportTab/settings';
 
 const getReportFileName = (name, obj, objVar) => {
   if (objVar && Array.isArray(objVar)) {
@@ -21,12 +22,15 @@ const getReportFileName = (name, obj, objVar) => {
         type,
       } = v || {};
       const titleValue = title.replace(/\s+/g, '_').trim();
-      /* if (obj[dataKey] && obj[dataKey] !== 0 && type !== 'datePicker') {
+      /* if ((obj[dataKey] || obj[dataKey] === 0) && type !== 'datePicker') {
         str = `${str}_${titleValue}(${obj[dataKey]})`;
       } */
-      if (obj[dataKey] && obj[dataKey] !== 0 && type === 'datePicker') {
+      const {
+        [dataKey]: thisValue,
+      } = obj || {};
+      if ((thisValue || thisValue === 0) && type === 'datePicker') {
         moment.locale('ru');
-        const dateValue = moment(obj[dataKey]).format('L').replace(/[.]/g, '_');
+        const dateValue = moment(thisValue).format('L').replace(/[.]/g, '_');
         str = `${str}_${titleValue}(${dateValue})`;
       }
     });
@@ -90,6 +94,7 @@ function* reportsStoreGetOperationalReport(value) {
         [res],
         { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' },
       );
+      console.log('blob');
       /* const fileURL = URL.createObjectURL(blob);
       window.open(fileURL, '_blank'); */
       const fileName = getReportFileName(
@@ -179,7 +184,7 @@ function* reportsStoreGetActivationReport(value) {
       const fileName = getReportFileName(
         'Отчет_по_активациям',
         value,
-        rewardReportFilterTemplate,
+        activationReportFilterTemplate,
       );
       saveAs(blob, fileName);
       yield put(actions.reportsStoreSetSection({
