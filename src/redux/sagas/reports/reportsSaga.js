@@ -52,7 +52,7 @@ function* reportsStoreGetRatingReportBySettlements(value) {
       const fileName = getReportFileName(
         'Рейтинговый_отчёт_по_населённым_пунктам',
         value,
-        ratingReportBySettlementsFilterTemplate,
+        operationalReportFilterTemplate,
       );
       saveAs(blob, fileName);
       yield put(actions.reportsStoreSetSection({
