@@ -6,7 +6,7 @@ import actions from '../../../../redux/actions/actions';
 import formGenerator from '../../../../components/utilities/formGenerator';
 import ratingReportBySettlementsFilterTemplate from './settings';
 import UIElementTitle from '../../../../components/UIElementTitle/UIElementTitle';
-import { getUsersOptions } from '../../../ZonePage/ZonePage';
+import { getSubZonesOptions, getUsersOptions, getZonesOptions } from '../../../ZonePage/ZonePage';
 
 function RatingReportBySettlementsTab(props) {
   const {
@@ -15,11 +15,9 @@ function RatingReportBySettlementsTab(props) {
     zones,
     zonesLoading,
     zoneInfo,
-    zoneInfoLoading,
     subZones,
     subZonesLoading,
     subZoneInfo,
-    subZoneInfoLoading,
     usersForZone,
     usersForZoneLoading,
     usersForSubZone,
@@ -63,22 +61,7 @@ function RatingReportBySettlementsTab(props) {
     reportsStoreGetRatingReportBySettlements,
   ]);
 
-  const zoneOptions = React.useMemo(() => {
-    if (zones && Array.isArray(zones)) {
-      return zones.map((v) => {
-        const {
-          id: thisId,
-          regionTypeShort: thisRegionTypeShort,
-          regionName: thisRegionName,
-        } = v || {};
-        return {
-          value: thisId,
-          label: `${thisRegionTypeShort ? `${thisRegionTypeShort} ` : ''}${thisRegionName || 'Неизвестное'}`,
-        };
-      });
-    }
-    return undefined;
-  }, [zones]);
+  const zoneOptions = React.useMemo(() => getZonesOptions(zones), [zones]);
 
   const zoneCodeOptions = React.useMemo(() => {
     if (zones && Array.isArray(zones)) {
@@ -96,24 +79,7 @@ function RatingReportBySettlementsTab(props) {
     return undefined;
   }, [zones]);
 
-  const subZoneOptions = React.useMemo(() => {
-    if (subZones && Array.isArray(subZones)) {
-      return subZones.map((v) => {
-        const {
-          id: thisId,
-          cityName: thisCityName,
-          cityTypeShort: thisCityTypeShort,
-          settlementName: thisSettlementName,
-          settlementTypeShort: thisSettlementTypeShort,
-        } = v || {};
-        return {
-          value: thisId,
-          label: `${thisCityTypeShort || thisSettlementTypeShort ? `${thisCityTypeShort || thisSettlementTypeShort} ` : ''}${thisCityName || thisSettlementName || 'Неизвестное'}`,
-        };
-      });
-    }
-    return undefined;
-  }, [subZones]);
+  const subZoneOptions = React.useMemo(() => getSubZonesOptions(subZones), [subZones]);
 
   const subZoneCodeOptions = React.useMemo(() => {
     if (subZones && Array.isArray(subZones)) {

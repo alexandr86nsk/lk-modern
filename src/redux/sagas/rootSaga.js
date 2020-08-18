@@ -32,6 +32,8 @@ function* rootSaga() {
   yield takeLatest('CALENDAR_STORE_CHANGE_DAY', calendarSaga.canBeCanceledCalendarStoreChangeDay);
   yield takeLatest('REPORTS_STORE_GET_RATING_REPORT_BY_SETTLEMENTS', reportsSaga.canBeCanceledReportsStoreGetRatingReportBySettlements);
   yield takeLatest('REPORTS_STORE_GET_OPERATIONAL_REPORT', reportsSaga.canBeCanceledReportsStoreGetOperationalReport);
+  yield takeLatest('REPORTS_STORE_GET_REWARD_REPORT', reportsSaga.canBeCanceledReportsStoreGetRewardReport);
+  yield takeLatest('REPORTS_STORE_GET_ACTIVATION_REPORT', reportsSaga.canBeCanceledReportsStoreGetActivationReport);
 }
 
 export default rootSaga;

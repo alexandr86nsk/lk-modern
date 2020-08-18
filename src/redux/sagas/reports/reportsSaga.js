@@ -9,6 +9,7 @@ import { queryResultAnalysis } from '../common/globalSaga';
 import ratingReportBySettlementsFilterTemplate
   from '../../../containers/ReportsPage/tabs/RatingReportBySettlementsTab/settings';
 import operationalReportFilterTemplate from '../../../containers/ReportsPage/tabs/OperationalReportTab/settings';
+import rewardReportFilterTemplate from '../../../containers/ReportsPage/tabs/RewardReportTab/settings';
 
 const getReportFileName = (name, obj, objVar) => {
   if (objVar && Array.isArray(objVar)) {
@@ -116,4 +117,88 @@ export function* canBeCanceledReportsStoreGetOperationalReport(action) {
   );
   yield take('REPORTS_STORE_GET_OPERATIONAL_REPORT_CANCEL');
   yield cancel(bgReportsStoreGetOperationalReport);
+}
+
+/* ***************************** reportsStoreGetRewardReport ********************** */
+function* reportsStoreGetRewardReport(value) {
+  yield put(actions.reportsStoreSetSection({
+    tryGetRewardReport: true,
+  }));
+  yield queryResultAnalysis(
+    api.reportsStoreGetRewardReport,
+    value,
+    function* (res) {
+      const blob = new Blob(
+        [res],
+        { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' },
+      );
+      /* const fileURL = URL.createObjectURL(blob);
+      window.open(fileURL, '_blank'); */
+      const fileName = getReportFileName(
+        'Операционный_отчет',
+        value,
+        rewardReportFilterTemplate,
+      );
+      saveAs(blob, fileName);
+      yield put(actions.reportsStoreSetSection({
+        tryGetRewardReport: false,
+      }));
+    },
+    function* () {
+      yield put(actions.reportsStoreSetSection({
+        tryGetRewardReport: false,
+      }));
+    },
+  );
+}
+
+export function* canBeCanceledReportsStoreGetRewardReport(action) {
+  const bgReportsStoreGetRewardReport = yield fork(
+    reportsStoreGetRewardReport,
+    action.value,
+  );
+  yield take('REPORTS_STORE_GET_REWARD_REPORT_CANCEL');
+  yield cancel(bgReportsStoreGetRewardReport);
+}
+
+/* ***************************** reportsStoreGetActivationReport ********************** */
+function* reportsStoreGetActivationReport(value) {
+  yield put(actions.reportsStoreSetSection({
+    tryGetActivationReport: true,
+  }));
+  yield queryResultAnalysis(
+    api.reportsStoreGetActivationReport,
+    value,
+    function* (res) {
+      const blob = new Blob(
+        [res],
+        { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' },
+      );
+      /* const fileURL = URL.createObjectURL(blob);
+      window.open(fileURL, '_blank'); */
+      const fileName = getReportFileName(
+        'Операционный_отчет',
+        value,
+        rewardReportFilterTemplate,
+      );
+      saveAs(blob, fileName);
+      yield put(actions.reportsStoreSetSection({
+        tryGetActivationReport: false,
+      }));
+    },
+    function* () {
+      yield put(actions.reportsStoreSetSection({
+        tryGetActivationReport: false,
+      }));
+    },
+  );
+}
+
+export function* canBeCanceledReportsStoreGetActivationReport(action) {
+  const bgReportsStoreGetActivationReport = yield fork(
+    reportsStoreGetActivationReport,
+    action.value,
+  );
+  yield take('REPORTS_STORE_GET_ACTIVATION_REPORT_CANCEL');
+  yield cancel(bgReportsStoreGetActivationReport);
 }

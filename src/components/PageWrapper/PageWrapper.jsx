@@ -14,7 +14,7 @@ function PageWrapper(props) {
   const {
     children,
     isAuth,
-  } = props;
+  } = props || {};
 
   const pageEl = React.useRef(null);
   const [scroll, setScroll] = React.useState(false);

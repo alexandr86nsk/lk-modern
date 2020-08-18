@@ -1,6 +1,8 @@
 import React from 'react';
 import RatingReportBySettlementsTab from './tabs/RatingReportBySettlementsTab/RatingReportBySettlementsTab';
 import OperationalReportTab from './tabs/OperationalReportTab/OperationalReportTab';
+import RewardReportTab from './tabs/RewardReportTab/RewardReportTab';
+import ActivationReportTab from './tabs/ActivationReportTab/ActivationReportTab';
 
 const reportsTabs = [
   {
@@ -16,12 +18,12 @@ const reportsTabs = [
   {
     id: 2,
     title: 'Отчёт по вознаграждению',
-    item: <RatingReportBySettlementsTab />,
+    item: <RewardReportTab />,
   },
   {
     id: 2,
     title: 'Отчёт по активациям',
-    item: <RatingReportBySettlementsTab />,
+    item: <ActivationReportTab />,
   },
 ];
 

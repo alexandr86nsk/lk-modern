@@ -32,3 +32,21 @@ export const reportsStoreGetOperationalReport = (value) => ({
 export const reportsStoreGetOperationalReportCancel = () => ({
   type: 'REPORTS_STORE_GET_OPERATIONAL_REPORT_CANCEL',
 });
+
+export const reportsStoreGetRewardReport = (value) => ({
+  type: 'REPORTS_STORE_GET_REWARD_REPORT',
+  value,
+});
+
+export const reportsStoreGetRewardReportCancel = () => ({
+  type: 'REPORTS_STORE_GET_REWARD_REPORT_CANCEL',
+});
+
+export const reportsStoreGetActivationReport = (value) => ({
+  type: 'REPORTS_STORE_GET_ACTIVATION_REPORT',
+  value,
+});
+
+export const reportsStoreGetActivationReportCancel = () => ({
+  type: 'REPORTS_STORE_GET_ACTIVATION_REPORT_CANCEL',
+});

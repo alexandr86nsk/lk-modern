@@ -1,0 +1,9 @@
+.reward-report {
+
+  .report__body {
+
+    div:last-of-type {
+      grid-column-end: span 2;
+    }
+  }
+}
