@@ -166,7 +166,7 @@ function CalendarPage(props) {
 
   /* ***************************** mount ********************** */
   React.useEffect(() => {
-    calendarStoreGetHolidays();
+    calendarStoreGetHolidays(true);
   }, [
     calendarStoreGetHolidays,
   ]);

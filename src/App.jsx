@@ -5,6 +5,7 @@ import './static/css/typography.scss';
 import '../semantic-ui/semantic.less';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { AnimatePresence } from 'framer-motion';
 import routes from './routes/routes';
 import PrivateRoutes from './routes/privateRoutes';
 import PageWrapper from './components/PageWrapper/PageWrapper';
@@ -16,34 +17,36 @@ const App = (props) => {
   return (
     <div className="App font-type-m-12">
       <PageWrapper isAuth={token}>
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={() => (
-              token ? <Redirect to="/zone" /> : <Redirect to="/sign-in" />
-            )}
-          />
-          <Route
-            exact
-            path="/sign-in"
-            render={() => (
-              token ? <Redirect to="/zone" /> : <AuthPage />
-            )}
-          />
-          {routes.map(({
-            path, exact, component: C, ...rest
-          }) => (
-            <PrivateRoutes
-              isLoggedIn={!!token}
-              key={path}
-              path={path}
-              exact={exact}
-              component={<C {...rest} />}
+        <AnimatePresence>
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={() => (
+                token ? <Redirect to="/zone" /> : <Redirect to="/sign-in" />
+              )}
             />
-          ))}
-          <Route render={() => (<Redirect to="/" />)} />
-        </Switch>
+            <Route
+              exact
+              path="/sign-in"
+              render={() => (
+                token ? <Redirect to="/zone" /> : <AuthPage />
+              )}
+            />
+            {routes.map(({
+              path, exact, component: C, ...rest
+            }) => (
+              <PrivateRoutes
+                isLoggedIn={!!token}
+                key={path}
+                path={path}
+                exact={exact}
+                component={<C {...rest} />}
+              />
+            ))}
+            <Route render={() => (<Redirect to="/" />)} />
+          </Switch>
+        </AnimatePresence>
       </PageWrapper>
     </div>
   );

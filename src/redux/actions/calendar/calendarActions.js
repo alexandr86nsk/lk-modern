@@ -14,8 +14,9 @@ export const calendarStoreClear = () => ({
   type: 'CALENDAR_STORE_CLEAR',
 });
 
-export const calendarStoreGetHolidays = () => ({
+export const calendarStoreGetHolidays = (value) => ({
   type: 'CALENDAR_STORE_GET_HOLIDAYS',
+  value,
 });
 
 export const calendarStoreGetHolidaysCancel = () => ({

@@ -8,6 +8,10 @@
       color: $white;
     }
   }
+
+  .ui-loader__dimmer {
+    background-color: rgba($white, .9);
+  }
 }
 
 .calendar {

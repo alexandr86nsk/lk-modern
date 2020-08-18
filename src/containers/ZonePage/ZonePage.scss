@@ -95,7 +95,7 @@
         grid-gap: 1em;
         margin: .3em 0;
         padding: 1em;
-        transition: all .3s ease-in-out;
+        transition: box-shadow .3s ease-in-out;
 
         &:hover {
           box-shadow: 0 .1em .7em rgba(0,0,0,.25);

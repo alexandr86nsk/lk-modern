@@ -1,15 +1,18 @@
 import {
-  call, put, fork, take, cancel,
+  call, put, fork, take, cancel, delay,
 } from 'redux-saga/effects';
 import api from '../../../api/api';
 import actions from '../../actions/actions';
 import { queryResultAnalysis, setSuccessToast } from '../common/globalSaga';
 
 /* ***************************** calendarStoreGetHolidays ********************** */
-function* calendarStoreGetHolidays() {
+function* calendarStoreGetHolidays(value) {
   yield put(actions.calendarStoreSetSection({
     holidaysLoading: true,
   }));
+  if (value) {
+    yield delay(1000);
+  }
   yield queryResultAnalysis(
     api.calendarStoreGetHolidays,
     undefined,
@@ -27,8 +30,8 @@ function* calendarStoreGetHolidays() {
   );
 }
 
-export function* canBeCanceledCalendarStoreGetHolidays() {
-  const bgCalendarStoreGetHolidays = yield fork(calendarStoreGetHolidays);
+export function* canBeCanceledCalendarStoreGetHolidays(action) {
+  const bgCalendarStoreGetHolidays = yield fork(calendarStoreGetHolidays, action.value);
   yield take('CALENDAR_STORE_GET_HOLIDAYS_CANCEL');
   yield cancel(bgCalendarStoreGetHolidays);
 }
@@ -49,7 +52,7 @@ function* calendarStoreChangeDay(value) {
       yield put(actions.modalStoreSetSection({
         show: false,
       }));
-      yield calendarStoreGetHolidays();
+      yield calendarStoreGetHolidays(false);
     },
     function* () {
       yield put(actions.modalStoreSetSection({
