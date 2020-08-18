@@ -135,7 +135,7 @@ function* reportsStoreGetRewardReport(value) {
       /* const fileURL = URL.createObjectURL(blob);
       window.open(fileURL, '_blank'); */
       const fileName = getReportFileName(
-        'Операционный_отчет',
+        'Отчет_по_вознаграждению',
         value,
         rewardReportFilterTemplate,
       );
@@ -177,7 +177,7 @@ function* reportsStoreGetActivationReport(value) {
       /* const fileURL = URL.createObjectURL(blob);
       window.open(fileURL, '_blank'); */
       const fileName = getReportFileName(
-        'Операционный_отчет',
+        'Отчет_по_активациям',
         value,
         rewardReportFilterTemplate,
       );

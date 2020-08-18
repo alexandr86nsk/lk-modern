@@ -41,7 +41,7 @@ function ActivationReportTab(props) {
     ) {
       return activationReportFilterTemplate.map((v) => {
         const { dataKey, otherProps } = v || {};
-        if (dataKey === 'zoneName') {
+        if (dataKey === 'zoneId') {
           return {
             ...v,
             options: zoneOptions,

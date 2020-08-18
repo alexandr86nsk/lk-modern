@@ -21,7 +21,7 @@ const activationReportFilterTemplate = [
   {
     id: 2,
     title: 'Название зоны',
-    dataKey: 'zoneName',
+    dataKey: 'zoneId',
     type: 'select',
     otherProps: {
       type: '--style-1c',
