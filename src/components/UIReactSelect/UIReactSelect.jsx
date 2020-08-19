@@ -38,7 +38,7 @@ function UIReactSelect(props) {
     data,
     callback,
     fullValueCallback,
-    noOptionsMessage = 'Данные не загружены',
+    noOptionsMessage = 'Список пуст',
     hint,
     required,
     isClearable = true,
