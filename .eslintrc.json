@@ -1,4 +1,6 @@
 {
+  "root": true,
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -16,9 +18,7 @@
   "extends": [
     "airbnb",
     "airbnb-typescript",
-    "airbnb/hooks",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+    "airbnb/hooks"
   ],
   "globals": {
     "Atomics": "readonly",
@@ -26,8 +26,7 @@
   },
   "plugins": [
     "react",
-    "react-hooks",
-    "@typescript-eslint"
+    "react-hooks"
   ],
   "rules": {
     "react-hooks/rules-of-hooks": "error",
@@ -36,13 +35,39 @@
     "react/no-unused-prop-types": 0,
     "react/require-default-props": 0,
     "react/jsx-props-no-spreading": 0,
-    "import/no-cycle": 0,
-    "@typescript-eslint/unbound-method": [
-      "error",
-      {
-        "ignoreStatic": true
-      }
-    ]
+    "import/no-cycle": 0
   },
+  "overrides": [
+    {
+      "files": [
+        "*.ts", "*.tsx"
+      ],
+      "plugins": [
+        "react",
+        "react-hooks",
+        "@typescript-eslint"
+      ],
+      "extends": [
+        "airbnb",
+        "airbnb-typescript",
+        "airbnb/hooks",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+      ],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": 0,
+        "@typescript-eslint/member-delimiter-style": 0,
+        "@typescript-eslint/interface-name-prefix": 0,
+        "@typescript-eslint/no-use-before-define": 0,
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "react/prop-types": 0,
+        "react/no-unused-prop-types": 0,
+        "react/require-default-props": 0,
+        "react/jsx-props-no-spreading": 0,
+        "import/no-cycle": 0
+      }
+    }
+  ],
   "settings": { "react": { "version": "detect" } }
 }
