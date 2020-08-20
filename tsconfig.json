@@ -1,22 +1,28 @@
 {
-  "compilerOptions": {
-    "module": "system",
-    "noImplicitAny": true,
-    "removeComments": true,
-    "preserveConstEnums": true,
-    // "outFile": "../../built/local/tsc.js",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "allowSyntheticDefaultImports": true,
-    "allowJs": true
-  },
   "include": [
-    "src",
-    "src/**/*.ts",
-    "@types/**/*.d.ts",
+    "src"
   ],
   "exclude": [
     "node_modules",
     "**/*.spec.ts"
-  ]
+  ],
+  "files": [
+    "@types/custom.d.ts"
+  ],
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "es5",
+    "jsx": "react",
+    "allowJs": true,
+    "noImplicitAny": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "types": ["node"]
+  },
+  "compileOnSave": false
 }

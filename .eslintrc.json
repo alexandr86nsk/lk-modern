@@ -1,7 +1,17 @@
 {
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "project": "./tsconfig.json",
+    "createDefaultProgram": true
+  },
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "node": true
   },
   "extends": [
     "airbnb",
@@ -14,14 +24,6 @@
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "ecmaVersion": 2018,
-    "sourceType": "module",
-    "project": "./tsconfig.json"
-  },
   "plugins": [
     "react",
     "react-hooks",
@@ -31,7 +33,16 @@
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/prop-types": 0,
+    "react/no-unused-prop-types": 0,
+    "react/require-default-props": 0,
     "react/jsx-props-no-spreading": 0,
-    "import/no-cycle": 0
-  }
+    "import/no-cycle": 0,
+    "@typescript-eslint/unbound-method": [
+      "error",
+      {
+        "ignoreStatic": true
+      }
+    ]
+  },
+  "settings": { "react": { "version": "detect" } }
 }

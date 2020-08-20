@@ -13,7 +13,7 @@ module.exports = (devMode) => ({
       '../../theme.config$': path.join(__dirname, '/semantic-ui/theme.config'),
       '../semantic-ui/site': path.join(__dirname, '/semantic-ui/site'),
     },
-    extensions: ['.jsx', '.js'],
+    extensions: ['.jsx', '.js', '.tsx', '.ts'],
   },
   module: {
     rules: [
@@ -25,9 +25,11 @@ module.exports = (devMode) => ({
         },
       },
       {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/
+        test: /\.tsx|ts?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'ts-loader',
+        },
       },
       {
         test: /\.less$/,

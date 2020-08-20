@@ -1,20 +1,43 @@
 import React from 'react';
 import './UIInput.scss';
 import InputMask from 'react-input-mask';
-import * as moment from 'moment';
-import NumberFormat from 'react-number-format';
+import NumberFormat, { NumberFormatValues } from 'react-number-format';
 import { Popup } from 'semantic-ui-react';
+import * as moment from 'moment';
 import { validateEmail, validateUrl } from '../utilities/helpers';
 import ErrorIcon from './error-icon.svg';
 import SuccessIcon from './check-icon.svg';
 import ClearIcon from './clear-icon.svg';
 import HintIcon from './hint-icon.svg';
 
-interface UIInputProps {
-  label: string;
+interface IUIInputProps {
+  title?: string;
+  name: string;
+  callback?: (name: string, res: string | number) => void;
+  mask?: string,
+  minLength?: string;
+  data: string | number;
+  email?: string;
+  url?: string;
+  disabled?: string;
+  isDate?: string;
+  dateFormat?: string;
+  password?: string;
+  successFormat?: string;
+  numberFormat?: string;
+  required?: string;
+  hint?: string;
+  hintText?: string;
+  hintIcon?: string;
+  placeholder?: string;
+  readOnly?: string;
+  type?: string;
+  isInteger?: string;
+  maxInteger?: string;
+  minInteger?: string;
 }
 
-function UIInput(props: UIInputProps) {
+function UIInput(props: IUIInputProps) {
   const {
     title,
     name,
@@ -25,7 +48,7 @@ function UIInput(props: UIInputProps) {
     email,
     url,
     disabled,
-    dateTime,
+    isDate,
     dateFormat = 'LLL',
     password,
     successFormat,
@@ -42,14 +65,14 @@ function UIInput(props: UIInputProps) {
     minInteger,
   } = props || {};
 
-  const elRef = React.useRef(null);
+  const elRef = React.useRef<HTMLHeadingElement>(null);
 
-  const handleChangeMaskInput = React.useCallback((event) => {
+  const handleChangeMaskInput = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     if (callback) {
       const { target } = event || {};
       const { value } = target || {};
       let res = null;
-      if (value || value === 0) {
+      if (value) {
         if (isInteger) {
           res = parseInt(value, 10);
         } else {
@@ -60,14 +83,12 @@ function UIInput(props: UIInputProps) {
     }
   }, [isInteger, callback, name]);
 
-  const handleChangeNumberInput = React.useCallback((values) => {
+  const handleChangeNumberInput = React.useCallback((values: NumberFormatValues) => {
     if (callback) {
-      const { value } = values;
+      const { value } = values || {};
       callback(
         name,
-        (value || value === 0)
-          ? value
-          : null,
+        value ?? null,
       );
     }
   }, [callback, name]);
@@ -175,25 +196,21 @@ function UIInput(props: UIInputProps) {
   ]);
 
   const momentDate = React.useMemo(() => {
-    if (dateTime && data) {
+    if (isDate && data) {
       moment.locale('ru');
-      return moment(data).format(dateFormat);
+      return moment.default(data).format(dateFormat);
     }
-    return (data || data === 0) ? data : '';
-  }, [data, dateFormat, dateTime]);
+    return data ?? '';
+  }, [data, dateFormat, isDate]);
 
   const renderBody = React.useMemo(() => {
     if (readOnly) {
       return (
         <div
           className="ellipsis-element"
-          title={(momentDate || momentDate === 0)
-            ? momentDate
-            : 'нет данных'}
+          title={momentDate.toString() ?? 'нет данных'}
         >
-          {(momentDate || momentDate === 0)
-            ? momentDate
-            : 'нет данных'}
+          {momentDate ?? 'нет данных'}
         </div>
       );
     }
@@ -213,7 +230,7 @@ function UIInput(props: UIInputProps) {
           type={password
             ? 'password'
             : 'text'}
-          disabled={disabled}
+          disabled={!!disabled}
           placeholder={placeholder}
         />
       );
