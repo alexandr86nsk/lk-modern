@@ -25,6 +25,11 @@ module.exports = (devMode) => ({
         },
       },
       {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+      },
+      {
         test: /\.less$/,
         use: [
           {

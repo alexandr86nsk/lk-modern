@@ -10,7 +10,11 @@ import SuccessIcon from './check-icon.svg';
 import ClearIcon from './clear-icon.svg';
 import HintIcon from './hint-icon.svg';
 
-function UIInput(props) {
+interface UIInputProps {
+  label: string;
+}
+
+function UIInput(props: UIInputProps) {
   const {
     title,
     name,
