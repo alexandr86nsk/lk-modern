@@ -79,7 +79,7 @@ function ActivationReportTab(props) {
   return (
     <div className="reports-page__tab activation-report report">
       <div className="element-wrapper">
-        <UIElementTitle title="Отчет по вознаграждению" />
+        <UIElementTitle title="Отчет по активациям" />
         <div className="report__body">
           {formGenerator(
             editedTemplate,
