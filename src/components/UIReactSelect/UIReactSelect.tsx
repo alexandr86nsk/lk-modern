@@ -5,7 +5,7 @@ import ErrorIcon from './error-icon.svg';
 import SuccessIcon from './check-icon.svg';
 
 interface IOptions {
-  value?: string;
+  value?: string | number;
   label?: string;
   length?: number;
   map?: () => any[];
@@ -76,7 +76,7 @@ function UIReactSelect(props: IUIReactSelectProps) {
     loadingMessage,
   } = props || {};
 
-  const handleChange = React.useCallback((res: IOptions[] | IOptions) => {
+  const handleChange = React.useCallback((res: IOptions | IOptions[]) => {
     const { length: thisLength, value: thisValue } = res || {};
     if (callback) {
       if (isMulti) {
@@ -139,13 +139,14 @@ function UIReactSelect(props: IUIReactSelectProps) {
   }, [isMulti, data, options]);
 
   const renderBody = React.useMemo(() => {
+    const { label: thisLabel } = memoizedValue || {};
     if (readOnly) {
       return (
         <div
           className="read-only ellipsis-element"
-          title={memoizedValue.label || 'нет данных'}
+          title={thisLabel || 'нет данных'}
         >
-          {memoizedValue.label || 'нет данных'}
+          {thisLabel || 'нет данных'}
         </div>
       );
     }
