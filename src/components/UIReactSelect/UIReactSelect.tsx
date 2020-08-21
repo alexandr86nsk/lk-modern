@@ -4,13 +4,40 @@ import Select from 'react-select';
 import ErrorIcon from './error-icon.svg';
 import SuccessIcon from './check-icon.svg';
 
+interface IOptions {
+  value?: string;
+  label?: string;
+  length?: number;
+  map?: () => any[];
+}
+
+interface IUIReactSelectProps {
+  title?: string;
+  name: string;
+  callback?: (name: string, value: string | number | any[]) => void;
+  fullValueCallback?: (name: string, value: string | number | any) => void;
+  data: string | number;
+  type?: string;
+  options: IOptions[];
+  noOptionsMessage?: string;
+  hint?: JSX.Element;
+  required?: boolean;
+  isClearable?: boolean;
+  isMulti?: boolean;
+  placeholder?: string;
+  readOnly?: boolean;
+  loading?: boolean;
+  disabled?: boolean;
+  loadingMessage?: string;
+}
+
 const customStyles = {
-  control: (props) => ({
+  control: (props: any) => ({
     ...props,
     borderRadius: '.6em',
     minHeight: 'unset',
   }),
-  clearIndicator: (props) => ({
+  clearIndicator: (props: any) => ({
     ...props,
     padding: '.6em',
     svg: {
@@ -18,7 +45,7 @@ const customStyles = {
       height: '1.5em',
     },
   }),
-  dropdownIndicator: (props) => ({
+  dropdownIndicator: (props: any) => ({
     ...props,
     padding: '.6em',
     svg: {
@@ -28,12 +55,11 @@ const customStyles = {
   }),
 };
 
-function UIReactSelect(props) {
+function UIReactSelect(props: IUIReactSelectProps) {
   const {
     type,
     title,
-    options = [],
-    defaultOptions = [],
+    options,
     name,
     data,
     callback,
@@ -50,31 +76,35 @@ function UIReactSelect(props) {
     loadingMessage,
   } = props || {};
 
-  const handleChange = React.useCallback((value) => {
+  const handleChange = React.useCallback((res: IOptions[] | IOptions) => {
+    const { length: thisLength, value: thisValue } = res || {};
     if (callback) {
       if (isMulti) {
         setTimeout(
           () => callback(
             name,
-            value && value.length
-              ? value.map((v) => v.value)
-              : null,
+            thisLength
+              ? res.map((v: IOptions) => {
+                const { value: thisVal } = v || {};
+                return thisVal;
+              })
+              : undefined,
           ),
-          value && value.length
+          thisLength
             ? 0
             : 200,
         );
       } else {
         callback(
           name,
-          value
-            ? value.value
-            : null,
+          res
+            ? thisValue
+            : undefined,
         );
       }
     }
     if (fullValueCallback) {
-      fullValueCallback(name, value || null);
+      fullValueCallback(name, res || undefined);
     }
   }, [
     callback,
@@ -99,21 +129,14 @@ function UIReactSelect(props) {
     return str;
   }, [type, data, required]);
 
-  const checkDefaultOptions = React.useCallback(() => {
-    if (defaultOptions[0]) {
-      return defaultOptions;
-    }
-    return options;
-  }, [defaultOptions, options]);
-
   const memoizedValue = React.useMemo(() => {
     if (!isMulti) {
-      return checkDefaultOptions().filter((v) => v.value === data)[0] || '';
+      return options.filter((v) => v.value === data)[0] || '';
     }
     return Array.isArray(data)
-      ? data.map((x) => checkDefaultOptions().filter((v) => v.value === x)[0])
+      ? data.map((x) => options.filter((v) => v.value === x)[0])
       : '';
-  }, [isMulti, data, checkDefaultOptions]);
+  }, [isMulti, data, options]);
 
   const renderBody = React.useMemo(() => {
     if (readOnly) {

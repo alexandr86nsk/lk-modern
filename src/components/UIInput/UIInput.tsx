@@ -13,28 +13,28 @@ import HintIcon from './hint-icon.svg';
 interface IUIInputProps {
   title?: string;
   name: string;
-  callback?: (name: string, res: string | number) => void;
+  callback: (name: string, value: string | number) => void;
   mask?: string,
-  minLength?: string;
+  minLength?: number;
   data: string | number;
-  email?: string;
-  url?: string;
-  disabled?: string;
-  isDate?: string;
-  dateFormat?: string;
-  password?: string;
+  disabled?: boolean;
+  isEmail?: boolean;
+  isUrl?: boolean;
+  isDate?: boolean;
+  isMoney?: boolean;
+  isPassword?: boolean;
+  isInteger?: boolean;
   successFormat?: string;
-  numberFormat?: string;
-  required?: string;
-  hint?: string;
+  dateFormat?: string;
+  required?: boolean;
+  hint?: boolean;
   hintText?: string;
   hintIcon?: string;
   placeholder?: string;
-  readOnly?: string;
+  readOnly?: boolean;
   type?: string;
-  isInteger?: string;
-  maxInteger?: string;
-  minInteger?: string;
+  maxInteger?: number;
+  minInteger?: number;
 }
 
 function UIInput(props: IUIInputProps) {
@@ -45,14 +45,14 @@ function UIInput(props: IUIInputProps) {
     mask,
     minLength = 0,
     data,
-    email,
-    url,
+    isEmail,
+    isUrl,
     disabled,
     isDate,
     dateFormat = 'LLL',
-    password,
+    isPassword,
     successFormat,
-    numberFormat,
+    isMoney,
     required,
     hint,
     hintText,
@@ -65,13 +65,13 @@ function UIInput(props: IUIInputProps) {
     minInteger,
   } = props || {};
 
-  const elRef = React.useRef<HTMLHeadingElement>(null);
+  const elRef = React.useRef<HTMLHeadingElement | null>(null);
 
   const handleChangeMaskInput = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     if (callback) {
       const { target } = event || {};
       const { value } = target || {};
-      let res = null;
+      let res;
       if (value) {
         if (isInteger) {
           res = parseInt(value, 10);
@@ -88,14 +88,14 @@ function UIInput(props: IUIInputProps) {
       const { value } = values || {};
       callback(
         name,
-        value ?? null,
+        value ?? undefined,
       );
     }
   }, [callback, name]);
 
   const handleClear = React.useCallback(() => {
     if (callback) {
-      callback(name, null);
+      callback(name, undefined);
       if (elRef) {
         const { current } = elRef || {};
         const inputs = current.getElementsByTagName('input');
@@ -158,14 +158,14 @@ function UIInput(props: IUIInputProps) {
           str = `${str} error`;
         }
       }
-      if (email) {
+      if (isEmail) {
         if (validateEmail(data)) {
           str = `${str} success`;
         } else {
           str = `${str} error`;
         }
       }
-      if (url) {
+      if (isUrl) {
         if (validateUrl(data)) {
           str = `${str} success`;
         } else {
@@ -185,10 +185,10 @@ function UIInput(props: IUIInputProps) {
     readOnly,
     composeLength,
     data,
-    email,
+    isEmail,
     minLength,
     required,
-    url,
+    isUrl,
     isInteger,
     composeInteger,
     maxInteger,
@@ -214,7 +214,7 @@ function UIInput(props: IUIInputProps) {
         </div>
       );
     }
-    if (!numberFormat) {
+    if (!isMoney) {
       return (
         <InputMask
           className="ui-input__input"
@@ -227,7 +227,7 @@ function UIInput(props: IUIInputProps) {
             a: '[A-Za-z]',
             '*': '[A-Za-z0-9]',
           }}
-          type={password
+          type={isPassword
             ? 'password'
             : 'text'}
           disabled={!!disabled}
@@ -249,11 +249,11 @@ function UIInput(props: IUIInputProps) {
     disabled,
     handleChangeNumberInput,
     placeholder,
-    password,
+    isPassword,
     momentDate,
     mask,
     handleChangeMaskInput,
-    numberFormat,
+    isMoney,
   ]);
 
   return (
