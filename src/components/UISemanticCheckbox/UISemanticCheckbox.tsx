@@ -2,7 +2,20 @@ import React from 'react';
 import './UISemanticCheckbox.scss';
 import { Checkbox } from 'semantic-ui-react';
 
-function UISemanticCheckbox(props) {
+interface IUISemanticCheckboxProps {
+  title?: string;
+  name: string;
+  callback: (name: string, value: boolean) => void;
+  mask?: string;
+  data: boolean;
+  disabled?: boolean;
+  type?: string,
+  readOnly?: boolean;
+  radio?: boolean;
+  toggle?: boolean;
+}
+
+function UISemanticCheckbox(props: IUISemanticCheckboxProps) {
   const {
     name,
     data,
@@ -15,7 +28,7 @@ function UISemanticCheckbox(props) {
     toggle,
   } = props || {};
 
-  const handleChange = React.useCallback((e, value) => {
+  const handleChange = React.useCallback((e, value: { checked?: boolean }) => {
     const {
       checked,
     } = value || {};

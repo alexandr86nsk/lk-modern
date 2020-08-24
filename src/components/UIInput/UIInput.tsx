@@ -14,7 +14,7 @@ interface IUIInputProps {
   title?: string;
   name: string;
   callback: (name: string, value: string | number) => void;
-  mask?: string,
+  mask?: string;
   minLength?: number;
   data: string | number;
   disabled?: boolean;

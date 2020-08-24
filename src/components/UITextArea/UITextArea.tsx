@@ -1,21 +1,32 @@
 import React from 'react';
 import './UITextArea.scss';
 
+interface IUITextAreaProps {
+  title?: string;
+  name: string;
+  callback: (name: string, value: string) => void;
+  data: string;
+  minLength?: number;
+  disabled?: boolean;
+  vertical?: boolean;
+}
 
-function UITextArea(props) {
+function UITextArea(props: IUITextAreaProps) {
   const {
     title,
     name,
     data,
     callback,
     minLength = 0,
-    disabled = false,
-    vertical = false,
-  } = props;
+    disabled,
+    vertical,
+  } = props || {};
 
-  const handleChange = React.useCallback((event) => {
+  const handleChange = React.useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { target } = event || {};
+    const { value: thisValue } = target || {};
     if (callback) {
-      callback(name, event.target.value, event.keyCode);
+      callback(name, thisValue);
     }
   }, [callback, name]);
 
@@ -30,12 +41,11 @@ function UITextArea(props) {
       <textarea
         className={`ui-textarea__textarea ${vertical ? 'vertical' : ''} ${disabled ? 'disabled' : ''}`}
         onChange={handleChange}
-        value={(data === 0 || data) ? data : ''}
+        value={data ?? ''}
         disabled={disabled}
       />
     </div>
   );
 }
-
 
 export default React.memo(UITextArea);
