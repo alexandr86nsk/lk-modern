@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import './UIReactSelect.scss';
 import Select from 'react-select';
+import { GroupedOptionsType } from 'react-select/src/types';
 import ErrorIcon from './error-icon.svg';
 import SuccessIcon from './check-icon.svg';
 
 interface IOptions {
+  [index: number]: { value?: string | number; label?: string };
   value?: string | number;
   label?: string;
-  length?: number;
-  map?: () => any[];
+  length: number;
+  map: (v: any) => any[];
+  filter: (v: any) => any[];
 }
 
 interface IUIReactSelectProps {
@@ -16,9 +19,9 @@ interface IUIReactSelectProps {
   name: string;
   callback?: (name: string, value: string | number | any[]) => void;
   fullValueCallback?: (name: string, value: string | number | any) => void;
-  data: string | number;
+  data: string | number | any[];
   type?: string;
-  options: IOptions[];
+  options: IOptions;
   noOptionsMessage?: string;
   hint?: JSX.Element;
   required?: boolean;
@@ -28,16 +31,16 @@ interface IUIReactSelectProps {
   readOnly?: boolean;
   loading?: boolean;
   disabled?: boolean;
-  loadingMessage?: string;
+  loadingMessage?: (obj: { inputValue: string }) => string | null;
 }
 
 const customStyles = {
-  control: (props: any) => ({
+  control: (props: CSSProperties) => ({
     ...props,
     borderRadius: '.6em',
     minHeight: 'unset',
   }),
-  clearIndicator: (props: any) => ({
+  /* clearIndicator: (props: CSSProperties) => ({
     ...props,
     padding: '.6em',
     svg: {
@@ -45,14 +48,14 @@ const customStyles = {
       height: '1.5em',
     },
   }),
-  dropdownIndicator: (props: any) => ({
+  dropdownIndicator: (props: CSSProperties) => ({
     ...props,
     padding: '.6em',
     svg: {
       width: '1.5em',
       height: '1.5em',
     },
-  }),
+  }), */
 };
 
 function UIReactSelect(props: IUIReactSelectProps) {
@@ -76,7 +79,7 @@ function UIReactSelect(props: IUIReactSelectProps) {
     loadingMessage,
   } = props || {};
 
-  const handleChange = React.useCallback((res: IOptions | IOptions[]) => {
+  const handleChange = React.useCallback((res: IOptions) => {
     const { length: thisLength, value: thisValue } = res || {};
     if (callback) {
       if (isMulti) {
@@ -129,13 +132,22 @@ function UIReactSelect(props: IUIReactSelectProps) {
     return str;
   }, [type, data, required]);
 
-  const memoizedValue = React.useMemo(() => {
-    if (!isMulti) {
-      return options.filter((v) => v.value === data)[0] || '';
+  const memoizedValue: IOptions = React.useMemo(() => {
+    if (options && Array.isArray(options)) {
+      if (!isMulti) {
+        const result = options.filter((v: IOptions) => {
+          const { value: thisValue } = v || {};
+          return thisValue === data;
+        });
+        return result[0] as IOptions || undefined;
+      }
+      return Array.isArray(data)
+        ? data.map(
+          (x: string | number) => options.filter((v: IOptions) => v.value === x)[0] as IOptions,
+        )
+        : undefined;
     }
-    return Array.isArray(data)
-      ? data.map((x) => options.filter((v) => v.value === x)[0])
-      : '';
+    return undefined;
   }, [isMulti, data, options]);
 
   const renderBody = React.useMemo(() => {
@@ -158,7 +170,7 @@ function UIReactSelect(props: IUIReactSelectProps) {
         classNamePrefix="ui-react-select"
         placeholder={placeholder}
         noOptionsMessage={() => noOptionsMessage}
-        options={options}
+        options={options as GroupedOptionsType<IOptions>}
         onChange={handleChange}
         value={memoizedValue}
         menuPlacement="auto"
