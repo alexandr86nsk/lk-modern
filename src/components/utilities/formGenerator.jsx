@@ -3,7 +3,7 @@ import UIInput from '../UIInput/UIInput';
 import UIReactSelect from '../UIReactSelect/UIReactSelect';
 import UISemanticCheckbox from '../UISemanticCheckbox/UISemanticCheckbox';
 import UITextArea from '../UITextArea/UITextArea';
-import UIReactDatePicker from '../UIReactDatePicker/UIReactDatePicker';
+import UIModernDatepicker from '../UIModernDatepicker/UIModernDatepicker';
 import UISearch from '../UISearch/UISearch';
 
 const formGenerator = (list, dataSource, callback) => {
@@ -80,7 +80,7 @@ const formGenerator = (list, dataSource, callback) => {
           );
         case 'datePicker':
           return (
-            <UIReactDatePicker
+            <UIModernDatepicker
               key={id}
               title={title}
               name={dataKey}

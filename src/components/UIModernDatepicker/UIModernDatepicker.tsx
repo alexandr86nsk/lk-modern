@@ -1,10 +1,11 @@
 import React from 'react';
 import './UIModernDatepicker.scss';
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
-import DatePicker from 'react-modern-calendar-datepicker';
+import DatePicker, { DayValue } from 'react-modern-calendar-datepicker';
 import InputMask from 'react-input-mask';
 import ErrorIcon from './error-icon.svg';
 import SuccessIcon from './check-icon.svg';
+import localeRu from './locale_ru-RU';
 
 interface IUIModernDatepickerProps {
   title?: string;
@@ -29,8 +30,9 @@ function UIModernDatepicker(props: IUIModernDatepickerProps) {
     endOfDay,
     disabled,
     placeholder = 'Выберите дату',
-    ...moreProps
   } = props || {};
+
+  const [selectedDay, setSelectedDay] = React.useState<DayValue>(null);
 
   const [focus, setFocus] = React.useState(false);
 
@@ -42,7 +44,7 @@ function UIModernDatepicker(props: IUIModernDatepickerProps) {
     setFocus(false);
   }, []);
 
-  const handleChange = React.useCallback((date) => {
+  /*  const handleChange = React.useCallback((date) => {
     if (callback) {
       if (date) {
         callback(name, endOfDay ? new Date(date.setHours(23, 59, 59, 999)) : date);
@@ -50,10 +52,10 @@ function UIModernDatepicker(props: IUIModernDatepickerProps) {
         callback(name, date);
       }
     }
-  }, [callback, endOfDay, name]);
+  }, [callback, endOfDay, name]); */
 
   const className = React.useMemo(() => {
-    let str = 'ui-react-datepicker';
+    let str = 'ui-modern-datepicker';
     if (type) {
       str = `${str} ${type}`;
     }
@@ -79,35 +81,48 @@ function UIModernDatepicker(props: IUIModernDatepickerProps) {
     return str;
   }, [title, data, focus, required, type]);
 
-  const renderCustomInput = ({ ref }) => (
-    <input
-      ref={ref}
-      placeholder={placeholder}
+  const renderCustomInput = ({ ref }: { ref: React.RefObject<HTMLInputElement> }) => (
+    <InputMask
+      className="ui-modern-datepicker__input"
+      onChange={() => {}}
+      mask="00.00.0000"
       value={data}
-      className="my-custom-input-class"
-    />
+      maskChar={null}
+      formatChars={{
+        0: '[0-9]',
+        a: '[A-Za-z]',
+        '*': '[A-Za-z0-9]',
+      }}
+      disabled={!!disabled}
+      placeholder={placeholder}
+    >
+      {(inputProps: any) => (
+        <input ref={ref} {...inputProps} />
+      )}
+    </InputMask>
   );
 
   return (
     <div className={className}>
       {title
       && (
-        <div className="ui-react-datepicker__title" title={title}>
+        <div className="ui-modern-datepicker__title" title={title}>
           <span className="ellipsis-element">{title}</span>
           {required && <div className="required-icon">*</div>}
         </div>
       )}
-      <div className="ui-react-datepicker__body">
+      <div className="ui-modern-datepicker__body">
         <DatePicker
           value={selectedDay}
           onChange={setSelectedDay}
-          renderInput={renderCustomInput} // render a custom input
+          renderInput={renderCustomInput}
           shouldHighlightWeekends
+          locale={localeRu}
         />
-        <div className="ui-react-datepicker__error" title="Ошибка">
+        <div className="ui-modern-datepicker__error" title="Ошибка">
           <ErrorIcon />
         </div>
-        <div className="ui-react-datepicker__success" title="Верно">
+        <div className="ui-modern-datepicker__success" title="Верно">
           <SuccessIcon />
         </div>
       </div>
