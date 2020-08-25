@@ -13,14 +13,17 @@
     "jsx": "react",
     "allowJs": true,
     "noImplicitAny": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "removeComments": true,
     "preserveConstEnums": true,
     "moduleResolution": "node",
     "sourceMap": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["node"]
+    "types": ["node"],
   },
-  "compileOnSave": false
+  "compileOnSave": false,
+  "buildOnSave": false
 }
