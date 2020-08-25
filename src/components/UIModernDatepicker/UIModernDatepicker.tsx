@@ -80,19 +80,6 @@ function UIModernDatepicker(props: IUIModernDatepickerProps) {
     }
   }, [toNativeDate, callback, name]);
 
-  const renderValue = React.useMemo(() => {
-    if (data) {
-      const tmp = new Date(data);
-      const tmp = value.split('.');
-      const res = {
-        year: tmp[2],
-        month: tmp[1],
-        day: tmp[0],
-      };
-      callback(name, tmp[2] && tmp[2].length === 4 ? toNativeDate(res) : value);
-    }
-  }, [toNativeDate, callback, name]);
-
   const className = React.useMemo(() => {
     let str = 'ui-modern-datepicker';
     if (type) {

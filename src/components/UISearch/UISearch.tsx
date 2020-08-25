@@ -75,7 +75,7 @@ function UISearch(props: IUISearchProps) {
     customResults,
     hideResults,
     callback,
-    data,
+    data = '',
     searchServerSide,
     loadingData,
     disabled,

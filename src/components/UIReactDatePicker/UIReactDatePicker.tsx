@@ -7,9 +7,27 @@ import InputMask from 'react-input-mask';
 import ErrorIcon from './error-icon.svg';
 import SuccessIcon from './check-icon.svg';
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 registerLocale('ru', ru);
 
-function UIReactDatePicker(props) {
+interface IUIReactDatePickerProps {
+  title?: string;
+  name: string;
+  callback: (name: string, value: number | Date) => void;
+  label?: string;
+  data: string;
+  type?: string;
+  showTimeSelect?: boolean;
+  showTimeSelectOnly?: boolean;
+  required?: boolean;
+  hint?: boolean;
+  endOfDay?: boolean;
+  disabled?: boolean;
+  placeholder?: string;
+  isClearable?: boolean;
+}
+
+function UIReactDatePicker(props: IUIReactDatePickerProps) {
   const {
     title,
     label,
@@ -28,6 +46,7 @@ function UIReactDatePicker(props) {
     ...moreProps
   } = props;
 
+  const elRef = React.useRef<HTMLHeadingElement | null>(null);
   const [focus, setFocus] = React.useState(false);
 
   const handleFocus = React.useCallback(() => {
@@ -38,28 +57,33 @@ function UIReactDatePicker(props) {
     setFocus(false);
   }, []);
 
-  const handleChange = React.useCallback((date) => {
+  const handleChange = React.useCallback((date: Date) => {
     if (callback) {
       if (date) {
-        callback(name, endOfDay ? new Date(date.setHours(23, 59, 59, 999)) : date);
+        const res = new Date(date.setHours(23, 59, 59, 999));
+        callback(name, endOfDay ? res : date);
       } else {
         callback(name, date);
+        if (elRef) {
+          const { current } = elRef || {};
+          const inputs = current.getElementsByTagName('input');
+          if (inputs && inputs[0]) {
+            inputs[0].focus();
+          }
+        }
       }
     }
   }, [callback, endOfDay, name]);
 
   const className = React.useMemo(() => {
     let str = 'ui-react-datepicker';
-    if (type) {
-      str = `${str} ${type}`;
+    if (focus) {
+      str = `${str} focus`;
     }
     if (data) {
       str = `${str} data`;
     } else {
       str = `${str} empty`;
-    }
-    if (focus) {
-      str = `${str} focus`;
     }
     if (title) {
       str = `${str} title`;
@@ -71,6 +95,9 @@ function UIReactDatePicker(props) {
       } else {
         str = `${str} success`;
       }
+    }
+    if (type) {
+      str = `${str} ${type}`;
     }
     return str;
   }, [title, data, focus, required, type]);
@@ -85,10 +112,10 @@ function UIReactDatePicker(props) {
           {hint && hint}
         </div>
       )}
-      <div className="ui-react-datepicker__body">
+      <div className="ui-react-datepicker__body" ref={elRef}>
         <DatePicker
           {...moreProps}
-          selected={data ? new Date(data) : ''}
+          selected={data ? new Date(data) : null}
           onChange={handleChange}
           locale="ru"
           disabled={disabled}
@@ -100,7 +127,6 @@ function UIReactDatePicker(props) {
           yearDropdownItemNumber={15}
           scrollableYearDropdown
           showMonthDropdown
-          excludeTimes
           onFocus={handleFocus}
           onBlur={handleBlur}
           isClearable={isClearable}

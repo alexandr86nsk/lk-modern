@@ -1,13 +1,11 @@
 {
   "include": [
-    "src"
+    "src",
+    "@types/custom.d.ts"
   ],
   "exclude": [
     "node_modules",
     "**/*.spec.ts"
-  ],
-  "files": [
-    "@types/custom.d.ts"
   ],
   "compilerOptions": {
     "module": "esnext",
