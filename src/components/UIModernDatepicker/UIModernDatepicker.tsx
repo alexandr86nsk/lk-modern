@@ -6,11 +6,12 @@ import InputMask from 'react-input-mask';
 import ErrorIcon from './error-icon.svg';
 import SuccessIcon from './check-icon.svg';
 import localeRu from './locale_ru-RU';
+import * as chrono from 'chrono-node';
 
 interface IUIModernDatepickerProps {
   title?: string;
   name: string;
-  callback: (name: string, value: string) => void;
+  callback: (name: string, value: Date | string) => void;
   data: string | number;
   disabled?: boolean;
   type?: string;
@@ -32,7 +33,17 @@ function UIModernDatepicker(props: IUIModernDatepickerProps) {
     placeholder = 'Выберите дату',
   } = props || {};
 
+  const {
+    toNativeDate,
+  } = localeRu || {};
+
   const [selectedDay, setSelectedDay] = React.useState<DayValue>(null);
+
+  console.log('selectedDay', selectedDay);
+
+  if (selectedDay) {
+    console.log('toNativeDate', toNativeDate(selectedDay));
+  }
 
   const [focus, setFocus] = React.useState(false);
 
@@ -53,6 +64,34 @@ function UIModernDatepicker(props: IUIModernDatepickerProps) {
       }
     }
   }, [callback, endOfDay, name]); */
+
+  const handleChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    if (callback) {
+      const { target } = event || {};
+      const { value } = target || {};
+      console.log('value', value);
+      const tmp = value.split('.');
+      const res = {
+        year: tmp[2],
+        month: tmp[1],
+        day: tmp[0],
+      };
+      callback(name, tmp[2] && tmp[2].length === 4 ? toNativeDate(res) : value);
+    }
+  }, [toNativeDate, callback, name]);
+
+  const renderValue = React.useMemo(() => {
+    if (data) {
+      const tmp = new Date(data);
+      const tmp = value.split('.');
+      const res = {
+        year: tmp[2],
+        month: tmp[1],
+        day: tmp[0],
+      };
+      callback(name, tmp[2] && tmp[2].length === 4 ? toNativeDate(res) : value);
+    }
+  }, [toNativeDate, callback, name]);
 
   const className = React.useMemo(() => {
     let str = 'ui-modern-datepicker';
@@ -84,7 +123,7 @@ function UIModernDatepicker(props: IUIModernDatepickerProps) {
   const renderCustomInput = ({ ref }: { ref: React.RefObject<HTMLInputElement> }) => (
     <InputMask
       className="ui-modern-datepicker__input"
-      onChange={() => {}}
+      onChange={handleChange}
       mask="00.00.0000"
       value={data}
       maskChar={null}

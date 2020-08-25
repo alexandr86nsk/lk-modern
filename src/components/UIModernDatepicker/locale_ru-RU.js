@@ -85,7 +85,6 @@ const localeRu = {
   from: 'от',
   to: 'до',
 
-
   // used for input value when multi dates are selected
   digitSeparator: ',',
 
@@ -94,6 +93,6 @@ const localeRu = {
 
   // is your language rtl or ltr?
   isRtl: false,
-}
+};
 
 export default localeRu;
