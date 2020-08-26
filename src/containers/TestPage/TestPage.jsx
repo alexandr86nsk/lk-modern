@@ -25,44 +25,43 @@ const item = {
 };*/
 
 const container = {
-  hidden: {
+  initial: {
     scale: 0,
-    opacity: 0,
-    transition: {
-      when: "afterChildren",
-    },
+    opacity: 0
   },
-  show: {
+  animate: {
     scale: 1,
     opacity: 1,
     transition: {
       delay: 0.2,
       when: 'beforeChildren',
     }
-  }
+  },
+  exit: {
+    scale: 0,
+    opacity: 0,
+    transition: {
+      when: "afterChildren",
+    },
+  },
 }
 
 const item = {
- /* hidden: { scale: 0, opacity: 0 },
-  show: { scale: 1, opacity: 1 },*/
-  show: i => ({
+  initial: {
+    opacity: 0,
+    scale: 0,
+  },
+  animate: i => ({
     scale: 1,
     opacity: 1,
     transition: {
       delay: i * 0.1,
     },
   }),
- hidden: i => ({
-    opacity: 0,
-    scale: 0,
-    transition: {
-      delay: 1 - (i * 0.1),
-    },
-  }),
   exit: {
-    scale: 0,
     opacity: 0,
-  }
+    scale: 0,
+  },
 }
 
 const arr = [
@@ -88,6 +87,14 @@ function TestPage() {
     setHideContainer(!hideContainer);
   }, [hideContainer]);
 
+  const handleRandomDelete = React.useCallback(() => {
+    const length = array.length;
+    const idx = Math.floor(length / 2);
+    console.log('idx', idx);
+    const res = array.filter(({ id }) => id !== idx);
+    setArray(res);
+  }, [array.length]);
+
   console.log('array', array);
 
   return (
@@ -97,24 +104,21 @@ function TestPage() {
         {!hideContainer && <motion.ul
             className="container"
             variants={container}
-            initial="hidden"
-            animate="show"
-            exit="hidden"
+            initial="initial"
+            animate="animate"
+            exit="exit"
           >
-          <AnimatePresence>
             {array.map(({ id: pId, value: pValue }, index) => (
               <motion.li
                 key={pId}
                 custom={index}
                 className="item"
                 variants={item}
-                //exit="exit"
-                onClick={() => setArray(array.filter(({ id: cId }) => pId !== cId))}
+                onClick={handleRandomDelete}
               >
                 {pValue}
               </motion.li>
             ))}
-            </AnimatePresence>
           </motion.ul>}
         </AnimatePresence>
         <Button positive onClick={handleRefresh}>Обновить</Button>
