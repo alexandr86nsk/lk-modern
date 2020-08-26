@@ -58,10 +58,13 @@ const item = {
       delay: i * 0.1,
     },
   }),
-  exit: {
-    opacity: 0,
+  exit: i => ({
     scale: 0,
-  },
+    opacity: 0,
+    transition: {
+      delay: 1 - (i * 0.1),
+    },
+  }),
 }
 
 const arr = [
@@ -89,9 +92,7 @@ function TestPage() {
 
   const handleRandomDelete = React.useCallback(() => {
     const length = array.length;
-    const idx = Math.floor(length / 2);
-    console.log('idx', idx);
-    const res = array.filter(({ id }) => id !== idx);
+    const res = array.filter(({ id }) => id !== length - 3);
     setArray(res);
   }, [array.length]);
 
@@ -109,20 +110,23 @@ function TestPage() {
             exit="exit"
           >
             {array.map(({ id: pId, value: pValue }, index) => (
+              <AnimatePresence key={pId} exitBeforeEnter>
               <motion.li
-                key={pId}
+
                 custom={index}
                 className="item"
                 variants={item}
-                onClick={handleRandomDelete}
               >
                 {pValue}
               </motion.li>
+              </AnimatePresence>
             ))}
+
           </motion.ul>}
         </AnimatePresence>
         <Button positive onClick={handleRefresh}>Обновить</Button>
         <Button negative onClick={handleHide}>Скрыть</Button>
+        <Button onClick={handleRandomDelete}>Удалить</Button>
       </div>
     </div>
   );
