@@ -28,14 +28,17 @@ const container = {
   show: {
     opacity: 1,
     transition: {
-      delayChildren: 0.5
+      delay: 0.3,
+      when: 'beforeChildren',
+      //delayChildren: 0.05,
+      staggerChildren: 0.3
     }
   }
 }
 
 const item = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1 }
+  hidden: { scale: 0, opacity: 0 },
+  show: { scale: 1, opacity: 1 }
 }
 
 const arr = [
