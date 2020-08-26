@@ -8,6 +8,7 @@
     padding: 0;
     margin: 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background: linear-gradient(180deg, #d0e, #91f);
@@ -41,5 +42,10 @@
     cursor: pointer;
     justify-self: center;
     align-self: center;
+    user-select: none;
+  }
+
+  button.ui.button {
+    margin-top: 2em;
   }
 }

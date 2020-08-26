@@ -1,6 +1,7 @@
 import React from 'react';
 import './TestPage.scss';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Button } from 'semantic-ui-react';
 
 /*const container = {
   hidden: { opacity: 1, scale: 0 },
@@ -24,21 +25,44 @@ const item = {
 };*/
 
 const container = {
-  hidden: { opacity: 0 },
+  hidden: {
+    scale: 0,
+    opacity: 0,
+    transition: {
+      when: "afterChildren",
+    },
+  },
   show: {
+    scale: 1,
     opacity: 1,
     transition: {
-      delay: 0.3,
+      delay: 0.2,
       when: 'beforeChildren',
-      //delayChildren: 0.05,
-      staggerChildren: 0.3
     }
   }
 }
 
 const item = {
-  hidden: { scale: 0, opacity: 0 },
-  show: { scale: 1, opacity: 1 }
+ /* hidden: { scale: 0, opacity: 0 },
+  show: { scale: 1, opacity: 1 },*/
+  show: i => ({
+    scale: 1,
+    opacity: 1,
+    transition: {
+      delay: i * 0.1,
+    },
+  }),
+ hidden: i => ({
+    opacity: 0,
+    scale: 0,
+    transition: {
+      delay: 1 - (i * 0.1),
+    },
+  }),
+  exit: {
+    scale: 0,
+    opacity: 0,
+  }
 }
 
 const arr = [
@@ -54,27 +78,47 @@ const arr = [
 
 function TestPage() {
   const [array, setArray] = React.useState(arr);
+  const [hideContainer, setHideContainer] = React.useState(false);
+
+  const handleRefresh = React.useCallback(() => {
+    setArray(arr);
+  }, []);
+
+  const handleHide = React.useCallback(() => {
+    setHideContainer(!hideContainer);
+  }, [hideContainer]);
+
+  console.log('array', array);
 
   return (
     <div className="test-page page__content">
       <div className="background">
-        <motion.ul
-          className="container"
-          variants={container}
-          initial="hidden"
-          animate="show"
-        >
-          {array.map((v) => (
-            <motion.li
-              key={v.id}
-              className="item"
-              variants={item}
-              onClick={() => setArray(array.filter((w) => w.id !== v.id))}
-            >
-              {v.value}
-            </motion.li>
-          ))}
-        </motion.ul>
+        <AnimatePresence>
+        {!hideContainer && <motion.ul
+            className="container"
+            variants={container}
+            initial="hidden"
+            animate="show"
+            exit="hidden"
+          >
+          <AnimatePresence>
+            {array.map(({ id: pId, value: pValue }, index) => (
+              <motion.li
+                key={pId}
+                custom={index}
+                className="item"
+                variants={item}
+                //exit="exit"
+                onClick={() => setArray(array.filter(({ id: cId }) => pId !== cId))}
+              >
+                {pValue}
+              </motion.li>
+            ))}
+            </AnimatePresence>
+          </motion.ul>}
+        </AnimatePresence>
+        <Button positive onClick={handleRefresh}>Обновить</Button>
+        <Button negative onClick={handleHide}>Скрыть</Button>
       </div>
     </div>
   );
