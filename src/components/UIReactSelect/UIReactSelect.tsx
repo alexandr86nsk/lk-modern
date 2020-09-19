@@ -143,7 +143,7 @@ function UIReactSelect(props: IUIReactSelectProps) {
       }
       return Array.isArray(data)
         ? data.map(
-          (x: string | number) => options.filter((v: IOptions) => v.value === x)[0] as IOptions,
+          (x: string | number) => options.find((v: IOptions) => v.value === x) as IOptions,
         )
         : undefined;
     }
