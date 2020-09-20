@@ -75,7 +75,7 @@ function AuthPage(props) {
           <div className="form__body">
             {tryLogIn && (
             <div className="form__loader">
-              <UILoader text="Выполняется авторизация..." />
+              <UILoader text="Выполняется авторизация" />
             </div>
             )}
             <div className="form__header">Авторизация</div>
