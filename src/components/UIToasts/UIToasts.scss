@@ -1,5 +1,3 @@
-@import '../../static/css/colors.scss';
-
 .ui-toasts {
   bottom: 20px;
   position: fixed;
@@ -19,7 +17,7 @@
   .ui-toast {
     align-items: flex-start;
     border-radius: .8em;
-    color: $white;
+    color: var(--white);
     display: flex;
     padding: .8em 1em;
 
@@ -37,11 +35,11 @@
     }
 
     &.success {
-      background-color: rgba($success-color, .85);
+      background-color: rgba(var(--success-color), .85);
     }
 
     &.error {
-      background-color: rgba($error-color, .85);
+      background-color: rgba(var(--error-color), .85);
     }
 
     &__content {

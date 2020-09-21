@@ -1,5 +1,3 @@
-@import '../../static/css/colors.scss';
-
 .ui-search {
   width: 100%;
 
@@ -18,7 +16,7 @@
     font-size: .8em;
 
     .required-icon {
-      color: $error-color;
+      color: var(--error-color);
       transform: scale(1.5);
       margin-left: .2em;
     }
@@ -32,9 +30,9 @@
     width: 100%;
     padding: .8em;
     outline: none;
-    background-color: $white;
+    background-color: var(--white);
     background-clip: padding-box;
-    border: 1px solid $theme-border-color;
+    border: 1px solid var(--theme-border-color);
     border-radius: 0.30769231rem;
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 
@@ -47,17 +45,17 @@
     }
 
     &:not(:disabled):hover {
-      border-color: $stylish-color;
+      border-color: var(--stylish-color);
     }
 
     &:not(:disabled):focus {
       border-color: transparent;
       outline: 0;
-      box-shadow: 0 0 0 0.2rem rgba($medium-theme-color, .25);
+      box-shadow: 0 0 0 0.2rem rgba(var(--medium-theme-color-rgb), .25);
     }
 
     &:disabled {
-      background-color: $theme-disabled-color;
+      background-color: var(--theme-disabled-color);
     }
   }
 
@@ -116,7 +114,7 @@
       animation: loader 0.6s linear;
       animation-iteration-count: infinite;
       border-radius: 50%;
-      border-color: $theme-border-color transparent transparent;
+      border-color: var(--theme-border-color) transparent transparent;
       border-style: solid;
       border-width: 0.2em;
       box-shadow: 0 0 0 1px transparent;
@@ -129,13 +127,13 @@
     cursor: pointer;
 
     svg {
-      fill: rgba($theme-border-color, .8);
+      fill: rgba(var(--theme-border-color-rgb), .8);
     }
 
     &:hover {
 
       svg {
-        fill: rgba($theme-border-color, 1);
+        fill: rgba(var(--theme-border-color-rgb), 1);
       }
     }
   }
@@ -145,27 +143,27 @@
   }
 
   &__clear:hover ~ &__input:not(:disabled):not(:focus) {
-    border-color: $stylish-color;
+    border-color: var(--stylish-color);
   }
 
   &__success {
 
     svg {
-      fill: $success-color;
+      fill: var(--success-color);
     }
   }
 
   &__error {
 
     svg {
-      fill: $error-color;
+      fill: var(--error-color);
     }
   }
 
   &__i-error {
     position: absolute;
-    background: $error-background-color;
-    color: rgba($error-color, .85);
+    background: var(--error-background-color);
+    color: rgba(var(--error-color-rgb), .85);
     font-size: .9em;
     border-radius: 0.30769231rem;
     display: none;
@@ -173,7 +171,7 @@
     margin-top: .5em;
     padding: .5em 1em;
     z-index: 1;
-    border: 1px solid $error-color;
+    border: 1px solid var(--error-color);
 
     &:after, &:before {
       content: "";
@@ -188,12 +186,12 @@
     }
 
     &:after {
-      border-bottom-color: $error-background-color;
+      border-bottom-color: var(--error-background-color);
       transform: translateY(1px);
     }
 
     &:before {
-      border-bottom-color: $error-color;
+      border-bottom-color: var(--error-color);
     }
   }
 
@@ -209,14 +207,14 @@
     }
 
     &:after {
-      border-top-color: $error-background-color;
+      border-top-color: var(--error-background-color);
       border-bottom-color: transparent;
       transform: translateY(-1px);
     }
 
     &:before {
       border-bottom-color: transparent;
-      border-top-color: $error-color;
+      border-top-color: var(--error-color);
     }
   }
 
@@ -229,15 +227,15 @@
   }
 
   &.error &__input:not(:disabled) {
-    border-color: $error-color;
-    color: $error-color;
+    border-color: var(--error-color);
+    color: var(--error-color);
     box-shadow: none;
     padding-right: 2.8em;
 
     &:focus {
       border-color: transparent;
       outline: 0;
-      box-shadow: 0 0 0 0.2rem rgba($error-color, .25);
+      box-shadow: 0 0 0 0.2rem rgba(var(--error-color-rgb), .25);
     }
   }
 
@@ -285,10 +283,10 @@
     margin: 0;
     border-radius: .6em;
     z-index: 1;
-    box-shadow: 0 .1em .3em 0.2rem rgba($theme-border-color, .25);
+    box-shadow: 0 .1em .3em 0.2rem rgba(var(--theme-border-color-rgb), .25);
     overflow-y: auto;
     overflow-x: hidden;
-    background: $white;
+    background: var(--white);
 
     li {
       padding: .8em;
@@ -299,13 +297,14 @@
       text-overflow: ellipsis;
 
       &.loading {
-        padding: 0.3em 1.55em 0.3em 0.3em;
         margin: auto;
+        user-select: none;
+        cursor: default;
       }
 
-      &:hover {
-        color: $white;
-        background: $medium-theme-color;
+      &:not(.loading):hover {
+        color: var(--white);
+        background: var(--medium-theme-color);
       }
 
       span {
@@ -326,13 +325,13 @@
   &.--style-1c {
     display: flex;
     align-items: center;
-    border: 1px solid rgba($theme-border-color, .5);
+    border: 1px solid rgba(var(--theme-border-color-rgb), .5);
   }
 
-  &.input.--style-1c &__title {
-    background-color: rgba($theme-border-color, .05);
+  &.--style-1c &__title {
+    background-color: rgba(var(--theme-border-color-rgb), .05);
     border: none;
-    border-right: 1px solid rgba($theme-border-color, .5);
+    border-right: 1px solid rgba(var(--theme-border-color-rgb), .5);
     padding: .8em;
     margin: 0;
     flex: .4;
@@ -343,12 +342,8 @@
     font-size: inherit;
   }
 
-  &.input.--style-1c &__body {
-    flex: .6;
-  }
-
   &.--style-1c &__body {
-    flex: 1;
+    flex: .6;
   }
 
   &.--style-1c &__input {
@@ -356,21 +351,21 @@
     border-radius: 0;
 
     &:focus {
-      box-shadow: inset 0 0 0 0.2rem rgba($medium-theme-color, .25);
+      box-shadow: inset 0 0 0 0.2rem rgba(var(--medium-theme-color-rgb), .25);
     }
   }
 
   &.--style-1c.error &__input:not(:disabled) {
 
     &:focus {
-      box-shadow: inset 0 0 0 0.2rem rgba($error-color, .25);
+      box-shadow: inset 0 0 0 0.2rem rgba(var(--error-color-rgb), .25);
     }
   }
 
   &.--style-1c &__results {
     border-radius: 0;
     padding: 0;
-    box-shadow: 0 .1em .3em .2em rgba($theme-border-color, .5);
+    box-shadow: 0 .1em .3em .2em rgba(var(--theme-border-color-rgb), .5);
   }
 }
 

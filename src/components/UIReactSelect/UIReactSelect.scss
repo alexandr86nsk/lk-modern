@@ -1,5 +1,3 @@
-@import '../../static/css/colors.scss';
-
 .ui-react-select {
   width: 100%;
 
@@ -20,7 +18,7 @@
     }
 
     .required-icon {
-      color: $error-color;
+      color: var(--error-color);
       transform: scale(1.5);
       margin-left: 2px;
     }
@@ -58,7 +56,7 @@
   &__control.ui-react-select__control--is-focused {
     border-color: transparent;
     outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba($medium-theme-color, .25);
+    box-shadow: 0 0 0 0.2rem rgba(var(--medium-theme-color-rgb), .25);
   }
 
   &__error,
@@ -75,14 +73,14 @@
   &__success {
 
     svg {
-      fill: $success-color;
+      fill: var(--success-color);
     }
   }
 
   &__error {
 
     svg {
-      fill: $error-color;
+      fill: var(--error-color);
     }
   }
 
@@ -95,15 +93,15 @@
   }
 
   &.error &__control {
-    border-color: $error-color;
-    color: $error-color;
+    border-color: var(--error-color);
+    color: var(--error-color);
     box-shadow: none;
     padding-right: 3.1em;
 
     &:focus {
       border-color: transparent;
       outline: 0;
-      box-shadow: 0 0 0 0.2rem rgba($error-color, .25);
+      box-shadow: 0 0 0 0.2rem rgba(var(--error-color-rgb), .25);
     }
   }
 
@@ -113,12 +111,12 @@
 
   &.read-only {
     font-weight: 600;
-    border-bottom: 1px solid $theme-border-color;
+    border-bottom: 1px solid var(--theme-border-color);
   }
 
   &__control.ui-react-select__control--is-focused {
     border-color: transparent;
-    box-shadow: 0 0 0 0.2rem rgba($medium-theme-color, .25);
+    box-shadow: 0 0 0 0.2rem rgba(var(--medium-theme-color-rgb), .25);
   }
 
   &__control.ui-react-select__control--is-focused:hover {
@@ -130,12 +128,12 @@
   &.--style-1c {
     display: flex;
     align-items: center;
-    border: 1px solid rgba($theme-border-color, .5);
+    border: 1px solid rgba(var(--theme-border-color-rgb), .5);
   }
 
   &.--style-1c &__title {
-    background-color: rgba($theme-border-color, .05);
-    border-right: 1px solid rgba($theme-border-color, .5);
+    background-color: rgba(var(--theme-border-color-rgb), .05);
+    border-right: 1px solid rgba(var(--theme-border-color-rgb), .5);
     padding: .8em;
     font-weight: 500;
     margin: 0;
@@ -153,11 +151,16 @@
     border-radius: 0;
   }
 
+  &.--style-1c &__indicator.ui-react-select__dropdown-indicator,
+  &.--style-1c &__indicator.ui-react-select__clear-indicator {
+    padding: .6em;
+  }
+
   &.--style-1c &__control.ui-react-select__control--is-focused {
-    box-shadow: inset 0 0 0 0.2rem rgba($medium-theme-color, .25);
+    box-shadow: inset 0 0 0 0.2rem rgba(var(--medium-theme-color-rgb), .25);
   }
 
   &.--style-1c.error &__control.ui-react-select__control--is-focused {
-    box-shadow: inset 0 0 0 0.2rem rgba($error-color, .25);
+    box-shadow: inset 0 0 0 0.2rem rgba(var(--error-color-rgb), .25);
   }
 }

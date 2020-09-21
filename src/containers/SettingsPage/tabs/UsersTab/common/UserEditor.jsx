@@ -89,7 +89,6 @@ function UserEditor(props) {
   ]);
 
   React.useEffect(() => {
-    console.log('1');
     if (addressRegistrationCityName || addressRegistrationSettlementName) {
       popUpStoreSetSubSectionSection('userInfo', 'addressRegistration', {
         cityNameX: addressRegistrationCityName || addressRegistrationSettlementName,
@@ -102,7 +101,6 @@ function UserEditor(props) {
   ]);
 
   React.useEffect(() => {
-    console.log('2');
     if (addressResidenceCityName || addressResidenceSettlementName) {
       popUpStoreSetSubSectionSection('userInfo', 'addressResidence', {
         cityNameX: addressResidenceCityName || addressResidenceSettlementName,
@@ -115,7 +113,6 @@ function UserEditor(props) {
   ]);
 
   React.useEffect(() => {
-    console.log('3');
     if (addressRegistrationStreetName) {
       popUpStoreSetSubSectionSection('userInfo', 'addressRegistration', {
         streetNameX: addressRegistrationStreetName,
@@ -127,7 +124,6 @@ function UserEditor(props) {
   ]);
 
   React.useEffect(() => {
-    console.log('4');
     if (addressResidenceStreetName) {
       popUpStoreSetSubSectionSection('userInfo', 'addressResidence', {
         streetNameX: addressResidenceStreetName,
@@ -139,7 +135,6 @@ function UserEditor(props) {
   ]);
 
   React.useEffect(() => {
-    console.log('5');
     popUpStoreSetSubSectionSection('userInfo', 'addressResidence', {
       isConcidesPlaceReg,
     });
@@ -149,7 +144,6 @@ function UserEditor(props) {
   ]);
 
   React.useEffect(() => {
-    console.log('6');
     if (isFirstRun.current) {
       isFirstRun.current = false;
     } else if (addressRegistrationCityNameX && !addressRegistrationCityName) {
@@ -169,7 +163,6 @@ function UserEditor(props) {
   ]);
 
   React.useEffect(() => {
-    console.log('7');
     if (isFirstRun.current) {
       isFirstRun.current = false;
     } else if (addressRegistrationStreetNameX && !addressRegistrationStreetName) {
@@ -199,7 +192,6 @@ function UserEditor(props) {
   ]);
 
   React.useEffect(() => {
-    console.log('8');
     if (isFirstRun.current) {
       isFirstRun.current = false;
     } else if (addressResidenceCityNameX && !addressResidenceCityName) {
@@ -219,7 +211,6 @@ function UserEditor(props) {
   ]);
 
   React.useEffect(() => {
-    console.log('9');
     if (isFirstRun.current) {
       isFirstRun.current = false;
     } else if (addressResidenceStreetNameX && !addressResidenceStreetName) {

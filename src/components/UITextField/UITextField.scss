@@ -1,5 +1,3 @@
-@import '../../static/css/colors.scss';
-
 .ui-text-field {
   width: 100%;
   min-height: 38px;
@@ -12,7 +10,7 @@
   &__title {
     position: absolute;
     left: 10px;
-    background-color: $white;
+    background-color: var(--white);
     top: -8px;
     font-weight: bold;
     padding: 0 5px;
@@ -24,12 +22,12 @@
 
   /* *********************** underline *********************** */
   &.underline {
-    border-bottom: 1px solid $athens-gray;
+    border-bottom: 1px solid var(--theme-border-color);
   }
 
   /* *********************** bordered *********************** */
   &.bordered {
-    border: 1px solid $athens-gray;
+    border: 1px solid var(--theme-border-color);
     border-radius: 6px;
   }
 

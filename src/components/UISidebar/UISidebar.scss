@@ -1,5 +1,3 @@
-@import "../../static/css/colors";
-
 $ui-sidebar-dark-theme-background-color: #343a40;
 $ui-sidebar-dark-theme-text-color: #c2c7d0;
 $ui-sidebar-dark-theme-active-color: #0088ff;
@@ -23,14 +21,14 @@ linear-gradient(20deg, rgba(255, 255, 255, 0) 84.9%, rgba(255, 255, 255, 0.0125)
   flex-direction: column;
   height: 100vh;
   width: 250px;
-  background-color: $white;
-  color: $light-theme-color;
+  background-color: var(--white);
+  color: var(--light-theme-color);
   white-space: nowrap;
   transition: width .2s ease-in-out;
 
   &__tooltip {
     position: fixed;
-    background-color: $white;
+    background-color: var(--white);
     padding: 1em;
     border-radius: 0.30769231rem;
   }
@@ -49,7 +47,7 @@ linear-gradient(20deg, rgba(255, 255, 255, 0) 84.9%, rgba(255, 255, 255, 0.0125)
   }
 
   a:not(:hover) {
-    color: $theme-border-color;
+    color: var(--theme-border-color);
   }
 
   &__btn,
@@ -57,7 +55,7 @@ linear-gradient(20deg, rgba(255, 255, 255, 0) 84.9%, rgba(255, 255, 255, 0.0125)
     display: flex;
     align-items: center;
     width: 100%;
-    color: $theme-border-color;
+    color: var(--theme-border-color);
     padding: .8em 0;
     margin-bottom: .3em;
     border-radius: 0.30769231rem;
@@ -69,17 +67,17 @@ linear-gradient(20deg, rgba(255, 255, 255, 0) 84.9%, rgba(255, 255, 255, 0.0125)
     svg {
       width: 24px;
       height: 24px;
-      fill: $theme-border-color;
+      fill: var(--theme-border-color);
       transition: all .2s ease-in-out;
       user-select: none;
     }
 
     &:hover {
       background-color: rgba(255, 255, 255, .1);;
-      color: $light-theme-color;
+      color: var(--light-theme-color);
 
       svg {
-        fill: $light-theme-color;
+        fill: var(--light-theme-color);
       }
     }
 
@@ -105,7 +103,7 @@ linear-gradient(20deg, rgba(255, 255, 255, 0) 84.9%, rgba(255, 255, 255, 0.0125)
     }
 
     > span {
-      background-color: $white;
+      background-color: var(--white);
       padding: 10px;
       border-radius: 0.30769231rem;
       box-shadow: 0 2px 3px rgba(0, 0, 0, .22);
@@ -117,7 +115,7 @@ linear-gradient(20deg, rgba(255, 255, 255, 0) 84.9%, rgba(255, 255, 255, 0.0125)
     align-items: center;
     height: 57px;
     padding: 0 .8em;
-    border-bottom: 1px solid rgba($theme-border-color, .25);
+    border-bottom: 1px solid rgba(var(--theme-border-color), .25);
 
     img {
       width: 20px;
@@ -144,7 +142,7 @@ linear-gradient(20deg, rgba(255, 255, 255, 0) 84.9%, rgba(255, 255, 255, 0.0125)
   &__search {
     display: flex;
     align-items: center;
-    border-bottom: 1px solid $trout;
+    border-bottom: 1px solid var(--theme-border-color);
     margin: 16px 0;
     padding: 0 8px 16px 8px;
     height: 57px;
@@ -179,7 +177,7 @@ linear-gradient(20deg, rgba(255, 255, 255, 0) 84.9%, rgba(255, 255, 255, 0.0125)
     }
 
     &::-webkit-scrollbar-track {
-      background-color: $white;
+      background-color: var(--white);
     }
   }
 
@@ -221,8 +219,8 @@ linear-gradient(20deg, rgba(255, 255, 255, 0) 84.9%, rgba(255, 255, 255, 0.0125)
   &.hide &__sub-items-list-wrapper {
     width: 210px;
     position: fixed;
-    color: $white;
-    background-color: $outer_space;
+    color: var(--white);
+    background-color: var(--theme-border-color);
     border-radius: 4px;
     padding: 8px;
     box-shadow: 0 2px 3px rgba(0, 0, 0, .22);
@@ -234,11 +232,11 @@ linear-gradient(20deg, rgba(255, 255, 255, 0) 84.9%, rgba(255, 255, 255, 0.0125)
 
   &__item.active > &__link-btn,
   &__item.active &__btn {
-    color: $medium-theme-color;
-    background-color: $white;
+    color: var(--medium-theme-color);
+    background-color: var(--white);
 
     svg {
-      fill: $medium-theme-color;
+      fill: var(--medium-theme-color);
     }
   }
 
@@ -248,10 +246,10 @@ linear-gradient(20deg, rgba(255, 255, 255, 0) 84.9%, rgba(255, 255, 255, 0.0125)
 
   &__item.active &__link-btn.active {
     background-color: rgba(255, 255, 255, .9);
-    color: $medium-theme-color;
+    color: var(--medium-theme-color);
 
     svg {
-      fill: $medium-theme-color;
+      fill: var(--medium-theme-color);
     }
   }
 
@@ -308,7 +306,7 @@ linear-gradient(20deg, rgba(255, 255, 255, 0) 84.9%, rgba(255, 255, 255, 0.0125)
   }
 
   &.--compact &__item.active {
-    border-right-color: $medium-theme-color;
+    border-right-color: var(--medium-theme-color);
   }
 
   /* *************************************************** dark-theme ******************************************* */
@@ -321,7 +319,7 @@ linear-gradient(20deg, rgba(255, 255, 255, 0) 84.9%, rgba(255, 255, 255, 0.0125)
   }
 
   &.--dark-theme &__tooltip {
-    color: $white;
+    color: var(--white);
     background-color: $ui-sidebar-dark-theme-background-color;
     box-shadow: 0 2px 3px rgba(0, 0, 0, .22);
   }
@@ -336,10 +334,10 @@ linear-gradient(20deg, rgba(255, 255, 255, 0) 84.9%, rgba(255, 255, 255, 0.0125)
 
     &:hover {
       background-color: rgba(255, 255, 255, .1);
-      color: $white;
+      color: var(--white);
 
       svg {
-        fill: $white;
+        fill: var(--white);
       }
     }
 
@@ -350,11 +348,11 @@ linear-gradient(20deg, rgba(255, 255, 255, 0) 84.9%, rgba(255, 255, 255, 0.0125)
 
   &.--dark-theme &__item.active > &__link-btn,
   &.--dark-theme &__item.active &__btn {
-    color: $white;
+    color: var(--white);
     background-color: $ui-sidebar-dark-theme-active-color;
 
     svg {
-      fill: $white;
+      fill: var(--white);
     }
   }
 

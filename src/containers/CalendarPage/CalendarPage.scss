@@ -1,16 +1,14 @@
-@import "../../static/css/colors";
-
 .calendar-page {
 
   .day {
 
     &.day-start {
-      color: $white;
+      color: var(--white);
     }
   }
 
   .ui-loader__dimmer {
-    background-color: rgba($white, .9);
+    background-color: rgba(var(--white), .9);
   }
 }
 
@@ -27,7 +25,7 @@
     }
 
     &.holiday:before {
-      background-color: rgba($light-theme-color, .85);
+      background-color: rgba(var(--light-theme-color), .85);
     }
   }
 
@@ -37,14 +35,14 @@
   }
 
   .year-title {
-    color: $medium-theme-color;
+    color: var(--medium-theme-color);
   }
 
   .year-title.year-neighbor {
-    color: $light-theme-color;
+    color: var(--light-theme-color);
   }
 
   .year-title.year-neighbor2 {
-    color: rgba($light-theme-color, .8);
+    color: rgba(var(--light-theme-color), .8);
   }
 }

@@ -1,5 +1,3 @@
-@import "../../static/css/colors";
-
 .ui-pagination {
   display: flex;
   justify-content: flex-end;
@@ -41,16 +39,16 @@
     }
 
     &.active {
-      background-color: $medium-theme-color;
-      color: $white;
+      background-color: var(--medium-theme-color);
+      color: var(--white);
 
       &:hover {
-        color: $white;
+        color: var(--white);
       }
     }
 
     &:hover {
-      color: $light-theme-color;
+      color: var(--light-theme-color);
     }
   }
 
@@ -59,7 +57,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid rgba($theme-border-color, .4);
+    border: 1px solid rgba(var(--theme-border-color), .4);
 
     &:hover {
       background-color: rgba(0, 0, 0, .1);
@@ -80,7 +78,7 @@
       padding: .6em 0 .6em 1.2em;
       line-height: 1.5;
       width: 5em;
-      border: 1px solid rgba($theme-border-color, .4);
+      border: 1px solid rgba(var(--theme-border-color), .4);
       border-radius: .8em;
       background-color: transparent;
       outline: none;
@@ -89,7 +87,7 @@
       &:focus {
         border-color: transparent;
         outline: 0;
-        box-shadow: 0 0 0 0.2rem rgba($medium-theme-color, .25);
+        box-shadow: 0 0 0 0.2rem rgba(var(--medium-theme-color), .25);
       }
     }
   }

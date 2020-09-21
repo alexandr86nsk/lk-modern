@@ -1,5 +1,3 @@
-@import "../../static/css/colors";
-
 .ui-block-title {
   width: 100%;
   margin-bottom: 1.7em;
@@ -8,11 +6,11 @@
   &__main {
     font-size: 2em;
     font-weight: 300;
-    color: $medium-theme-color;
+    color: var(--medium-theme-color);
   }
 
   &__sub {
     font-size: .8em;
-    color: $theme-border-color;
+    color: var(--theme-border-color);
   }
 }

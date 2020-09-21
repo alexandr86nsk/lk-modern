@@ -1,5 +1,3 @@
-@import '../../static/css/colors.scss';
-
 .ui-button {
   width: 100%;
   height: 100%;
@@ -28,7 +26,7 @@
   }
 
   svg {
-    fill: $white;
+    fill: var(--white);
   }
 
   &__loader {
@@ -72,41 +70,41 @@
   }
 
   &.primary {
-    color: $white;
-    background-color: $curious_blue;
+    color: var(--white);
+    background-color: var(--curious_blue);
 
     &:hover {
-      background-color: $denim;
-      box-shadow: 0 5px 10px rgba($denim, .2);
+      background-color: var(--denim);
+      box-shadow: 0 5px 10px rgba(var(--denim), .2);
     }
   }
 
   &.primary-empty {
-    background-color: $white;
-    border: 1px solid $curious_blue;
-    color: $curious_blue;
+    background-color: var(--white);
+    border: 1px solid var(--curious_blue);
+    color: var(--curious_blue);
 
     svg {
-      fill: $curious_blue;
+      fill: var(--curious_blue);
     }
 
     .ui-loader {
       &::before {
-        border-color: rgba($curious_blue, .15);
+        border-color: rgba(var(--curious_blue), .15);
       }
 
       &::after {
-        border-color: $curious_blue transparent transparent;
+        border-color: var(--curious_blue) transparent transparent;
       }
     }
 
     &:hover {
-      color: $white;
-      background-color: $curious_blue;
-      box-shadow: 0 5px 10px rgba($curious_blue, .2);
+      color: var(--white);
+      background-color: var(--curious_blue);
+      box-shadow: 0 5px 10px rgba(var(--curious_blue), .2);
 
       svg {
-        fill: $white;
+        fill: var(--white);
       }
 
       .ui-loader {
@@ -122,60 +120,60 @@
   }
 
   &.positive {
-    background-color: $light_mountain_meadow;
-    color: $white;
+    background-color: var(--light_mountain_meadow);
+    color: var(--white);
 
     &:hover {
-      color: $white;
-      background-color: $mountain_meadow;
-      box-shadow: 0 5px 10px rgba($mountain_meadow, .2);
+      color: var(--white);
+      background-color: var(--mountain_meadow);
+      box-shadow: 0 5px 10px rgba(var(--mountain_meadow), .2);
     }
   }
 
   &.negative {
-    background-color: $light_alizarin_crimson;
-    color: $white;
+    background-color: var(--light_alizarin_crimson);
+    color: var(--white);
 
     &:hover {
-      color: $white;
-      background-color: $alizarin_crimson;
-      box-shadow: 0 5px 10px rgba($alizarin_crimson, .2);
+      color: var(--white);
+      background-color: var(--alizarin_crimson);
+      box-shadow: 0 5px 10px rgba(var(--alizarin_crimson), .2);
     }
   }
 
   &.black {
-    color: $white;
-    background-color: $pale_sky;
+    color: var(--white);
+    background-color: var(--pale_sky);
 
     &:hover {
-      background-color: $trout;
-      box-shadow: 0 5px 10px rgba($trout, .2);
+      background-color: var(--trout);
+      box-shadow: 0 5px 10px rgba(var(--trout), .2);
     }
   }
 
   &.black-empty {
-    background-color: $white;
-    border: 1px solid $pale_sky;
-    color: $pale_sky;
+    background-color: var(--white);
+    border: 1px solid var(--pale_sky);
+    color: var(--pale_sky);
 
     .ui-loader {
       &::before {
-        border-color: rgba($pale_sky, .15);
+        border-color: rgba(var(--pale_sky), .15);
       }
 
       &::after {
-        border-color: $pale_sky transparent transparent;
+        border-color: var(--pale_sky) transparent transparent;
       }
     }
 
     svg {
-      fill: $pale_sky;
+      fill: var(--pale_sky);
     }
 
     &:hover {
-      color: $white;
-      background-color: $pale_sky;
-      box-shadow: 0 5px 10px rgba($pale_sky, .2);
+      color: var(--white);
+      background-color: var(--pale_sky);
+      box-shadow: 0 5px 10px rgba(var(--pale_sky), .2);
 
       .ui-loader {
         &::before {
@@ -188,49 +186,49 @@
       }
 
       svg {
-        fill: $white;
+        fill: var(--white);
       }
     }
   }
 
   &.white {
-    background-color: $white;
-    color: $curious_blue;
+    background-color: var(--white);
+    color: var(--curious_blue);
     box-shadow: 0 1px 3px 1px rgba(60,64,67,0.15),
     0 1px 2px 0 rgba(60,64,67,0.3);
 
     .ui-loader {
       &::before {
-        border-color: rgba($curious_blue, .15);
+        border-color: rgba(var(--curious_blue), .15);
       }
 
       &::after {
-        border-color: $curious_blue transparent transparent;
+        border-color: var(--curious_blue) transparent transparent;
       }
     }
 
     svg {
-      fill: $curious_blue;
+      fill: var(--curious_blue);
     }
 
     &:hover {
-      color: $curious_blue;
-      background-color: $hawkes-blue;
-      box-shadow: 0 1px 5px rgba($hawkes-blue,.1),
-      1px 0 5px rgba($hawkes-blue,.1);
+      color: var(--curious_blue);
+      background-color: var(--hawkes-blue);
+      box-shadow: 0 1px 5px rgba(var(--hawkes-blue),.1),
+      1px 0 5px rgba(var(--hawkes-blue),.1);
 
       .ui-loader {
         &::before {
-          border-color: $white;
+          border-color: var(--white);
         }
 
         &::after {
-          border-color: $curious_blue transparent transparent;
+          border-color: var(--curious_blue) transparent transparent;
         }
       }
 
       svg {
-        fill: $curious_blue;
+        fill: var(--curious_blue);
       }
     }
   }
@@ -241,7 +239,7 @@
 
   &.disabled {
     color: rgba(0,0,0,.6);
-    background-color: $light_iron;
+    background-color: var(--light_iron);
 
     svg {
       fill: rgba(0,0,0,.6);
@@ -249,8 +247,8 @@
 
     &:hover {
       color: rgba(0,0,0,.8);
-      background-color: $iron;
-      box-shadow: 0 5px 10px rgba($iron, .2);
+      background-color: var(--iron);
+      box-shadow: 0 5px 10px rgba(var(--iron), .2);
 
       svg {
         fill: rgba(0,0,0,.8);
@@ -260,8 +258,8 @@
 
   &.jira {
     border-radius: 3.01px;
-    background-color: rgba($downriver,.08);
-    color: $pickled-bluewood;
+    background-color: rgba(var(--downriver),.08);
+    color: var(--pickled-bluewood);
     display: inline-block;
     height: 2.14285714em;
     line-height: 1.42857143em;
@@ -271,20 +269,20 @@
 
     .ui-loader {
       &::before {
-        border-color: rgba($pickled-bluewood, .15);
+        border-color: rgba(var(--pickled-bluewood), .15);
       }
 
       &::after {
-        border-color: $pickled-bluewood transparent transparent;
+        border-color: var(--pickled-bluewood) transparent transparent;
       }
     }
 
     svg {
-      fill: $pickled-bluewood;
+      fill: var(--pickled-bluewood);
     }
 
     &:hover {
-      background-color: rgba($downriver,.13);
+      background-color: rgba(var(--downriver),.13);
     }
   }
 }

@@ -261,7 +261,7 @@ export const userInfoPassportTemplate = [
         dataKey: 'cityNameX',
         type: 'search',
         otherProps: {
-          asInput: true,
+          isInput: true,
           required: true,
           type: '--style-1c --wrap-results',
         },
@@ -272,7 +272,7 @@ export const userInfoPassportTemplate = [
         dataKey: 'streetNameX',
         type: 'search',
         otherProps: {
-          asInput: true,
+          isInput: true,
           required: true,
           type: '--style-1c --wrap-results',
         },

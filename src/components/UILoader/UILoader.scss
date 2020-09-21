@@ -1,5 +1,3 @@
-@import "../../static/css/colors";
-
 .ui-loader {
   position: absolute;
   top: 50%;
@@ -18,7 +16,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba($white, .6);
+  background-color: rgba(var(--white), .6);
   z-index: 1;
 }
 
@@ -32,7 +30,7 @@
   width: 100%;
   height: 100%;
   border-radius: 500rem;
-  border: 0.2em solid rgba($light-theme-color, 0.1);
+  border: 0.2em solid rgba(var(--light-theme-color), 0.1);
 }
 
 /* Active Shape */
@@ -49,7 +47,7 @@
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
   border-radius: 500rem;
-  border-color: $medium-theme-color transparent transparent;
+  border-color: var(--medium-theme-color) transparent transparent;
   border-style: solid;
   border-width: 0.2em;
   -webkit-box-shadow: 0 0 0 1px transparent;

@@ -32,6 +32,7 @@ interface IUISearchProps {
   required?: boolean;
   type?: string;
   isInput?: boolean;
+  isSelected?: boolean;
   successFormat?: string;
 }
 
@@ -83,11 +84,13 @@ function UISearch(props: IUISearchProps) {
     required,
     type,
     isInput,
+    isSelected,
     successFormat,
   } = props || {};
 
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const [loading, setLoading] = React.useState(false);
+  const [selected, setSelected] = React.useState(false);
   const [resultsStyle, setResultsStyle] = React.useState(topStyle);
 
   const calculateStyle = React.useCallback(() => {
@@ -104,24 +107,6 @@ function UISearch(props: IUISearchProps) {
     }
   }, []);
 
-  React.useEffect(() => {
-    calculateStyle();
-  }, [calculateStyle]);
-
-  const onWheel = React.useCallback(() => {
-    calculateStyle();
-  }, [calculateStyle]);
-
-  React.useEffect(() => {
-    if (!hideResults) {
-      document.addEventListener('wheel', onWheel);
-      return () => {
-        document.removeEventListener('wheel', onWheel);
-      };
-    }
-    return undefined;
-  }, [hideResults, onWheel]);
-
   const handleChangeInput = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     if (callback) {
       const { target } = event || {};
@@ -130,12 +115,15 @@ function UISearch(props: IUISearchProps) {
         setLoading(true);
         setTimeout(() => setLoading(false), 300);
       }
+      calculateStyle();
+      setSelected(false);
       callback(name, value);
     }
-  }, [name, searchServerSide, callback]);
+  }, [name, searchServerSide, callback, calculateStyle]);
 
   const handleSetInput = React.useCallback((value) => {
     if (callback) {
+      setSelected(true);
       callback(name, value);
     }
   }, [name, callback]);
@@ -150,7 +138,7 @@ function UISearch(props: IUISearchProps) {
       });
     }
     return (
-      <li>Поиск не дал результатов</li>
+      <li className="loading">Поиск не дал результатов</li>
     );
   }, [handleSetInput, results]);
 
@@ -182,6 +170,8 @@ function UISearch(props: IUISearchProps) {
       str = `${str} required`;
       if (!data) {
         str = `${str} error`;
+      } else if (isInput && (selected || isSelected)) {
+        str = `${str} success`;
       }
     }
     if (data) {
@@ -191,7 +181,9 @@ function UISearch(props: IUISearchProps) {
     }
     return str;
   }, [
+    selected,
     isInput,
+    isSelected,
     required,
     disabled,
     loading,
@@ -231,7 +223,7 @@ function UISearch(props: IUISearchProps) {
         />
         {data && !hideResults && (
           <ul className="ui-search__results" style={resultsStyle}>
-            {(loadingData || loading) && <li className="loading loading-ellipsis-emulator">Идет поиск</li>}
+            {(loadingData || loading) && <li className="loading loading-ellipsis">Идет поиск</li>}
             {!(loadingData || loading) && (customResults || memoizedResults)}
           </ul>
         )}

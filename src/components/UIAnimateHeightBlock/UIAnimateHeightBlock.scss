@@ -1,11 +1,9 @@
-@import "../../static/css/colors";
-
 .ui-animate-height-block {
 
   &__header {
     display: flex;
     align-items: center;
-    background-color: rgba($light-theme-color, 0.15);
+    background-color: rgba(var(--light-theme-color-rgb), 0.15);
     padding: .6em;
   }
 
@@ -39,6 +37,6 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: rgba(255, 255, 255, .3);
+    background-color: rgba(var(--white-rgb), .3);
   }
 }

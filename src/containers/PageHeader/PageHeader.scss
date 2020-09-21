@@ -1,9 +1,7 @@
-@import '../../static/css/colors';
-
 .page-header {
   display: flex;
   align-items: center;
-  background-color: $white;
+  background-color: var(--white);
   padding: 0 .8em;
 
   &__user-info-wrapper {
@@ -31,7 +29,7 @@
         width: 2.5em;
         height: 2.5em;
         border-radius: 50%;
-        background-color: $white;
+        background-color: var(--white);
         overflow: hidden;
       }
 
@@ -41,7 +39,7 @@
         top: calc(100% + 1px);
         right: 0;
         width: 100%;
-        background-color: $white;
+        background-color: var(--white);
         border: 1px solid rgba(0, 0, 0, .1);
         border-top: none;
         box-shadow: 0 10px 20px rgba(147, 147, 147, 0.12);
@@ -65,16 +63,16 @@
           }
 
           &:hover {
-            background-color: rgba($medium-theme-color, .65);
-            color: $white;
+            background-color: rgba(var(--medium-theme-color), .65);
+            color: var(--white);
 
             & > svg {
-              fill: $white;
+              fill: var(--white);
             }
           }
 
           &:nth-last-child(1) {
-            border-top: 1px solid rgba($theme-border-color, .5);
+            border-top: 1px solid rgba(var(--theme-border-color), .5);
           }
         }
       }

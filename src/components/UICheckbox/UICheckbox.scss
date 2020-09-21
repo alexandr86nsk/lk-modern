@@ -14,7 +14,7 @@
     user-select: none;
     cursor: pointer;
     margin-right: 10px;
-    background-color: $white;
+    background-color: var(--white);
 
     input {
       display: none;
@@ -81,15 +81,15 @@
     }
 
     &.disabled input:checked + .checkbox {
-      border-color: $white-aluminum;
+      border-color: var(--white-aluminum);
     }
 
     &.disabled input:checked + .checkbox svg path {
-      fill: $white-aluminum;
+      fill: var(--white-aluminum);
     }
 
     &.disabled .checkbox svg path {
-      fill: $athens-gray;
+      fill: var(--athens-gray);
     }
 
     &.disabled:hover .checkbox svg path {

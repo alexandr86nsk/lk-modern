@@ -1,8 +1,5 @@
 import React from 'react';
 import './App.scss';
-import './static/css/default.scss';
-import './static/css/typography.scss';
-import '../semantic-ui/semantic.less';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AnimatePresence } from 'framer-motion';

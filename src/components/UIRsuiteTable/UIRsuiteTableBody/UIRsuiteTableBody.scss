@@ -1,9 +1,7 @@
-@import "../../../static/css/colors";
-
 .ui-rsuite-table {
 
   &__table {
-    background-color: $white;
+    background-color: var(--white);
   }
 
   .rs-table {
@@ -53,7 +51,7 @@
 
       &:after {
         transform: none;
-        color: $medium-theme-color;
+        color: var(--medium-theme-color);
         content: '\f309';
       }
     }
@@ -62,7 +60,7 @@
 
       &:after {
         transform: none;
-        color: $medium-theme-color;
+        color: var(--medium-theme-color);
         content: '\f30c';
       }
     }
@@ -72,17 +70,17 @@
     width: 3px;
 
     &:hover {
-      background: $medium-theme-color;
+      background: var(--medium-theme-color);
     }
   }
 
   .rs-table-mouse-area {
-    background: $medium-theme-color;
+    background: var(--medium-theme-color);
   }
 
   .rs-table:not(.rs-table-column-resizing) .rs-table-cell-header .rs-table-cell:hover~.rs-table-column-resize-spanner,
   .rs-table:not(.rs-table-column-resizing) .rs-table-column-resize-spanner:hover {
-    background-color: $medium-theme-color;
+    background-color: var(--medium-theme-color);
   }
 
   .rs-table:not(.rs-table-column-resizing) .rs-table-cell-header .rs-table-cell:hover~.rs-table-column-resize-spanner:after,
@@ -106,13 +104,13 @@
 
   .rs-table-column-resize-spanner:after {
     border: 3px dashed transparent;
-    border-left: 3px solid $medium-theme-color;
+    border-left: 3px solid var(--medium-theme-color);
     left: 4px;
   }
 
   .rs-table-column-resize-spanner:before {
     border: 3px dashed transparent;
-    border-right: 3px solid $medium-theme-color;
+    border-right: 3px solid var(--medium-theme-color);
     right: 4px;
   }
 
@@ -153,10 +151,10 @@
   }
 
   .rs-table-scrollbar {
-    background: rgba($light-theme-color,.2);
+    background: rgba(var(--light-theme-color-rgb),.2);
   }
 
   .rs-table-scrollbar-handle {
-    background: rgba($light-theme-color,.8);
+    background: rgba(var(--light-theme-color-rgb),.8);
   }
 }
