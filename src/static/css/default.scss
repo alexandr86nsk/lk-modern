@@ -105,7 +105,8 @@ select {
 .App input,
 .App button,
 .App textarea,
-.App select {
+.App select,
+.App button.ui.button.button {
   font: inherit;
 }
 
