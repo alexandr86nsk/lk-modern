@@ -40,9 +40,9 @@
         right: 0;
         width: 100%;
         background-color: var(--white);
-        border: 1px solid rgba(0, 0, 0, .1);
+        border: 1px solid rgba(var(--theme-border-color-rgb), .1);
         border-top: none;
-        box-shadow: 0 10px 20px rgba(147, 147, 147, 0.12);
+        box-shadow: 0 10px 20px rgba(var(--theme-border-color-rgb), 0.12);
         overflow: hidden;
         z-index: 10;
 
@@ -63,7 +63,7 @@
           }
 
           &:hover {
-            background-color: rgba(var(--medium-theme-color), .65);
+            background-color: rgba(var(--medium-theme-color-rgb), .65);
             color: var(--white);
 
             & > svg {
@@ -72,14 +72,14 @@
           }
 
           &:nth-last-child(1) {
-            border-top: 1px solid rgba(var(--theme-border-color), .5);
+            border-top: 1px solid rgba(var(--theme-border-color-rgb), .5);
           }
         }
       }
 
       &.active,
       &:hover {
-        background-color: rgba(147, 147, 147, 0.13);
+        background-color: rgba(var(--theme-border-color-rgb), 0.13);
       }
 
       &.active {

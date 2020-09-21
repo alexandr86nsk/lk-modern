@@ -31,7 +31,7 @@
   &__top-panel {
     display: flex;
     justify-content: flex-end;
-    background: linear-gradient(to bottom, rgba(var(--light-theme-color), .8), rgba(var(--medium-theme-color), .8));
+    background: linear-gradient(to bottom, rgba(var(--light-theme-color-rgb), .8), rgba(var(--medium-theme-color-rgb), .8));
     color: #4d494d;
     line-height: 2em;
     text-align: center;
@@ -86,7 +86,7 @@
   &.--horizontal-right {
     left: unset;
     transition: all .5s ease;
-    box-shadow: -3px 1px 6px rgba(147, 147, 147, 0.3);
+    box-shadow: -3px 1px 6px rgba(var(--theme-border-color-rgb), 0.3);
 
     &.entering {
       opacity: .5;
@@ -137,10 +137,10 @@
 
   &.--rounded {
     right: .5em;
-    box-shadow: -2px 3px 10px rgba(147, 147, 147, 0.25),
-    -2px 3px 4px rgba(147, 147, 147, 0.15),
-    2px 3px 4px rgba(147, 147, 147, 0.15),
-    2px 3px 10px rgba(147, 147, 147, 0.25);
+    box-shadow: -2px 3px 10px rgba(var(--theme-border-color-rgb), 0.25),
+    -2px 3px 4px rgba(var(--theme-border-color-rgb), 0.15),
+    2px 3px 4px rgba(var(--theme-border-color-rgb), 0.15),
+    2px 3px 10px rgba(var(--theme-border-color-rgb), 0.25);
   }
 
   &.--rounded,

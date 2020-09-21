@@ -343,6 +343,10 @@
   }
 
   &.--style-1c &__body {
+    flex: 1;
+  }
+
+  &.--style-1c &__title ~ &__body {
     flex: .6;
   }
 

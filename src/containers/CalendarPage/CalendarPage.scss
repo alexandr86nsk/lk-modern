@@ -8,7 +8,7 @@
   }
 
   .ui-loader__dimmer {
-    background-color: rgba(var(--white), .9);
+    background-color: rgba(var(--white-rgb), .9);
   }
 }
 
@@ -25,7 +25,7 @@
     }
 
     &.holiday:before {
-      background-color: rgba(var(--light-theme-color), .85);
+      background-color: rgba(var(--light-theme-color-rgb), .85);
     }
   }
 
@@ -43,6 +43,6 @@
   }
 
   .year-title.year-neighbor2 {
-    color: rgba(var(--light-theme-color), .8);
+    color: rgba(var(--light-theme-color-rgb), .8);
   }
 }

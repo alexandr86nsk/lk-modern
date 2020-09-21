@@ -160,7 +160,7 @@ function UIPagination(props) {
           <span>Перейти</span>
           <input
             ref={inputEl}
-            className="input"
+            className="input ellipsis-element"
             type="number"
             onKeyDown={handlePageInput}
           />

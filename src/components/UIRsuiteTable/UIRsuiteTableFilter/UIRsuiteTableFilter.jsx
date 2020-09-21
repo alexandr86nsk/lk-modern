@@ -12,7 +12,7 @@ function UIRsuiteTableFilter(props) {
     filterBodyTitle = 'Фильтр',
     filterHideControl,
     filterSelectedItemsCount,
-  } = props;
+  } = props || {};
 
   const filterEl = React.useRef(null);
   const [showFilter, setShowFilter] = React.useState(false);

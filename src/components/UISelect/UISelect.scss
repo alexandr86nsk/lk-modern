@@ -5,7 +5,7 @@
   width: 100%;
   border-radius: .8em;
   background: var(--white);
-  border: 1px solid rgba(var(--theme-border-color), 0.4);
+  border: 1px solid rgba(var(--theme-border-color-rgb), 0.4);
   cursor: pointer;
   padding: .2em;
 
@@ -25,6 +25,7 @@
     user-select: none;
     cursor: pointer;
     border: none;
+    background-color: transparent;
   }
 
   &__button {
@@ -46,17 +47,17 @@
   }
 
   &__options {
-/*    border-left: 1px solid var(--athens-gray;
-    border-right: 1px solid var(--athens-gray;
-    border-bottom: 1px solid var(--athens-gray;
-    border-top: none;*/
     position: absolute;
-    top: 100%;
+    top: 0;
     left: -1px;
     right: -1px;
-    border-radius: 0 0 .8em .8em;
-    z-index: 2;
-    box-shadow: 1px 6px 5px rgba(147, 147, 147, 0.5);
+    padding-top: 2.6em;
+    border-radius: .8em;
+    z-index: 1;
+    box-shadow: -1px 3px 6px rgba(var(--theme-border-color-rgb), 0.25),
+    -1px 3px 3px rgba(var(--theme-border-color-rgb), 0.15),
+    1px 3px 3px rgba(var(--theme-border-color-rgb), 0.15),
+    1px 3px 6px rgba(var(--theme-border-color-rgb), 0.25);
     overflow: hidden;
   }
 
@@ -73,10 +74,14 @@
       user-select: none;
 
       &:hover {
-        background: rgba(var(--medium-theme-color), .6);
+        background: rgba(var(--medium-theme-color-rgb), .6);
         color: var(--white);
       }
     }
+  }
+
+  &.active &__input {
+    z-index: 2;
   }
 
   &.active &__options-wrapper {
@@ -84,9 +89,8 @@
   }
 
   &.active {
-    border-radius: .8em .8em 0 0;
+    border-radius: .8em;
     border-color: transparent;
-    box-shadow: 1px 6px 5px rgba(147, 147, 147, 0.5);
     z-index: 2;
   }
 
@@ -110,7 +114,7 @@
       left: 0;
       justify-content: center;
       align-items: center;
-      background: rgba(0, 0, 0, .7);
+      background: rgba(var(--theme-border-color-rgb), .7);
       z-index: 10;
     }
 
@@ -121,7 +125,7 @@
       right: 0;
       bottom: 0;
       left: 0;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(var(--theme-border-color-rgb), 0.7);
     }
 
     &__options {

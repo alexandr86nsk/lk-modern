@@ -4,11 +4,10 @@ import useOutsideClick from '../UICustomHooks/useOutsideClick/useOutsideClick';
 import UISelectOption from './UISelectOption';
 import ArrowIcon from './arrow-icon.svg';
 
-
 function UISelect(props) {
   const {
     options = [],
-    selected = '',
+    selected,
     callback,
   } = props || {};
 
@@ -40,10 +39,17 @@ function UISelect(props) {
     setShowOptions(!showOptions);
   }, [showOptions]);
 
-  const memoizedOptions = React.useMemo(() => (
-    options.map((v) => (
-      <UISelectOption key={v} option={v} callback={selectOption}/>
-    ))), [options, selectOption]);
+  const memoizedOptions = React.useMemo(() => {
+    if (options && Array.isArray(options)) {
+      return options.map((v) => {
+        if (v !== selected) {
+          return <UISelectOption key={v} option={v} callback={selectOption} />;
+        }
+        return null;
+      });
+    }
+    return null;
+  }, [options, selected, selectOption]);
 
   return (
     <div
@@ -62,7 +68,7 @@ function UISelect(props) {
         className="ui-select-block__button"
         onClick={handleChangeOptionsView}
       >
-        <ArrowIcon/>
+        <ArrowIcon />
       </div>
       <div className="ui-select-block__options-wrapper">
         <div
