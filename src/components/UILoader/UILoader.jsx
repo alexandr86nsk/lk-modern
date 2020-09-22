@@ -39,10 +39,21 @@ function UILoader(props) {
   return (
     <>
       <div className={className}>
-        <span className="ui-loader__text">
-          {text}
-        </span>
-        {!hideDots && memoizedDots}
+        {type && type.includes('--google')
+          && (
+          <div className="ui-loader__spinner">
+            <div className="shape shape-1" />
+            <div className="shape shape-2" />
+            <div className="shape shape-3" />
+            <div className="shape shape-4" />
+          </div>
+          )}
+        <div className="ui-loader__title">
+          <span className="ui-loader__text">
+            {text}
+          </span>
+          {!hideDots && memoizedDots}
+        </div>
       </div>
       {dimmed && <div className="ui-loader__dimmer" />}
     </>

@@ -6,7 +6,6 @@ import actions from '../../redux/actions/actions';
 import ErrorsBlock from './ErrorsBlock';
 import UILoader from '../../components/UILoader/UILoader';
 import UIInput from '../../components/UIInput/UIInput';
-import logo from '../../static/images/logo.png';
 import UILogo from '../../components/UILogo/UILogo';
 
 function AuthPage(props) {
@@ -61,7 +60,7 @@ function AuthPage(props) {
           <div className="form__body">
             {tryLogIn && (
             <div className="form__loader">
-              <UILoader text="Выполняется авторизация" />
+              <UILoader type="--google --ios-dimmed" text="Выполняется авторизация" />
             </div>
             )}
             <div className="auth-page__logo">

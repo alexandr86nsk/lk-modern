@@ -32,7 +32,6 @@
     display: flex;
     justify-content: flex-end;
     background: linear-gradient(to bottom, rgba(var(--light-theme-color-rgb), .8), rgba(var(--medium-theme-color-rgb), .8));
-    color: #4d494d;
     line-height: 2em;
     text-align: center;
     width: 100%;
@@ -90,12 +89,12 @@
 
     &.entering {
       opacity: .5;
-      transform: translateX(110%);
+      transform: translateX(200%);
     }
 
     &.exiting {
       opacity: .5;
-      transform: translateX(110%);
+      transform: translateX(200%);
     }
   }
 

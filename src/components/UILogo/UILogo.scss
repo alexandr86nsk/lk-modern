@@ -4,9 +4,14 @@
   padding: 2.5em 0;
 
   &__image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     transition: transform 1s;
     cursor: pointer;
-    padding: 0 1em;
+    margin: 0 1em;
+    width: 32px;
+    height: 32px;
 
     &:hover {
       transform: rotate(360deg);
@@ -37,6 +42,6 @@
   }
 
   &.--vertical &__image {
-    padding: .5em 0;
+    margin: .5em 0;
   }
 }

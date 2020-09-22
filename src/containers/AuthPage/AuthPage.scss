@@ -24,7 +24,7 @@
 
   &__form {
     width: 100%;
-    border-radius: .6em;
+    border-radius: 1.3em;
     border: 1px solid rgba(var(--theme-border-color-rgb), .5);
   }
 
@@ -35,18 +35,18 @@
       display: grid;
       grid-template: auto / 1fr;
       grid-gap: 1em;
-      padding: 2.4em;
+      padding: 2.4em 2.4em 5em 2.4em;
     }
 
     &__loader {
-      border-radius: .6em;
+      border-radius: 1.3em;
       position: absolute;
       top: 0;
       right: 0;
       bottom: 0;
       left: 0;
       z-index: 1;
-      background-color: rgba(var(--white-rgb), .95);
+      background-color: rgba(var(--white-rgb), .3);
     }
 
     &__header {
@@ -74,19 +74,12 @@
   }
 }
 
-@media screen and (max-width: 1100px) {
-  .auth-page {
-
-    &__banner {
-      height: 100%;
-    }
+@media screen and (max-width: 1000px) {
+ .auth-page {
 
     &__form {
       border: none;
       border-radius: 0;
-      box-shadow: none;
-      top: 50%;
-      transform: translateX(-50%) translateY(-50%);
     }
   }
 }
