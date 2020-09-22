@@ -7,10 +7,10 @@ import api from '../../../api/api';
 import actions from '../../actions/actions';
 import { queryResultAnalysis } from '../common/globalSaga';
 import ratingReportBySettlementsFilterTemplate
-  from '../../../containers/ReportsPage/tabs/RatingReportBySettlementsTab/settings';
-import operationalReportFilterTemplate from '../../../containers/ReportsPage/tabs/OperationalReportTab/settings';
-import rewardReportFilterTemplate from '../../../containers/ReportsPage/tabs/RewardReportTab/settings';
-import activationReportFilterTemplate from '../../../containers/ReportsPage/tabs/ActivationReportTab/settings';
+  from '../../../containers/ReportsPage_OLD/tabs/RatingReportBySettlementsTab/settings';
+import operationalReportFilterTemplate from '../../../containers/ReportsPage_OLD/tabs/OperationalReportTab/settings';
+import rewardReportFilterTemplate from '../../../containers/ReportsPage_OLD/tabs/RewardReportTab/settings';
+import activationReportFilterTemplate from '../../../containers/ReportsPage_OLD/tabs/ActivationReportTab/settings';
 
 const getReportFileName = (name, obj, objVar) => {
   if (objVar && Array.isArray(objVar)) {

@@ -1,24 +1,30 @@
 import React from 'react';
-import SettingsTab from './tabs/SettingsTab/SettingsTab';
-import UsersTab from './tabs/UsersTab/UsersTab';
-import TemplatesTab from './tabs/TemplatesTab/TemplatesTab';
+import MainTab from './tabs/MainTab/MainTab';
+// import RecallTab from './tabs/RecallTab/RecallTab';
+// import TimeZoneTab from './tabs/TimeZoneTab/TimeZoneTab';
+// import QueuePhoneTab from './tabs/QueuePhoneTab/QueuePhoneTab';
 
 const settingsTabs = [
   {
     id: 0,
-    title: 'Настройки',
-    item: <SettingsTab />,
+    title: 'Основные',
+    item: <MainTab />,
   },
-  {
+/*  {
     id: 1,
-    title: 'Список пользователей',
-    item: <UsersTab />,
+    title: 'Настройки перезвона',
+    item: <RecallTab />,
   },
   {
     id: 2,
-    title: 'Шаблоны СМС',
-    item: <TemplatesTab />,
+    title: 'Настройки часовых поясов',
+    item: <TimeZoneTab />,
   },
+  {
+    id: 3,
+    title: 'Настройки Групп Очереди Операторов',
+    item: <QueuePhoneTab />,
+  },*/
 ];
 
 export default settingsTabs;

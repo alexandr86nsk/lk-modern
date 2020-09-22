@@ -9,6 +9,7 @@ import * as popUp from './common/popUpActions';
 import * as auth from './auth/authActions';
 import * as calendar from './calendar/calendarActions';
 import * as global from './common/globalStoreActions';
+import * as briefcases from './briefcases/briefcasesActions';
 
 const actions = {
   ...auth,
@@ -22,6 +23,7 @@ const actions = {
   ...popUp,
   ...calendar,
   ...global,
+  ...briefcases,
 };
 
 export default actions;

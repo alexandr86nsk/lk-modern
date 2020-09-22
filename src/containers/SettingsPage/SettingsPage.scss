@@ -1,3 +1,5 @@
+@import "../../static/css/colors_old";
+
 .settings-page {
 
   .controls {
@@ -8,116 +10,101 @@
     margin-top: 12px;
   }
 
-  &__tab {
-    position: relative;
-    width: 100%;
-    height: 100%;
+  &__main-tab {
 
-    .ui-input {
-      margin: .1em 0;
+    .input-block {
+      display: grid;
+      grid-template: auto / 1fr;
+      // grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-gap: .5em;
+
+/*      .ui-input {
+        max-width: 300px;
+      }*/
     }
   }
 
-  &__tab.users {
+  &__recall-tab {
 
-    .users-filter {
+    .recall-item {
       display: grid;
-      grid-template: auto / repeat(5, 1fr);
-      grid-gap: 1em;
-    }
+      grid-template-columns: repeat(6, 1fr);
+      grid-column-gap: 20px;
+      grid-row-gap: 10px;
+      border-radius: 4px;
+      border: 1px solid $athens-gray;
+      padding: 6px 10px 10px 10px;
+      margin-bottom: 10px;
+      background-image: linear-gradient(white 0%, #f7fafc 33%);
 
-    .ui-rsuite-table {
-      grid-template: 90px 1fr 50px/1fr;
+      .ui-text-field {
+        min-height: unset;
+        grid-column-end: span 6;
 
-      &__control-block {
-        z-index: 3;
+        &__body {
+          filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.6));
+          padding: 0;
+        }
+      }
+
+      .ui-input {
+        grid-column-end: span 3;
+        margin: 0;
+
+        &__title {
+          margin-bottom: 3px;
+        }
       }
     }
   }
 
-  &__add-template-popup .add-item-popup__table {
-    display: grid;
-    grid-template: auto minmax(0, 1fr) / minmax(0, 1fr);
-    grid-gap: 1em;
-    overflow: unset;
-    left: .7em;
-    right: .7em;
+  &__time-zone-tab,
+  &__queue-phone-tab {
+
+    .time-zone-item,
+    .queue-phone-item {
+      width: auto;
+      display: grid;
+      grid-gap: 15px;
+      grid-template: repeat(auto-fill, minmax(max-content, 38px)) / repeat(auto-fill, minmax(max-content, 250px));
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 6px;
+      padding: 5px;
+      position: relative;
+      margin: 8px 0;
+
+      @media screen and(max-width: 767px) {
+        padding: 10px;
+      }
+
+      .ui-react-select,
+      .ui-input {
+        margin: 0;
+
+        input::placeholder {
+          opacity: 0.5;
+        }
+      }
+    }
   }
 }
 
-.template-editor {
-  width: 100%;
-  height: 100%;
+.queue-phone-tab__item {
   display: grid;
-  grid-template: auto minmax(0, 1fr) / minmax(0, 1fr);
+  grid-template: auto / repeat(24, 1fr);
+  grid-gap: 1.5em;
 
-  &__title {
-    background-color: rgba(var(--theme-border-color-rgb), .05);
-    border: 1px solid rgba(var(--theme-border-color-rgb), .5);
-    border-bottom: none;
-    padding: .8em;
-    overflow: hidden;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  > div {
+    grid-column: span 12;
 
-    .required-icon {
-      color: var(--error-color);
-      transform: scale(1.5);
-      margin-left: .2em;
+    &:nth-of-type(1),
+    &:nth-of-type(6) {
+      grid-column: span 24;
     }
   }
 
-  &__body {
-    position: relative;
-  }
-
-  .backdrop,
-  textarea {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    padding: 1.2em;
-    outline: none;
-    line-height: 1.8em;
-    overflow-wrap: break-word;
-    display: inline-block;
-    align-items: center;
-    border: 1px solid rgba(var(--theme-border-color-rgb), .5);
-    transition: border-color .15s ease-in-out;
-    overflow-x: hidden;
-    overflow-y: scroll;
-  }
-
-  .backdrop {
-    z-index: 1;
-    background-color: var(--white);
-    pointer-events: none;
-  }
-
-  .highlights {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    color: transparent;
-  }
-
-  textarea {
-    z-index: 2;
-    background-color: transparent;
-    resize: none;
-
-    &:focus {
-      box-shadow: inset 1px 1px 5px rgba(var(--medium-theme-color-rgb), 0.5),
-      inset -11px -1px 5px rgba(var(--medium-theme-color-rgb), 0.5);
-      border-color: transparent;
-    }
-  }
-
-  mark {
-    border-radius: .3em;
-    color: transparent;
-    padding: .3em 0;
-    background-color: rgba(var(--light-theme-color-rgb), .3);
+  .ui-react-select,
+  .ui-input {
+    margin: 0;
   }
 }

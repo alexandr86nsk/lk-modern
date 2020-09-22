@@ -13,33 +13,21 @@ const UISidebarList = [
     items: [
       {
         id: 0,
-        title: 'Список зон',
-        link: '/zone',
+        title: 'Кампании',
+        link: '/briefcases',
         icon: <ZoneIcon />,
       },
       {
         id: 1,
-        title: 'Админцентр',
+        title: 'Настройки',
         link: '/settings',
         icon: <SettingsIcon />,
       },
       {
         id: 2,
-        title: 'Отчетность',
+        title: 'Мониторинг',
         link: '/reports',
         icon: <ReportsIcon />,
-      },
-      {
-        id: 3,
-        title: 'Календарь',
-        link: '/calendar',
-        icon: <CalendarIcon />,
-      },
-      {
-        id: 4,
-        title: 'Тест',
-        link: '/test',
-        icon: <TestIcon />,
       },
     ],
   },

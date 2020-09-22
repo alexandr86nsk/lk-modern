@@ -4,7 +4,7 @@ import { Button, Icon } from 'semantic-ui-react';
 import actions from '../../../redux/actions/actions';
 import formGenerator from '../../../components/utilities/formGenerator';
 import { subZoneInfoTemplate, zoneAddressVariables, zoneInfoTemplate } from '../settings';
-import KladrItem from '../../SettingsPage/tabs/UsersTab/common/KladrItem';
+import KladrItem from '../../SettingsPage_OLD/tabs/UsersTab/common/KladrItem';
 
 function ZoneEditor(props) {
   const {

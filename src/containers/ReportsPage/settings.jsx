@@ -1,29 +1,23 @@
 import React from 'react';
-import RatingReportBySettlementsTab from './tabs/RatingReportBySettlementsTab/RatingReportBySettlementsTab';
-import OperationalReportTab from './tabs/OperationalReportTab/OperationalReportTab';
-import RewardReportTab from './tabs/RewardReportTab/RewardReportTab';
-import ActivationReportTab from './tabs/ActivationReportTab/ActivationReportTab';
+import ActualStateTab from './tabs/ActualStateTab/ActualStateTab';
+import HistoryTab from './tabs/HistoryTab/HistoryTab';
+import IndicatorsTab from './tabs/IndicatorsTab/IndicatorsTab';
 
 const reportsTabs = [
   {
     id: 0,
-    title: 'Рейтинговый отчёт по населённым пунктам',
-    item: <RatingReportBySettlementsTab />,
+    title: 'Текущие состояния',
+    item: <ActualStateTab />,
   },
   {
     id: 1,
-    title: 'Операционный отчёт',
-    item: <OperationalReportTab />,
+    title: 'Мониторинг событий',
+    item: <HistoryTab />,
   },
   {
     id: 2,
-    title: 'Отчёт по вознаграждению',
-    item: <RewardReportTab />,
-  },
-  {
-    id: 2,
-    title: 'Отчёт по активациям',
-    item: <ActivationReportTab />,
+    title: 'Показатели',
+    item: <IndicatorsTab />,
   },
 ];
 

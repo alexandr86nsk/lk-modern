@@ -6,35 +6,38 @@ import { AnimatePresence } from 'framer-motion';
 import routes from './routes/routes';
 import PrivateRoutes from './routes/privateRoutes';
 import PageWrapper from './components/PageWrapper/PageWrapper';
-import AuthPage from './containers/AuthPage/AuthPage';
+// import AuthPage from './containers/AuthPage/AuthPage';
 
-const App = (props) => {
-  const { token } = props || {};
+const App = (/* props */) =>
+// const { token } = props || {};
 
-  return (
+  (
     <div className="App">
-      <PageWrapper isAuth={token}>
+      {/* <PageWrapper isAuth={true}> */}
+      <PageWrapper isAuth>
         <AnimatePresence>
           <Switch>
             <Route
               exact
               path="/"
-              render={() => (
+              /* render={() => (
                 token ? <Redirect to="/zone" /> : <Redirect to="/sign-in" />
-              )}
+              )} */
+              render={() => <Redirect to="/briefcases" />}
             />
-            <Route
+            {/*            <Route
               exact
               path="/sign-in"
               render={() => (
                 token ? <Redirect to="/zone" /> : <AuthPage />
               )}
-            />
+            /> */}
             {routes.map(({
               path, exact, component: C, ...rest
             }) => (
               <PrivateRoutes
-                isLoggedIn={!!token}
+                /* isLoggedIn={!!token} */
+                isLoggedIn
                 key={path}
                 path={path}
                 exact={exact}
@@ -47,8 +50,6 @@ const App = (props) => {
       </PageWrapper>
     </div>
   );
-};
-
 const mapStateToProps = (state) => ({
   token: state.tokenStore.token,
 });

@@ -6,48 +6,26 @@ import UIBlockTitle from '../../components/UIBlockTitle/UIBlockTitle';
 import UITab from '../../components/UITab/UITab';
 import reportsTabs from './settings';
 
+
 function ReportsPage(props) {
   const {
-    zoneStoreGetZones,
-    zoneStoreGetZonesCancel,
-    zoneStoreGetUsers,
-    zoneStoreGetUsersCancel,
-    zoneStoreClear,
-    modalStoreClear,
-  } = props || {};
+    reportsStoreGetBriefcases,
+    reportsStoreGetBriefcasesCancel,
+    reportsStoreClear,
+  } = props;
 
-  /* ***************************** mount ********************** */
   React.useEffect(() => {
-    zoneStoreGetZones({ key: 'zone' });
-    zoneStoreGetUsers({ key: 'zone' });
-    zoneStoreGetUsers({ key: 'subZone' });
-  }, [
-    zoneStoreGetZones,
-    zoneStoreGetUsers,
-  ]);
-  /* ********************************************************** */
+    reportsStoreGetBriefcases();
+  }, [reportsStoreGetBriefcases]);
 
-  /* ***************************** update ********************** */
-
-  /* ********************************************************** */
-
-  /* ***************************** unmount ********************** */
   React.useEffect(() => () => {
-    zoneStoreGetZonesCancel();
-    zoneStoreGetUsersCancel();
-    zoneStoreClear();
-    modalStoreClear();
-  }, [
-    zoneStoreGetZonesCancel,
-    zoneStoreGetUsersCancel,
-    zoneStoreClear,
-    modalStoreClear,
-  ]);
-  /* ********************************************************** */
+    reportsStoreGetBriefcasesCancel();
+    reportsStoreClear();
+  }, [reportsStoreGetBriefcasesCancel, reportsStoreClear]);
 
   return (
     <div className="reports-page page__content">
-      <UIBlockTitle title="Отчетность" />
+      <UIBlockTitle title="Мониторинг" />
       <UITab
         tabs={reportsTabs}
         renderActiveOnly

@@ -11,6 +11,7 @@ import zoneStore from './zone/zoneStore';
 import popUpStore from './common/popUpStore';
 import calendarStore from './calendar/calendarStore';
 import globalStore from './common/globalStore';
+import briefcasesStore from './briefcases/briefcasesStore';
 
 const rootReducer = (history) => combineReducers({
   router: connectRouter(history),
@@ -25,6 +26,7 @@ const rootReducer = (history) => combineReducers({
   zoneStore,
   calendarStore,
   globalStore,
+  briefcasesStore,
 });
 
 export default rootReducer;

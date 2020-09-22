@@ -4,7 +4,7 @@ import {
 import api from '../../../api/api';
 import actions from '../../actions/actions';
 import { queryResultAnalysis, setErrorToast, setSuccessToast } from '../common/globalSaga';
-import { addressVariables } from '../../../containers/SettingsPage/tabs/UsersTab/settings';
+import { addressVariables } from '../../../containers/SettingsPage_OLD/tabs/UsersTab/settings';
 
 /* ***************************** settingsStoreGetSettings ********************** */
 function* settingsStoreGetSettings() {

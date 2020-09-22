@@ -1,31 +1,39 @@
 import React from 'react';
-import './SettingsPage.scss';
 import { connect } from 'react-redux';
+import './SettingsPage.scss';
+import actions from '../../redux/actions/actions';
 import UIBlockTitle from '../../components/UIBlockTitle/UIBlockTitle';
+import UILoader from '../../components/UILoader/UILoader';
 import UITab from '../../components/UITab/UITab';
 import settingsTabs from './settings';
-import actions from '../../redux/actions/actions';
+
 
 function SettingsPage(props) {
   const {
-    modalStoreClear,
-  } = props || {};
+    dataLoaded,
+    settingsStoreGetAll,
+  } = props;
 
-  React.useEffect(() => () => {
-    modalStoreClear();
-  }, [modalStoreClear]);
+  React.useEffect(() => {
+    settingsStoreGetAll();
+  }, [settingsStoreGetAll]);
 
   return (
     <div className="settings-page page__content">
-      <UIBlockTitle title="Администрирование" />
-      <UITab
-        tabs={settingsTabs}
-        renderActiveOnly
-      />
+      <UIBlockTitle title="Настройки" />
+      {!dataLoaded ? <UILoader text="Загрузка" size="large" /> : (
+        <UITab
+          tabs={settingsTabs}
+        />
+      )}
     </div>
   );
 }
 
+const mapStateToProps = (state) => ({
+  dataLoaded: state.settingsStore.dataLoaded,
+});
+
 const mapDispatchToProps = { ...actions };
 
-export default connect(null, mapDispatchToProps)(React.memo(SettingsPage));
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsPage);
