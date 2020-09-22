@@ -22,10 +22,11 @@
   }
 
   .ui.menu .active.item {
-    background: none var(--theme-page-background);
+    background: none;
     color: var(--medium-theme-color);
     position: relative;
     border-color: transparent;
+    font-weight: normal;
 
     &:before {
       content: '';

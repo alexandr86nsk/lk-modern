@@ -12,7 +12,7 @@ const App = (props) => {
   const { token } = props || {};
 
   return (
-    <div className="App font-type-m-12">
+    <div className="App">
       <PageWrapper isAuth={token}>
         <AnimatePresence>
           <Switch>

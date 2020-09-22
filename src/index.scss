@@ -6,12 +6,18 @@ body {
   'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d7e6ff', endColorstr='#d9e3ff', GradientType=1 );
-  background: linear-gradient(135deg, rgba(215, 230, 255, 1) 0%,
-          rgba(243, 219, 246, 1) 50%, rgba(240, 220, 247, 1) 55%,
-          rgba(217, 227, 255, 1) 100%) fixed;
+}
 
-  &::before {
+.body {
+
+  &.--styled {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d7e6ff', endColorstr='#d9e3ff', GradientType=1);
+    background: linear-gradient(135deg, rgba(215, 230, 255, 1) 0%,
+            rgba(243, 219, 246, 1) 50%, rgba(240, 220, 247, 1) 55%,
+            rgba(217, 227, 255, 1) 100%) fixed;
+  }
+
+  &:before {
     content: "";
     right: 0;
     top: 0;
@@ -19,6 +25,31 @@ body {
     width: 587px;
     height: 705px;
     background: url(./static/images/right_top.png) no-repeat left top;
+  }
+
+  &__bg {
+    position: relative;
+
+    &:before {
+      content: "";
+      right: 0;
+      bottom: 0;
+      position: absolute;
+      width: 467px;
+      height: 610px;
+      background: url(./static/images/right_bottom.png) no-repeat left top;
+    }
+
+    &:after {
+      content: "";
+      left: 0;
+      bottom: 0;
+      position: absolute;
+      width: 472px;
+      height: 354px;
+      background: url(./static/images/left_bottom.png) no-repeat left top;
+      z-index: -1;
+    }
   }
 }
 

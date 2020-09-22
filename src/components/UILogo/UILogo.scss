@@ -1,0 +1,42 @@
+.ui-logo {
+  display: flex;
+  align-items: center;
+  padding: 2.5em 0;
+
+  &__image {
+    transition: transform 1s;
+    cursor: pointer;
+    padding: 0 1em;
+
+    &:hover {
+      transform: rotate(360deg);
+    }
+  }
+
+  &__title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    span {
+      font-size: .8em;
+      color: var(--theme-logo-subtitle-color);
+    }
+
+    span:first-of-type {
+      font-weight: 700;
+      font-size: 1.2em;
+      color: var(--theme-logo-title-color);
+    }
+  }
+
+  /* *********************************** vertical ************************************* */
+
+  &.--vertical {
+    flex-direction: column;
+  }
+
+  &.--vertical &__image {
+    padding: .5em 0;
+  }
+}

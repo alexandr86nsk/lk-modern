@@ -1,8 +1,37 @@
 .page-header {
   display: flex;
   align-items: center;
-  background-color: var(--white);
   padding: 0 .8em;
+
+  @media screen and (max-width: 1000px) {
+    padding: 0 2.6em;
+  }
+
+  &__logo {
+    display: none;
+    margin: 0 auto;
+  }
+
+  @media screen and (max-width: 1000px) {
+    &__logo {
+      display: block;
+    }
+  }
+
+  &__menu {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 1.6em;
+    height: 1.6em;
+    cursor: pointer;
+    margin-right: 1em;
+    float: left;
+
+    @media screen and (max-width: 1000px) {
+      display: flex;
+    }
+  }
 
   &__user-info-wrapper {
     width: 100%;
@@ -10,6 +39,10 @@
     justify-content: flex-end;
     align-items: center;
     height: 100%;
+
+    @media screen and (max-width: 1000px) {
+      width: auto;
+    }
 
     .user-info {
       display: flex;
@@ -23,6 +56,10 @@
         white-space: nowrap;
         margin: 0 1em;
         user-select: none;
+
+        @media screen and (max-width: 1000px) {
+          display: none;
+        }
       }
 
       .avatar {
@@ -40,11 +77,14 @@
         right: 0;
         width: 100%;
         background-color: var(--white);
-        border: 1px solid rgba(var(--theme-border-color-rgb), .1);
         border-top: none;
-        box-shadow: 0 10px 20px rgba(var(--theme-border-color-rgb), 0.12);
+        box-shadow: 1px 10px 20px rgba(var(--theme-border-color-rgb), 0.6);
         overflow: hidden;
         z-index: 10;
+
+        @media screen and (max-width: 1000px) {
+          width: 200px;
+        }
 
         &__list {
           width: 100%;
@@ -79,7 +119,7 @@
 
       &.active,
       &:hover {
-        background-color: rgba(var(--theme-border-color-rgb), 0.13);
+        background-color: rgba(var(--theme-border-color-rgb), 0.5);
       }
 
       &.active {

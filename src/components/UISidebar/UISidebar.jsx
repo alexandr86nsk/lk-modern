@@ -1,89 +1,94 @@
 import React from 'react';
 import './UISidebar.scss';
 import { connect } from 'react-redux';
-import logo from '../../../logo/mobile-app-logo.png';
-import UISidebarItem from './UISidebarItem/UISidebarItem';
+import UILogo from '../UILogo/UILogo';
+import UISidebarItem from './UISidebarItem';
 import UISidebarList from './UISidebarList';
-import UISearch from '../UISearch/UISearch';
+import CloseIcon from './close-icon.svg';
+import actions from '../../redux/actions/actions';
+import useOutsideClick from '../UICustomHooks/useOutsideClick/useOutsideClick';
 
 function UISidebar(props) {
   const {
-    showSidebar = true,
     path,
-    compact = true,
-  } = props;
+    type,
+    showSidebar,
+    globalStoreSetSection,
+  } = props || {};
 
-  const [searchValue, setSearchValue] = React.useState('');
+  const sidebarRef = React.useRef(null);
 
-  const handleSearch = React.useCallback(
-    (value) => setSearchValue(value), [setSearchValue],
-  );
+  const handleClose = React.useCallback(() => {
+    globalStoreSetSection({ showSidebar: false });
+  }, [globalStoreSetSection]);
+
+  useOutsideClick(sidebarRef, handleClose);
 
   const renderMenu = React.useMemo(() => UISidebarList.map((v) => {
-    const searchText = searchValue.toLowerCase();
-    const args = {
-      showSidebar,
-      key: v.id,
-      item: v,
-      active: v.link === `/${path.split('/')[1]}`
-      || !!v.items.filter((el) => (el.link === `/${path.split('/')[1]}`) || el.link === path).length,
-      isOpen: !!v.items.filter((el) => (el.link === `/${path.split('/')[1]}`) || el.link === path).length,
-      subItems: v.link ? '' : v.items.map((el) => {
-        if (el.link === `/${path.split('/')[1]}` || el.link === path) {
-          return { ...el, active: true };
-        }
-        return el;
-      }),
-    };
+    const currentPath = `/${path.split('/')[1]}`;
+    const {
+      id, link, items, title,
+    } = v || {};
 
-    if (searchValue) {
-      if (
-        v.title.toLowerCase().includes(searchText)
-        || v.items.filter((el) => el.title.toLowerCase().includes(searchText)).length
-      ) {
+    if (items && Array.isArray(items)) {
+      const arrItems = items.map((w) => {
+        const { id: wId, link: wLink } = w || {};
         return (
-          <UISidebarItem {...args} isOpen searchValue={searchValue} />
+          <li key={`subKey${wId}`}>
+            <UISidebarItem
+              item={w}
+              active={wLink === `/${currentPath}` || wLink === path}
+            />
+          </li>
         );
-      }
-      return null;
+      });
+      return (
+        <div className="ui-sidebar__section" key={id}>
+          <h3 className="ui-sidebar__list-title">{title}</h3>
+          <ul className="ui-sidebar__list">{arrItems}</ul>
+        </div>
+      );
     }
-
     return (
-      <UISidebarItem {...args} />
+      <UISidebarItem
+        key={id}
+        item={v}
+        active={link === `/${currentPath}` || link === path}
+      />
     );
-  }), [showSidebar, path, searchValue]);
+  }), [path]);
 
   return (
     <aside
-      role="presentation"
-      className={`ui-sidebar${!showSidebar ? ' hide' : ''}${compact ? ' --compact' : ''}`}
+      className={`ui-sidebar${type ? ` ${type}` : ''}${showSidebar ? ' show' : ''}`}
+      ref={sidebarRef}
     >
-      <div className="ui-sidebar__logo">
-        <div className="ui-sidebar__btn">
-          <div>
-            <img src={logo} alt="logo" />
-          </div>
-          {/*<div className="font-type-b-14">
-            <span>Бюро</span>
-            <span>судебного взыскания</span>
-          </div>*/}
+      <div className="ui-sidebar__body">
+        <div
+          role="presentation"
+          className="ui-sidebar__close"
+          onClick={handleClose}
+        >
+          <CloseIcon />
         </div>
+        <div className="ui-sidebar__logo">
+          <UILogo type="--vertical" />
+        </div>
+        <nav>
+          <div className="ui-sidebar__navigation">
+            {renderMenu}
+          </div>
+        </nav>
       </div>
-      {/*<div className="ui-sidebar__search">
-        <UISearch callback={handleSearch} data={searchValue} hideResults />
-      </div>*/}
-      <nav>
-        <ul className="ui-sidebar__navigation">
-          {renderMenu}
-        </ul>
-      </nav>
     </aside>
   );
 }
 
 const mapStateToProps = (state) => ({
-  //showSidebar: state.globalStore.showSidebar,
+  showSidebar: state.globalStore.showSidebar,
   path: state.router.location.pathname,
 });
 
-export default connect(mapStateToProps, null)(UISidebar);
+const mapDispatchToProps = { ...actions };
+
+export default connect(mapStateToProps, mapDispatchToProps)(UISidebar);

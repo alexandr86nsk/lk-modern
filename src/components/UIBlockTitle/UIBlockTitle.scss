@@ -5,12 +5,11 @@
 
   &__main {
     font-size: 2em;
-    font-weight: 300;
-    color: var(--medium-theme-color);
+    color: var(--theme-title-color);
   }
 
   &__sub {
     font-size: .8em;
-    color: var(--theme-border-color);
+    color: var(--theme-subtitle-color);
   }
 }

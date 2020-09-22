@@ -4,7 +4,7 @@ import './static/css/colors.scss';
 import './static/css/default.scss';
 import './static/css/typography.scss';
 import '../semantic-ui/semantic.less';
-import './index.css';
+import './index.scss';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import * as serviceWorker from './serviceWorker';

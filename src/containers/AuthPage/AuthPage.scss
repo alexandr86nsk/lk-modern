@@ -1,65 +1,33 @@
 .auth-page {
   width: 100%;
-  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
 
   &__banner {
-    position: relative;
-
-    & > svg {
-      width: 100%;
-      height: 10vw;
-      background: var(--dark-theme-color);
-      display: block;
-
-      & > g > use {
-        animation: move 120s linear infinite;
-
-        &:nth-child(1) {
-          animation-delay: -2s;
-          fill: var(--light-theme-color);
-        }
-
-        &:nth-child(2) {
-          animation-delay: -2s;
-          animation-duration: 68s;
-          fill: var(--medium-theme-color);
-        }
-
-        &:nth-child(3) {
-          animation-delay: -4s;
-          animation-duration: 40s;
-          fill: var(--white);
-        }
-      }
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
   }
 
-  .banner__content {
-    background: linear-gradient(180deg, var(--medium-theme-color) 0%, var(--dark-theme-color) 100%);
-    padding-top: 8%;
-    padding-bottom: 8%;
+  &__logo {
 
-    h1 {
-      text-align: center;
-      color: var(--white);
-      font-size: 2.5em;
-      font-weight: 300;
-      line-height: 1.2;
+    .ui-logo {
+      padding: 0 0 1em 0;
+      font-size: 1.8em;
     }
   }
 
   &__form {
-    position: absolute;
-    top: calc(100% - 10vw);
-    left: 50%;
-    transform: translateX(-50%);
     width: 100%;
-    max-width: 450px;
     border-radius: .6em;
-    box-shadow: 1px 3px 10px rgba(var(--dark-theme-color), .4), -1px -3px 5px rgba(var(--white), .7);
+    box-shadow: 1px 3px 10px rgba(var(--dark-theme-color-rgb), .4), -1px -3px 5px rgba(var(--white-rgb), .7);
     background-color: var(--white);
   }
-
 
   .form {
 
@@ -79,7 +47,7 @@
       bottom: 0;
       left: 0;
       z-index: 1;
-      background-color: rgba(var(--white), .95);
+      background-color: rgba(var(--white-rgb), .95);
     }
 
     &__header {
@@ -113,15 +81,6 @@
       height: 100%;
     }
 
-    .banner__content {
-      padding-top: 25%;
-      padding-bottom: 25%;
-
-      h1 {
-        font-size: 2em;
-      }
-    }
-
     &__form {
       border: none;
       border-radius: 0;
@@ -129,15 +88,5 @@
       top: 50%;
       transform: translateX(-50%) translateY(-50%);
     }
-  }
-}
-
-@keyframes move {
-  from {
-    transform: translate(-90px, 0%);
-  }
-
-  to {
-    transform: translate(90px, 0%);
   }
 }

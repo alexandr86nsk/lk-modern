@@ -11,10 +11,6 @@
   }
 }
 
-div::-webkit-scrollbar-track {
-  background-color: var(--theme-page-background);
-}
-
 /* Убираем внутренние отступы */
 ul,
 ol {
@@ -61,7 +57,6 @@ a:not([class]) {
 /* Сбрасываем стиль для ссылок */
 a:not(:hover) {
   text-decoration: none;
-  color: #000201;
 }
 
 /* Сбрасываем стиль для кнопок */
@@ -106,7 +101,8 @@ select {
 .App button,
 .App textarea,
 .App select,
-.App button.ui.button.button {
+.App button.ui.button.button,
+.App .ui.segment {
   font: inherit;
 }
 

@@ -24,7 +24,7 @@ function PageWrapper(props) {
     <>
       {isAuth
         ? (
-          <>
+          <div className="content">
             <div className="menu-container">
               <UISideBar />
             </div>
@@ -39,7 +39,7 @@ function PageWrapper(props) {
               <UIToasts />
               <UIScrollToTop isVisible={scroll} refEl={pageEl.current} />
             </div>
-          </>
+          </div>
         )
         : (
           <>

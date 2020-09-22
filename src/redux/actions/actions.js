@@ -8,6 +8,7 @@ import * as zone from './zone/zoneActions';
 import * as popUp from './common/popUpActions';
 import * as auth from './auth/authActions';
 import * as calendar from './calendar/calendarActions';
+import * as global from './common/globalStoreActions';
 
 const actions = {
   ...auth,
@@ -20,6 +21,7 @@ const actions = {
   ...user,
   ...popUp,
   ...calendar,
+  ...global,
 };
 
 export default actions;

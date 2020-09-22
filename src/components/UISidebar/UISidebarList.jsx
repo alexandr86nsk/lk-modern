@@ -8,52 +8,40 @@ import TestIcon from '../../static/images/business_center-24px.svg';
 const UISidebarList = [
   {
     id: 0,
-    title: 'Список зон',
-    link: '/zone',
-    icon: <ZoneIcon />,
-    items: [],
-  },
-  {
-    id: 1,
-    title: 'Администрирование',
-    link: '/settings',
+    title: 'Меню',
     icon: <SettingsIcon />,
-    items: [],
+    items: [
+      {
+        id: 0,
+        title: 'Список зон',
+        link: '/zone',
+        icon: <ZoneIcon />,
+      },
+      {
+        id: 1,
+        title: 'Админцентр',
+        link: '/settings',
+        icon: <SettingsIcon />,
+      },
+      {
+        id: 2,
+        title: 'Отчетность',
+        link: '/reports',
+        icon: <ReportsIcon />,
+      },
+      {
+        id: 3,
+        title: 'Календарь',
+        link: '/calendar',
+        icon: <CalendarIcon />,
+      },
+      {
+        id: 4,
+        title: 'Тест',
+        link: '/test',
+        icon: <TestIcon />,
+      },
+    ],
   },
-  {
-    id: 2,
-    title: 'Отчетность',
-    link: '/reports',
-    icon: <ReportsIcon />,
-    items: [],
-  },
-  {
-    id: 3,
-    title: 'Календарь',
-    link: '/calendar',
-    icon: <CalendarIcon />,
-    items: [],
-  },
-  {
-    id: 4,
-    title: 'Тест',
-    link: '/test',
-    icon: <TestIcon />,
-    items: [],
-  },
-  /*  {
-      id: 6,
-      title: 'Тест Субменю2',
-      link: '',
-      icon: <TestIcon />,
-      items: [
-        {
-          id: 0,
-          title: 'Субменю4',
-          link: '/',
-          icon: <CircleIcon />,
-        },
-      ],
-    }, */
 ];
 export default UISidebarList;

@@ -56,10 +56,6 @@
       display: none;
     }
 
-    &:not(:disabled):hover {
-      border-color: var(--stylish-color);
-    }
-
     &:not(:disabled):focus {
       border-color: transparent;
       outline: 0;
@@ -97,10 +93,6 @@
         fill: var(--stylish-color);
       }
     }
-  }
-
-  &__clear:hover ~ &__input:not(:disabled):not(:focus) {
-    border-color: var(--stylish-color);
   }
 
   &__success {
