@@ -13,7 +13,7 @@
     transition: transform .3s ease-in-out;
     background-color: var(--white);
     border-right: none;
-    z-index: 2;
+    z-index: 10;
 
     &.show {
       transform: translateX(0);

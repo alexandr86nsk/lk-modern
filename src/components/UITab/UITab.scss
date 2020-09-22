@@ -12,7 +12,7 @@
   .ui.menu {
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 1em;
+    margin-bottom: 1.8em;
     font-size: inherit;
     border-color: transparent;
   }
@@ -36,8 +36,7 @@
       left: 1.46153846em;
       width: 35%;
       height: 3px;
-      border-radius: .8em;
-      background-color: var(--medium-theme-color);
+      background: url(../../static/images/tab_border.gif) no-repeat 50% bottom;
     }
   }
 }
