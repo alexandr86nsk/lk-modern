@@ -69,8 +69,22 @@ function AuthPage(props) {
             </div>
             <div className="form__header">Авторизация</div>
             <div className="form__input-block" ref={inputEl}>
-              <UIInput title="Телефон" name="login" callback={handleChangeValue} data={login} mask="00000000000" />
-              <UIInput title="Пароль" name="password" password callback={handleChangeValue} data={password} />
+              <UIInput
+                title="Телефон"
+                name="login"
+                callback={handleChangeValue}
+                data={login}
+                mask="00000000000"
+                type="--transparent"
+              />
+              <UIInput
+                title="Пароль"
+                name="password"
+                password
+                callback={handleChangeValue}
+                data={password}
+                type="--transparent"
+              />
             </div>
             <div className="form__btn-block">
               <Button

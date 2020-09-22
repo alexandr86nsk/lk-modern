@@ -25,8 +25,7 @@
   &__form {
     width: 100%;
     border-radius: .6em;
-    box-shadow: 1px 3px 10px rgba(var(--dark-theme-color-rgb), .4), -1px -3px 5px rgba(var(--white-rgb), .7);
-    background-color: var(--white);
+    border: 1px solid rgba(var(--theme-border-color-rgb), .5);
   }
 
   .form {
@@ -52,6 +51,7 @@
 
     &__header {
       font-size: 1.5em;
+      color: var(--theme-title-color);
     }
 
     &__input-block {
