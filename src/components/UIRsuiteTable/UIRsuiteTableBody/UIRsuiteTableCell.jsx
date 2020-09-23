@@ -98,7 +98,6 @@ const UIRsuiteTableCell = (props) => {
                   <Button
                     key={id}
                     circular
-                    size="mini"
                     color={color}
                     title={title}
                     icon={icon}
@@ -109,7 +108,6 @@ const UIRsuiteTableCell = (props) => {
                   <Button
                     key={id}
                     circular
-                    size="mini"
                     color={color}
                     title={title}
                     onClick={(e) => handleActionClick(e, action)}

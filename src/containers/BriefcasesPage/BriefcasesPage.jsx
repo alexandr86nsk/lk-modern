@@ -10,8 +10,6 @@ import BriefcaseAddItem from './common/BriefcaseAddItem';
 import UIRsuiteTable from '../../components/UIRsuiteTable/UIRsuiteTable';
 import tableDefaultConfig from '../../components/UIRsuiteTable/tableDeafultConfig';
 import QueueAsteriskSettings from './common/QueueAsteriskSettings';
-import { usersTableConfig } from '../SettingsPage_OLD/tabs/UsersTab/settings';
-import UsersFilter from '../SettingsPage_OLD/tabs/UsersTab/common/UsersFilter';
 
 function BriefcasesPage(props) {
   const {
