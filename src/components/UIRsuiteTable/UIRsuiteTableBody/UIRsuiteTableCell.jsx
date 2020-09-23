@@ -30,12 +30,17 @@ const UIRsuiteTableCell = (props) => {
   }, [type, rowData, onRowDoubleClick]);
 
   const handleDropdownMenuClick = React.useCallback((e) => {
+    console.log('eD', e);
+    e.preventDefault();
+    e.stopPropagation();
     if (dropdownMenuCallback) {
       dropdownMenuCallback(rowData, e);
     }
   }, [rowData, dropdownMenuCallback]);
 
   const handleActionClick = React.useCallback((e, fn) => {
+    console.log('eA', e);
+    e.preventDefault();
     e.stopPropagation();
     fn(rowData);
   }, [rowData]);
