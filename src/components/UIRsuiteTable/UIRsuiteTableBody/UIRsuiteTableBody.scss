@@ -14,6 +14,10 @@
     padding: .8em;
   }
 
+  .rs-table-cell-header.actions .rs-table-cell-content {
+    justify-content: center;
+  }
+
   &__icon-actions {
 
     .rs-table-cell-content {

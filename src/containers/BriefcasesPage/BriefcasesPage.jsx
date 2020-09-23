@@ -1,12 +1,10 @@
 import React from 'react';
 import './BriefcasesPage.scss';
 import { connect } from 'react-redux';
-import { Button, Icon } from 'semantic-ui-react';
 import actions from '../../redux/actions/actions';
 import { briefcaseListTableTemplate } from './settings';
 import UIBlockTitle from '../../components/UIBlockTitle/UIBlockTitle';
 import WarningIcon from '../../static/images/warning-24px.svg';
-import BriefcaseAddItem from './common/BriefcaseAddItem';
 import UIRsuiteTable from '../../components/UIRsuiteTable/UIRsuiteTable';
 import tableDefaultConfig from '../../components/UIRsuiteTable/tableDeafultConfig';
 import QueueAsteriskSettings from './common/QueueAsteriskSettings';
@@ -16,11 +14,11 @@ function BriefcasesPage(props) {
     tableStore,
     tableTemplate,
     briefcases,
+    trySaveQueue,
+    queueInfoLoading,
     briefcasesStoreGetBriefcases,
     briefcasesStoreStartBriefcase,
     briefcasesStoreStopBriefcase,
-    briefcasesStoreAddBriefcase,
-    briefcasesStoreUpdateBriefcaseFile,
     briefcasesStoreDeleteBriefcase,
     modalStoreSetSection,
     briefcasesStoreGetBriefcasesCancel,
@@ -41,29 +39,34 @@ function BriefcasesPage(props) {
     briefcasesStoreGetBriefcases();
   }, [briefcasesStoreGetBriefcases]);
 
+  React.useEffect(() => {
+    popUpStoreSetSection({
+      closingImpossible: trySaveQueue,
+    });
+  }, [popUpStoreSetSection, trySaveQueue]);
+
   const handleEdit = React.useCallback((el) => {
+    const { QueuePhone: thisQueuePhone } = el || {};
     popUpStoreSetSection({
       show: true,
-      component: <QueueAsteriskSettings id={el.QueuePhone} />,
-      hidePageControl: true,
-      type: '--horizontal-right-25',
+      component: <QueueAsteriskSettings id={thisQueuePhone} queueInfoLoading={queueInfoLoading} />,
+      type: '--horizontal-right --35 --rounded',
     });
-  }, [popUpStoreSetSection]);
+  }, [queueInfoLoading, popUpStoreSetSection]);
 
   const handleStart = React.useCallback((el) => {
-    briefcasesStoreStartBriefcase(el.BriefcaseId);
+    const { Id: thisId } = el || {};
+    briefcasesStoreStartBriefcase(thisId);
   }, [briefcasesStoreStartBriefcase]);
 
   const handleStop = React.useCallback((el) => {
-    briefcasesStoreStopBriefcase(el.BriefcaseId);
+    const { Id: thisId } = el || {};
+    briefcasesStoreStopBriefcase(thisId);
   }, [briefcasesStoreStopBriefcase]);
 
-  const handleUpload = React.useCallback((el, files) => {
-    briefcasesStoreUpdateBriefcaseFile(el.BriefcaseId, files);
-  }, [briefcasesStoreUpdateBriefcaseFile]);
-
   const removeBriefcase = React.useCallback((value) => {
-    briefcasesStoreDeleteBriefcase(value.BriefcaseId);
+    const { Id: thisId } = value || {};
+    briefcasesStoreDeleteBriefcase(thisId);
   }, [briefcasesStoreDeleteBriefcase]);
 
   const handleRemoveBriefcase = React.useCallback((value) => {
@@ -79,44 +82,6 @@ function BriefcasesPage(props) {
       callback: removeBriefcase,
     });
   }, [modalStoreSetSection, removeBriefcase]);
-
-  const handleHideAddModal = React.useCallback((value) => {
-    briefcasesStoreAddBriefcase({
-      title: value.name,
-      queuePhone: value.selectedQueueAsterisk,
-    });
-  }, [briefcasesStoreAddBriefcase]);
-
-  const handleAdd = React.useCallback(() => {
-    modalStoreSetSection({
-      show: true,
-      tempData: {
-        name: null,
-        selectedQueueAsterisk: null,
-      },
-      outputBody: {
-        title: 'Добавление кампании',
-        body: <BriefcaseAddItem />,
-        buttons: {
-          positive: 'Создать',
-          negative: 'Отмена',
-        },
-      },
-      requiredFields: [
-        {
-          name: 'name',
-          type: 'length',
-          validation: '1',
-        },
-        {
-          name: 'selectedQueueAsterisk',
-          type: 'required',
-        },
-      ],
-      asyncClose: true,
-      callback: handleHideAddModal,
-    });
-  }, [handleHideAddModal, modalStoreSetSection]);
 
   React.useEffect(() => {
     if (!tableTemplate || !tableStore) {
@@ -150,14 +115,6 @@ function BriefcasesPage(props) {
             },
             {
               id: 3,
-              upload: true,
-              action: handleUpload,
-              title: 'Загрузить файл',
-              icon: 'attach',
-              hideTitle: true,
-            },
-            {
-              id: 4,
               action: handleRemoveBriefcase,
               title: 'Удалить',
               icon: 'trash',
@@ -176,7 +133,6 @@ function BriefcasesPage(props) {
     handleRefreshTable,
     handleStart,
     handleStop,
-    handleUpload,
     handleRemoveBriefcase,
     handleEdit,
     tableTemplate,
@@ -221,18 +177,6 @@ function BriefcasesPage(props) {
           tableTemplateSetSection={briefcasesStoreSetTableTemplateSection}
           tableData={briefcases}
         />
-        <div className="add-block">
-          <Button
-            circular
-            primary
-            size="small"
-            onClick={handleEdit}
-            title="Добавить пользователя"
-          >
-            <Icon name="add" />
-            Добавить
-          </Button>
-        </div>
       </div>
     </div>
   );
@@ -244,6 +188,8 @@ const mapStateToProps = (state) => ({
   tableStore: state.briefcasesStore.tableStore,
   tableTemplate: state.briefcasesStore.tableTemplate,
   briefcases: state.briefcasesStore.briefcases,
+  queueInfoLoading: state.briefcasesStore.queueInfoLoading,
+  trySaveQueue: state.briefcasesStore.trySaveQueue,
 });
 
 const mapDispatchToProps = { ...actions };

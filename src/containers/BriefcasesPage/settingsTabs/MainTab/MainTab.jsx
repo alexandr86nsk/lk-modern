@@ -16,12 +16,12 @@ function MainTab(props) {
     queueAsteriskSettings,
     trySaveQueueAsteriskSettings,
     queueAsteriskControlTypes,
-    briefcaseStoreChangeRecallSettings,
-    briefcaseStoreChangeTimeZoneSettings,
-    briefcaseStoreChangeQueueAsteriskSettings,
-    briefcaseStoreSaveTimeZoneSettings,
-    briefcaseStoreSaveRecallSettings,
-    briefcaseStoreSaveQueueAsteriskSettings,
+    briefcasesStoreChangeRecallSettings,
+    briefcasesStoreChangeTimeZoneSettings,
+    briefcasesStoreChangeQueueAsteriskSettings,
+    briefcasesStoreSaveTimeZoneSettings,
+    briefcasesStoreSaveRecallSettings,
+    briefcasesStoreSaveQueueAsteriskSettings,
   } = props || {};
 
   const {
@@ -34,41 +34,41 @@ function MainTab(props) {
   } = queueAsteriskSettings || {};
 
   const handleChangeRecallValue = React.useCallback((editId, editName, editValue) => {
-    briefcaseStoreChangeRecallSettings({
+    briefcasesStoreChangeRecallSettings({
       id: editId,
       name: editName,
       value: editValue,
     });
-  }, [briefcaseStoreChangeRecallSettings]);
+  }, [briefcasesStoreChangeRecallSettings]);
 
   const handleChangeTimeZoneValue = React.useCallback((editId, editName, editValue) => {
-    briefcaseStoreChangeTimeZoneSettings({
+    briefcasesStoreChangeTimeZoneSettings({
       id: editId,
       name: editName,
       value: editValue,
     });
-  }, [briefcaseStoreChangeTimeZoneSettings]);
+  }, [briefcasesStoreChangeTimeZoneSettings]);
 
   const handleChangeQueueAsteriskSettingsValue = React.useCallback((editName, editValue) => {
-    briefcaseStoreChangeQueueAsteriskSettings({
+    briefcasesStoreChangeQueueAsteriskSettings({
       [editName]: editValue,
     });
-  }, [briefcaseStoreChangeQueueAsteriskSettings]);
+  }, [briefcasesStoreChangeQueueAsteriskSettings]);
 
   const handleSaveRecallSettings = React.useCallback((e) => {
     e.stopPropagation();
-    briefcaseStoreSaveRecallSettings(queueAsteriskRetryRulesSettings);
-  }, [queueAsteriskRetryRulesSettings, briefcaseStoreSaveRecallSettings]);
+    briefcasesStoreSaveRecallSettings(queueAsteriskRetryRulesSettings);
+  }, [queueAsteriskRetryRulesSettings, briefcasesStoreSaveRecallSettings]);
 
   const handleSaveTimeZoneSettings = React.useCallback((e) => {
     e.stopPropagation();
-    briefcaseStoreSaveTimeZoneSettings(queueAsteriskTimeZoneSettings);
-  }, [queueAsteriskTimeZoneSettings, briefcaseStoreSaveTimeZoneSettings]);
+    briefcasesStoreSaveTimeZoneSettings(queueAsteriskTimeZoneSettings);
+  }, [queueAsteriskTimeZoneSettings, briefcasesStoreSaveTimeZoneSettings]);
 
   const handleSaveQueueAsteriskSettings = React.useCallback((e) => {
     e.stopPropagation();
-    briefcaseStoreSaveQueueAsteriskSettings(queueAsteriskSettings);
-  }, [queueAsteriskSettings, briefcaseStoreSaveQueueAsteriskSettings]);
+    briefcasesStoreSaveQueueAsteriskSettings(queueAsteriskSettings);
+  }, [queueAsteriskSettings, briefcasesStoreSaveQueueAsteriskSettings]);
 
   const editedQueueAsteriskSettingsTemplate = React.useMemo(
     () => queueAsteriskSettingsTemplate.map((v) => {
@@ -155,13 +155,13 @@ function MainTab(props) {
 }
 
 const mapStateToProps = (state) => ({
-  queueAsteriskRetryRulesSettings: state.briefcaseListStore.queueAsteriskRetryRulesSettings,
-  trySaveQueueAsteriskRetryRulesSettings: state.briefcaseListStore.trySaveQueueAsteriskRetryRulesSettings,
-  queueAsteriskTimeZoneSettings: state.briefcaseListStore.queueAsteriskTimeZoneSettings,
-  trySaveQueueAsteriskTimeZoneSettings: state.briefcaseListStore.trySaveQueueAsteriskTimeZoneSettings,
-  queueAsteriskSettings: state.briefcaseListStore.queueAsteriskSettings,
-  trySaveQueueAsteriskSettings: state.briefcaseListStore.trySaveQueueAsteriskSettings,
-  queueAsteriskControlTypes: state.briefcaseListStore.queueAsteriskControlTypes,
+  queueAsteriskRetryRulesSettings: state.briefcasesStore.queueAsteriskRetryRulesSettings,
+  trySaveQueueAsteriskRetryRulesSettings: state.briefcasesStore.trySaveQueueAsteriskRetryRulesSettings,
+  queueAsteriskTimeZoneSettings: state.briefcasesStore.queueAsteriskTimeZoneSettings,
+  trySaveQueueAsteriskTimeZoneSettings: state.briefcasesStore.trySaveQueueAsteriskTimeZoneSettings,
+  queueAsteriskSettings: state.briefcasesStore.queueAsteriskSettings,
+  trySaveQueueAsteriskSettings: state.briefcasesStore.trySaveQueueAsteriskSettings,
+  queueAsteriskControlTypes: state.briefcasesStore.queueAsteriskControlTypes,
 });
 
 const mapDispatchToProps = { ...actions };

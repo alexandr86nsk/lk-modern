@@ -1,7 +1,10 @@
 $path-to-fonts: '../fonts/';
-$font-regular: GothamProRRegular;
+/*$font-regular: GothamProRRegular;
 $font-medium: GothamProRMedium;
-$font-bold: GothamProRBold;
+$font-bold: GothamProRBold;*/
+$font-regular: Montserrat-Regular;
+$font-medium: Montserrat-Medium;
+$font-bold: Montserrat-Bold;
 
 @font-face {
   font-family: $font-regular;

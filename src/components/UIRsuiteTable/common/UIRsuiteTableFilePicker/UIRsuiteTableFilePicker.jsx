@@ -26,7 +26,7 @@ function UIRsuiteTableFilePicker(props) {
   return (
     <div
       role="presentation"
-      className={`ui-rsuite-table__file-picker ${isButton ? `ui mini circular${hideTitle ? ' icon' : ''} button` : 'context-menu__item'}`}
+      className={`ui-rsuite-table__file-picker ${isButton ? `ui circular${hideTitle ? ' icon' : ''} button` : 'context-menu__item'}`}
       onClick={simulateInputClick}
       title={title}
     >

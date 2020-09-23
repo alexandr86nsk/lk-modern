@@ -1,62 +1,41 @@
 import React from 'react';
-import AnimateHeight from 'react-animate-height';
-import { Button } from 'semantic-ui-react';
 import UILoader from '../../../components/UILoader/UILoader';
-
-const heightVariables = {
-  true: 'auto',
-  false: 0,
-};
+import QueueAsteriskSettings from './QueueAsteriskSettings';
 
 function QueueAsteriskSettingItem(props) {
   const {
-    title,
-    blockName,
-    body,
-    loading,
-    saveCallback,
-    trySave,
-    disableSaveButton,
-  } = props;
-
-  const [height, setHeight] = React.useState(true);
-
-  const handleActiveClick = React.useCallback(() => {
-    setHeight(!height);
-  }, [height]);
+    queueInfoLoading,
+  } = props || {};
 
   return (
-    <div className={`queue-settings__item${height ? ' active' : ''}`}>
-      <div role="presentation" className="settings-item__header" onClick={handleActiveClick}>
-        <i
-          className={`settings-item__dropdown-icon icon ${height ? 'minus square outline' : 'plus square outline'}`}
-          aria-hidden
-        />
-        <div className="settings-item__title">
-          <span className="settings-item__text ellipsis-element">{title}</span>
-          <div className="settings-item__btn">
-            <Button
-              content="Сохранить"
-              icon="check"
-              labelPosition="left"
-              positive
-              onClick={saveCallback}
-              loading={trySave}
-              size="mini"
-              disabled={disableSaveButton}
-            />
-          </div>
-        </div>
+    <div className="briefcases-page__edit-queue-popup add-item-popup">
+      <div className="add-item-popup__title">
+        <span className="ellipsis-element">Редактирование очереди</span>
       </div>
-      <AnimateHeight
-        duration={300}
-        height={heightVariables[height]}
-      >
-        <div className={`settings-item__body${blockName ? ` ${blockName}` : ''}`}>
-          {loading && <span className="settings-item__loader"><UILoader text="Загрузка..." /></span>}
-          {body}
-        </div>
-      </AnimateHeight>
+      <div className="add-item-popup__body">
+        {queueInfoLoading && (
+          <div className="add-item-popup__loader">
+            <UILoader text="Загрузка данных" type="--google" />
+          </div>
+        )}
+        {!queueInfoLoading && (
+          <QueueAsteriskSettings />
+        )}
+      </div>
+      {/* <div className="add-item-popup__btn">
+        <Button
+          circular
+          positive
+          size="small"
+          disabled={queueInfoLoading || disableSaveBtn}
+          onClick={handleSaveQueue}
+          loading={trySaveQueue}
+          title='Сохранить очередь'
+        >
+          <Icon name="check" />
+          Сохранить
+        </Button>
+      </div> */}
     </div>
   );
 }

@@ -17,14 +17,14 @@ function* briefcasesStoreGetBriefcases() {
       yield put(actions.briefcasesStoreSetSection({
         briefcases: [
           { ...res[0] },
-          { ...res[0], Id: '1002', Work: 1 },
-          { ...res[0], Id: '1003' },
-          { ...res[0], Id: '1004' },
-          { ...res[0], Id: '1005', Work: 1 },
-          { ...res[0], Id: '1006' },
-          { ...res[0], Id: '1007' },
-          { ...res[0], Id: '1008', Work: 1 },
-          { ...res[0], Id: '1009' },
+          { ...res[0], QueuePhone: '1002', Work: 1 },
+          { ...res[0], QueuePhone: '1003' },
+          { ...res[0], QueuePhone: '1004' },
+          { ...res[0], QueuePhone: '1005', Work: 1 },
+          { ...res[0], QueuePhone: '1006' },
+          { ...res[0], QueuePhone: '1007' },
+          { ...res[0], QueuePhone: '1008', Work: 1 },
+          { ...res[0], QueuePhone: '1009' },
         ],
       }));
       yield put(actions.briefcasesStoreSetTableStoreSection({

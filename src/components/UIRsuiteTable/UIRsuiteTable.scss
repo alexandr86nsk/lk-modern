@@ -55,16 +55,8 @@
     }
   }
 
-  &__actions-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-
-    svg {
-      width: 1em;
-      height: 1em;
-    }
+  &__icon-actions {
+    font-size: .8em;
   }
 
   .progress-bar {

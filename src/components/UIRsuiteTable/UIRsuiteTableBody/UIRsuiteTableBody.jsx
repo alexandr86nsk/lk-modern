@@ -192,7 +192,9 @@ function UIRsuiteTableBody(props) {
           fixed,
           dataKey,
           column = {},
+          type,
         } = v || {};
+        const isActions = type && type.includes('actions');
         return (
           <Column
             key={id}
@@ -202,7 +204,7 @@ function UIRsuiteTableBody(props) {
             {...column}
             onResize={tableOnColumnResizeCallback}
           >
-            <HeaderCell title={title}>{title}</HeaderCell>
+            <HeaderCell className={isActions ? 'actions' : ''} title={title}>{title}</HeaderCell>
             <UIRsuiteTableCell
               tableData={tableData}
               actions={actions}
