@@ -4,6 +4,26 @@ import CloseIcon from '../../static/images/close-10px.svg';
 import useScrollPage from '../UICustomHooks/useScrollPage/useScrollPage';
 import UIScrollToTop from '../UIScrollToTop/UIScrollToTop';
 
+const sidebar = {
+  open: (height = 1000) => ({
+    clipPath: `circle(${height * 2 + 200}px at 40px 40px)`,
+    transition: {
+      type: 'spring',
+      stiffness: 20,
+      restDelta: 2,
+    },
+  }),
+  closed: {
+    clipPath: 'circle(30px at 40px 40px)',
+    transition: {
+      delay: 0.5,
+      type: 'spring',
+      stiffness: 400,
+      damping: 40,
+    },
+  },
+};
+
 function UIPopUp(props) {
   const {
     callback,
@@ -22,7 +42,7 @@ function UIPopUp(props) {
     if (!closingImpossible) {
       setState('exiting');
       if (callback) {
-        setTimeout(() => callback(), 500);
+        setTimeout(() => callback(), 10000);
       }
     }
   }, [closingImpossible, callback]);
@@ -40,7 +60,7 @@ function UIPopUp(props) {
   }, [handleClose, noEscape]);
 
   React.useEffect(() => {
-    setTimeout(() => setState('entered'), 200);
+    setTimeout(() => setState('entered'), 10000);
   }, []);
 
   return (
