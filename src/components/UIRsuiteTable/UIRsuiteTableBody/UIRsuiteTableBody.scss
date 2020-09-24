@@ -4,6 +4,10 @@
     background-color: transparent;
   }
 
+  &.--transparent &__table .rs-table-cell {
+    background: transparent;
+  }
+
   &__table .rs-table:not(.rs-table-bordered) {
     border-color: transparent;
   }
@@ -22,7 +26,7 @@
 
   .rs-table-row-header,
   .rs-table-row-header .rs-table-cell {
-    background: rgba(var(--elegant-color), .4);
+    // background: rgba(var(--elegant-color), .2);
   }
 
   .rs-table-cell .rs-table-cell-content {
