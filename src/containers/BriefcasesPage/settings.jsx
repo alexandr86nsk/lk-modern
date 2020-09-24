@@ -67,7 +67,7 @@ export const briefcaseListTableTemplate = [
     title: 'Действия',
     type: 'icon-actions',
     fixed: 'right',
-    width: 190,
+    width: 135,
   },
 ];
 

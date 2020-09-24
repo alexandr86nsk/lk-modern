@@ -54,6 +54,8 @@ function UIRsuiteTable(props) {
     sortServerSide,
     loading,
     type,
+    cellBordered,
+    bordered,
   } = tableStore || {};
 
   const tableBodyRef = React.useRef(null);
@@ -125,9 +127,9 @@ function UIRsuiteTable(props) {
     if (!searchServerSide && searchString) {
       result = tableData.filter((v) => Object.keys(v).some((key) => {
         if ((v[key] || v[key] === 0) && tableTemplate.some((w) => w.dataKey === key)) {
-          const currentKeyItem = tableTemplate.filter((x) => x.dataKey === key)[0];
+          const currentKeyItem = tableTemplate.find((x) => x.dataKey === key);
           if (currentKeyItem && currentKeyItem.type === 'select') {
-            const temp = currentKeyItem.options.filter((z) => z.value === v[key])[0];
+            const temp = currentKeyItem.options.find((z) => z.value === v[key]);
             return temp.label.toLowerCase().includes(searchString.toLowerCase());
           }
           if (currentKeyItem && currentKeyItem.type === 'date') {
@@ -272,6 +274,8 @@ function UIRsuiteTable(props) {
             tableBodyHeight={tableBodySize.height}
             tableVirtualized={tableVirtualized}
             loading={loading}
+            cellBordered={cellBordered}
+            bordered={bordered}
           />
         </div>
       </div>

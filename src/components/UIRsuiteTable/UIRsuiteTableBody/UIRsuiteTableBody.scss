@@ -4,12 +4,20 @@
     background-color: transparent;
   }
 
-  &__table {
-    background-color: var(--white);
+  &__table .rs-table:not(.rs-table-bordered) {
+    border-color: transparent;
   }
 
-  .rs-table {
-    border: none;
+  &__table .rs-table.rs-table-bordered:not(.rs-table-cell-bordered) .rs-table-cell {
+    border-color: transparent;
+  }
+
+  &__table .rs-table.rs-table-cell-bordered .rs-table-cell.rs-table-cell-last {
+    border-right-color: transparent;
+  }
+
+  &__table {
+    background-color: var(--white);
   }
 
   .rs-table-cell .rs-table-cell-content {
@@ -23,20 +31,63 @@
   }
 
   &__icon-actions {
+    font-size: .8em;
 
     .rs-table-cell-content {
       display: flex;
       justify-content: flex-end;
       align-items: center;
     }
+
+    .ui-rsuite-table__cell-data {
+      display: flex;
+      align-items: center;
+
+      .ui.button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        > .icon {
+          width: 1em;
+          height: 1em;
+
+          &:before {
+            width: 1em;
+            height: 1em;
+            display: inline-block;
+          }
+        }
+      }
+    }
   }
 
   &__actions {
+
+    .ui-rsuite-table__icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+
+      svg {
+        width: 1em;
+        height: 1em;
+      }
+    }
 
     .rs-table-cell-content {
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    .rs-table-cell-group-fixed-right,
+    .rs-table-cell.rs-table-cell-last {
+
+      .rs-table-cell-content {
+        padding-right: 18px;
+      }
     }
   }
 
@@ -148,14 +199,6 @@
 
   .rs-table-scrollbar-horizontal {
     bottom: -1px;
-  }
-
-  .rs-table-cell-group-fixed-right,
-  .rs-table-cell.rs-table-cell-last {
-
-    .rs-table-cell-content {
-      padding-right: 18px;
-    }
   }
 
   .rs-table-scrollbar {

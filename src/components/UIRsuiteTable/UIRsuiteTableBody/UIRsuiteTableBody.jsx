@@ -3,7 +3,7 @@ import './UIRsuiteTableBody.scss';
 import { Table, Column, HeaderCell } from 'rsuite-table';
 import 'rsuite-table/lib/less/index.less';
 import UIRsuiteTableCell from './UIRsuiteTableCell';
-import UIRsuiteTableFilePicker from '../common/UIRsuiteTableFilePicker/UIRsuiteTableFilePicker';
+import UIRsuiteTableMenuItem from './UIRsuiteTableMenuItem';
 
 function UIRsuiteTableBody(props) {
   const {
@@ -26,6 +26,7 @@ function UIRsuiteTableBody(props) {
     tableBodyHeight,
     tableVirtualized = true,
     cellBordered,
+    bordered,
   } = props || {};
 
   const {
@@ -51,7 +52,7 @@ function UIRsuiteTableBody(props) {
     }
   }, [contextMenuData]);
 
-  const handleCustomAction = React.useCallback((fn) => () => {
+  const handleCustomAction = React.useCallback((fn) => {
     if (contextMenuData) {
       fn(contextMenuData.rowData);
       setContextMenuData(null);
@@ -103,38 +104,15 @@ function UIRsuiteTableBody(props) {
         customActionsMenu.forEach((v) => {
           const {
             id,
-            action,
-            icon,
-            title,
-            upload,
-            fileTypes,
           } = v || {};
-          let menuItem;
-          if (upload) {
-            menuItem = (
-              <UIRsuiteTableFilePicker
-                key={id}
-                title={title}
-                fileTypes={fileTypes}
-                callback={(files) => handleUpload(action, files)}
-              />
-            );
-          } else {
-            menuItem = (
-              <div
-                key={id}
-                role="presentation"
-                className="context-menu__item"
-                onClick={action
-                  ? handleCustomAction(action)
-                  : () => {}}
-              >
-                {icon && <i className={`icon ${icon}`} aria-hidden />}
-                <span className="text" aria-hidden>{title || ''}</span>
-              </div>
-            );
-          }
-          items.push(menuItem);
+          items.push(
+            <UIRsuiteTableMenuItem
+              key={id}
+              item={v}
+              callback={handleCustomAction}
+              uploadCallback={handleUpload}
+            />,
+          );
         });
       }
       return items;
@@ -232,6 +210,7 @@ function UIRsuiteTableBody(props) {
     tableTemplate && (
       <>
         <Table
+          bordered={bordered}
           id="ui-rsuite-table"
           data={tableData}
           height={tableBodyHeight}

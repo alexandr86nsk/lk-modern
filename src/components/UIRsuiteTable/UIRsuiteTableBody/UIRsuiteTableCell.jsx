@@ -23,9 +23,15 @@ const UIRsuiteTableCell = (props) => {
     dateFormat,
   } = template || {};
 
-  const handleRowDoubleClick = React.useCallback(() => {
-    if (onRowDoubleClick && type !== 'actions') {
-      onRowDoubleClick(rowData);
+  const cellRef = React.useRef(null);
+
+  const handleRowDoubleClick = React.useCallback((e) => {
+    console.log('e.target', e.target);
+    console.log('cellRef.current', cellRef.current);
+    if (e.target === cellRef.current) {
+      if (onRowDoubleClick && type !== 'actions') {
+        onRowDoubleClick(rowData);
+      }
     }
   }, [type, rowData, onRowDoubleClick]);
 
@@ -61,7 +67,7 @@ const UIRsuiteTableCell = (props) => {
           data: (
             <div
               role="presentation"
-              className="ui-rsuite-table__actions-icon"
+              className="ui-rsuite-table__icon"
               onClick={handleDropdownMenuClick}
             >
               <MoreIcon />
@@ -154,12 +160,13 @@ const UIRsuiteTableCell = (props) => {
 
   return (
     <div
+      ref={cellRef}
       onDoubleClick={handleRowDoubleClick}
       className={type ? `ui-rsuite-table__${type}` : ''}
     >
       <Cell
         {...otherProps}
-        style={type === 'actions' ? { textAlign: 'center' } : {}}
+        // style={type === 'actions' ? { textAlign: 'center' } : {}}
       >
         <div
           className="ui-rsuite-table__cell-data ellipsis-element"

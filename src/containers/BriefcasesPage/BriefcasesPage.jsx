@@ -169,8 +169,8 @@ function BriefcasesPage(props) {
 
   return (
     <div className="briefcase-page page__content">
+      <UIBlockTitle title="Список очередей" />
       <div className="element-wrapper --fullscreen">
-        <UIBlockTitle title="Список очередей" />
         <UIRsuiteTable
           tableStore={tableStore}
           tableStoreSetSection={briefcasesStoreSetTableStoreSection}
