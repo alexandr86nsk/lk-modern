@@ -1,11 +1,14 @@
 .ui-rsuite-table {
 
-  &.--transparent &__table {
-    background-color: transparent;
-  }
-
+  &.--transparent &__table,
   &.--transparent &__table .rs-table-cell {
     background: transparent;
+  }
+
+  &.--transparent &__table .rs-table-row-header,
+  &.--transparent &__table .rs-table-row-header .rs-table-cell {
+    background: transparent;
+    font-weight: 600;
   }
 
   &__table .rs-table:not(.rs-table-bordered) {
@@ -22,11 +25,6 @@
 
   &__table {
     background-color: var(--white);
-  }
-
-  .rs-table-row-header,
-  .rs-table-row-header .rs-table-cell {
-    // background: rgba(var(--elegant-color), .2);
   }
 
   .rs-table-cell .rs-table-cell-content {
