@@ -80,7 +80,7 @@
       width: 5em;
       border: 1px solid rgba(var(--theme-border-color-rgb), .4);
       border-radius: .8em;
-      background-color: transparent;
+      background-color: var(--white);
       outline: none;
       transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 
@@ -94,5 +94,22 @@
 
   .paginate-next {
     transform: rotate(180deg);
+  }
+
+  /* ****************************** transparent ********************************** */
+  &.--transparent &__go-to .input {
+    background-color: rgba(var(--white-rgb), .6);
+
+    &:focus {
+      background-color: var(--white);
+    }
+  }
+
+  &.--transparent &__go-to .input[value=""] {
+    background-color: transparent;
+
+    &:focus {
+      background-color: var(--white);
+    }
   }
 }

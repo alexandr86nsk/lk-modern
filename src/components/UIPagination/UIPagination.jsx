@@ -25,7 +25,8 @@ function UIPagination(props) {
     totalRecords = 0,
     pageLimit = 1,
     editable,
-  } = props;
+    type,
+  } = props || {};
 
   const inputEl = React.useRef(null);
 
@@ -114,7 +115,7 @@ function UIPagination(props) {
   const pages = fetchPageNumbers();
 
   return (
-    <nav className={`ui-pagination ${editable ? 'editable' : ''}`}>
+    <nav className={`ui-pagination${editable ? ' editable' : ''}${type ? ` ${type}` : ''}`}>
       <ul className="ui-pagination__body">
         {pages.map((page) => {
           if (page === LEFT_PAGE) {

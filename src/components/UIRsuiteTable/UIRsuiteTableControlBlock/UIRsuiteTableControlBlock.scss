@@ -80,7 +80,7 @@
     cursor: pointer;
     margin: 0 1em;
     user-select: none;
-    color: var(--theme-border-color);
+    color: rgba(var(--medium-theme-color-rgb), .7);
 
     &.--with-title {
       border-radius: 10em;
@@ -96,7 +96,7 @@
     &:hover {
       background-color: rgba(var(--theme-border-color-rgb), .1);
       border: 1px solid rgba(var(--theme-border-color-rgb), .2);
-      color: rgba(var(--medium-theme-color-rgb), .7);
+      color: rgba(var(--medium-theme-color-rgb), .9);
     }
 
     &:active {

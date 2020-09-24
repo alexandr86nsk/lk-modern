@@ -1,4 +1,4 @@
-.ui-select-block {
+.ui-select {
   position: relative;
   display: flex;
   align-items: center;
@@ -101,10 +101,19 @@
   &.active &__button svg {
     transform: rotate(180deg);
   }
+
+  /* ****************************** transparent ********************************** */
+  &.--transparent {
+    background-color: rgba(var(--white-rgb), .6);
+  }
+
+  &.--transparent.active {
+    background-color: var(--white);
+  }
 }
 
 @media screen and (max-width: 767px) {
-  .ui-select-block {
+  .ui-select {
 
     &__options-wrapper {
       position: fixed;

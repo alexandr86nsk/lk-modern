@@ -96,7 +96,7 @@
       width: 90%;
       height: 90%;
       border-radius: 50%;
-      border: 0.2em solid rgba(0,0,0,.1);
+      border: 0.2em solid rgba(0, 0, 0, .1);
     }
 
     &:after {
@@ -362,6 +362,23 @@
     border-radius: 0;
     padding: 0;
     box-shadow: 0 .1em .3em .2em rgba(var(--theme-border-color-rgb), .5);
+  }
+
+  /* ****************************** transparent ********************************** */
+  &.--transparent &__input {
+    background-color: rgba(var(--white-rgb), .6);
+
+    &:focus {
+      background-color: var(--white);
+    }
+  }
+
+  &.--transparent &__input[value=""] {
+    background-color: transparent;
+
+    &:focus {
+      background-color: var(--white);
+    }
   }
 }
 

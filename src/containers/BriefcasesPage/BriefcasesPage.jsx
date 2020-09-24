@@ -89,6 +89,7 @@ function BriefcasesPage(props) {
         tableTemplate: briefcaseListTableTemplate,
         tableStore: {
           ...tableDefaultConfig,
+          type: '--transparent',
           actions: [
             {
               id: 0,

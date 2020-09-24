@@ -9,6 +9,7 @@ function UISelect(props) {
     options = [],
     selected,
     callback,
+    type,
   } = props || {};
 
   const selectEl = React.useRef(null);
@@ -53,11 +54,11 @@ function UISelect(props) {
 
   return (
     <div
-      className={`ui-select-block ${showOptions ? 'active' : ''}`}
+      className={`ui-select${showOptions ? ' active' : ''}${type ? ` ${type}` : ''}`}
       ref={selectEl}
     >
       <input
-        className="ui-select-block__input"
+        className="ui-select__input"
         placeholder={selected}
         onClick={handleChangeOptionsView}
         readOnly
@@ -65,18 +66,18 @@ function UISelect(props) {
       <div
         role="presentation"
         aria-label="show-options"
-        className="ui-select-block__button"
+        className="ui-select__button"
         onClick={handleChangeOptionsView}
       >
         <ArrowIcon />
       </div>
-      <div className="ui-select-block__options-wrapper">
+      <div className="ui-select__options-wrapper">
         <div
           role="presentation"
-          className="ui-select-block__options-background"
+          className="ui-select__options-background"
           onClick={handleChangeOptionsView}
         />
-        <div className="ui-select-block__options">
+        <div className="ui-select__options">
           <ul>
             {memoizedOptions}
           </ul>

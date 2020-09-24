@@ -40,6 +40,7 @@ function UIRsuiteTableControlBlock(props) {
               options={numberOfItemsToPageOptions}
               selected={paginationNumberOfItemsToPage}
               callback={paginationSetNumberOfItemsToPage}
+              type="--transparent"
             />
             {paginationTotalItems > 0
              && (
@@ -69,6 +70,7 @@ function UIRsuiteTableControlBlock(props) {
               callback={searchSetString}
               data={searchString}
               placeholder={searchPlaceholder}
+              type="--transparent"
             />
           </div>
         )}

@@ -265,11 +265,19 @@
   }
 
   /* ****************************** transparent ********************************** */
-  &.--transparent &__input[value=""] {
-    background-color: transparent;
+  &.--transparent &__input {
+    background-color: rgba(var(--white-rgb), .6);
+
+    &:focus {
+      background-color: var(--white);
+    }
   }
 
-  &.--transparent &__input {
-    background-color: rgba(var(--white-rgb), .3);
+  &.--transparent &__input[value=""] {
+    background-color: transparent;
+
+    &:focus {
+      background-color: var(--white);
+    }
   }
 }

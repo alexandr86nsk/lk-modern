@@ -13,7 +13,7 @@ function UIRsuiteTable(props) {
     tableTemplateSetSection,
     tableData = [],
     tableTemplate,
-  } = props;
+  } = props || {};
 
   const {
     customId,
@@ -53,6 +53,7 @@ function UIRsuiteTable(props) {
     searchServerSide,
     sortServerSide,
     loading,
+    type,
   } = tableStore || {};
 
   const tableBodyRef = React.useRef(null);
@@ -219,7 +220,7 @@ function UIRsuiteTable(props) {
   }, [handleTableStoreSetTemplateSection]);
 
   return (
-    <div className="ui-rsuite-table">
+    <div className={`ui-rsuite-table${type ? ` ${type}` : ''}`}>
       <div className="ui-rsuite-table__control-block">
         {(pagination || search) && (
           <UIRsuiteTableControlBlock
@@ -284,6 +285,7 @@ function UIRsuiteTable(props) {
             pageNeighbours={paginationPageNeighbours}
             pageLimit={paginationNumberOfItemsToPage}
             editable
+            type="--transparent"
           />
         )}
       </div>

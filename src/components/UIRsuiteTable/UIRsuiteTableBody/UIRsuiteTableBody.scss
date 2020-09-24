@@ -1,5 +1,9 @@
 .ui-rsuite-table {
 
+  &.--transparent &__table {
+    background-color: transparent;
+  }
+
   &__table {
     background-color: var(--white);
   }
