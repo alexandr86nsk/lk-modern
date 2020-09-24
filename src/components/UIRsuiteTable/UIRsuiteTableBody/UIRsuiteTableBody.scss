@@ -20,6 +20,11 @@
     background-color: var(--white);
   }
 
+  .rs-table-row-header,
+  .rs-table-row-header .rs-table-cell {
+    background: rgba(var(--elegant-color), .4);
+  }
+
   .rs-table-cell .rs-table-cell-content {
     display: flex;
     align-items: center;
@@ -30,7 +35,7 @@
     justify-content: center;
   }
 
-  &__icon-actions {
+  &__cell.--icon-actions {
     font-size: .8em;
 
     .rs-table-cell-content {
@@ -62,7 +67,7 @@
     }
   }
 
-  &__actions {
+  &__cell.--actions {
 
     .ui-rsuite-table__icon {
       display: flex;
@@ -195,10 +200,6 @@
   .rs-table-scrollbar-vertical:hover .rs-table-scrollbar-handle {
     left: 1px;
     width: 8px;
-  }
-
-  .rs-table-scrollbar-horizontal {
-    bottom: -1px;
   }
 
   .rs-table-scrollbar {

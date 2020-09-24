@@ -9,7 +9,7 @@ function UIRsuiteTableFilePicker(props) {
     fileTypes = '*',
     isButton,
     hideTitle,
-  } = props;
+  } = props || {};
 
   const inputEl = React.useRef(null);
 

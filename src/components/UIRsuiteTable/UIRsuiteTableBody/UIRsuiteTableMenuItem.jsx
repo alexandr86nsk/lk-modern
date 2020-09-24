@@ -4,6 +4,7 @@ import UIRsuiteTableFilePicker from '../common/UIRsuiteTableFilePicker/UIRsuiteT
 const UIRsuiteTableMenuItem = (props) => {
   const {
     item,
+    isButton,
     callback,
     uploadCallback,
   } = props || {};
@@ -14,6 +15,8 @@ const UIRsuiteTableMenuItem = (props) => {
     title,
     upload,
     fileTypes,
+    hideTitle,
+    color,
   } = item || {};
 
   const handleUploadCallback = React.useCallback((files) => {
@@ -22,8 +25,7 @@ const UIRsuiteTableMenuItem = (props) => {
     }
   }, [action, uploadCallback]);
 
-  const handleCallback = React.useCallback((e) => {
-    e.stopPropagation();
+  const handleCallback = React.useCallback(() => {
     if (callback && action) {
       callback(action);
     }
@@ -36,7 +38,23 @@ const UIRsuiteTableMenuItem = (props) => {
         title={title}
         fileTypes={fileTypes}
         callback={handleUploadCallback}
+        hideTitle={hideTitle}
+        isButton={isButton}
+        icon={icon}
       />
+    );
+  }
+  if (isButton) {
+    return (
+      <button
+        type="button"
+        title={title}
+        className={`ui circular button${color ? ` ${color}` : ''}${hideTitle ? ' icon' : ''}`}
+        onClick={handleCallback}
+      >
+        {icon && <i aria-hidden="true" className={`icon ${icon}`} />}
+        {hideTitle ? '' : title || ''}
+      </button>
     );
   }
   return (

@@ -22,7 +22,7 @@ const tableDefaultConfig = {
   tableHeaderHeight: undefined,
   tableRowHeight: undefined,
   cellBordered: undefined,
-  bordered: false,
+  bordered: undefined,
 };
 
 export default tableDefaultConfig;

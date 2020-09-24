@@ -1,9 +1,8 @@
 import React from 'react';
 import { Cell } from 'rsuite-table';
 import * as moment from 'moment';
-import { Button, Icon } from 'semantic-ui-react';
 import MoreIcon from './more-icon.svg';
-import UIRsuiteTableFilePicker from '../common/UIRsuiteTableFilePicker/UIRsuiteTableFilePicker';
+import UIRsuiteTableMenuItem from './UIRsuiteTableMenuItem';
 
 const UIRsuiteTableCell = (props) => {
   const {
@@ -25,30 +24,24 @@ const UIRsuiteTableCell = (props) => {
 
   const cellRef = React.useRef(null);
 
-  const handleRowDoubleClick = React.useCallback((e) => {
-    console.log('e.target', e.target);
-    console.log('cellRef.current', cellRef.current);
-    if (e.target === cellRef.current) {
-      if (onRowDoubleClick && type !== 'actions') {
-        onRowDoubleClick(rowData);
-      }
+  const handleRowDoubleClick = React.useCallback(() => {
+    if (onRowDoubleClick) {
+      onRowDoubleClick(rowData);
     }
-  }, [type, rowData, onRowDoubleClick]);
+  }, [rowData, onRowDoubleClick]);
 
   const handleDropdownMenuClick = React.useCallback((e) => {
-    console.log('eD', e);
-    e.preventDefault();
-    e.stopPropagation();
     if (dropdownMenuCallback) {
       dropdownMenuCallback(rowData, e);
     }
   }, [rowData, dropdownMenuCallback]);
 
-  const handleActionClick = React.useCallback((e, fn) => {
-    console.log('eA', e);
-    e.preventDefault();
-    e.stopPropagation();
+  const handleActionClick = React.useCallback((fn) => {
     fn(rowData);
+  }, [rowData]);
+
+  const handleUploadClick = React.useCallback((fn, files) => {
+    fn(rowData, files);
   }, [rowData]);
 
   const memoizedData = React.useMemo(() => {
@@ -82,54 +75,16 @@ const UIRsuiteTableCell = (props) => {
           filteredCustomActions.forEach((v) => {
             const {
               id,
-              action,
-              icon,
-              title,
-              upload,
-              fileTypes,
-              hideTitle,
-              color,
             } = v || {};
-            let menuItem;
-            if (upload) {
-              menuItem = (
-                <UIRsuiteTableFilePicker
-                  key={id}
-                  title={title}
-                  fileTypes={fileTypes}
-                  icon={icon}
-                  isButton
-                  hideTitle={hideTitle}
-                  callback={(files) => action(rowData, files)}
-                />
-              );
-            } else {
-              menuItem = (hideTitle
-                ? (
-                  <Button
-                    key={id}
-                    circular
-                    color={color}
-                    title={title}
-                    icon={icon}
-                    onClick={(e) => handleActionClick(e, action)}
-                  />
-                )
-                : (
-                  <Button
-                    key={id}
-                    circular
-                    color={color}
-                    title={title}
-                    onClick={(e) => handleActionClick(e, action)}
-                  >
-                    <Icon name={icon} />
-                    {title}
-                  </Button>
-                )
-              );
-            }
-            items.push(menuItem);
+            items.push(
+              <UIRsuiteTableMenuItem
+                key={id}
+                item={v}
+                callback={handleActionClick}
+                uploadCallback={handleUploadClick}
+                isButton
+              />,
+            );
           });
         }
 
@@ -156,18 +111,16 @@ const UIRsuiteTableCell = (props) => {
     rowData,
     dataKey,
     handleActionClick,
+    handleUploadClick,
   ]);
 
   return (
     <div
       ref={cellRef}
       onDoubleClick={handleRowDoubleClick}
-      className={type ? `ui-rsuite-table__${type}` : ''}
+      className={type ? `ui-rsuite-table__cell${type ? ` --${type}` : ''}` : ''}
     >
-      <Cell
-        {...otherProps}
-        // style={type === 'actions' ? { textAlign: 'center' } : {}}
-      >
+      <Cell {...otherProps}>
         <div
           className="ui-rsuite-table__cell-data ellipsis-element"
           title={typeof rowData[dataKey] === 'boolean' ? '' : memoizedData.title}

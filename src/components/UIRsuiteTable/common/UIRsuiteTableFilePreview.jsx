@@ -16,7 +16,7 @@ function UIRsuiteTableFilePreview(props) {
     customId,
     getStgFile,
     component,
-  } = props;
+  } = props || {};
 
   const handleClick = React.useCallback(() => {
     if (multi) {
