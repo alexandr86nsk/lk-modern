@@ -50,7 +50,7 @@ function BriefcasesPage(props) {
     popUpStoreSetSection({
       show: true,
       component: <QueueAsteriskSettings id={thisQueuePhone} queueInfoLoading={queueInfoLoading} />,
-      type: '--right --35 --rounded --circle-fade-in-out',
+      type: '--right --35 --rounded',
     });
   }, [queueInfoLoading, popUpStoreSetSection]);
 

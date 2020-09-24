@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { AnimatePresence } from 'framer-motion';
 import actions from '../../redux/actions/actions';
 import UIPopUp from '../UIPopUp/UIPopUp';
 
@@ -17,7 +18,9 @@ function PagePopUp(props) {
 
   return (
     <>
-      {show && <UIPopUp {...popUpStore} callback={handleHidePopUp} />}
+      <AnimatePresence>
+        {show && (<UIPopUp {...popUpStore} callback={handleHidePopUp} />)}
+      </AnimatePresence>
     </>
   );
 }
