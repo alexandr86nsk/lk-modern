@@ -16,18 +16,18 @@ export const briefcasesStoreGetBriefcasesCancel = () => ({
   type: 'BRIEFCASES_STORE_GET_BRIEFCASES_CANCEL',
 });
 
-export const briefcasesStoreStartBriefcase = (id) => ({
+export const briefcasesStoreStartBriefcase = (value) => ({
   type: 'BRIEFCASES_STORE_START_BRIEFCASE',
-  id,
+  value,
 });
 
 export const briefcasesStoreStartBriefcaseCancel = () => ({
   type: 'BRIEFCASES_STORE_START_BRIEFCASE_CANCEL',
 });
 
-export const briefcasesStoreStopBriefcase = (id) => ({
+export const briefcasesStoreStopBriefcase = (value) => ({
   type: 'BRIEFCASES_STORE_STOP_BRIEFCASE',
-  id,
+  value,
 });
 
 export const briefcasesStoreStopBriefcaseCancel = () => ({
@@ -43,9 +43,9 @@ export const briefcasesStoreAddBriefcaseCancel = () => ({
   type: 'BRIEFCASES_STORE_ADD_BRIEFCASE_CANCEL',
 });
 
-export const briefcasesStoreDeleteBriefcase = (id) => ({
+export const briefcasesStoreDeleteBriefcase = (value) => ({
   type: 'BRIEFCASES_STORE_DELETE_BRIEFCASE',
-  id,
+  value,
 });
 
 export const briefcasesStoreDeleteBriefcaseCancel = () => ({
@@ -61,23 +61,14 @@ export const briefcasesStoreUpdateBriefcaseCancel = () => ({
   type: 'BRIEFCASES_STORE_UPDATE_BRIEFCASE_CANCEL',
 });
 
-export const briefcasesStoreUpdateBriefcaseFile = (id, value) => ({
+export const briefcasesStoreUpdateBriefcaseFile = (value, file) => ({
   type: 'BRIEFCASES_STORE_UPDATE_BRIEFCASE_FILE',
-  id,
   value,
+  file,
 });
 
 export const briefcasesStoreUpdateBriefcaseFileCancel = () => ({
   type: 'BRIEFCASES_STORE_UPDATE_BRIEFCASE_FILE_CANCEL',
-});
-
-export const briefcasesStoreGetBriefcase = (id) => ({
-  type: 'BRIEFCASES_STORE_GET_BRIEFCASE',
-  id,
-});
-
-export const briefcasesStoreGetBriefcaseCancel = () => ({
-  type: 'BRIEFCASES_STORE_GET_BRIEFCASE_CANCEL',
 });
 
 export const briefcasesStoreSetTableStoreSection = (value) => ({
@@ -97,6 +88,24 @@ export const briefcasesStoreGetMainSettings = (value) => ({
 
 export const briefcasesStoreGetMainSettingsCancel = () => ({
   type: 'BRIEFCASES_STORE_GET_MAIN_SETTINGS_CANCEL',
+});
+
+export const briefcasesStoreGetRecallSettings = (value) => ({
+  type: 'BRIEFCASES_STORE_GET_RECALL_SETTINGS',
+  value,
+});
+
+export const briefcasesStoreGetRecallSettingsCancel = () => ({
+  type: 'BRIEFCASES_STORE_GET_RECALL_SETTINGS_CANCEL',
+});
+
+export const briefcasesStoreGetTimeZoneSettings = (value) => ({
+  type: 'BRIEFCASES_STORE_GET_TIME_ZONE_SETTINGS',
+  value,
+});
+
+export const briefcasesStoreGetTimeZoneSettingsCancel = () => ({
+  type: 'BRIEFCASES_STORE_GET_TIME_ZONE_SETTINGS_CANCEL',
 });
 
 export const briefcasesStoreChangeRecallSettings = (value) => ({

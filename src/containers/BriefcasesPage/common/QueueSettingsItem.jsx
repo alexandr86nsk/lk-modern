@@ -2,6 +2,7 @@ import React from 'react';
 import AnimateHeight from 'react-animate-height';
 import { Button } from 'semantic-ui-react';
 import UILoader from '../../../components/UILoader/UILoader';
+import UIMissingData from '../../../components/UIMissingData/UIMissingData';
 
 const heightVariables = {
   true: 'auto',
@@ -42,7 +43,6 @@ function QueueSettingsItem(props) {
               positive
               onClick={saveCallback}
               loading={trySave}
-              size="mini"
               disabled={disableSaveButton}
             />
           </div>
@@ -53,8 +53,12 @@ function QueueSettingsItem(props) {
         height={heightVariables[height]}
       >
         <div className={`settings-item__body${blockName ? ` ${blockName}` : ''}`}>
-          {loading && <span className="settings-item__loader"><UILoader text="Загрузка" type="--google" /></span>}
-          {body}
+          {loading && (
+            <div className="settings-item__loader">
+              <UILoader text="Загрузка" type="--google" />
+            </div>
+          )}
+          {body || <UIMissingData />}
         </div>
       </AnimateHeight>
     </div>

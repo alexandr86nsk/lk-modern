@@ -6,6 +6,10 @@
   background-color: var(--white);
   z-index: 8;
 
+  @media screen and (max-width: 450px) {
+    left: 1em;
+  }
+
   &__wrapper {
     position: relative;
     display: flex;
@@ -76,6 +80,11 @@
   &.--right {
     right: 0;
     left: unset;
+
+    @media screen and (max-width: 450px) {
+      right: 1em;
+      left: 1em;
+    }
   }
 
   &.--right &__title {
@@ -96,6 +105,10 @@
     @media screen and (max-width: 1000px) {
       width: 60%;
     }
+
+    @media screen and (max-width: 450px) {
+      width: unset;
+    }
   }
 
   &.--35 {
@@ -112,12 +125,34 @@
     @media screen and (max-width: 1000px) {
       width: 70%;
     }
+
+    @media screen and (max-width: 450px) {
+      width: unset;
+    }
   }
 
+  &.--55 {
+    width: 55%;
+
+    @media screen and (max-width: 1650px) {
+      width: 65%;
+    }
+
+    @media screen and (max-width: 1350px) {
+      width: 75%;
+    }
+
+    @media screen and (max-width: 1000px) {
+      width: 90%;
+    }
+
+    @media screen and (max-width: 450px) {
+      width: unset;
+    }
+  }
 
   /* ********************************* rounded **************************** */
   &.--rounded {
-    right: .5em;
     box-shadow: -2px 3px 10px rgba(var(--theme-border-color-rgb), 0.25),
     -2px 3px 4px rgba(var(--theme-border-color-rgb), 0.15),
     2px 3px 4px rgba(var(--theme-border-color-rgb), 0.15),
@@ -131,5 +166,14 @@
 
   &.--rounded &__top-panel {
     border-radius: .8em .8em 0 0;
+  }
+
+  /* ********************************* styled **************************** */
+  &.--styled {
+    background: var(--white) url(../../static/images/gold_right.png) no-repeat right bottom;
+  }
+
+  &.--styled &__wrapper {
+    background: transparent url(../../static/images/gold_left_top.png) no-repeat left top;
   }
 }

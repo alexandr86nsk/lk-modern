@@ -7,7 +7,7 @@ import UIBlockTitle from '../../components/UIBlockTitle/UIBlockTitle';
 import WarningIcon from '../../static/images/warning-24px.svg';
 import UIRsuiteTable from '../../components/UIRsuiteTable/UIRsuiteTable';
 import tableDefaultConfig from '../../components/UIRsuiteTable/tableDeafultConfig';
-import QueueAsteriskSettings from './common/BriefcaseEditor';
+import BriefcaseEditor from './common/BriefcaseEditor';
 
 function BriefcasesPage(props) {
   const {
@@ -15,7 +15,6 @@ function BriefcasesPage(props) {
     tableTemplate,
     briefcases,
     trySaveBriefcase,
-    briefcaseInfoLoading,
     briefcasesStoreGetBriefcases,
     briefcasesStoreGetBriefcasesCancel,
     briefcasesStoreStartBriefcase,
@@ -50,15 +49,12 @@ function BriefcasesPage(props) {
     const { QueuePhone: thisQueuePhone } = value || {};
     popUpStoreSetSection({
       show: true,
-      component: (
-        <QueueAsteriskSettings
-          id={thisQueuePhone}
-          briefcaseInfoLoading={briefcaseInfoLoading}
-        />),
-      type: '--right --35 --rounded',
+      component: <BriefcaseEditor id={thisQueuePhone} />,
+      type: '--right --55 --rounded --styled',
       title: thisQueuePhone,
+      queueId: thisQueuePhone,
     });
-  }, [briefcaseInfoLoading, popUpStoreSetSection]);
+  }, [popUpStoreSetSection]);
 
   const handleStartBriefcase = React.useCallback((value) => {
     const { Id: thisId } = value || {};
@@ -200,7 +196,6 @@ const mapStateToProps = (state) => ({
   tableStore: state.briefcasesStore.tableStore,
   tableTemplate: state.briefcasesStore.tableTemplate,
   briefcases: state.briefcasesStore.briefcases,
-  briefcaseInfoLoading: state.briefcasesStore.briefcaseInfoLoading,
   trySaveBriefcase: state.briefcasesStore.trySaveBriefcase,
 });
 

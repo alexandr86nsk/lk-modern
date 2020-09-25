@@ -4,13 +4,17 @@
   display: flex;
   flex-direction: column;
 
+  &__item {
+    margin: .2em 0;
+  }
+
   .settings-item {
 
     &__header {
       display: flex;
       align-items: center;
       background-color: rgba(238, 238, 239, 0.65);
-      padding: .2em .2em .2em .6em;
+      padding: .3em .3em .3em .6em;
     }
 
     &__title {
@@ -31,11 +35,21 @@
 
     &__btn {
       align-self: center;
+      font-size: .8em;
     }
 
     &__body {
       position: relative;
+      display: flex;
+      flex-direction: column;
+      margin: .5em 0;
+      padding: 0 .8em;
       min-height: 100px;
+
+      .ui-react-select,
+      .ui-input {
+        margin: .2em 0;
+      }
     }
 
     &__loader {
@@ -44,69 +58,20 @@
       right: 0;
       bottom: 0;
       left: 0;
-      background-color: rgba(255, 255, 255, .3);
+      background-color: rgba(var(--white-rgb), .8);
+      z-index: 2;
     }
   }
-
   .recall {
-    margin: .5em 0;
-    padding: 0 .8em;
-    font-size: .8em;
 
-    &__title {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: rgba(238, 238, 239, 0.15);
-      padding: .2em;
-    }
-
-    &__body {
-      display: flex;
-      flex-direction: column;
-
-      .ui-input-v2 {
-        margin: .2em 0;
-      }
-    }
   }
 
   .time-zone {
-    margin: .5em 0;
-    padding: 0 .8em;
-    font-size: .8em;
 
-    &__title {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: rgba(238, 238, 239, 0.15);
-      padding: .2em;
-    }
-
-    &__body {
-      display: flex;
-      flex-direction: column;
-
-      .ui-react-select {
-        margin: .2em 0;
-      }
-    }
   }
 
   .main {
 
-    &__body {
-      margin: .5em 0;
-      padding: 0 .8em;
-      font-size: .8em;
-      display: flex;
-      flex-direction: column;
-
-      .ui-react-select,
-      .ui-input-v2 {
-        margin: .2em 0;
-      }
-    }
   }
+
 }

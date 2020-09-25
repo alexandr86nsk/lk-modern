@@ -74,12 +74,12 @@ export const briefcasesTableTemplate = [
 export const settingsTabs = [
   {
     id: 0,
-    title: 'Основные',
+    title: 'Настройки',
     item: <MainTab />,
   },
 /*  {
     id: 1,
-    title: 'Настройки перезвона',
+    title: 'Очередь операторов(Архив)',
     item: <RecallTab />,
   },
   {

@@ -5,7 +5,10 @@ import * as briefcasesSaga from './briefcases/briefcasesSaga';
 function* rootSaga() {
   yield takeLatest('AUTH_STORE_LOG_IN', canBeCanceledAuthStoreLogIn);
   yield takeLatest('BRIEFCASES_STORE_GET_BRIEFCASES', briefcasesSaga.canBeCanceledBriefcasesStoreGetBriefcases);
-  yield takeLatest('BRIEFCASES_STORE_GET_QUEUE_ASTERISK_SETTINGS', briefcasesSaga.canBeCanceledGetQueueAsteriskSettings);
+  yield takeLatest('BRIEFCASES_STORE_GET_MAIN_SETTINGS', briefcasesSaga.canBeCanceledGetMainSettings);
+  yield takeLatest('BRIEFCASES_STORE_GET_RECALL_SETTINGS', briefcasesSaga.canBeCanceledGetRecallSettings);
+  yield takeLatest('BRIEFCASES_STORE_GET_TIME_ZONE_SETTINGS', briefcasesSaga.canBeCanceledGetTimeZoneSettings);
+  yield takeLatest('BRIEFCASES_STORE_SAVE_MAIN_SETTINGS', briefcasesSaga.canBeCanceledSaveMainSettings);
 }
 
 export default rootSaga;

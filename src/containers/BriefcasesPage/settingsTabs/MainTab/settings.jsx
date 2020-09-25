@@ -2,9 +2,9 @@ const queueMainSettingsTemplate = [
   {
     id: 0,
     title: 'Номер очереди',
-    data: 'QueuePhone',
+    dataKey: 'QueuePhone',
     type: 'input',
-    validation: {
+    otherProps: {
       disabled: true,
       type: '--style-1c',
     },
@@ -12,9 +12,9 @@ const queueMainSettingsTemplate = [
   {
     id: 1,
     title: 'Кол-во линий(ручное)',
-    data: 'QueueLimitCoefficient',
+    dataKey: 'QueueLimitCoefficient',
     type: 'input',
-    validation: {
+    otherProps: {
       required: true,
       successFormat: 'Обязательное поле',
       minLength: 1,
@@ -25,9 +25,9 @@ const queueMainSettingsTemplate = [
   {
     id: 2,
     title: 'Кол-во линий(автоматическое)',
-    data: 'CalcQueueLimitCoefficient',
+    dataKey: 'CalcQueueLimitCoefficient',
     type: 'input',
-    validation: {
+    otherProps: {
       disabled: true,
       type: '--style-1c',
     },
@@ -35,9 +35,9 @@ const queueMainSettingsTemplate = [
   {
     id: 3,
     title: 'Кол-во одновременно набираемых номеров(max)',
-    data: 'QueueLimitCoefficientPerOperatorMax',
+    dataKey: 'QueueLimitCoefficientPerOperatorMax',
     type: 'input',
-    validation: {
+    otherProps: {
       required: true,
       successFormat: 'Обязательное поле',
       minLength: 1,
@@ -48,9 +48,9 @@ const queueMainSettingsTemplate = [
   {
     id: 4,
     title: 'Кол-во одновременно набираемых номеров(min)',
-    data: 'QueueLimitCoefficientPerOperatorMin',
+    dataKey: 'QueueLimitCoefficientPerOperatorMin',
     type: 'input',
-    validation: {
+    otherProps: {
       required: true,
       successFormat: 'Обязательное поле',
       minLength: 1,
@@ -61,9 +61,9 @@ const queueMainSettingsTemplate = [
   {
     id: 5,
     title: 'Тип управления',
-    data: 'ControlType',
+    dataKey: 'ControlType',
     type: 'select',
-    validation: {
+    otherProps: {
       required: true,
       type: '--style-1c',
     },
@@ -71,9 +71,9 @@ const queueMainSettingsTemplate = [
   {
     id: 6,
     title: 'Скорость',
-    data: 'Work',
+    dataKey: 'Work',
     type: 'input',
-    validation: {
+    otherProps: {
       required: true,
       successFormat: 'Обязательное поле',
       minLength: 1,
@@ -84,22 +84,12 @@ const queueMainSettingsTemplate = [
   {
     id: 7,
     title: 'Допустимый процент брака',
-    data: 'AcceptPercentLostCalls',
+    dataKey: 'AcceptPercentLostCalls',
     type: 'input',
-    validation: {
+    otherProps: {
       required: true,
       successFormat: 'Обязательное поле',
       minLength: 1,
-      mask: '000',
-      type: '--style-1c',
-    },
-  },
-  {
-    id: 8,
-    title: 'Время набора номера',
-    data: 'OutgoingGroupNumber',
-    type: 'input',
-    validation: {
       mask: '000',
       type: '--style-1c',
     },

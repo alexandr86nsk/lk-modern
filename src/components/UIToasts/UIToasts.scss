@@ -35,11 +35,11 @@
     }
 
     &.success {
-      background-color: rgba(var(--success-color), .85);
+      background-color: rgba(var(--success-color-rgb), .85);
     }
 
     &.error {
-      background-color: rgba(var(--error-color), .85);
+      background-color: rgba(var(--error-color-rgb), .85);
     }
 
     &__content {
