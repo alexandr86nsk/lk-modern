@@ -92,7 +92,7 @@
     border-radius: 1.4em;
     box-shadow: 1px 3px 8px rgba(var(--theme-border-color-rgb),.5);
 
-    @media screen and (max-width: 750px) {
+    @media screen and (max-width: 1000px) {
       border-radius: 0;
       box-shadow: none;
       padding: unset;
