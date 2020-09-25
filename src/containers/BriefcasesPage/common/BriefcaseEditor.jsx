@@ -9,10 +9,12 @@ function BriefcaseEditor() {
         <span className="ellipsis-element">Управление</span>
       </div>
       <div className="popup__body">
-        <UITab
-          tabs={settingsTabs}
-          renderActiveOnly
-        />
+        <div className="popup__scroll-block">
+          <UITab
+            tabs={settingsTabs}
+            renderActiveOnly
+          />
+        </div>
       </div>
     </div>
   );

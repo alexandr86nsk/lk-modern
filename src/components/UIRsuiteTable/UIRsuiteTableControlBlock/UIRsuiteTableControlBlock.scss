@@ -14,8 +14,9 @@
   grid-template: auto / repeat(2, 1fr);
   grid-gap: 1em;
 
-  @media screen and (max-width: 767px) {
-    flex-direction: column;
+  @media screen and (max-width: 500px) {
+    grid-template: auto auto / 1fr;
+    grid-gap: unset;
   }
 
   .select-wrapper {
@@ -40,7 +41,6 @@
 
       @media screen and (max-width: 767px) {
         width: 100%;
-        margin-bottom: 1em;
       }
 
       .number-items {

@@ -122,7 +122,7 @@
       left: 0;
       justify-content: center;
       align-items: center;
-      background: rgba(var(--theme-border-color-rgb), .7);
+      background: rgba(var(--elegant-color-rgb), .5);
       z-index: 10;
     }
 
@@ -133,7 +133,7 @@
       right: 0;
       bottom: 0;
       left: 0;
-      background: rgba(var(--theme-border-color-rgb), 0.7);
+      background: rgba(var(--elegant-color-rgb), .5);
     }
 
     &__options {
@@ -141,6 +141,8 @@
       width: 95%;
       margin: auto;
       border-radius: .6em;
+      padding: unset;
+      box-shadow: none;
     }
 
     &.active &__options-wrapper {

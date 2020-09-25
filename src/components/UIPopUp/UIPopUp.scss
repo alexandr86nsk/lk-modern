@@ -2,13 +2,9 @@
   position: absolute;
   top: 2em;
   bottom: 2em;
-  left: 0;
+  left: 1em;
   background-color: var(--white);
   z-index: 8;
-
-  @media screen and (max-width: 450px) {
-    left: 1em;
-  }
 
   &__wrapper {
     position: relative;
@@ -78,7 +74,7 @@
   }
 
   &.--right {
-    right: 0;
+    right: 1em;
     left: unset;
 
     @media screen and (max-width: 450px) {
@@ -89,6 +85,10 @@
 
   &.--right &__title {
     order: 2;
+
+    @media screen and (max-width: 450px) {
+      order: unset;
+    }
   }
 
   &.--25 {
