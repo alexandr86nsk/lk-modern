@@ -178,15 +178,13 @@ function BriefcasesPage(props) {
   return (
     <div className="briefcases-page page__content">
       <UIBlockTitle title="Список очередей" />
-      <div className="element-wrapper --fullscreen">
-        <UIRsuiteTable
-          tableStore={tableStore}
-          tableStoreSetSection={briefcasesStoreSetTableStoreSection}
-          tableTemplate={tableTemplate}
-          tableTemplateSetSection={briefcasesStoreSetTableTemplateSection}
-          tableData={briefcases}
-        />
-      </div>
+      <UIRsuiteTable
+        tableStore={tableStore}
+        tableStoreSetSection={briefcasesStoreSetTableStoreSection}
+        tableTemplate={tableTemplate}
+        tableTemplateSetSection={briefcasesStoreSetTableTemplateSection}
+        tableData={briefcases}
+      />
     </div>
   );
 }

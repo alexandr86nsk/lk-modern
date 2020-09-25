@@ -116,7 +116,9 @@ function UIModal(props) {
           className="confirm-block__close"
           onClick={handleClose}
         >
-          <CloseIcon />
+          <div className="confirm-block__close-icon">
+            <CloseIcon />
+          </div>
         </div>
       </div>
     </div>
