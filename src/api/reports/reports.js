@@ -1,4 +1,4 @@
-/* ********************* reports ***************** */
+/* ********************* reports_OLD ***************** */
 import requestParser_with_refresh_token from '../requestParser_with_refresh_token';
 
 export const reportsStoreGetRatingReportBySettlements = (data) => requestParser_with_refresh_token({

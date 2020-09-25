@@ -29,7 +29,7 @@ const UISidebarList = [
         icon: <MonitoringIcon />,
       },
       {
-        id: 2,
+        id: 3,
         title: 'Отчеты',
         link: '/reports',
         icon: <ReportsIcon />,

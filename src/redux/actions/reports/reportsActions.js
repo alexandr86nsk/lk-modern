@@ -4,49 +4,59 @@ export const reportsStoreSetSection = (value) => ({
   value,
 });
 
-export const reportsStoreSetSubSection = (name, value) => ({
-  type: 'REPORTS_STORE_SET_SUB_SECTION',
-  name,
-  value,
-});
-
 export const reportsStoreClear = () => ({
   type: 'REPORTS_STORE_CLEAR',
 });
 
-export const reportsStoreGetRatingReportBySettlements = (value) => ({
-  type: 'REPORTS_STORE_GET_RATING_REPORT_BY_SETTLEMENTS',
+export const reportsStoreGetBriefcases = () => ({
+  type: 'REPORTS_STORE_GET_BRIEFCASES',
+});
+
+export const reportsStoreGetBriefcasesCancel = () => ({
+  type: 'REPORTS_STORE_GET_BRIEFCASES_CANCEL',
+});
+
+export const reportsStoreGetActualState = (value) => ({
+  type: 'REPORTS_STORE_GET_ACTUAL_STATE',
   value,
 });
 
-export const reportsStoreGetRatingReportBySettlementsCancel = () => ({
-  type: 'REPORTS_STORE_GET_RATING_REPORT_BY_SETTLEMENTS_CANCEL',
+export const reportsStoreGetActualStateCancel = () => ({
+  type: 'REPORTS_STORE_GET_ACTUAL_STATE_CANCEL',
 });
 
-
-export const reportsStoreGetOperationalReport = (value) => ({
-  type: 'REPORTS_STORE_GET_OPERATIONAL_REPORT',
+export const reportsStoreGetHistory = (value) => ({
+  type: 'REPORTS_STORE_GET_HISTORY',
   value,
 });
 
-export const reportsStoreGetOperationalReportCancel = () => ({
-  type: 'REPORTS_STORE_GET_OPERATIONAL_REPORT_CANCEL',
+export const reportsStoreGetHistoryCancel = () => ({
+  type: 'REPORTS_STORE_GET_HISTORY_CANCEL',
 });
 
-export const reportsStoreGetRewardReport = (value) => ({
-  type: 'REPORTS_STORE_GET_REWARD_REPORT',
+export const reportsStoreGetHistoryExcell = (value) => ({
+  type: 'REPORTS_STORE_GET_HISTORY_EXCELL',
   value,
 });
 
-export const reportsStoreGetRewardReportCancel = () => ({
-  type: 'REPORTS_STORE_GET_REWARD_REPORT_CANCEL',
+export const reportsStoreGetHistoryExcellCancel = () => ({
+  type: 'REPORTS_STORE_GET_HISTORY_EXCELL_CANCEL',
 });
 
-export const reportsStoreGetActivationReport = (value) => ({
-  type: 'REPORTS_STORE_GET_ACTIVATION_REPORT',
+export const reportsStoreGetCallStatistic = (value) => ({
+  type: 'REPORTS_STORE_GET_CALL_STATISTIC',
   value,
 });
 
-export const reportsStoreGetActivationReportCancel = () => ({
-  type: 'REPORTS_STORE_GET_ACTIVATION_REPORT_CANCEL',
+export const reportsStoreGetCallStatisticCancel = () => ({
+  type: 'REPORTS_STORE_GET_CALL_STATISTIC_CANCEL',
+});
+
+export const reportsStoreGetOperatorInfo = (value) => ({
+  type: 'REPORTS_STORE_GET_OPERATOR_INFO',
+  value,
+});
+
+export const reportsStoreGetOperatorInfoCancel = () => ({
+  type: 'REPORTS_STORE_GET_OPERATOR_INFO_CANCEL',
 });

@@ -1,209 +1,203 @@
 import {
   call, put, fork, take, cancel,
 } from 'redux-saga/effects';
-import saveAs from 'file-saver';
-import moment from 'moment';
+import { saveAs } from 'file-saver';
 import api from '../../../api/api';
 import actions from '../../actions/actions';
-import { queryResultAnalysis } from '../common/globalSaga';
-import ratingReportBySettlementsFilterTemplate
-  from '../../../containers/ReportsPage_OLD/tabs/RatingReportBySettlementsTab/settings';
-import operationalReportFilterTemplate from '../../../containers/ReportsPage_OLD/tabs/OperationalReportTab/settings';
-import rewardReportFilterTemplate from '../../../containers/ReportsPage_OLD/tabs/RewardReportTab/settings';
-import activationReportFilterTemplate from '../../../containers/ReportsPage_OLD/tabs/ActivationReportTab/settings';
+import { setErrorToast } from '../common/globalSaga';
 
-const getReportFileName = (name, obj, objVar) => {
-  if (objVar && Array.isArray(objVar)) {
-    let str = name;
-    objVar.forEach((v) => {
-      const {
-        title,
-        dataKey,
-        type,
-      } = v || {};
-      const titleValue = title.replace(/\s+/g, '_').trim();
-      /* if ((obj[dataKey] || obj[dataKey] === 0) && type !== 'datePicker') {
-        str = `${str}_${titleValue}(${obj[dataKey]})`;
-      } */
-      const {
-        [dataKey]: thisValue,
-      } = obj || {};
-      if ((thisValue || thisValue === 0) && type === 'datePicker') {
-        moment.locale('ru');
-        const dateValue = moment(thisValue).format('L').replace(/[.]/g, '_');
-        str = `${str}_${titleValue}(${dateValue})`;
-      }
-    });
-    return str;
+function* getError(error) {
+  /* if (error.response && error.response.data.description === 'Неверный токен') {
+    yield put(actions.clearToken());
+  } else */
+  if (error.response && error.response.data.description) {
+    yield setErrorToast(error.response.data.description);
+  } else {
+    yield setErrorToast('При зугрузке данных произошла ошибка. Пожалуйста обновите страницу');
   }
-  return '';
-};
+}
 
-/* ***************************** reportsStoreGetRatingReportBySettlements ********************** */
-function* reportsStoreGetRatingReportBySettlements(value) {
+/* ***************************** getActualStateReport ********************** */
+function* getActualStateReport(value) {
   yield put(actions.reportsStoreSetSection({
-    tryGetRatingReportBySettlements: true,
+    isLastRequestComplete: false,
   }));
-  yield queryResultAnalysis(
-    api.reportsStoreGetRatingReportBySettlements,
-    value,
-    function* (res) {
-      const blob = new Blob(
-        [res],
-        { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' },
-      );
-      /* const fileURL = URL.createObjectURL(blob);
-      window.open(fileURL, '_blank'); */
-      const fileName = getReportFileName(
-        'Рейтинговый_отчёт_по_населённым_пунктам',
-        value,
-        operationalReportFilterTemplate,
-      );
-      saveAs(blob, fileName);
-      yield put(actions.reportsStoreSetSection({
-        tryGetRatingReportBySettlements: false,
-      }));
-    },
-    function* () {
-      yield put(actions.reportsStoreSetSection({
-        tryGetRatingReportBySettlements: false,
-      }));
-    },
-  );
+  if (!value.auto) {
+    yield put(actions.reportsStoreSetSection({
+      actualStateLoaded: false,
+    }));
+  }
+  try {
+    const actual = yield call(api.getActualStateReport, value);
+    console.log('actualData', actual);
+    yield put(actions.reportsStoreSetSection({
+      actualState: actual.data,
+      actualStateLoaded: true,
+      isLastRequestComplete: true,
+    }));
+  } catch (e) {
+    yield put(actions.reportsStoreSetSection({
+      actualState: [],
+      actualStateLoaded: true,
+      isLastRequestComplete: true,
+    }));
+    yield getError(e);
+  }
 }
 
-export function* canBeCanceledReportsStoreGetRatingReportBySettlements(action) {
-  const bgReportsStoreGetRatingReportBySettlements = yield fork(
-    reportsStoreGetRatingReportBySettlements,
-    action.value,
-  );
-  yield take('REPORTS_STORE_GET_RATING_REPORT_BY_SETTLEMENTS_CANCEL');
-  yield cancel(bgReportsStoreGetRatingReportBySettlements);
+export function* canBeCanceledGetActualStateReport(action) {
+  const bgGetActualStateReport = yield fork(getActualStateReport, action.value);
+  yield take('REPORTS_STORE_GET_ACTUAL_STATE_CANCEL');
+  yield cancel(bgGetActualStateReport);
 }
 
-/* ***************************** reportsStoreGetOperationalReport ********************** */
-function* reportsStoreGetOperationalReport(value) {
+/* ***************************** getHistoryReport ********************** */
+function* getHistoryReport(value) {
   yield put(actions.reportsStoreSetSection({
-    tryGetOperationalReport: true,
+    isLastRequestComplete: false,
   }));
-  yield queryResultAnalysis(
-    api.reportsStoreGetOperationalReport,
-    value,
-    function* (res) {
-      const blob = new Blob(
-        [res],
-        { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' },
-      );
-      console.log('blob');
-      /* const fileURL = URL.createObjectURL(blob);
-      window.open(fileURL, '_blank'); */
-      const fileName = getReportFileName(
-        'Операционный_отчет',
-        value,
-        ratingReportBySettlementsFilterTemplate,
-      );
-      saveAs(blob, fileName);
-      yield put(actions.reportsStoreSetSection({
-        tryGetOperationalReport: false,
-      }));
-    },
-    function* () {
-      yield put(actions.reportsStoreSetSection({
-        tryGetOperationalReport: false,
-      }));
-    },
-  );
+  if (!value.auto) {
+    yield put(actions.reportsStoreSetSection({
+      historyLoaded: false,
+    }));
+  }
+  try {
+    const history = yield call(api.getHistoryReport, value);
+    yield put(actions.reportsStoreSetSection({
+      history: history.data,
+      historyLoaded: true,
+      isLastRequestComplete: true,
+    }));
+  } catch (e) {
+    yield put(actions.reportsStoreSetSection({
+      history: [],
+      historyLoaded: true,
+      isLastRequestComplete: true,
+    }));
+    yield getError(e);
+  }
 }
 
-export function* canBeCanceledReportsStoreGetOperationalReport(action) {
-  const bgReportsStoreGetOperationalReport = yield fork(
-    reportsStoreGetOperationalReport,
-    action.value,
-  );
-  yield take('REPORTS_STORE_GET_OPERATIONAL_REPORT_CANCEL');
-  yield cancel(bgReportsStoreGetOperationalReport);
+export function* canBeCanceledGetHistoryReport(action) {
+  const bgGetHistoryReport = yield fork(getHistoryReport, action.value);
+  yield take('REPORTS_STORE_GET_HISTORY_CANCEL');
+  yield cancel(bgGetHistoryReport);
 }
 
-/* ***************************** reportsStoreGetRewardReport ********************** */
-function* reportsStoreGetRewardReport(value) {
+/* ***************************** getBriefcases ********************** */
+function* getBriefcases() {
+  try {
+    const briefcases = yield call(api.getBriefCaseList);
+    yield put(actions.reportsStoreSetSection({
+      briefcases: Array.isArray(briefcases.data) ? briefcases.data.map((v) => (
+        {
+          value: v.BriefcaseId,
+          label: v.Title,
+          queuePhone: v.QueuePhone,
+        }
+      )) : [],
+    }));
+  } catch (e) {
+    yield put(actions.reportsStoreSetSection({
+      briefcases: [],
+    }));
+    yield setErrorToast('При зугрузке данных о кампаниях произошла ошибка. Пожалуйста обновите страницу');
+  }
+}
+
+export function* canBeCanceledGetBriefcases() {
+  const bgGetBriefcases = yield fork(getBriefcases);
+  yield take('REPORTS_STORE_GET_BRIEFCASES_CANCEL');
+  yield cancel(bgGetBriefcases);
+}
+
+/* ***************************** getHistoryExcell ********************** */
+function* getHistoryExcell(value) {
   yield put(actions.reportsStoreSetSection({
-    tryGetRewardReport: true,
+    historyLoadingExcell: true,
   }));
-  yield queryResultAnalysis(
-    api.reportsStoreGetRewardReport,
-    value,
-    function* (res) {
-      const blob = new Blob(
-        [res],
-        { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' },
-      );
-      /* const fileURL = URL.createObjectURL(blob);
-      window.open(fileURL, '_blank'); */
-      const fileName = getReportFileName(
-        'Отчет_по_вознаграждению',
-        value,
-        rewardReportFilterTemplate,
-      );
-      saveAs(blob, fileName);
-      yield put(actions.reportsStoreSetSection({
-        tryGetRewardReport: false,
-      }));
-    },
-    function* () {
-      yield put(actions.reportsStoreSetSection({
-        tryGetRewardReport: false,
-      }));
-    },
-  );
+  try {
+    const file = yield call(api.getHistoryExcell, value);
+    const byteCharacters = atob(file.data.Base64File || '');
+    const byteArrays = [];
+    for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+      const slice = byteCharacters.slice(offset, offset + 512);
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i += 1) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+    const blob = new Blob(byteArrays, { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    saveAs(blob, file.data.FileName || 'Отчет');
+    yield put(actions.reportsStoreSetSection({
+      historyLoadingExcell: false,
+    }));
+  } catch (e) {
+    yield put(actions.reportsStoreSetSection({
+      historyLoadingExcell: false,
+    }));
+    yield getError(e);
+  }
 }
 
-export function* canBeCanceledReportsStoreGetRewardReport(action) {
-  const bgReportsStoreGetRewardReport = yield fork(
-    reportsStoreGetRewardReport,
-    action.value,
-  );
-  yield take('REPORTS_STORE_GET_REWARD_REPORT_CANCEL');
-  yield cancel(bgReportsStoreGetRewardReport);
+export function* canBeCanceledGetHistoryExcell(action) {
+  const bgGetHistoryExcell = yield fork(getHistoryExcell, action.value);
+  yield take('REPORTS_STORE_GET_HISTORY_EXCELL_CANCEL');
+  yield cancel(bgGetHistoryExcell);
 }
 
-/* ***************************** reportsStoreGetActivationReport ********************** */
-function* reportsStoreGetActivationReport(value) {
+/* ***************************** getCallStatisticReport ********************** */
+function* getCallStatisticReport(value) {
   yield put(actions.reportsStoreSetSection({
-    tryGetActivationReport: true,
+    callStatisticReportLoaded: false,
   }));
-  yield queryResultAnalysis(
-    api.reportsStoreGetActivationReport,
-    value,
-    function* (res) {
-      const blob = new Blob(
-        [res],
-        { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' },
-      );
-      /* const fileURL = URL.createObjectURL(blob);
-      window.open(fileURL, '_blank'); */
-      const fileName = getReportFileName(
-        'Отчет_по_активациям',
-        value,
-        activationReportFilterTemplate,
-      );
-      saveAs(blob, fileName);
-      yield put(actions.reportsStoreSetSection({
-        tryGetActivationReport: false,
-      }));
-    },
-    function* () {
-      yield put(actions.reportsStoreSetSection({
-        tryGetActivationReport: false,
-      }));
-    },
-  );
+  try {
+    const callStatisticReport = yield call(api.getCallStatisticReport, value);
+    yield put(actions.reportsStoreSetSection({
+      callStatisticReport: callStatisticReport.data && Array.isArray(callStatisticReport.data)
+        ? callStatisticReport.data
+        : [callStatisticReport.data],
+      callStatisticReportLoaded: true,
+    }));
+  } catch (e) {
+    yield put(actions.reportsStoreSetSection({
+      callStatisticReport: [],
+      callStatisticReportLoaded: true,
+    }));
+    yield getError(e);
+  }
 }
 
-export function* canBeCanceledReportsStoreGetActivationReport(action) {
-  const bgReportsStoreGetActivationReport = yield fork(
-    reportsStoreGetActivationReport,
-    action.value,
-  );
-  yield take('REPORTS_STORE_GET_ACTIVATION_REPORT_CANCEL');
-  yield cancel(bgReportsStoreGetActivationReport);
+export function* canBeCanceledGetCallStatisticReport(action) {
+  const bgGetCallStatisticReport = yield fork(getCallStatisticReport, action.value);
+  yield take('REPORTS_STORE_GET_CALL_STATISTIC_CANCEL');
+  yield cancel(bgGetCallStatisticReport);
+}
+
+/* ***************************** getOperatorInfoReport ********************** */
+function* getOperatorInfoReport(value) {
+  yield put(actions.reportsStoreSetSection({
+    operatorInfoReportLoaded: false,
+  }));
+  try {
+    const operatorReport = yield call(api.getOperatorInfoReport, value);
+    yield put(actions.reportsStoreSetSection({
+      operatorInfoReport: operatorReport.data,
+      operatorInfoReportLoaded: true,
+    }));
+  } catch (e) {
+    yield put(actions.reportsStoreSetSection({
+      operatorInfoReport: {},
+      operatorInfoReportLoaded: true,
+    }));
+    yield getError(e);
+  }
+}
+
+export function* canBeCanceledGetOperatorInfoReport(action) {
+  const bgGetOperatorInfoReport = yield fork(getOperatorInfoReport, action.value);
+  yield take('REPORTS_STORE_GET_OPERATOR_INFO_CANCEL');
+  yield cancel(bgGetOperatorInfoReport);
 }

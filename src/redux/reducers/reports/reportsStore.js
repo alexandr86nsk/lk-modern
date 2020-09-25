@@ -1,27 +1,15 @@
-const initialReportsStore = {};
+const initialReportsStore = {
+  history: [],
+  actualState: [],
+  briefcases: [],
+};
 
 export default function reportsStore(state = initialReportsStore, action) {
-  const {
-    value,
-    name,
-    type,
-  } = action || {};
-  const {
-    [name]: stateName,
-  } = state || {};
-  switch (type) {
+  switch (action.type) {
     case 'REPORTS_STORE_SET_SECTION':
       return {
         ...state,
-        ...value,
-      };
-    case 'REPORTS_STORE_SET_SUB_SECTION':
-      return {
-        ...state,
-        [name]: {
-          ...stateName,
-          ...value,
-        },
+        ...action.value,
       };
     case 'REPORTS_STORE_CLEAR':
       return initialReportsStore;

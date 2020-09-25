@@ -2,7 +2,7 @@ import React from 'react';
 import MainTab from './tabs/MainTab/MainTab';
 // import RecallTab from './tabs/RecallTab/RecallTab';
 // import TimeZoneTab from './tabs/TimeZoneTab/TimeZoneTab';
-// import QueuePhoneTab from './tabs/QueuePhoneTab/QueuePhoneTab';
+// import ArchiveTab from './tabs/ArchiveTab/ArchiveTab';
 
 const settingsTabs = [
   {
@@ -23,7 +23,7 @@ const settingsTabs = [
   {
     id: 3,
     title: 'Настройки Групп Очереди Операторов',
-    item: <QueuePhoneTab />,
+    item: <ArchiveTab />,
   },*/
 ];
 

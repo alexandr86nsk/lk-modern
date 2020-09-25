@@ -1,7 +1,6 @@
 import React from 'react';
 import MainTab from './settingsTabs/MainTab/MainTab';
-// import QueuePhoneTab from './settingsTabs/QueuePhoneTab/QueuePhoneTab';
-// import RecallTab from './settingsTabs/RecallTab/RecallTab';
+import ArchiveTab from './settingsTabs/ArchiveTab/ArchiveTab';
 
 const briefStatusOptions = {
   0: 'Ошибка',
@@ -77,14 +76,9 @@ export const settingsTabs = [
     title: 'Настройки',
     item: <MainTab />,
   },
-/*  {
+  {
     id: 1,
     title: 'Очередь операторов(Архив)',
-    item: <RecallTab />,
+    item: <ArchiveTab />,
   },
-  {
-    id: 2,
-    title: 'Настройки часовых поясов',
-    item: <QueuePhoneTab />,
-  }, */
 ];

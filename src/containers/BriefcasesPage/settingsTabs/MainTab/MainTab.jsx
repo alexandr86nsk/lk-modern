@@ -118,8 +118,8 @@ function MainTab(props) {
   React.useEffect(() => {
     if (queueId) {
       briefcasesStoreGetMainSettings(queueId);
-      briefcasesStoreGetRecallSettings(queueId);
-      briefcasesStoreGetTimeZoneSettings(queueId);
+      // briefcasesStoreGetRecallSettings(queueId);
+      // briefcasesStoreGetTimeZoneSettings(queueId);
     }
   }, [
     queueId,
