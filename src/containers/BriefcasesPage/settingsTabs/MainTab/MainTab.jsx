@@ -1,27 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import actions from '../../../../redux/actions/actions';
-import QueueAsteriskSettingsRecallItem from '../../common/QueueAsteriskSettingsRecallItem';
-import QueueAsteriskSettingsTimeZoneItem from '../../common/QueueAsteriskSettingsTimeZoneItem';
-import QueueAsteriskSettingItem from '../../common/QueueAsteriskSettingItem';
+import QueueSettingsRecallItem from '../../common/QueueSettingsRecallItem';
+import QueueSettingsTimeZoneItem from '../../common/QueueSettingsTimeZoneItem';
+import QueueSettingItem from '../../common/QueueSettingsItem';
 import formGenerator from '../../../../components/utilities/formGenerator';
-import queueAsteriskSettingsTemplate from './settings';
+import queueMainSettingsTemplate from './settings';
 
 function MainTab(props) {
   const {
-    queueAsteriskRetryRulesSettings,
-    trySaveQueueAsteriskRetryRulesSettings,
-    queueAsteriskTimeZoneSettings,
-    trySaveQueueAsteriskTimeZoneSettings,
-    queueAsteriskSettings,
-    trySaveQueueAsteriskSettings,
-    queueAsteriskControlTypes,
+    queueRecallSettings,
+    loadingQueueRecallSettings = true,
+    trySaveQueueRecallSettings,
+    queueTimeZoneSettings,
+    loadingQueueTimeZoneSettings = true,
+    trySaveQueueTimeZoneSettings,
+    queueMainSettings,
+    loadingQueueMainSettings = true,
+    trySaveQueueMainSettings,
+    queueControlTypes,
     briefcasesStoreChangeRecallSettings,
     briefcasesStoreChangeTimeZoneSettings,
-    briefcasesStoreChangeQueueAsteriskSettings,
+    briefcasesStoreChangeQueueMainSettings,
     briefcasesStoreSaveTimeZoneSettings,
     briefcasesStoreSaveRecallSettings,
-    briefcasesStoreSaveQueueAsteriskSettings,
+    briefcasesStoreSaveQueueMainSettings,
   } = props || {};
 
   const {
@@ -31,7 +34,7 @@ function MainTab(props) {
     ControlType,
     Work,
     AcceptPercentLostCalls,
-  } = queueAsteriskSettings || {};
+  } = queueMainSettings || {};
 
   const handleChangeRecallValue = React.useCallback((editId, editName, editValue) => {
     briefcasesStoreChangeRecallSettings({
@@ -49,68 +52,73 @@ function MainTab(props) {
     });
   }, [briefcasesStoreChangeTimeZoneSettings]);
 
-  const handleChangeQueueAsteriskSettingsValue = React.useCallback((editName, editValue) => {
-    briefcasesStoreChangeQueueAsteriskSettings({
+  const handleChangeQueueMainSettingsValue = React.useCallback((editName, editValue) => {
+    briefcasesStoreChangeQueueMainSettings({
       [editName]: editValue,
     });
-  }, [briefcasesStoreChangeQueueAsteriskSettings]);
+  }, [briefcasesStoreChangeQueueMainSettings]);
 
   const handleSaveRecallSettings = React.useCallback((e) => {
     e.stopPropagation();
-    briefcasesStoreSaveRecallSettings(queueAsteriskRetryRulesSettings);
-  }, [queueAsteriskRetryRulesSettings, briefcasesStoreSaveRecallSettings]);
+    briefcasesStoreSaveRecallSettings(queueRecallSettings);
+  }, [queueRecallSettings, briefcasesStoreSaveRecallSettings]);
 
   const handleSaveTimeZoneSettings = React.useCallback((e) => {
     e.stopPropagation();
-    briefcasesStoreSaveTimeZoneSettings(queueAsteriskTimeZoneSettings);
-  }, [queueAsteriskTimeZoneSettings, briefcasesStoreSaveTimeZoneSettings]);
+    briefcasesStoreSaveTimeZoneSettings(queueTimeZoneSettings);
+  }, [queueTimeZoneSettings, briefcasesStoreSaveTimeZoneSettings]);
 
-  const handleSaveQueueAsteriskSettings = React.useCallback((e) => {
+  const handleSaveQueueMainSettings = React.useCallback((e) => {
     e.stopPropagation();
-    briefcasesStoreSaveQueueAsteriskSettings(queueAsteriskSettings);
-  }, [queueAsteriskSettings, briefcasesStoreSaveQueueAsteriskSettings]);
+    briefcasesStoreSaveQueueMainSettings(queueMainSettings);
+  }, [queueMainSettings, briefcasesStoreSaveQueueMainSettings]);
 
-  const editedQueueAsteriskSettingsTemplate = React.useMemo(
-    () => queueAsteriskSettingsTemplate.map((v) => {
+  const editedQueueMainSettingsTemplate = React.useMemo(
+    () => queueMainSettingsTemplate.map((v) => {
       if (v.id === 5) {
         return {
           ...v,
-          options: queueAsteriskControlTypes,
+          options: queueControlTypes,
         };
       }
       return v;
-    }), [queueAsteriskControlTypes],
+    }), [queueControlTypes],
   );
 
-  const queueAsteriskSettingsBody = React.useMemo(
+  const queueMainSettingsBody = React.useMemo(
     () => {
-      if (queueAsteriskSettings) {
-        return formGenerator(
-          editedQueueAsteriskSettingsTemplate,
-          queueAsteriskSettings,
-          handleChangeQueueAsteriskSettingsValue,
+      if (queueMainSettings) {
+        return (
+          <div className="main">
+            {formGenerator(
+              editedQueueMainSettingsTemplate,
+              queueMainSettings,
+              handleChangeQueueMainSettingsValue,
+            )}
+          </div>
         );
       }
       return null;
     }, [
-      editedQueueAsteriskSettingsTemplate,
-      queueAsteriskSettings,
-      handleChangeQueueAsteriskSettingsValue,
+      editedQueueMainSettingsTemplate,
+      queueMainSettings,
+      handleChangeQueueMainSettingsValue,
     ],
   );
   return (
-    <div className="queue-settings__main-tab">
-      <div className="queue-settings__table">
-        <QueueAsteriskSettingItem
+    <div className="main-tab">
+      <div className="queue-settings">
+        <QueueSettingItem
           title="Настройки перезвона"
           saveCallback={handleSaveRecallSettings}
-          trySave={trySaveQueueAsteriskRetryRulesSettings}
-          body={queueAsteriskRetryRulesSettings
-          && Array.isArray(queueAsteriskRetryRulesSettings)
-          && queueAsteriskRetryRulesSettings.map((v) => {
+          trySave={trySaveQueueRecallSettings}
+          loading={loadingQueueRecallSettings}
+          body={queueRecallSettings
+          && Array.isArray(queueRecallSettings)
+          && queueRecallSettings.map((v) => {
             const { EventCode } = v || {};
             return (
-              <QueueAsteriskSettingsRecallItem
+              <QueueSettingsRecallItem
                 key={EventCode}
                 data={v}
                 callback={handleChangeRecallValue}
@@ -118,16 +126,17 @@ function MainTab(props) {
             );
           })}
         />
-        <QueueAsteriskSettingItem
+        <QueueSettingItem
           title="Настройки часовых поясов"
           saveCallback={handleSaveTimeZoneSettings}
-          trySave={trySaveQueueAsteriskTimeZoneSettings}
-          body={queueAsteriskTimeZoneSettings
-          && Array.isArray(queueAsteriskTimeZoneSettings)
-          && queueAsteriskTimeZoneSettings.map((v) => {
+          trySave={trySaveQueueTimeZoneSettings}
+          loading={loadingQueueTimeZoneSettings}
+          body={queueTimeZoneSettings
+          && Array.isArray(queueTimeZoneSettings)
+          && queueTimeZoneSettings.map((v) => {
             const { TimeZoneId } = v || {};
             return (
-              <QueueAsteriskSettingsTimeZoneItem
+              <QueueSettingsTimeZoneItem
                 key={TimeZoneId}
                 data={v}
                 callback={handleChangeTimeZoneValue}
@@ -135,33 +144,36 @@ function MainTab(props) {
             );
           })}
         />
-        <div className="queue-settings__queue-asterisk-item">
-          <QueueAsteriskSettingItem
-            title="Другие настройки"
-            saveCallback={handleSaveQueueAsteriskSettings}
-            trySave={trySaveQueueAsteriskSettings}
-            body={queueAsteriskSettingsBody}
-            disableSaveButton={!(QueueLimitCoefficient || QueueLimitCoefficient === 0)
+
+        <QueueSettingItem
+          title="Другие настройки"
+          saveCallback={handleSaveQueueMainSettings}
+          trySave={trySaveQueueMainSettings}
+          body={queueMainSettingsBody}
+          loading={loadingQueueMainSettings}
+          disableSaveButton={!(QueueLimitCoefficient || QueueLimitCoefficient === 0)
             || !(QueueLimitCoefficientPerOperatorMax || QueueLimitCoefficientPerOperatorMax === 0)
               || !(QueueLimitCoefficientPerOperatorMin || QueueLimitCoefficientPerOperatorMin === 0)
               || !(ControlType || ControlType === 0)
               || !(Work || Work === 0)
               || !(AcceptPercentLostCalls || AcceptPercentLostCalls === 0)}
-          />
-        </div>
+        />
       </div>
     </div>
   );
 }
 
 const mapStateToProps = (state) => ({
-  queueAsteriskRetryRulesSettings: state.briefcasesStore.queueAsteriskRetryRulesSettings,
-  trySaveQueueAsteriskRetryRulesSettings: state.briefcasesStore.trySaveQueueAsteriskRetryRulesSettings,
-  queueAsteriskTimeZoneSettings: state.briefcasesStore.queueAsteriskTimeZoneSettings,
-  trySaveQueueAsteriskTimeZoneSettings: state.briefcasesStore.trySaveQueueAsteriskTimeZoneSettings,
-  queueAsteriskSettings: state.briefcasesStore.queueAsteriskSettings,
-  trySaveQueueAsteriskSettings: state.briefcasesStore.trySaveQueueAsteriskSettings,
-  queueAsteriskControlTypes: state.briefcasesStore.queueAsteriskControlTypes,
+  queueRecallSettings: state.briefcasesStore.queueRecallSettings,
+  loadingQueueRecallSettings: state.briefcasesStore.loadingQueueRecallSettings,
+  trySaveQueueRecallSettings: state.briefcasesStore.trySaveQueueRecallSettings,
+  queueTimeZoneSettings: state.briefcasesStore.queueTimeZoneSettings,
+  loadingQueueTimeZoneSettings: state.briefcasesStore.loadingQueueTimeZoneSettings,
+  trySaveQueueTimeZoneSettings: state.briefcasesStore.trySaveQueueTimeZoneSettings,
+  queueMainSettings: state.briefcasesStore.queueMainSettings,
+  loadingQueueMainSettings: state.briefcasesStore.loadingQueueMainSettings,
+  trySaveQueueMainSettings: state.briefcasesStore.trySaveQueueMainSettings,
+  queueControlTypes: state.briefcasesStore.queueControlTypes,
 });
 
 const mapDispatchToProps = { ...actions };

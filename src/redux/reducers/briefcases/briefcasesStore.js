@@ -1,13 +1,26 @@
-const initialBriefcasesStore = {
-  dataLoaded: false,
-};
+const initialBriefcasesStore = {};
 
 export default function briefcasesStore(state = initialBriefcasesStore, action) {
-  switch (action.type) {
+  const {
+    value,
+    type,
+  } = action || {};
+  const {
+    dataKey,
+    id,
+    name: valueName,
+    value: valueValue,
+  } = value || {};
+  const {
+    queueMainSettings,
+    tableStore,
+    tableTemplate,
+  } = state || {};
+  switch (type) {
     case 'BRIEFCASES_STORE_SET_SECTION':
       return {
         ...state,
-        ...action.value,
+        ...value,
       };
     case 'BRIEFCASES_STORE_CLEAR':
       return initialBriefcasesStore;
@@ -15,52 +28,55 @@ export default function briefcasesStore(state = initialBriefcasesStore, action) 
       return {
         ...state,
         tableStore: {
-          ...state.tableStore,
-          ...action.value,
+          ...tableStore,
+          ...value,
         },
       };
     case 'BRIEFCASES_STORE_SET_TABLE_TEMPLATE_SECTION':
       return {
         ...state,
-        tableTemplate: state.tableTemplate.map((v) => {
-          if (v.dataKey === action.value.dataKey) {
+        tableTemplate: tableTemplate.map((v) => {
+          const { dataKey: thisDataKey } = v || {};
+          if (thisDataKey === dataKey) {
             return {
               ...v,
-              ...action.value,
+              ...value,
             };
           }
           return v;
         }),
+      };
+    case 'BRIEFCASES_STORE_CHANGE_MAIN_SETTINGS':
+      return {
+        ...state,
+        queueMainSettings: {
+          ...queueMainSettings,
+          ...value,
+        },
       };
     case 'BRIEFCASES_STORE_CHANGE_RECALL_SETTINGS':
       return {
         ...state,
-        queueAsteriskRetryRulesSettings: state.queueAsteriskRetryRulesSettings.map((v) => {
-          if (v.EventCode === action.value.id) {
+        queueRecallSettings: state.queueRecallSettings.map((v) => {
+          const { EventCode } = v || {};
+          if (EventCode === id) {
             return {
               ...v,
-              [action.value.name]: action.value.value,
+              [valueName]: valueValue,
             };
           }
           return v;
         }),
       };
-    case 'BRIEFCASES_STORE_CHANGE_QUEUE_ASTERISK_SETTINGS':
-      return {
-        ...state,
-        queueAsteriskSettings: {
-          ...state.queueAsteriskSettings,
-          ...action.value,
-        },
-      };
     case 'BRIEFCASES_STORE_CHANGE_TIME_ZONE_SETTINGS':
       return {
         ...state,
-        queueAsteriskTimeZoneSettings: state.queueAsteriskTimeZoneSettings.map((v) => {
-          if (v.TimeZoneId === action.value.id) {
+        queueTimeZoneSettings: state.queueTimeZoneSettings.map((v) => {
+          const { TimeZoneId } = v || {};
+          if (TimeZoneId === id) {
             return {
               ...v,
-              [action.value.name]: action.value.value,
+              [valueName]: valueValue,
             };
           }
           return v;

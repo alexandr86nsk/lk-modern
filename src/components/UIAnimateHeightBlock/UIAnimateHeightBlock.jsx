@@ -14,7 +14,7 @@ function UIAnimateHeightBlock(props) {
     blockName,
     body,
     loading,
-  } = props;
+  } = props || {};
 
   const [height, setHeight] = React.useState(true);
 

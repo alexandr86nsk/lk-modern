@@ -8,21 +8,12 @@ export const briefcasesStoreClear = () => ({
   type: 'BRIEFCASES_STORE_CLEAR',
 });
 
-export const briefcaseItemStoreSetSection = (value) => ({
-  type: 'BRIEFCASE_ITEM_STORE_SET_SECTION',
-  value,
-});
-
-export const briefcaseItemStoreClear = () => ({
-  type: 'BRIEFCASE_ITEM_STORE_CLEAR',
-});
-
 export const briefcasesStoreGetBriefcases = () => ({
   type: 'BRIEFCASES_STORE_GET_BRIEFCASES',
 });
 
 export const briefcasesStoreGetBriefcasesCancel = () => ({
-  type: 'BRIEFCASES_STORE_GET_BRIEFCASES_LIST_CANCEL',
+  type: 'BRIEFCASES_STORE_GET_BRIEFCASES_CANCEL',
 });
 
 export const briefcasesStoreStartBriefcase = (id) => ({
@@ -89,15 +80,6 @@ export const briefcasesStoreGetBriefcaseCancel = () => ({
   type: 'BRIEFCASES_STORE_GET_BRIEFCASE_CANCEL',
 });
 
-export const briefcasesStoreGetBriefcaseCalls = (id) => ({
-  type: 'BRIEFCASES_STORE_GET_BRIEFCASE_CALLS',
-  id,
-});
-
-export const briefcasesStoreGetBriefcaseCallsCancel = () => ({
-  type: 'BRIEFCASES_STORE_GET_BRIEFCASE_CALLS_CANCEL',
-});
-
 export const briefcasesStoreSetTableStoreSection = (value) => ({
   type: 'BRIEFCASES_STORE_SET_TABLE_STORE_SECTION',
   value,
@@ -108,21 +90,13 @@ export const briefcasesStoreSetTableTemplateSection = (value) => ({
   value,
 });
 
-export const briefcasesStoreGetQueueAsteriskOptions = () => ({
-  type: 'BRIEFCASES_STORE_GET_QUEUE_ASTERISK_OPTIONS',
-});
-
-export const briefcasesStoreGetQueueAsteriskOptionsCancel = () => ({
-  type: 'BRIEFCASES_STORE_GET_QUEUE_ASTERISK_OPTIONS_CANCEL',
-});
-
-export const briefcasesStoreGetQueueAsteriskSettings = (value) => ({
-  type: 'BRIEFCASES_STORE_GET_QUEUE_ASTERISK_SETTINGS',
+export const briefcasesStoreGetMainSettings = (value) => ({
+  type: 'BRIEFCASES_STORE_GET_MAIN_SETTINGS',
   value,
 });
 
-export const briefcasesStoreGetQueueAsteriskSettingsCancel = () => ({
-  type: 'BRIEFCASES_STORE_GET_QUEUE_ASTERISK_SETTINGS_CANCEL',
+export const briefcasesStoreGetMainSettingsCancel = () => ({
+  type: 'BRIEFCASES_STORE_GET_MAIN_SETTINGS_CANCEL',
 });
 
 export const briefcasesStoreChangeRecallSettings = (value) => ({
@@ -135,8 +109,8 @@ export const briefcasesStoreChangeTimeZoneSettings = (value) => ({
   value,
 });
 
-export const briefcasesStoreChangeQueueAsteriskSettings = (value) => ({
-  type: 'BRIEFCASES_STORE_CHANGE_QUEUE_ASTERISK_SETTINGS',
+export const briefcasesStoreChangeMainSettings = (value) => ({
+  type: 'BRIEFCASES_STORE_CHANGE_MAIN_SETTINGS',
   value,
 });
 
@@ -158,11 +132,11 @@ export const briefcasesStoreSaveRecallSettingsCancel = () => ({
   type: 'BRIEFCASES_STORE_SAVE_RECALL_SETTINGS_CANCEL',
 });
 
-export const briefcasesStoreSaveQueueAsteriskSettings = (value) => ({
-  type: 'BRIEFCASES_STORE_SAVE_QUEUE_ASTERISK_SETTINGS',
+export const briefcasesStoreSaveMainSettings = (value) => ({
+  type: 'BRIEFCASES_STORE_SAVE_MAIN_SETTINGS',
   value,
 });
 
-export const briefcasesStoreSaveQueueAsteriskSettingsCancel = () => ({
-  type: 'BRIEFCASES_STORE_SAVE_QUEUE_ASTERISK_SETTINGS_CANCEL',
+export const briefcasesStoreSaveMainSettingsCancel = () => ({
+  type: 'BRIEFCASES_STORE_SAVE_MAIN_SETTINGS_CANCEL',
 });

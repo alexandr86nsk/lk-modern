@@ -15,17 +15,7 @@ function* briefcasesStoreGetBriefcases() {
     undefined,
     function* (res) {
       yield put(actions.briefcasesStoreSetSection({
-        briefcases: [
-          { ...res[0] },
-          { ...res[0], QueuePhone: '1002', Work: 1 },
-          { ...res[0], QueuePhone: '1003' },
-          { ...res[0], QueuePhone: '1004' },
-          { ...res[0], QueuePhone: '1005', Work: 1 },
-          { ...res[0], QueuePhone: '1006' },
-          { ...res[0], QueuePhone: '1007' },
-          { ...res[0], QueuePhone: '1008', Work: 1 },
-          { ...res[0], QueuePhone: '1009' },
-        ],
+        briefcases: res,
       }));
       yield put(actions.briefcasesStoreSetTableStoreSection({
         tableLoading: false,
@@ -43,6 +33,62 @@ export function* canBeCanceledBriefcasesStoreGetBriefcases() {
   const bgBriefcasesStoreGetBriefcases = yield fork(briefcasesStoreGetBriefcases);
   yield take('BRIEFCASES_STORE_GET_BRIEFCASES_CANCEL');
   yield cancel(bgBriefcasesStoreGetBriefcases);
+}
+
+/* ***************************** getQueueAsteriskSettings ********************** */
+function* getQueueAsteriskSettings(value) {
+  yield put(actions.briefcasesStoreSetSection({
+    queueAsteriskSettingsLoading: true,
+  }));
+/*
+
+  yield queryResultAnalysis(
+    api.getQueueAsteriskList,
+    undefined,
+    function* (res) {
+      yield put(actions.briefcasesStoreSetSection({
+        briefcases: res,
+      }));
+      yield put(actions.briefcasesStoreSetTableStoreSection({
+        tableLoading: false,
+      }));
+    },
+    function* () {
+      yield put(actions.briefcasesStoreSetTableStoreSection({
+        tableLoading: false,
+      }));
+    },
+  );*/
+
+
+  try {
+    const queueAsteriskControlTypes = yield call(api.getQueueAsteriskControlTypes);
+    const queueAsteriskSettings = yield call(api.getQueueAsteriskSettings, value);
+    const retryRulesSettings = yield call(api.getQueueAsteriskRetryRulesSettings, value);
+    const timeZoneSettings = yield call(api.getQueueAsteriskTimeZoneSettings, value);
+
+
+    yield put(actions.briefcasesStoreSetSection({
+      queueAsteriskTimeZoneSettings: timeZoneSettings.data,
+      queueAsteriskRetryRulesSettings: retryRulesSettings.data,
+      queueAsteriskSettings: queueAsteriskSettings.data,
+      queueAsteriskSettingsLoading: false,
+      queueAsteriskControlTypes: queueAsteriskControlTypes.data.map((v) => ({
+        value: v.Id,
+        label: v.Name,
+      })),
+    }));
+  } catch (e) {
+    yield put(actions.briefcasesStoreSetSection({
+      queueAsteriskSettingsLoading: false,
+    }));
+  }
+}
+
+export function* canBeCanceledGetQueueAsteriskSettings(action) {
+  const bgGetQueueAsteriskSettings = yield fork(getQueueAsteriskSettings, action.value);
+  yield take('BRIEFCASES_STORE_GET_QUEUE_ASTERISK_SETTINGS_CANCEL');
+  yield cancel(bgGetQueueAsteriskSettings);
 }
 
 /* /!* ***************************** getQueueAsteriskOptions ********************** *!/
@@ -73,42 +119,10 @@ export function* canBeCanceledGetQueueAsteriskOptions() {
   yield cancel(bgGetQueueAsteriskOptions);
 } */
 
-/* ***************************** getQueueAsteriskSettings ********************** */
-/* function* getQueueAsteriskSettings(value) {
-  yield put(actions.briefcaseListStoreSetSection({
-    queueAsteriskSettingsLoading: true,
-  }));
-  try {
-    const timeZoneSettings = yield call(api.getQueueAsteriskTimeZoneSettings, value);
-    const retryRulesSettings = yield call(api.getQueueAsteriskRetryRulesSettings, value);
-    const queueAsteriskSettings = yield call(api.getQueueAsteriskSettings, value);
-    const queueAsteriskControlTypes = yield call(api.getQueueAsteriskControlTypes);
-    yield put(actions.briefcaseListStoreSetSection({
-      queueAsteriskTimeZoneSettings: timeZoneSettings.data,
-      queueAsteriskRetryRulesSettings: retryRulesSettings.data,
-      queueAsteriskSettings: queueAsteriskSettings.data,
-      queueAsteriskSettingsLoading: false,
-      queueAsteriskControlTypes: queueAsteriskControlTypes.data.map((v) => ({
-        value: v.Id,
-        label: v.Name,
-      })),
-    }));
-  } catch (e) {
-    yield put(actions.briefcaseListStoreSetSection({
-      queueAsteriskSettingsLoading: false,
-    }));
-    yield getError(e);
-  }
-}
 
-export function* canBeCanceledGetQueueAsteriskSettings(action) {
-  const bgGetQueueAsteriskSettings = yield fork(getQueueAsteriskSettings, action.value);
-  yield take('BRIEFCASE_STORE_GET_QUEUE_ASTERISK_SETTINGS_CANCEL');
-  yield cancel(bgGetQueueAsteriskSettings);
-}
 
-/!* ***************************** saveQueueAsteriskRecallSettings ********************** *!/
-function* saveQueueAsteriskRecallSettings(value) {
+/* ***************************** saveQueueAsteriskRecallSettings ********************** */
+/* function* saveQueueAsteriskRecallSettings(value) {
   yield put(actions.briefcaseListStoreSetSection({
     trySaveQueueAsteriskRetryRulesSettings: true,
   }));

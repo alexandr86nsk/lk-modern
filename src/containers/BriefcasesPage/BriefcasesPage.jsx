@@ -2,20 +2,20 @@ import React from 'react';
 import './BriefcasesPage.scss';
 import { connect } from 'react-redux';
 import actions from '../../redux/actions/actions';
-import { briefcaseListTableTemplate } from './settings';
+import { briefcasesTableTemplate } from './settings';
 import UIBlockTitle from '../../components/UIBlockTitle/UIBlockTitle';
 import WarningIcon from '../../static/images/warning-24px.svg';
 import UIRsuiteTable from '../../components/UIRsuiteTable/UIRsuiteTable';
 import tableDefaultConfig from '../../components/UIRsuiteTable/tableDeafultConfig';
-import QueueAsteriskSettings from './common/QueueAsteriskEditor';
+import QueueAsteriskSettings from './common/BriefcaseEditor';
 
 function BriefcasesPage(props) {
   const {
     tableStore,
     tableTemplate,
     briefcases,
-    trySaveQueue,
-    queueInfoLoading,
+    trySaveBriefcase,
+    briefcaseInfoLoading,
     briefcasesStoreGetBriefcases,
     briefcasesStoreGetBriefcasesCancel,
     briefcasesStoreStartBriefcase,
@@ -31,8 +31,6 @@ function BriefcasesPage(props) {
     briefcasesStoreSetSection,
     briefcasesStoreSetTableStoreSection,
     briefcasesStoreSetTableTemplateSection,
-    briefcasesStoreGetQueueAsteriskOptions,
-    briefcasesStoreGetQueueAsteriskOptionsCancel,
     popUpStoreSetSection,
     popUpStoreClear,
     modalStoreSetSection,
@@ -44,25 +42,30 @@ function BriefcasesPage(props) {
 
   React.useEffect(() => {
     popUpStoreSetSection({
-      closingImpossible: trySaveQueue,
+      closingImpossible: trySaveBriefcase,
     });
-  }, [popUpStoreSetSection, trySaveQueue]);
+  }, [popUpStoreSetSection, trySaveBriefcase]);
 
-  const handleEdit = React.useCallback((value) => {
+  const handleEditBriefcase = React.useCallback((value) => {
     const { QueuePhone: thisQueuePhone } = value || {};
     popUpStoreSetSection({
       show: true,
-      component: <QueueAsteriskSettings id={thisQueuePhone} queueInfoLoading={queueInfoLoading} />,
+      component: (
+        <QueueAsteriskSettings
+          id={thisQueuePhone}
+          briefcaseInfoLoading={briefcaseInfoLoading}
+        />),
       type: '--right --35 --rounded',
+      title: thisQueuePhone,
     });
-  }, [queueInfoLoading, popUpStoreSetSection]);
+  }, [briefcaseInfoLoading, popUpStoreSetSection]);
 
-  const handleStart = React.useCallback((value) => {
+  const handleStartBriefcase = React.useCallback((value) => {
     const { Id: thisId } = value || {};
     briefcasesStoreStartBriefcase(thisId);
   }, [briefcasesStoreStartBriefcase]);
 
-  const handleStop = React.useCallback((value) => {
+  const handleStopBriefcase = React.useCallback((value) => {
     const { Id: thisId } = value || {};
     briefcasesStoreStopBriefcase(thisId);
   }, [briefcasesStoreStopBriefcase]);
@@ -90,7 +93,7 @@ function BriefcasesPage(props) {
   React.useEffect(() => {
     if (!tableTemplate || !tableStore) {
       briefcasesStoreSetSection({
-        tableTemplate: briefcaseListTableTemplate,
+        tableTemplate: briefcasesTableTemplate,
         tableStore: {
           ...tableDefaultConfig,
           type: '--transparent',
@@ -101,11 +104,6 @@ function BriefcasesPage(props) {
       });
     }
   }, [
-    handleRefreshTable,
-    handleStart,
-    handleStop,
-    handleRemoveBriefcase,
-    handleEdit,
     tableTemplate,
     tableStore,
     briefcasesStoreSetSection,
@@ -113,12 +111,12 @@ function BriefcasesPage(props) {
 
   React.useEffect(() => {
     briefcasesStoreSetTableStoreSection({
-      onRowDoubleClick: handleEdit,
+      onRowDoubleClick: handleEditBriefcase,
       refreshCallback: handleRefreshTable,
       actions: [
         {
           id: 0,
-          action: handleStart,
+          action: handleStartBriefcase,
           title: 'Старт',
           icon: 'play',
           color: 'green',
@@ -126,7 +124,7 @@ function BriefcasesPage(props) {
         },
         {
           id: 1,
-          action: handleStop,
+          action: handleStopBriefcase,
           title: 'Стоп',
           icon: 'stop',
           color: 'red',
@@ -134,7 +132,7 @@ function BriefcasesPage(props) {
         },
         {
           id: 2,
-          action: handleEdit,
+          action: handleEditBriefcase,
           title: 'Настройки',
           icon: 'settings',
           hideTitle: true,
@@ -150,36 +148,34 @@ function BriefcasesPage(props) {
     });
   }, [
     handleRefreshTable,
-    handleStart,
-    handleStop,
-    handleEdit,
+    handleStartBriefcase,
+    handleStopBriefcase,
+    handleEditBriefcase,
     handleRemoveBriefcase,
     briefcasesStoreSetTableStoreSection,
   ]);
 
   React.useEffect(() => {
     briefcasesStoreGetBriefcases();
-    briefcasesStoreGetQueueAsteriskOptions();
   }, [
     briefcasesStoreGetBriefcases,
-    briefcasesStoreGetQueueAsteriskOptions,
   ]);
 
   React.useEffect(() => () => {
     briefcasesStoreGetBriefcasesCancel();
+    briefcasesStoreAddBriefcaseCancel();
+    briefcasesStoreDeleteBriefcaseCancel();
+    briefcasesStoreUpdateBriefcaseFileCancel();
     briefcasesStoreStartBriefcaseCancel();
     briefcasesStoreStopBriefcaseCancel();
-    briefcasesStoreUpdateBriefcaseFileCancel();
-    briefcasesStoreAddBriefcaseCancel();
-    briefcasesStoreGetQueueAsteriskOptionsCancel();
     popUpStoreClear();
   }, [
     briefcasesStoreGetBriefcasesCancel,
+    briefcasesStoreAddBriefcaseCancel,
+    briefcasesStoreDeleteBriefcaseCancel,
+    briefcasesStoreUpdateBriefcaseFileCancel,
     briefcasesStoreStartBriefcaseCancel,
     briefcasesStoreStopBriefcaseCancel,
-    briefcasesStoreUpdateBriefcaseFileCancel,
-    briefcasesStoreAddBriefcaseCancel,
-    briefcasesStoreGetQueueAsteriskOptionsCancel,
     popUpStoreClear,
   ]);
 
@@ -201,12 +197,11 @@ function BriefcasesPage(props) {
 
 const mapStateToProps = (state) => ({
   briefcasesTableSearchString: state.briefcasesStore.briefcasesTableSearchString,
-  briefcaseStatuses: state.briefcasesStore.briefcaseStatuses,
   tableStore: state.briefcasesStore.tableStore,
   tableTemplate: state.briefcasesStore.tableTemplate,
   briefcases: state.briefcasesStore.briefcases,
-  queueInfoLoading: state.briefcasesStore.queueInfoLoading,
-  trySaveQueue: state.briefcasesStore.trySaveQueue,
+  briefcaseInfoLoading: state.briefcasesStore.briefcaseInfoLoading,
+  trySaveBriefcase: state.briefcasesStore.trySaveBriefcase,
 });
 
 const mapDispatchToProps = { ...actions };

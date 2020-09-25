@@ -1,4 +1,4 @@
-const queueAsteriskSettingsTemplate = [
+const queueMainSettingsTemplate = [
   {
     id: 0,
     title: 'Номер очереди',
@@ -106,4 +106,4 @@ const queueAsteriskSettingsTemplate = [
   },
 ];
 
-export default queueAsteriskSettingsTemplate;
+export default queueMainSettingsTemplate;

@@ -8,7 +8,7 @@ const status = {
   8: 'Абонент недоступен',
 };
 
-function QueueAsteriskSettingsRecallItem(props) {
+function QueueSettingsRecallItem(props) {
   const {
     data,
     callback,
@@ -27,9 +27,9 @@ function QueueAsteriskSettingsRecallItem(props) {
   }, [callback, EventCode]);
 
   return (
-    <div className="queue-settings__recall-item">
-      <div className="recall-item__title">{status[EventCode] || EventCode}</div>
-      <div className="recall-item__body">
+    <div className="recall">
+      <div className="recall__title">{status[EventCode] || EventCode}</div>
+      <div className="recall__body">
         <UIInput
           type="--style-1c"
           title="Количество попыток"
@@ -51,4 +51,4 @@ function QueueAsteriskSettingsRecallItem(props) {
   );
 }
 
-export default React.memo(QueueAsteriskSettingsRecallItem);
+export default React.memo(QueueSettingsRecallItem);

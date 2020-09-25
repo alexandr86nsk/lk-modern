@@ -25,6 +25,11 @@
     user-select: none;
   }
 
+  &__title {
+    color: var(--white);
+    margin: 0 auto;
+  }
+
   &__close-block {
     display: flex;
     justify-content: center;
@@ -73,8 +78,8 @@
     left: unset;
   }
 
-  &.--right &__top-panel {
-    justify-content: flex-start;
+  &.--right &__title {
+    order: 2;
   }
 
   &.--25 {

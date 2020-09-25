@@ -1,7 +1,7 @@
 import React from 'react';
 import UIReactSelect from '../../../components/UIReactSelect/UIReactSelect';
 
-function QueueAsteriskSettingsTimeZoneItem(props) {
+function QueueSettingsTimeZoneItem(props) {
   const {
     data,
     callback,
@@ -37,9 +37,9 @@ function QueueAsteriskSettingsTimeZoneItem(props) {
 
 
   return (
-    <div className="queue-settings__time-zone-item">
-      <div className="time-zone-item__title">{`Часовой пояс: (+${TimeZoneId})`}</div>
-      <div className="time-zone-item__body">
+    <div className="time-zone">
+      <div className="time-zone__title">{`Часовой пояс: (+${TimeZoneId})`}</div>
+      <div className="time-zone__body">
         <UIReactSelect
           type="--style-1c"
           title="Начало обзвона"
@@ -61,4 +61,4 @@ function QueueAsteriskSettingsTimeZoneItem(props) {
   );
 }
 
-export default React.memo(QueueAsteriskSettingsTimeZoneItem);
+export default React.memo(QueueSettingsTimeZoneItem);

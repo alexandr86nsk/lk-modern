@@ -36,6 +36,7 @@ function UIPopUp(props) {
     noEscape,
     type,
     closingImpossible,
+    title,
   } = props || {};
 
   const [scroll, setScroll] = React.useState(false);
@@ -72,6 +73,7 @@ function UIPopUp(props) {
       >
         <div className="ui-popup__wrapper">
           <div className="ui-popup__top-panel">
+            <div className="ui-popup__title">{title || ''}</div>
             <div
               className="ui-popup__close-block"
             >
