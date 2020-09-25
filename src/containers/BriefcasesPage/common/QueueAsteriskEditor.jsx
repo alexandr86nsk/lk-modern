@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import actions from '../../../redux/actions/actions';
 import { settingsTabs } from '../settings';
 import UITab from '../../../components/UITab/UITab';
+import UILoader from '../../../components/UILoader/UILoader';
 
-function QueueAsteriskSettings(props) {
+function QueueAsteriskEditor(props) {
   const {
     id,
+    queueInfoLoading,
     briefcasesStoreGetQueueAsteriskSettings,
     briefcasesStoreGetQueueAsteriskSettingsCancel,
     briefcasesStoreSaveTimeZoneSettingsCancel,
@@ -31,12 +33,26 @@ function QueueAsteriskSettings(props) {
   ]);
 
   return (
-    <UITab
-      tabs={settingsTabs}
-    />
+    <div className="briefcases-page__edit-queue-popup popup">
+      <div className="popup__title">
+        <span className="ellipsis-element">Редактирование очереди</span>
+      </div>
+      <div className="popup__body">
+        {queueInfoLoading && (
+          <div className="popup__loader">
+            <UILoader text="Загрузка данных" />
+          </div>
+        )}
+        {!queueInfoLoading && (
+          <UITab
+            tabs={settingsTabs}
+          />
+        )}
+      </div>
+    </div>
   );
 }
 
 const mapDispatchToProps = { ...actions };
 
-export default connect(null, mapDispatchToProps)(QueueAsteriskSettings);
+export default connect(null, mapDispatchToProps)(QueueAsteriskEditor);

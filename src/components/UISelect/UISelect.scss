@@ -7,7 +7,6 @@
   background: var(--white);
   border: 1px solid rgba(var(--theme-border-color-rgb), 0.4);
   cursor: pointer;
-  padding: .2em;
 
   svg {
     width: 1em;
@@ -17,7 +16,7 @@
   }
 
   &__input {
-    padding: .6em;
+    padding: .8em;
     border-radius: .8em;
     width: 100%;
     appearance: none;
@@ -35,7 +34,7 @@
     width: 1.8em;
     height: 100%;
     min-width: 1.8em;
-    padding: .6em .6em .6em 0;
+    padding: .8em .8em .8em 0;
   }
 
   &__options-wrapper {

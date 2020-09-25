@@ -7,7 +7,7 @@ import UIBlockTitle from '../../components/UIBlockTitle/UIBlockTitle';
 import WarningIcon from '../../static/images/warning-24px.svg';
 import UIRsuiteTable from '../../components/UIRsuiteTable/UIRsuiteTable';
 import tableDefaultConfig from '../../components/UIRsuiteTable/tableDeafultConfig';
-import QueueAsteriskSettings from './common/QueueAsteriskSettings';
+import QueueAsteriskSettings from './common/QueueAsteriskEditor';
 
 function BriefcasesPage(props) {
   const {
@@ -17,22 +17,25 @@ function BriefcasesPage(props) {
     trySaveQueue,
     queueInfoLoading,
     briefcasesStoreGetBriefcases,
-    briefcasesStoreStartBriefcase,
-    briefcasesStoreStopBriefcase,
-    briefcasesStoreDeleteBriefcase,
-    modalStoreSetSection,
     briefcasesStoreGetBriefcasesCancel,
+    briefcasesStoreStartBriefcase,
     briefcasesStoreStartBriefcaseCancel,
+    briefcasesStoreStopBriefcase,
     briefcasesStoreStopBriefcaseCancel,
+    briefcasesStoreDeleteBriefcase,
+    briefcasesStoreDeleteBriefcaseCancel,
+    briefcasesStoreUpdateBriefcaseFile,
     briefcasesStoreUpdateBriefcaseFileCancel,
+    briefcasesStoreAddBriefcase,
     briefcasesStoreAddBriefcaseCancel,
     briefcasesStoreSetSection,
     briefcasesStoreSetTableStoreSection,
     briefcasesStoreSetTableTemplateSection,
-    popUpStoreSetSection,
-    briefcasesStoreGetQueueAsteriskOptionsCancel,
     briefcasesStoreGetQueueAsteriskOptions,
+    briefcasesStoreGetQueueAsteriskOptionsCancel,
+    popUpStoreSetSection,
     popUpStoreClear,
+    modalStoreSetSection,
   } = props || {};
 
   const handleRefreshTable = React.useCallback(() => {
@@ -45,8 +48,8 @@ function BriefcasesPage(props) {
     });
   }, [popUpStoreSetSection, trySaveQueue]);
 
-  const handleEdit = React.useCallback((el) => {
-    const { QueuePhone: thisQueuePhone } = el || {};
+  const handleEdit = React.useCallback((value) => {
+    const { QueuePhone: thisQueuePhone } = value || {};
     popUpStoreSetSection({
       show: true,
       component: <QueueAsteriskSettings id={thisQueuePhone} queueInfoLoading={queueInfoLoading} />,
@@ -54,13 +57,13 @@ function BriefcasesPage(props) {
     });
   }, [queueInfoLoading, popUpStoreSetSection]);
 
-  const handleStart = React.useCallback((el) => {
-    const { Id: thisId } = el || {};
+  const handleStart = React.useCallback((value) => {
+    const { Id: thisId } = value || {};
     briefcasesStoreStartBriefcase(thisId);
   }, [briefcasesStoreStartBriefcase]);
 
-  const handleStop = React.useCallback((el) => {
-    const { Id: thisId } = el || {};
+  const handleStop = React.useCallback((value) => {
+    const { Id: thisId } = value || {};
     briefcasesStoreStopBriefcase(thisId);
   }, [briefcasesStoreStopBriefcase]);
 
@@ -70,12 +73,13 @@ function BriefcasesPage(props) {
   }, [briefcasesStoreDeleteBriefcase]);
 
   const handleRemoveBriefcase = React.useCallback((value) => {
+    const { QueuePhone: thisQueuePhone } = value || {};
     modalStoreSetSection({
       show: true,
       outputBody: {
         icon: <WarningIcon />,
         title: 'Важно',
-        body: <div>{`Действительно хотите удалить очередь "${value.QueuePhone}"?`}</div>,
+        body: <div>{`Действительно хотите удалить очередь "${thisQueuePhone}"?`}</div>,
       },
       data: value,
       asyncClose: true,
@@ -90,43 +94,9 @@ function BriefcasesPage(props) {
         tableStore: {
           ...tableDefaultConfig,
           type: '--transparent',
-          actions: [
-            {
-              id: 0,
-              action: handleStart,
-              title: 'Старт',
-              icon: 'play',
-              color: 'green',
-              showCondition: (rowData) => (rowData.Work === 1 || rowData.Work === 5),
-            },
-            {
-              id: 1,
-              action: handleStop,
-              title: 'Стоп',
-              icon: 'stop',
-              color: 'red',
-              showCondition: (rowData) => (rowData.Work === 0),
-            },
-            {
-              id: 2,
-              action: handleEdit,
-              title: 'Настройки',
-              icon: 'settings',
-              hideTitle: true,
-            },
-            {
-              id: 3,
-              action: handleRemoveBriefcase,
-              title: 'Удалить',
-              icon: 'trash',
-              hideTitle: true,
-            },
-          ],
           tableRowHeight: 36,
           filter: false,
           customId: 'QueuePhone',
-          onRowDoubleClick: handleEdit,
-          refreshCallback: handleRefreshTable,
         },
       });
     }
@@ -139,6 +109,52 @@ function BriefcasesPage(props) {
     tableTemplate,
     tableStore,
     briefcasesStoreSetSection,
+  ]);
+
+  React.useEffect(() => {
+    briefcasesStoreSetTableStoreSection({
+      onRowDoubleClick: handleEdit,
+      refreshCallback: handleRefreshTable,
+      actions: [
+        {
+          id: 0,
+          action: handleStart,
+          title: 'Старт',
+          icon: 'play',
+          color: 'green',
+          showCondition: (rowData) => (rowData.Work === 1 || rowData.Work === 5),
+        },
+        {
+          id: 1,
+          action: handleStop,
+          title: 'Стоп',
+          icon: 'stop',
+          color: 'red',
+          showCondition: (rowData) => (rowData.Work === 0),
+        },
+        {
+          id: 2,
+          action: handleEdit,
+          title: 'Настройки',
+          icon: 'settings',
+          hideTitle: true,
+        },
+        {
+          id: 3,
+          action: handleRemoveBriefcase,
+          title: 'Удалить',
+          icon: 'trash',
+          hideTitle: true,
+        },
+      ],
+    });
+  }, [
+    handleRefreshTable,
+    handleStart,
+    handleStop,
+    handleEdit,
+    handleRemoveBriefcase,
+    briefcasesStoreSetTableStoreSection,
   ]);
 
   React.useEffect(() => {
@@ -168,7 +184,7 @@ function BriefcasesPage(props) {
   ]);
 
   return (
-    <div className="briefcase-page page__content">
+    <div className="briefcases-page page__content">
       <UIBlockTitle title="Список очередей" />
       <div className="element-wrapper --fullscreen">
         <UIRsuiteTable

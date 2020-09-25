@@ -1,6 +1,6 @@
 import React from 'react';
 import UILoader from '../../../components/UILoader/UILoader';
-import QueueAsteriskSettings from './QueueAsteriskSettings';
+import QueueAsteriskSettings from './QueueAsteriskEditor';
 
 function QueueAsteriskSettingItem(props) {
   const {
