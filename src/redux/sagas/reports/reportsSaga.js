@@ -4,12 +4,9 @@ import {
 import { saveAs } from 'file-saver';
 import api from '../../../api/api';
 import actions from '../../actions/actions';
-import { setErrorToast } from '../common/globalSaga';
+import { queryResultAnalysis, setErrorToast } from '../common/globalSaga';
 
 function* getError(error) {
-  /* if (error.response && error.response.data.description === 'Неверный токен') {
-    yield put(actions.clearToken());
-  } else */
   if (error.response && error.response.data.description) {
     yield setErrorToast(error.response.data.description);
   } else {
@@ -19,30 +16,50 @@ function* getError(error) {
 
 /* ***************************** getActualStateReport ********************** */
 function* getActualStateReport(value) {
+  const {
+    data,
+    auto,
+  } = value || {};
+  const {
+    startDate,
+    endDate,
+    briefcaseId,
+    phone,
+  } = data || {};
   yield put(actions.reportsStoreSetSection({
     isLastRequestComplete: false,
   }));
-  if (!value.auto) {
-    yield put(actions.reportsStoreSetSection({
-      actualStateLoaded: false,
+  if (!auto) {
+    yield put(actions.reportsStoreSetActualStateTableStoreSection({
+      tableLoading: true,
     }));
   }
-  try {
-    const actual = yield call(api.getActualStateReport, value);
-    console.log('actualData', actual);
-    yield put(actions.reportsStoreSetSection({
-      actualState: actual.data,
-      actualStateLoaded: true,
-      isLastRequestComplete: true,
-    }));
-  } catch (e) {
-    yield put(actions.reportsStoreSetSection({
-      actualState: [],
-      actualStateLoaded: true,
-      isLastRequestComplete: true,
-    }));
-    yield getError(e);
-  }
+  yield queryResultAnalysis(
+    api.getActualStateReport,
+    {
+      startDate: startDate || '',
+      endDate: endDate || '',
+      briefcaseId: briefcaseId || '',
+      phone: phone || '',
+    },
+    function* (res) {
+      yield put(actions.reportsStoreSetSection({
+        actualState: res,
+        isLastRequestComplete: true,
+      }));
+      yield put(actions.reportsStoreSetActualStateTableStoreSection({
+        tableLoading: false,
+      }));
+    },
+    function* () {
+      yield put(actions.reportsStoreSetSection({
+        isLastRequestComplete: true,
+      }));
+      yield put(actions.reportsStoreSetActualStateTableStoreSection({
+        tableLoading: false,
+      }));
+    },
+  );
 }
 
 export function* canBeCanceledGetActualStateReport(action) {

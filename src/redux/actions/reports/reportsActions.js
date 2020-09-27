@@ -4,6 +4,12 @@ export const reportsStoreSetSection = (value) => ({
   value,
 });
 
+export const reportsStoreSetSubSection = (name, value) => ({
+  type: 'REPORTS_STORE_SET_SUB_SECTION',
+  name,
+  value,
+});
+
 export const reportsStoreClear = () => ({
   type: 'REPORTS_STORE_CLEAR',
 });
@@ -59,4 +65,14 @@ export const reportsStoreGetOperatorInfo = (value) => ({
 
 export const reportsStoreGetOperatorInfoCancel = () => ({
   type: 'REPORTS_STORE_GET_OPERATOR_INFO_CANCEL',
+});
+
+export const reportsStoreSetActualStateTableStoreSection = (value) => ({
+  type: 'REPORTS_STORE_SET_ACTUAL_STATE_TABLE_STORE_SECTION',
+  value,
+});
+
+export const reportsStoreSetActualStateTableTemplateSection = (value) => ({
+  type: 'REPORTS_STORE_SET_ACTUAL_STATE_TABLE_TEMPLATE_SECTION',
+  value,
 });

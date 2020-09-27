@@ -31,7 +31,7 @@ const UISidebarList = [
       {
         id: 3,
         title: 'Отчеты',
-        link: '/reports',
+        link: '/reports_OLD',
         icon: <ReportsIcon />,
       },
     ],

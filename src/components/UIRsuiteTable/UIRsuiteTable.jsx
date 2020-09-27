@@ -273,7 +273,6 @@ function UIRsuiteTable(props) {
             tableRowHeight={tableRowHeight}
             tableBodyHeight={tableBodySize.height}
             tableVirtualized={tableVirtualized}
-            loading={loading}
             cellBordered={cellBordered}
             bordered={bordered}
           />

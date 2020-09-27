@@ -6,13 +6,12 @@ import UIBlockTitle from '../../components/UIBlockTitle/UIBlockTitle';
 import UITab from '../../components/UITab/UITab';
 import reportsTabs from './settings';
 
-
 function ReportsPage(props) {
   const {
     reportsStoreGetBriefcases,
     reportsStoreGetBriefcasesCancel,
     reportsStoreClear,
-  } = props;
+  } = props || {};
 
   React.useEffect(() => {
     reportsStoreGetBriefcases();

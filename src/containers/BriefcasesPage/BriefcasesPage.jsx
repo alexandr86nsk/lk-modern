@@ -190,7 +190,6 @@ function BriefcasesPage(props) {
 }
 
 const mapStateToProps = (state) => ({
-  briefcasesTableSearchString: state.briefcasesStore.briefcasesTableSearchString,
   tableStore: state.briefcasesStore.tableStore,
   tableTemplate: state.briefcasesStore.tableTemplate,
   briefcases: state.briefcasesStore.briefcases,

@@ -21,7 +21,6 @@
 
   .select-wrapper {
     @include flexUnsetCenter;
-    width: 145px;
     z-index: 3;
 
     span {
@@ -29,7 +28,7 @@
       margin-right: .5em;
     }
 
-    .ui-select-block {
+    .ui-select {
       max-width: 70px;
     }
   }

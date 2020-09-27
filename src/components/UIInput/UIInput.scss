@@ -223,6 +223,24 @@
     font-weight: 400;
   }
 
+  &__search {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: .8em;
+    bottom: 0;
+    height: 100%;
+  }
+
+  &.search &__search {
+    display: flex;
+  }
+
+  &.search &__input:not(:disabled) {
+    padding-right: 2.8em;
+  }
+
   /* ****************************** 1c style ********************************** */
   &.--style-1c {
     display: flex;
@@ -245,6 +263,10 @@
   }
 
   &.--style-1c &__body {
+    flex: 1;
+  }
+
+  &.--style-1c &__title ~ &__body {
     flex: .6;
   }
 

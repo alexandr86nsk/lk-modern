@@ -5,9 +5,9 @@
 
   &__actual-state-tab {
 
-    .actual-state-tab__table-filter {
+    .actual-state-filter {
       display: grid;
-      grid-template: auto / 1fr;
+      grid-template: auto / repeat(4, 1fr);
       grid-gap: .5em;
     }
   }

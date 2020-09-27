@@ -4,34 +4,39 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import actions from '../../../../redux/actions/actions';
 import { actualStateTable } from '../settings';
-import UITable from '../../../../components/UITable/UITable';
-import filterSelectedCounter from '../../../../components/UITable/common/filterSelectedCounter';
-import UIReactDatePicker from '../../../../components/UIReactDatePicker/UIReactDatePicker';
-import UIReactSelect from '../../../../components/UIReactSelect/UIReactSelect';
-import UIInput from '../../../../components/UIInput/UIInput';
+import UIRsuiteTable from '../../../../components/UIRsuiteTable/UIRsuiteTable';
+import tableDefaultConfig from '../../../../components/UIRsuiteTable/tableDeafultConfig';
+import ActualStateFilter from './ActualStateFilter';
 
 function ActualStateTab(props) {
   const {
     actualState,
-    actualStateLoaded,
-    briefcases,
-    actualStateFrom,
-    actualStateTo,
-    selectedActualStateBriefcase,
-    selectedActualStatePhone,
+    actualStateTableStore,
+    actualStateTableTemplate,
+    actualStateFilter,
+    isLastRequestComplete,
     reportsStoreGetActualState,
     reportsStoreGetActualStateCancel,
     reportsStoreSetSection,
-    actualStateTableSearchString,
-    isLastRequestComplete,
-  } = props;
+    reportsStoreSetActualStateTableStoreSection,
+    reportsStoreSetActualStateTableTemplateSection,
+  } = props || {};
+
+  const {
+    selectedActualStateBriefcase,
+    actualStateFrom,
+    actualStateTo,
+    selectedActualStatePhone,
+  } = actualStateFilter || {};
 
   const handleRefreshTable = React.useCallback((auto) => {
     reportsStoreGetActualState({
-      actualStateFrom,
-      actualStateTo,
-      selectedActualStateBriefcase,
-      selectedActualStatePhone,
+      data: {
+        startDate: actualStateFrom,
+        endDate: actualStateTo,
+        briefcaseId: selectedActualStateBriefcase,
+        phone: selectedActualStatePhone,
+      },
       auto,
     });
   }, [
@@ -73,120 +78,56 @@ function ActualStateTab(props) {
     });
   }, [reportsStoreSetSection]);
 
-  const handleClearTableFilter = React.useCallback(() => {
-    reportsStoreSetSection({
-      actualStateFrom: '',
-      actualStateTo: '',
-      selectedActualStateBriefcase: '',
-      selectedActualStatePhone: '',
-    });
-  }, [reportsStoreSetSection]);
-
-  const renderFilter = React.useMemo(
-    () => (
-      <div className="actual-state-tab__table-filter">
-        <UIReactSelect
-          type="--style-1c"
-          title="Название кампании"
-          name="selectedActualStateBriefcase"
-          data={selectedActualStateBriefcase}
-          options={briefcases}
-          callback={handleSetValue}
-          isClearable
-        />
-        <UIReactDatePicker
-          type="--style-1c"
-          title="Дата с"
-          name="actualStateFrom"
-          data={actualStateFrom}
-          callback={handleSetValue}
-        />
-        <UIReactDatePicker
-          type="--style-1c"
-          title="Дата по"
-          name="actualStateTo"
-          data={actualStateTo}
-          callback={handleSetValue}
-        />
-        <UIInput
-          type="--style-1c"
-          title="Номер телефона"
-          name="selectedActualStatePhone"
-          data={selectedActualStatePhone}
-          callback={handleSetValue}
-          mask="00000000000"
-        />
-      </div>
-    ),
-    [
-      briefcases,
-      selectedActualStatePhone,
-      selectedActualStateBriefcase,
-      actualStateFrom,
-      actualStateTo,
-      handleSetValue,
-    ],
-  );
-
-  const filterSelected = React.useMemo(
-    () => filterSelectedCounter([
-      actualStateFrom,
-      actualStateTo,
-      selectedActualStatePhone,
-      selectedActualStateBriefcase,
-    ]),
-    [
-      actualStateFrom,
-      actualStateTo,
-      selectedActualStatePhone,
-      selectedActualStateBriefcase,
-    ],
-  );
-
   const sortedActualState = React.useMemo(
     () => _.sortBy(actualState, 'CallModifyDate').reverse(),
     [actualState],
   );
 
-  const handleSearch = React.useCallback((value) => {
-    reportsStoreSetSection({ actualStateTableSearchString: value });
-  }, [reportsStoreSetSection]);
+  React.useEffect(() => {
+    if (!actualStateTableTemplate || !actualStateTableStore) {
+      reportsStoreSetSection({
+        actualStateTableTemplate: actualStateTable,
+        actualStateTableStore: {
+          ...tableDefaultConfig,
+          type: '--transparent',
+          tableRowHeight: 36,
+          filter: false,
+          customId: 'BriefcaseId',
+          searchCustom: <ActualStateFilter />,
+          refresh: false,
+        },
+      });
+    }
+  }, [
+    actualStateTableTemplate,
+    actualStateTableStore,
+    reportsStoreSetSection,
+  ]);
 
   return (
     <div className="reports-page__actual-state-tab">
-      <UITable
-        header={actualStateTable}
-        data={sortedActualState}
-        customId="BriefcaseId"
-        pagination
-        // refresh
-        // refreshCallback={handleRefreshTable}
-        filter
-        filterSelected={filterSelected}
-        filterBody={renderFilter}
-        filterClear={handleClearTableFilter}
-        search
-        searchString={actualStateTableSearchString}
-        searchCallback={handleSearch}
-        empty="Отчет пуст"
-        loadingData={!actualStateLoaded}
-        selectable
-        sortable
+      <UIRsuiteTable
+        tableStore={actualStateTableStore}
+        tableStoreSetSection={reportsStoreSetActualStateTableStoreSection}
+        tableTemplate={actualStateTableTemplate}
+        tableTemplateSetSection={reportsStoreSetActualStateTableTemplateSection}
+        tableData={sortedActualState}
       />
     </div>
   );
 }
 
 const mapStateToProps = (state) => ({
-  isLastRequestComplete: state.reportsStore.isLastRequestComplete,
   actualState: state.reportsStore.actualState,
-  actualStateLoaded: state.reportsStore.actualStateLoaded,
+  actualStateTableStore: state.reportsStore.actualStateTableStore,
+  actualStateTableTemplate: state.reportsStore.actualStateTableTemplate,
   actualStateFrom: state.reportsStore.actualStateFrom,
-  actualStateTableSearchString: state.reportsStore.actualStateTableSearchString,
   actualStateTo: state.reportsStore.actualStateTo,
   briefcases: state.reportsStore.briefcases,
+  actualStateFilter: state.reportsStore.actualStateFilter,
   selectedActualStateBriefcase: state.reportsStore.selectedActualStateBriefcase,
   selectedActualStatePhone: state.reportsStore.selectedActualStatePhone,
+  isLastRequestComplete: state.reportsStore.isLastRequestComplete,
 });
 
 const mapDispatchToProps = { ...actions };

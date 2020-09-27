@@ -22,6 +22,7 @@ interface IUIReactDatePickerProps {
   required?: boolean;
   hint?: boolean;
   endOfDay?: boolean;
+  startOfDay?: boolean;
   disabled?: boolean;
   placeholder?: string;
   isClearable?: boolean;
@@ -40,6 +41,7 @@ function UIReactDatePicker(props: IUIReactDatePickerProps) {
     required,
     hint,
     endOfDay,
+    startOfDay,
     disabled,
     placeholder = 'Выберите дату',
     isClearable = true,
@@ -60,8 +62,13 @@ function UIReactDatePicker(props: IUIReactDatePickerProps) {
   const handleChange = React.useCallback((date: Date) => {
     if (callback) {
       if (date) {
-        const res = new Date(date.setHours(23, 59, 59, 999));
-        callback(name, endOfDay ? res : date);
+        if (endOfDay) {
+          callback(name, new Date(date.setHours(23, 59, 59, 999)));
+        } else if (startOfDay) {
+          callback(name, new Date(date.setHours(0, 0, 0, 0)));
+        } else {
+          callback(name, date);
+        }
       } else {
         callback(name, date);
         if (elRef) {
@@ -73,7 +80,7 @@ function UIReactDatePicker(props: IUIReactDatePickerProps) {
         }
       }
     }
-  }, [callback, endOfDay, name]);
+  }, [callback, startOfDay, endOfDay, name]);
 
   const className = React.useMemo(() => {
     let str = 'ui-react-datepicker';

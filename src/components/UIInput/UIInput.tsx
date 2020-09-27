@@ -9,6 +9,7 @@ import ErrorIcon from './error-icon.svg';
 import SuccessIcon from './check-icon.svg';
 import ClearIcon from './clear-icon.svg';
 import HintIcon from './hint-icon.svg';
+import SearchIcon from './search-icon.svg';
 
 interface IUIInputProps {
   title?: string;
@@ -33,6 +34,7 @@ interface IUIInputProps {
   placeholder?: string;
   readOnly?: boolean;
   type?: string;
+  isSearch?: boolean;
   maxInteger?: number;
   minInteger?: number;
 }
@@ -63,6 +65,7 @@ function UIInput(props: IUIInputProps) {
     isInteger,
     maxInteger,
     minInteger,
+    isSearch,
   } = props || {};
 
   const elRef = React.useRef<HTMLHeadingElement | null>(null);
@@ -129,6 +132,9 @@ function UIInput(props: IUIInputProps) {
     if (type) {
       str = `${str} ${type}`;
     }
+    if (isSearch) {
+      str = `${str} search`;
+    }
     if (hint) {
       str = `${str} hint`;
     }
@@ -180,6 +186,7 @@ function UIInput(props: IUIInputProps) {
     }
     return str;
   }, [
+    isSearch,
     type,
     hint,
     readOnly,
@@ -294,6 +301,11 @@ function UIInput(props: IUIInputProps) {
               <SuccessIcon />
             </div>
           </>
+        )}
+        {isSearch && (
+          <div className="ui-input__search" title="Поиск">
+            <SearchIcon />
+          </div>
         )}
         {successFormat && <div className="ui-input__i-error">{successFormat}</div>}
       </div>

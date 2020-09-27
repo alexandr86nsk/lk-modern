@@ -1,46 +1,49 @@
-/* ********************* reports_OLD ***************** */
-import requestParser_with_refresh_token from '../requestParser_with_refresh_token';
+import axios from 'axios';
+import qs from '../qs';
+import requestParser from '../requestParser';
 
-export const reportsStoreGetRatingReportBySettlements = (data) => requestParser_with_refresh_token({
+export const getActualStateReport = (data) => requestParser({
   method: 'get',
-  url: 'report/buildRatingReport',
-  params: {
-    ...data,
-  },
-  requestConfig: {
-    responseType: 'arraybuffer',
-  },
+  url: 'Reports/CallReport',
+  params: data,
 });
 
-export const reportsStoreGetOperationalReport = (data) => requestParser_with_refresh_token({
-  method: 'get',
-  url: 'report/buildOperationReport',
-  params: {
-    ...data,
-  },
-  requestConfig: {
-    responseType: 'arraybuffer',
-  },
-});
+/* export const getActualStateReport = (data) => axios.get(
+  `${qs}Reports/CallReport?startDate=${
+    data.actualStateFrom ? JSON.stringify(data.actualStateFrom).replace(/"/g, '') : ''
+  }&endDate=${
+    data.actualStateTo ? JSON.stringify(data.actualStateTo).replace(/"/g, '') : ''
+  }&briefcaseId=${
+    data.selectedActualStateBriefcase || ''
+  }&phone=${
+    data.selectedActualStatePhone || ''}`,
+); */
 
-export const reportsStoreGetRewardReport = (data) => requestParser_with_refresh_token({
-  method: 'get',
-  url: 'report/buildRewardReport',
-  params: {
-    ...data,
-  },
-  requestConfig: {
-    responseType: 'arraybuffer',
-  },
-});
+export const getHistoryReport = (data) => axios.get(
+  `${qs}Reports/CallTotalValuesReport?briefcaseId=${
+    data.selectedHistoryBriefcase || ''
+  }&startDate=${
+    data.historyFrom ? JSON.stringify(data.historyFrom).replace(/"/g, '') : ''
+  }&endDate=${
+    data.historyTo ? JSON.stringify(data.historyTo).replace(/"/g, '') : ''
+  }`,
+);
 
-export const reportsStoreGetActivationReport = (data) => requestParser_with_refresh_token({
-  method: 'get',
-  url: 'report/buildActivationReport',
-  params: {
-    ...data,
-  },
-  requestConfig: {
-    responseType: 'arraybuffer',
-  },
-});
+export const getHistoryExcell = (data) => axios.get(
+  `${qs}Reports/CallTotalValuesReportFile?briefcaseId=${
+    data.selectedHistoryBriefcase || ''
+  }&startDate=${
+    data.historyFrom ? JSON.stringify(data.historyFrom).replace(/"/g, '') : ''
+  }&endDate=${
+    data.historyTo ? JSON.stringify(data.historyTo).replace(/"/g, '') : ''
+  }`,
+);
+
+export const getCallStatisticReport = (data) => {
+  if (data === 0 || data) {
+    return axios.get(`${qs}CallStatistic/Get?queue=${data}`);
+  }
+  return axios.get(`${qs}CallStatistic/GetList`);
+};
+
+export const getOperatorInfoReport = () => axios.get(`${qs}MemberQueue/GetOperatorInfo`);
