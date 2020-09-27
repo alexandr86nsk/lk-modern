@@ -40,22 +40,6 @@ const customStyles = {
     borderRadius: '.6em',
     minHeight: 'unset',
   }),
-  /* clearIndicator: (props: CSSProperties) => ({
-    ...props,
-    padding: '.6em',
-    svg: {
-      width: '1.5em',
-      height: '1.5em',
-    },
-  }),
-  dropdownIndicator: (props: CSSProperties) => ({
-    ...props,
-    padding: '.6em',
-    svg: {
-      width: '1.5em',
-      height: '1.5em',
-    },
-  }), */
 };
 
 function UIReactSelect(props: IUIReactSelectProps) {
@@ -72,12 +56,22 @@ function UIReactSelect(props: IUIReactSelectProps) {
     required,
     isClearable = true,
     isMulti,
-    placeholder = 'Выберите значение',
+    placeholder,
     readOnly,
     loading,
     disabled,
     loadingMessage,
   } = props || {};
+
+  const renderPlaceholder = React.useMemo(() => {
+    if (placeholder) {
+      return placeholder;
+    }
+    if (type && type.includes('--translate-title')) {
+      return '';
+    }
+    return 'Выберите значение';
+  }, [placeholder, type]);
 
   const handleChange = React.useCallback((res: IOptions) => {
     const { length: thisLength, value: thisValue } = res || {};
@@ -168,7 +162,7 @@ function UIReactSelect(props: IUIReactSelectProps) {
         isLoading={loading}
         className="ui-react-select__container"
         classNamePrefix="ui-react-select"
-        placeholder={placeholder}
+        placeholder={renderPlaceholder}
         noOptionsMessage={() => noOptionsMessage}
         options={options as GroupedOptionsType<IOptions>}
         onChange={handleChange}
@@ -182,11 +176,11 @@ function UIReactSelect(props: IUIReactSelectProps) {
       />
     );
   }, [
+    renderPlaceholder,
     disabled,
     loadingMessage,
     loading,
     memoizedValue,
-    placeholder,
     options,
     noOptionsMessage,
     handleChange,

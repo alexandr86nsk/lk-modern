@@ -237,8 +237,16 @@
     display: flex;
   }
 
-  &.search &__input:not(:disabled) {
+  &.search &__input:not(:disabled):not(.empty) {
+    padding-right: 5.4em;
+  }
+
+  &.search.empty &__input {
     padding-right: 2.8em;
+  }
+
+  &.search &__clear {
+    right: 3em;
   }
 
   /* ****************************** 1c style ********************************** */
@@ -266,7 +274,7 @@
     flex: 1;
   }
 
-  &.--style-1c &__title ~ &__body {
+  &.--style-1c:not(.--translate-title) &__title ~ &__body {
     flex: .6;
   }
 
@@ -286,7 +294,33 @@
     }
   }
 
-  /* ****************************** 1c style ********************************** */
+  /* ****************************** translate-title ********************************** */
+  &.--translate-title &__title {
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    flex: unset;
+    transition: all .2s linear;
+    opacity: .6;
+  }
+
+  &.--translate-title:focus-within {
+    position: relative;
+  }
+
+  &.--translate-title:focus-within &__title {
+    transform: translateY(-100%);
+    z-index: 1;
+    font-size: .8em;
+    opacity: 1;
+  }
+
+  &.--translate-title:not(.empty) &__title {
+    transform: translateY(-100%);
+    z-index: 1;
+    font-size: .8em;
+    opacity: 1;
+  }
 
   /* ****************************** transparent ********************************** */
   &.--transparent &__input {

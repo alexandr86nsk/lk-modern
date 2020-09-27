@@ -380,6 +380,34 @@
       background-color: var(--white);
     }
   }
+
+  /* ****************************** translate-title ********************************** */
+  &.--translate-title &__title {
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    flex: unset;
+    transition: all .2s linear;
+    opacity: .6;
+  }
+
+  &.--translate-title:focus-within {
+    position: relative;
+  }
+
+  &.--translate-title:focus-within &__title {
+    transform: translateY(-100%);
+    z-index: 1;
+    font-size: .8em;
+    opacity: 1;
+  }
+
+  &.--translate-title:not(.empty) &__title {
+    transform: translateY(-100%);
+    z-index: 1;
+    font-size: .8em;
+    opacity: 1;
+  }
 }
 
 @keyframes loader {

@@ -43,10 +43,20 @@ function UIReactDatePicker(props: IUIReactDatePickerProps) {
     endOfDay,
     startOfDay,
     disabled,
-    placeholder = 'Выберите дату',
+    placeholder,
     isClearable = true,
     ...moreProps
-  } = props;
+  } = props || {};
+
+  const renderPlaceholder = React.useMemo(() => {
+    if (placeholder) {
+      return placeholder;
+    }
+    if (type && type.includes('--translate-title')) {
+      return '';
+    }
+    return 'Выберите дату';
+  }, [placeholder, type]);
 
   const elRef = React.useRef<HTMLHeadingElement | null>(null);
   const [focus, setFocus] = React.useState(false);
@@ -92,9 +102,6 @@ function UIReactDatePicker(props: IUIReactDatePickerProps) {
     } else {
       str = `${str} empty`;
     }
-    if (title) {
-      str = `${str} title`;
-    }
     if (required) {
       str = `${str} required`;
       if (!data) {
@@ -107,7 +114,7 @@ function UIReactDatePicker(props: IUIReactDatePickerProps) {
       str = `${str} ${type}`;
     }
     return str;
-  }, [title, data, focus, required, type]);
+  }, [data, focus, required, type]);
 
   return (
     <div className={className}>
@@ -126,7 +133,7 @@ function UIReactDatePicker(props: IUIReactDatePickerProps) {
           onChange={handleChange}
           locale="ru"
           disabled={disabled}
-          placeholderText={placeholder}
+          placeholderText={renderPlaceholder}
           dateFormat="dd.MM.yyyy HH:mm:ss"
           showYearDropdown
           showTimeSelect={showTimeSelect}

@@ -53,40 +53,40 @@ export const actualStateTableDataTemplate = [
 export const actualStateFilterDataTemplate = [
   {
     id: 0,
+    title: 'Название кампании',
     dataKey: 'selectedActualStateBriefcase',
     type: 'select',
     otherProps: {
-      type: '--style-1c --transparent',
-      placeholder: 'Название кампании',
+      type: '--style-1c --transparent --translate-title',
     },
   },
   {
     id: 1,
+    title: 'Дата с',
     dataKey: 'actualStateFrom',
     type: 'datePicker',
     otherProps: {
-      type: '--style-1c --transparent',
-      placeholder: 'Дата с',
+      type: '--style-1c --transparent --translate-title',
       startOfDay: true,
     },
   },
   {
     id: 2,
+    title: 'Дата по',
     dataKey: 'actualStateTo',
     type: 'datePicker',
     otherProps: {
-      type: '--style-1c --transparent',
-      placeholder: 'Дата по',
+      type: '--style-1c --transparent --translate-title',
       endOfDay: true,
     },
   },
   {
     id: 3,
+    title: 'Номер телефона',
     dataKey: 'selectedActualStatePhone',
     type: 'input',
     otherProps: {
-      type: '--style-1c --transparent',
-      placeholder: 'Номер телефона',
+      type: '--style-1c --transparent --translate-title',
       mask: '00000000000',
       isSearch: true,
     },

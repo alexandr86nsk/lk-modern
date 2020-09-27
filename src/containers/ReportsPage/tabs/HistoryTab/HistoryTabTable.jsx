@@ -66,7 +66,7 @@ function HistoryTabTable(props) {
               <Progress
                 percent={Percentage}
                 progress
-                indicating
+                active
                 size="small"
                 color={colors[index] || 'grey'}
               />
