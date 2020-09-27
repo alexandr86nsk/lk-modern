@@ -27,6 +27,11 @@
     background-color: var(--white);
   }
 
+  &__table .rs-table .rs-table-loader-wrapper {
+    font-size: 1.3em;
+    background-color: rgba(var(--white-rgb), 0.85);
+  }
+
   .rs-table-cell .rs-table-cell-content {
     display: flex;
     align-items: center;

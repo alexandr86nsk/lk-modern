@@ -6,7 +6,7 @@ import ArrowIcon from './arrow-icon.svg';
 
 function UISelect(props) {
   const {
-    options = [],
+    options,
     selected,
     callback,
     type,

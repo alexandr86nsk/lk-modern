@@ -8,26 +8,11 @@ export const getActualStateReport = (data) => requestParser({
   params: data,
 });
 
-/* export const getActualStateReport = (data) => axios.get(
-  `${qs}Reports/CallReport?startDate=${
-    data.actualStateFrom ? JSON.stringify(data.actualStateFrom).replace(/"/g, '') : ''
-  }&endDate=${
-    data.actualStateTo ? JSON.stringify(data.actualStateTo).replace(/"/g, '') : ''
-  }&briefcaseId=${
-    data.selectedActualStateBriefcase || ''
-  }&phone=${
-    data.selectedActualStatePhone || ''}`,
-); */
-
-export const getHistoryReport = (data) => axios.get(
-  `${qs}Reports/CallTotalValuesReport?briefcaseId=${
-    data.selectedHistoryBriefcase || ''
-  }&startDate=${
-    data.historyFrom ? JSON.stringify(data.historyFrom).replace(/"/g, '') : ''
-  }&endDate=${
-    data.historyTo ? JSON.stringify(data.historyTo).replace(/"/g, '') : ''
-  }`,
-);
+export const getHistoryReport = (data) => requestParser({
+  method: 'get',
+  url: 'Reports/CallTotalValuesReport',
+  params: data,
+});
 
 export const getHistoryExcell = (data) => axios.get(
   `${qs}Reports/CallTotalValuesReportFile?briefcaseId=${

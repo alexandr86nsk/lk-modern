@@ -1,145 +1,156 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Table, Progress } from 'semantic-ui-react';
 import * as moment from 'moment';
 import _ from 'lodash';
-import actions from '../../../../redux/actions/actions';
 import UILoader from '../../../../components/UILoader/UILoader';
+import UIMissingData from '../../../../components/UIMissingData/UIMissingData';
 
 const colors = [
-  'red',
-  'orange',
-  'yellow',
-  'olive',
-  'green',
   'teal',
-  'blue',
-  'violet',
-  'purple',
+  'green',
+  'olive',
+  'yellow',
+  'orange',
+  'red',
   'pink',
+  'purple',
+  'violet',
+  'blue',
   'brown',
-  'grey',
   'black',
+  'grey',
 ];
 
 function HistoryTabTable(props) {
   const {
     dataLoaded,
-    data = {},
-  } = props;
+    data,
+  } = props || {};
 
   const {
-    CauseResults = [],
-  } = data;
+    CauseResults,
+    TitleBriefcase = '',
+    CallCount = '',
+    SuccessConnected = '',
+    DroptCall = '',
+    StartDate,
+    EndDate,
+    CallCountAtTime = '',
+    SuccessConnectedAtTime = '',
+    DroptCallAtTime = '',
+  } = data || {};
 
   moment.locale('ru');
 
-  const renderResults = React.useMemo(
-    () => _.sortBy(CauseResults, 'Percentage').reverse().map((v, index) => (
-      <Table.Row key={v.CauseId}>
-        <Table.Cell>{v.CauseId || ''}</Table.Cell>
-        <Table.Cell colSpan="2">{v.CauseName || ''}</Table.Cell>
-        <Table.Cell collapsing>
-          {v.CauseDescription || ''}
-        </Table.Cell>
-        <Table.Cell>
-          {v.Count || ''}
-        </Table.Cell>
-        <Table.Cell>
-          <Progress
-            percent={v.Percentage}
-            progress
-            size="small"
-            color={colors[index] || 'black'}
-          />
-        </Table.Cell>
-      </Table.Row>
-    )),
-    [CauseResults],
-  );
+  const renderResults = React.useMemo(() => {
+    if (CauseResults) {
+      return _.sortBy(CauseResults, 'Percentage').reverse().map((v, index) => {
+        const {
+          CauseId = '',
+          CauseName = '',
+          CauseDescription = '',
+          Percentage = '',
+          Count = '',
+        } = v || {};
+        return (
+          <Table.Row key={CauseId}>
+            <Table.Cell>{CauseId}</Table.Cell>
+            <Table.Cell colSpan="2">{CauseName}</Table.Cell>
+            <Table.Cell collapsing>
+              {CauseDescription}
+            </Table.Cell>
+            <Table.Cell>
+              {Count}
+            </Table.Cell>
+            <Table.Cell>
+              <Progress
+                percent={Percentage}
+                progress
+                size="small"
+                color={colors[index] || 'grey'}
+              />
+            </Table.Cell>
+          </Table.Row>
+        );
+      });
+    } return null;
+  },
+  [CauseResults]);
 
   return (
-    <div className="history-table font-type-m-11">
-      {!dataLoaded
-      && (
-        <div className="ui-table__dimmer">
-          <div className="ui-table__loader">
-            <UILoader size="small" text="Загрузка..." />
-          </div>
-        </div>
-      )}
-      <Table celled size="small">
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell colSpan="6" textAlign="center">Отчет</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
+    <div className={`history-table${!dataLoaded ? ' loading' : ''}`}>
+      {!dataLoaded && <UILoader text="Загрузка" type="--google" dimmed />}
+      <div className="history-table__body">
+        {dataLoaded && !data && <UIMissingData />}
+        {dataLoaded && data && (
+        <Table celled size="small">
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell colSpan="6" textAlign="center">Отчет</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
 
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell>Название кампании</Table.Cell>
-            <Table.Cell colSpan="5">{data.TitleBriefcase || ''}</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell colSpan="6" />
-          </Table.Row>
-          <Table.Row className="history-table__row-header">
-            <Table.Cell colSpan="3" />
-            <Table.Cell>Звонки</Table.Cell>
-            <Table.Cell collapsing>Соединение</Table.Cell>
-            <Table.Cell>Потерянный вызов</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell colSpan="3">Всего</Table.Cell>
-            <Table.Cell>
-              {data.CallCount || ''}
-            </Table.Cell>
-            <Table.Cell>
-              {data.SuccessConnected || ''}
-            </Table.Cell>
-            <Table.Cell>
-              {data.DroptCall || ''}
-            </Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell collapsing>Временной интервал</Table.Cell>
-            <Table.Cell collapsing>
-              {`с ${data.StartDate ? moment(data.StartDate).format('DD.MM.YYYY HH:mm:ss') : ''}`}
-            </Table.Cell>
-            <Table.Cell collapsing>
-              {`по ${data.EndDate ? moment(data.EndDate).format('DD.MM.YYYY HH:mm:ss') : ''}`}
-            </Table.Cell>
-            <Table.Cell>
-              {data.CallCountAtTime || ''}
-            </Table.Cell>
-            <Table.Cell>
-              {data.SuccessConnectedAtTime || ''}
-            </Table.Cell>
-            <Table.Cell>
-              {data.DroptCallAtTime || ''}
-            </Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell colSpan="6" />
-          </Table.Row>
-          <Table.Row className="history-table__row-header">
-            <Table.Cell>Код завершения</Table.Cell>
-            <Table.Cell colSpan="2">Расшифровка кода</Table.Cell>
-            <Table.Cell>Описание события</Table.Cell>
-            <Table.Cell>Количественные показатели</Table.Cell>
-            <Table.Cell>Процентные показатели</Table.Cell>
-          </Table.Row>
-          {renderResults}
-        </Table.Body>
-      </Table>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>Название кампании</Table.Cell>
+              <Table.Cell colSpan="5">{TitleBriefcase}</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell colSpan="6" />
+            </Table.Row>
+            <Table.Row className="history-table__row-header">
+              <Table.Cell colSpan="3" />
+              <Table.Cell>Звонки</Table.Cell>
+              <Table.Cell collapsing>Соединение</Table.Cell>
+              <Table.Cell>Потерянный вызов</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell colSpan="3">Всего</Table.Cell>
+              <Table.Cell>
+                {CallCount}
+              </Table.Cell>
+              <Table.Cell>
+                {SuccessConnected}
+              </Table.Cell>
+              <Table.Cell>
+                {DroptCall}
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell collapsing>Временной интервал</Table.Cell>
+              <Table.Cell collapsing>
+                {`с ${StartDate ? moment(StartDate).format('DD.MM.YYYY HH:mm:ss') : ''}`}
+              </Table.Cell>
+              <Table.Cell collapsing>
+                {`по ${EndDate ? moment(EndDate).format('DD.MM.YYYY HH:mm:ss') : ''}`}
+              </Table.Cell>
+              <Table.Cell>
+                {CallCountAtTime}
+              </Table.Cell>
+              <Table.Cell>
+                {SuccessConnectedAtTime}
+              </Table.Cell>
+              <Table.Cell>
+                {DroptCallAtTime}
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell colSpan="6" />
+            </Table.Row>
+            <Table.Row className="history-table__row-header">
+              <Table.Cell>Код завершения</Table.Cell>
+              <Table.Cell colSpan="2">Расшифровка кода</Table.Cell>
+              <Table.Cell>Описание события</Table.Cell>
+              <Table.Cell>Количественные показатели</Table.Cell>
+              <Table.Cell>Процентные показатели</Table.Cell>
+            </Table.Row>
+            {renderResults}
+          </Table.Body>
+        </Table>
+        )}
+      </div>
     </div>
   );
 }
 
-const mapStateToProps = (state) => ({
-  templatesA: state.reportsStore,
-});
-
-const mapDispatchToProps = { ...actions };
-
-export default connect(mapStateToProps, mapDispatchToProps)(HistoryTabTable);
+export default HistoryTabTable;

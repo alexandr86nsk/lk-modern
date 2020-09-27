@@ -14,6 +14,41 @@ function* getError(error) {
   }
 }
 
+/* ***************************** getBriefcases ********************** */
+function* getBriefcases() {
+  yield put(actions.reportsStoreSetSection({
+    briefcasesLoading: true,
+  }));
+  yield queryResultAnalysis(
+    api.getBriefCases,
+    undefined,
+    function* (res) {
+      yield put(actions.reportsStoreSetSection({
+        briefcases: res && Array.isArray(res) && res.map((v) => {
+          const { BriefcaseId, Title, QueuePhone } = v || {};
+          return {
+            value: BriefcaseId,
+            label: Title,
+            queuePhone: QueuePhone,
+          };
+        }),
+        briefcasesLoading: false,
+      }));
+    },
+    function* () {
+      yield put(actions.reportsStoreSetSection({
+        briefcasesLoading: false,
+      }));
+    },
+  );
+}
+
+export function* canBeCanceledGetBriefcases() {
+  const bgGetBriefcases = yield fork(getBriefcases);
+  yield take('REPORTS_STORE_GET_BRIEFCASES_CANCEL');
+  yield cancel(bgGetBriefcases);
+}
+
 /* ***************************** getActualStateReport ********************** */
 function* getActualStateReport(value) {
   const {
@@ -53,6 +88,7 @@ function* getActualStateReport(value) {
     },
     function* () {
       yield put(actions.reportsStoreSetSection({
+        actualState: undefined,
         isLastRequestComplete: true,
       }));
       yield put(actions.reportsStoreSetActualStateTableStoreSection({
@@ -70,62 +106,51 @@ export function* canBeCanceledGetActualStateReport(action) {
 
 /* ***************************** getHistoryReport ********************** */
 function* getHistoryReport(value) {
+  const {
+    data,
+    auto,
+  } = value || {};
+  const {
+    startDate,
+    endDate,
+    briefcaseId,
+  } = data || {};
   yield put(actions.reportsStoreSetSection({
     isLastRequestComplete: false,
   }));
-  if (!value.auto) {
+  if (!auto) {
     yield put(actions.reportsStoreSetSection({
       historyLoaded: false,
     }));
   }
-  try {
-    const history = yield call(api.getHistoryReport, value);
-    yield put(actions.reportsStoreSetSection({
-      history: history.data,
-      historyLoaded: true,
-      isLastRequestComplete: true,
-    }));
-  } catch (e) {
-    yield put(actions.reportsStoreSetSection({
-      history: [],
-      historyLoaded: true,
-      isLastRequestComplete: true,
-    }));
-    yield getError(e);
-  }
+  yield queryResultAnalysis(
+    api.getHistoryReport,
+    {
+      startDate: startDate || '',
+      endDate: endDate || '',
+      briefcaseId: briefcaseId || '',
+    },
+    function* (res) {
+      yield put(actions.reportsStoreSetSection({
+        history: res,
+        historyLoaded: true,
+        isLastRequestComplete: true,
+      }));
+    },
+    function* () {
+      yield put(actions.reportsStoreSetSection({
+        history: undefined,
+        historyLoaded: true,
+        isLastRequestComplete: true,
+      }));
+    },
+  );
 }
 
 export function* canBeCanceledGetHistoryReport(action) {
   const bgGetHistoryReport = yield fork(getHistoryReport, action.value);
   yield take('REPORTS_STORE_GET_HISTORY_CANCEL');
   yield cancel(bgGetHistoryReport);
-}
-
-/* ***************************** getBriefcases ********************** */
-function* getBriefcases() {
-  try {
-    const briefcases = yield call(api.getBriefCaseList);
-    yield put(actions.reportsStoreSetSection({
-      briefcases: Array.isArray(briefcases.data) ? briefcases.data.map((v) => (
-        {
-          value: v.BriefcaseId,
-          label: v.Title,
-          queuePhone: v.QueuePhone,
-        }
-      )) : [],
-    }));
-  } catch (e) {
-    yield put(actions.reportsStoreSetSection({
-      briefcases: [],
-    }));
-    yield setErrorToast('При зугрузке данных о кампаниях произошла ошибка. Пожалуйста обновите страницу');
-  }
-}
-
-export function* canBeCanceledGetBriefcases() {
-  const bgGetBriefcases = yield fork(getBriefcases);
-  yield take('REPORTS_STORE_GET_BRIEFCASES_CANCEL');
-  yield cancel(bgGetBriefcases);
 }
 
 /* ***************************** getHistoryExcell ********************** */

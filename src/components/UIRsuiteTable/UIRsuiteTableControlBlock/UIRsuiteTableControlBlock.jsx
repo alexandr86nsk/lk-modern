@@ -45,7 +45,7 @@ function UIRsuiteTableControlBlock(props) {
             {paginationTotalItems > 0
              && (
                <div className="total-records">
-                 {`из ${paginationTotalItems}`}
+                 {`из ${paginationTotalItems}.`}
                </div>
              )}
           </div>

@@ -1,56 +1,39 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import '../../ReportsPage.scss';
 import { connect } from 'react-redux';
-import { Button } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 import actions from '../../../../redux/actions/actions';
-import UIReactSelect from '../../../../components/UIReactSelect/UIReactSelect';
-import UIReactDatePicker from '../../../../components/UIReactDatePicker/UIReactDatePicker';
-import filterSelectedCounter from '../../../../components/UITable/common/filterSelectedCounter';
 import HistoryTabTable from './HistoryTabTable';
-import FilterIcon from '../../../../static/images/filter_list-24px.svg';
-import UITableFilter from '../../../../components/UITable/UITableFilter';
+import HistoryFilter from './HistoryFilter';
 
 function HistoryTab(props) {
   const {
     history,
     isLastRequestComplete,
     historyLoaded,
-    briefcases,
-    historyFrom,
-    historyTo,
+    historyFilter,
     historyLoadingExcell,
     reportsStoreGetHistoryExcell,
     reportsStoreGetHistoryExcellCancel,
-    selectedHistoryBriefcase,
     reportsStoreGetHistory,
     reportsStoreGetHistoryCancel,
     reportsStoreSetSection,
-  } = props;
+  } = props || {};
 
-  const filterEl = useRef(null);
-  const [showFilter, setShowFilter] = React.useState(false);
-  React.useEffect(() => {
-    function handleClickOutside(event) {
-      if (filterEl.current && !filterEl.current.contains(event.target)) {
-        setShowFilter(false);
-      }
-    }
-    document.addEventListener('mouseup', handleClickOutside);
-    return () => {
-      document.removeEventListener('mouseup', handleClickOutside);
-    };
-  });
+  const {
+    historyFrom,
+    historyTo,
+    selectedHistoryBriefcase,
+  } = historyFilter || {};
 
-  const handleShowFilter = React.useCallback(() => {
-    setShowFilter(!showFilter);
-  }, [showFilter]);
-
-  const handleRefreshTable = React.useCallback((auto) => {
+  const handleRefreshTable = React.useCallback((value) => {
     reportsStoreGetHistory({
-      historyFrom,
-      historyTo,
-      selectedHistoryBriefcase,
-      auto,
+      data: {
+        startDate: historyFrom,
+        endDate: historyTo,
+        briefcaseId: selectedHistoryBriefcase,
+      },
+      auto: value,
     });
   }, [
     selectedHistoryBriefcase,
@@ -86,70 +69,6 @@ function HistoryTab(props) {
     reportsStoreGetHistoryExcellCancel,
   ]);
 
-  const handleSetValue = React.useCallback((editName, editValue) => {
-    reportsStoreSetSection({
-      [editName]: editValue,
-    });
-  }, [reportsStoreSetSection]);
-
-  const handleClearTableFilter = React.useCallback(() => {
-    reportsStoreSetSection({
-      historyFrom: '',
-      historyTo: '',
-      selectedHistoryBriefcase: '',
-    });
-  }, [reportsStoreSetSection]);
-
-  const handleCloseTableFilter = React.useCallback(() => {
-    setShowFilter(false);
-  }, []);
-
-  const renderFilter = React.useMemo(
-    () => (
-      <div className="history-tab__table-filter">
-        <UIReactSelect
-          type="--style-1c"
-          title="Название кампании"
-          name="selectedHistoryBriefcase"
-          data={selectedHistoryBriefcase}
-          options={briefcases}
-          callback={handleSetValue}
-          isClearable
-        />
-        <UIReactDatePicker
-          type="--style-1c"
-          title="Дата с"
-          name="historyFrom"
-          data={historyFrom}
-          callback={handleSetValue}
-          showTimeSelect
-          timeFormat="HH:mm:ss"
-          timeIntervals={15}
-          timeCaption="Время с:"
-          dateFormat="dd/mm/yyyy HH:mm:ss"
-        />
-        <UIReactDatePicker
-          type="--style-1c"
-          title="Дата по"
-          name="historyTo"
-          data={historyTo}
-          callback={handleSetValue}
-          showTimeSelect
-          timeFormat="HH:mm:ss"
-          timeIntervals={15}
-          timeCaption="Время по:"
-          dateFormat="dd/mm/yyyy HH:mm:ss"
-        />
-      </div>
-    ),
-    [briefcases, selectedHistoryBriefcase, historyFrom, historyTo, handleSetValue],
-  );
-
-  const filterSelected = React.useMemo(
-    () => filterSelectedCounter([historyFrom, historyTo, selectedHistoryBriefcase]),
-    [historyFrom, historyTo, selectedHistoryBriefcase],
-  );
-
   const handleGetExcell = React.useCallback(() => {
     reportsStoreGetHistoryExcell({
       historyFrom,
@@ -161,38 +80,21 @@ function HistoryTab(props) {
   return (
     <div className="reports-page__history-tab">
       <div className="controls-block">
-        <div className="filter-block" ref={filterEl}>
-          <div className="filter-block__title">Фильтр: </div>
-          <div
-            role="presentation"
-            className={`filter-block__icon${showFilter ? ' active' : ''}`}
-            onClick={handleShowFilter}
-            title="Фильтр"
-          >
-            <FilterIcon />
-            {filterSelected > 0 && (
-              <div className="filter-block__badge">
-                {filterSelected}
-              </div>
-            )}
-          </div>
-          {showFilter && (
-            <UITableFilter
-              filterBody={renderFilter}
-              filterClear={handleClearTableFilter}
-              filterClose={handleCloseTableFilter}
-            />
-          )}
-        </div>
         <div className="excell-block">
           <Button
-            content="Выгрузить"
-            icon="download"
-            labelPosition="left"
+            circular
             primary
-            onClick={handleGetExcell}
+            size="tiny"
             loading={historyLoadingExcell}
-          />
+            onClick={handleGetExcell}
+            title="Выгрузить отчет"
+          >
+            <Icon name="download" />
+            Выгрузить
+          </Button>
+        </div>
+        <div className="filter-block">
+          <HistoryFilter />
         </div>
       </div>
       <HistoryTabTable dataLoaded={historyLoaded} data={history} />
@@ -204,11 +106,8 @@ const mapStateToProps = (state) => ({
   isLastRequestComplete: state.reportsStore.isLastRequestComplete,
   history: state.reportsStore.history,
   historyLoaded: state.reportsStore.historyLoaded,
-  historyFrom: state.reportsStore.historyFrom,
-  historyTo: state.reportsStore.historyTo,
   historyLoadingExcell: state.reportsStore.historyLoadingExcell,
-  briefcases: state.reportsStore.briefcases,
-  selectedHistoryBriefcase: state.reportsStore.selectedHistoryBriefcase,
+  historyFilter: state.reportsStore.historyFilter,
 });
 
 const mapDispatchToProps = { ...actions };

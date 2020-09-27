@@ -2,25 +2,25 @@ import React from 'react';
 import { connect } from 'react-redux';
 import actions from '../../../../redux/actions/actions';
 import formGenerator from '../../../../components/utilities/formGenerator';
-import { actualStateFilterDataTemplate } from './settings';
+import historyFilterDataTemplate from './settings';
 
-const ActualStateFilter = (props) => {
+const HistoryFilter = (props) => {
   const {
     reportsStoreSetSubSection,
-    actualStateFilter,
+    historyFilter,
     briefcases,
     briefcasesLoading,
   } = props || {};
 
   const handleChangeValue = React.useCallback((editName, editValue) => {
-    reportsStoreSetSubSection('actualStateFilter', { [editName]: editValue });
+    reportsStoreSetSubSection('historyFilter', { [editName]: editValue });
   }, [reportsStoreSetSubSection]);
 
   const editedTemplate = React.useMemo(() => {
-    if (actualStateFilterDataTemplate && Array.isArray(actualStateFilterDataTemplate)) {
-      return actualStateFilterDataTemplate.map((v) => {
+    if (historyFilterDataTemplate && Array.isArray(historyFilterDataTemplate)) {
+      return historyFilterDataTemplate.map((v) => {
         const { dataKey, otherProps } = v || {};
-        if (dataKey === 'selectedActualStateBriefcase') {
+        if (dataKey === 'selectedHistoryBriefcase') {
           return {
             ...v,
             otherProps: {
@@ -37,18 +37,18 @@ const ActualStateFilter = (props) => {
   }, [briefcases, briefcasesLoading]);
 
   return (
-    <div className="actual-state-filter">
-      {formGenerator(editedTemplate, actualStateFilter, handleChangeValue)}
+    <div className="history-filter">
+      {formGenerator(editedTemplate, historyFilter, handleChangeValue)}
     </div>
   );
 };
 
 const mapStateToProps = (state) => ({
-  actualStateFilter: state.reportsStore.actualStateFilter,
+  historyFilter: state.reportsStore.historyFilter,
   briefcases: state.reportsStore.briefcases,
   briefcasesLoading: state.reportsStore.briefcasesLoading,
 });
 
 const mapDispatchToProps = { ...actions };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ActualStateFilter);
+export default connect(mapStateToProps, mapDispatchToProps)(HistoryFilter);

@@ -3,7 +3,7 @@ import '../../ReportsPage.scss';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import actions from '../../../../redux/actions/actions';
-import { actualStateTable } from '../settings';
+import { actualStateTableDataTemplate } from './settings';
 import UIRsuiteTable from '../../../../components/UIRsuiteTable/UIRsuiteTable';
 import tableDefaultConfig from '../../../../components/UIRsuiteTable/tableDeafultConfig';
 import ActualStateFilter from './ActualStateFilter';
@@ -29,7 +29,7 @@ function ActualStateTab(props) {
     selectedActualStatePhone,
   } = actualStateFilter || {};
 
-  const handleRefreshTable = React.useCallback((auto) => {
+  const handleRefreshTable = React.useCallback((value) => {
     reportsStoreGetActualState({
       data: {
         startDate: actualStateFrom,
@@ -37,7 +37,7 @@ function ActualStateTab(props) {
         briefcaseId: selectedActualStateBriefcase,
         phone: selectedActualStatePhone,
       },
-      auto,
+      auto: value,
     });
   }, [
     selectedActualStateBriefcase,
@@ -68,16 +68,6 @@ function ActualStateTab(props) {
     reportsStoreGetActualStateCancel,
   ]);
 
-  React.useEffect(() => {
-    handleRefreshTable(false);
-  }, [handleRefreshTable]);
-
-  const handleSetValue = React.useCallback((editName, editValue) => {
-    reportsStoreSetSection({
-      [editName]: editValue,
-    });
-  }, [reportsStoreSetSection]);
-
   const sortedActualState = React.useMemo(
     () => _.sortBy(actualState, 'CallModifyDate').reverse(),
     [actualState],
@@ -86,7 +76,7 @@ function ActualStateTab(props) {
   React.useEffect(() => {
     if (!actualStateTableTemplate || !actualStateTableStore) {
       reportsStoreSetSection({
-        actualStateTableTemplate: actualStateTable,
+        actualStateTableTemplate: actualStateTableDataTemplate,
         actualStateTableStore: {
           ...tableDefaultConfig,
           type: '--transparent',
@@ -103,6 +93,10 @@ function ActualStateTab(props) {
     actualStateTableStore,
     reportsStoreSetSection,
   ]);
+
+  React.useEffect(() => {
+    handleRefreshTable(false);
+  }, [handleRefreshTable]);
 
   return (
     <div className="reports-page__actual-state-tab">
@@ -121,12 +115,7 @@ const mapStateToProps = (state) => ({
   actualState: state.reportsStore.actualState,
   actualStateTableStore: state.reportsStore.actualStateTableStore,
   actualStateTableTemplate: state.reportsStore.actualStateTableTemplate,
-  actualStateFrom: state.reportsStore.actualStateFrom,
-  actualStateTo: state.reportsStore.actualStateTo,
-  briefcases: state.reportsStore.briefcases,
   actualStateFilter: state.reportsStore.actualStateFilter,
-  selectedActualStateBriefcase: state.reportsStore.selectedActualStateBriefcase,
-  selectedActualStatePhone: state.reportsStore.selectedActualStatePhone,
   isLastRequestComplete: state.reportsStore.isLastRequestComplete,
 });
 

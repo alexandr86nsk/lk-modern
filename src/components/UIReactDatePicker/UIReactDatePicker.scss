@@ -153,6 +153,10 @@
     top: 20px;
   }
 
+  .react-datepicker__navigation--next--with-time:not(.react-datepicker__navigation--next--with-today-button) {
+    right: calc(95px + 1em);
+  }
+
   .react-datepicker__header__dropdown {
     margin: 7px 0;
   }

@@ -7,7 +7,10 @@ export const getQueueAsteriskList = () => requestParser({
   url: 'QueueAsteriskOptions/GetList',
 });
 
-export const getBriefCases = () => axios.get(`${qs}Briefcase/GetList`);
+export const getBriefCases = () => requestParser({
+  method: 'get',
+  url: 'Briefcase/GetList',
+});
 
 export const getBriefCase = (id) => axios.get(`${qs}Briefcase/Get/?itemId=${id}`);
 
