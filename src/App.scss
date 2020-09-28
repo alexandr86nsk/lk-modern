@@ -38,6 +38,26 @@
     max-width: 1440px;
     margin: 0 auto;
     flex: 1;
+
+    &.fixed {
+      max-width: unset;
+    }
+
+    &.fixed .menu-container {
+      visibility: hidden;
+    }
+
+    &.fixed .page {
+      position: unset;
+    }
+
+    &.fixed .page__content {
+      position: fixed;
+    }
+
+    &.fixed .page__fixed-btn {
+      position: fixed;
+    }
   }
 
   .menu-container {
@@ -61,6 +81,26 @@
     grid-template-rows: 1fr;
     flex: 1;
     position: relative;
+
+    &__fixed-btn {
+      position: absolute;
+      top: 1em;
+      right: 1em;
+      z-index: 1;
+
+      .ui.button {
+        box-shadow: none;
+        background-color: transparent;
+
+        &:hover {
+          background-color: rgba(var(--medium-theme-color-rgb), .1);
+        }
+
+        &:active {
+          background-color: rgba(var(--medium-theme-color-rgb), .3);
+        }
+      }
+    }
 
     &__content {
       position: absolute;

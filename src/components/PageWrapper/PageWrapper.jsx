@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Button } from 'semantic-ui-react';
 import * as actions from '../../redux/actions/actions';
 import UIToasts from '../UIToasts/UIToasts';
 import UISideBar from '../UISidebar/UISidebar';
@@ -18,19 +19,32 @@ function PageWrapper(props) {
 
   const pageEl = React.useRef(null);
   const [scroll, setScroll] = React.useState(false);
+  const [fixedContent, setFixedContent] = React.useState(false);
   useScrollPage(setScroll, pageEl);
+
+  const handleSetFixedContent = React.useCallback(() => {
+    setFixedContent(!fixedContent);
+  }, [fixedContent]);
 
   return (
     <>
       {isAuth
         ? (
-          <div className="content">
+          <div className={`content${fixedContent ? ' fixed' : ''}`}>
             <div className="menu-container">
               <UISideBar />
             </div>
             <div className="page-container">
               <PageHeader />
               <div className="page">
+                <div className="page__fixed-btn">
+                  <Button
+                    title={fixedContent ? 'Свернуть' : 'Развернуть на весь экран'}
+                    onClick={handleSetFixedContent}
+                    circular
+                    icon={fixedContent ? 'compress' : 'expand'}
+                  />
+                </div>
                 {children}
                 <PagePopUp />
               </div>

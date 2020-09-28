@@ -62,6 +62,20 @@ function UIRsuiteTable(props) {
 
   React.useEffect(() => {
     const { current } = tableBodyRef || {};
+    const resizeObserver = new ResizeObserver(() => {
+      setTableBodySize({
+        width: current.offsetWidth,
+        height: current.offsetHeight,
+      });
+    });
+
+    resizeObserver.observe(tableBodyRef.current);
+
+    return () => resizeObserver.disconnect();
+  }, []);
+
+  React.useEffect(() => {
+    const { current } = tableBodyRef || {};
     if (current) {
       setTableBodySize({
         width: current.offsetWidth,
@@ -99,7 +113,7 @@ function UIRsuiteTable(props) {
     return null;
   }, [tableBodySize, tableTemplate]);
 
-  React.useEffect(() => {
+  /*  React.useEffect(() => {
     const { current } = tableBodyRef || {};
     function handleResize() {
       setTableBodySize({
@@ -111,7 +125,7 @@ function UIRsuiteTable(props) {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, []); */
 
   React.useEffect(() => {
     if (paginationNumberOfItemsToPage) {

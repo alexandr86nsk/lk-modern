@@ -151,6 +151,7 @@
     "raw-loader": "^4.0.1",
     "react-svg-loader": "^3.0.3",
     "react-test-renderer": "^16.13.1",
+    "resize-observer-polyfill": "^1.5.1",
     "sass": "^1.26.11",
     "sass-loader": "^9.0.3",
     "terser-webpack-plugin": "^2.3.8",
