@@ -1,20 +1,20 @@
 export const historyFilterDataTemplate = [
   {
     id: 0,
+    title: 'Название кампании',
     dataKey: 'selectedHistoryBriefcase',
     type: 'select',
     otherProps: {
-      type: '--style-1c --transparent',
-      placeholder: 'Название кампании',
+      type: '--style-1c --transparent --translate-title',
     },
   },
   {
     id: 1,
+    title: 'Дата с',
     dataKey: 'historyFrom',
     type: 'datePicker',
     otherProps: {
-      type: '--style-1c --transparent',
-      placeholder: 'Дата с',
+      type: '--style-1c --transparent --translate-title',
       showTimeSelect: true,
       timeFormat: 'HH:mm:ss',
       timeIntervals: 15,
@@ -24,11 +24,11 @@ export const historyFilterDataTemplate = [
   },
   {
     id: 2,
+    title: 'Дата по',
     dataKey: 'historyTo',
     type: 'datePicker',
     otherProps: {
-      type: '--style-1c --transparent',
-      placeholder: 'Дата по',
+      type: '--style-1c --transparent --translate-title',
       showTimeSelect: true,
       timeFormat: 'HH:mm:ss',
       timeIntervals: 15,

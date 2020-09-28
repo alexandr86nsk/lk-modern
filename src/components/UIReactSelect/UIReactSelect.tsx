@@ -115,6 +115,9 @@ function UIReactSelect(props: IUIReactSelectProps) {
     if (type) {
       str = `${str} ${type}`;
     }
+    if (!(data === 0 || data)) {
+      str = `${str} empty`;
+    }
     if (required) {
       str = `${str} required`;
       if (!(data === 0 || data)) {

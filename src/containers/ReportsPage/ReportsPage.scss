@@ -8,7 +8,7 @@
     grid-template: 90px 1fr 50px / 1fr;
 
     @media screen and (max-width: 767px){
-      grid-template: 130px 1fr 100px / 1fr;
+      grid-template: 140px 1fr 100px / 1fr;
     }
   }
 
@@ -24,6 +24,7 @@
 
       @media screen and (max-width: 767px){
         grid-template: auto auto / repeat(2, 1fr);
+        grid-gap: 1.5em;
       }
     }
   }
@@ -51,6 +52,7 @@
 
       @media screen and (max-width: 767px){
         grid-template: auto auto / repeat(2, 1fr);
+        grid-gap: 1.5em;
 
         div:first-of-type {
           grid-column-end: span 2;
