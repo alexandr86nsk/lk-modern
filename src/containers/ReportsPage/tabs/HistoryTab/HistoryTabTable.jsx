@@ -79,7 +79,7 @@ function HistoryTabTable(props) {
   [CauseResults]);
 
   return (
-    <div className={`history-table${!dataLoaded ? ' loading' : ''}`}>
+    <div className={`history-table${loading ? ' loading' : ''}`}>
       {loading && <UILoader text="Загрузка" type="--google" dimmed />}
       <div className="history-table__body">
         {!loading && data && (
