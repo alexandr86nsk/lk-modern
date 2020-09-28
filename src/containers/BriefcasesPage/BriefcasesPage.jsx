@@ -95,6 +95,7 @@ function BriefcasesPage(props) {
           type: '--transparent',
           tableRowHeight: 36,
           filter: false,
+          search: true,
           customId: 'QueuePhone',
         },
       });

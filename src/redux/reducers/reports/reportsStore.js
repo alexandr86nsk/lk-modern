@@ -12,6 +12,8 @@ export default function reportsStore(state = initialReportsStore, action) {
   const {
     actualStateTableStore,
     actualStateTableTemplate,
+    callStatisticTableStore,
+    callStatisticTableTemplate,
     [name]: stateName,
   } = state || {};
   switch (type) {
@@ -40,6 +42,28 @@ export default function reportsStore(state = initialReportsStore, action) {
       return {
         ...state,
         actualStateTableTemplate: actualStateTableTemplate.map((v) => {
+          const { dataKey: thisDataKey } = v || {};
+          if (thisDataKey === dataKey) {
+            return {
+              ...v,
+              ...value,
+            };
+          }
+          return v;
+        }),
+      };
+    case 'REPORTS_STORE_SET_CALL_STATISTIC_TABLE_STORE_SECTION':
+      return {
+        ...state,
+        callStatisticTableStore: {
+          ...callStatisticTableStore,
+          ...value,
+        },
+      };
+    case 'REPORTS_STORE_SET_CALL_STATISTIC_TABLE_TEMPLATE_SECTION':
+      return {
+        ...state,
+        callStatisticTableTemplate: callStatisticTableTemplate.map((v) => {
           const { dataKey: thisDataKey } = v || {};
           if (thisDataKey === dataKey) {
             return {

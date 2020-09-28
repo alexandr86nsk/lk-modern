@@ -76,3 +76,13 @@ export const reportsStoreSetActualStateTableTemplateSection = (value) => ({
   type: 'REPORTS_STORE_SET_ACTUAL_STATE_TABLE_TEMPLATE_SECTION',
   value,
 });
+
+export const reportsStoreSetCallStatisticTableStoreSection = (value) => ({
+  type: 'REPORTS_STORE_SET_CALL_STATISTIC_TABLE_STORE_SECTION',
+  value,
+});
+
+export const reportsStoreSetCallStatisticTableTemplateSection = (value) => ({
+  type: 'REPORTS_STORE_SET_CALL_STATISTIC_TABLE_TEMPLATE_SECTION',
+  value,
+});

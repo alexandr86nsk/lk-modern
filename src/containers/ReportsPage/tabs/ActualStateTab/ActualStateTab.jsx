@@ -81,9 +81,10 @@ function ActualStateTab(props) {
           ...tableDefaultConfig,
           type: '--transparent',
           tableRowHeight: 36,
-          filter: false,
-          customId: 'BriefcaseId',
-          searchCustom: <ActualStateFilter />,
+          search: true,
+          customId: 'CallModifyDate',
+          filter: true,
+          filterCustom: <ActualStateFilter />,
           refresh: false,
         },
       });

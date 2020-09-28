@@ -19,11 +19,11 @@ function UIRsuiteTableControlBlock(props) {
     filterClearCallback,
     filterType,
     filterBodyTitle,
+    filterCustom,
     search,
     searchPlaceholder,
     searchString,
     searchSetString,
-    searchCustom,
     refresh,
     refreshCallback,
     refreshTitle,
@@ -53,7 +53,7 @@ function UIRsuiteTableControlBlock(props) {
         )}
       </div>
       <div className="control-block__right-side">
-        {filter && (
+        {filter && !filterCustom && (
           <UIRsuiteTableFilter
             filterIcon={<FilterIcon />}
             filterBody={filterBody}
@@ -63,7 +63,7 @@ function UIRsuiteTableControlBlock(props) {
             filterBodyTitle={filterBodyTitle}
           />
         )}
-        {search && !searchCustom && (
+        {search && (
           <div className="search-wrapper">
             <UISearch
               hideResults
@@ -86,9 +86,9 @@ function UIRsuiteTableControlBlock(props) {
           </div>
         )}
       </div>
-      {search && searchCustom && (
+      {filter && filterCustom && (
       <div className="control-block__bottom-side">
-        {searchCustom}
+        {filterCustom}
       </div>
       )}
     </>

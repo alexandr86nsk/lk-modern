@@ -155,33 +155,55 @@ export function* canBeCanceledGetHistoryReport(action) {
 
 /* ***************************** getHistoryExcell ********************** */
 function* getHistoryExcell(value) {
+  const {
+    data,
+  } = value || {};
+  const {
+    startDate,
+    endDate,
+    briefcaseId,
+  } = data || {};
   yield put(actions.reportsStoreSetSection({
     historyLoadingExcell: true,
   }));
-  try {
-    const file = yield call(api.getHistoryExcell, value);
-    const byteCharacters = atob(file.data.Base64File || '');
-    const byteArrays = [];
-    for (let offset = 0; offset < byteCharacters.length; offset += 512) {
-      const slice = byteCharacters.slice(offset, offset + 512);
-      const byteNumbers = new Array(slice.length);
-      for (let i = 0; i < slice.length; i += 1) {
-        byteNumbers[i] = slice.charCodeAt(i);
+  yield queryResultAnalysis(
+    api.getHistoryExcell,
+    {
+      startDate: startDate || '',
+      endDate: endDate || '',
+      briefcaseId: briefcaseId || '',
+    },
+    function* (res) {
+      if (res) {
+        const {
+          Base64File = '',
+          FileName = 'Отчет',
+        } = res || {};
+        const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+        const byteCharacters = atob(Base64File);
+        const byteArrays = [];
+        for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+          const slice = byteCharacters.slice(offset, offset + 512);
+          const byteNumbers = new Array(slice.length);
+          for (let i = 0; i < slice.length; i += 1) {
+            byteNumbers[i] = slice.charCodeAt(i);
+          }
+          const byteArray = new Uint8Array(byteNumbers);
+          byteArrays.push(byteArray);
+        }
+        const blob = new Blob(byteArrays, { type: fileType });
+        saveAs(blob, FileName);
       }
-      const byteArray = new Uint8Array(byteNumbers);
-      byteArrays.push(byteArray);
-    }
-    const blob = new Blob(byteArrays, { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-    saveAs(blob, file.data.FileName || 'Отчет');
-    yield put(actions.reportsStoreSetSection({
-      historyLoadingExcell: false,
-    }));
-  } catch (e) {
-    yield put(actions.reportsStoreSetSection({
-      historyLoadingExcell: false,
-    }));
-    yield getError(e);
-  }
+      yield put(actions.reportsStoreSetSection({
+        historyLoadingExcell: false,
+      }));
+    },
+    function* () {
+      yield put(actions.reportsStoreSetSection({
+        historyLoadingExcell: false,
+      }));
+    },
+  );
 }
 
 export function* canBeCanceledGetHistoryExcell(action) {
@@ -192,24 +214,31 @@ export function* canBeCanceledGetHistoryExcell(action) {
 
 /* ***************************** getCallStatisticReport ********************** */
 function* getCallStatisticReport(value) {
-  yield put(actions.reportsStoreSetSection({
-    callStatisticReportLoaded: false,
+  yield put(actions.reportsStoreSetCallStatisticTableStoreSection({
+    tableLoading: true,
   }));
-  try {
-    const callStatisticReport = yield call(api.getCallStatisticReport, value);
-    yield put(actions.reportsStoreSetSection({
-      callStatisticReport: callStatisticReport.data && Array.isArray(callStatisticReport.data)
-        ? callStatisticReport.data
-        : [callStatisticReport.data],
-      callStatisticReportLoaded: true,
-    }));
-  } catch (e) {
-    yield put(actions.reportsStoreSetSection({
-      callStatisticReport: [],
-      callStatisticReportLoaded: true,
-    }));
-    yield getError(e);
-  }
+  yield queryResultAnalysis(
+    api.getCallStatisticReport,
+    {
+      queue: value,
+    },
+    function* (res) {
+      yield put(actions.reportsStoreSetSection({
+        callStatistic: res,
+      }));
+      yield put(actions.reportsStoreSetCallStatisticTableStoreSection({
+        tableLoading: false,
+      }));
+    },
+    function* () {
+      yield put(actions.reportsStoreSetSection({
+        callStatistic: undefined,
+      }));
+      yield put(actions.reportsStoreSetCallStatisticTableStoreSection({
+        tableLoading: false,
+      }));
+    },
+  );
 }
 
 export function* canBeCanceledGetCallStatisticReport(action) {
@@ -221,21 +250,26 @@ export function* canBeCanceledGetCallStatisticReport(action) {
 /* ***************************** getOperatorInfoReport ********************** */
 function* getOperatorInfoReport(value) {
   yield put(actions.reportsStoreSetSection({
-    operatorInfoReportLoaded: false,
+    operatorInfoLoading: true,
   }));
-  try {
-    const operatorReport = yield call(api.getOperatorInfoReport, value);
-    yield put(actions.reportsStoreSetSection({
-      operatorInfoReport: operatorReport.data,
-      operatorInfoReportLoaded: true,
-    }));
-  } catch (e) {
-    yield put(actions.reportsStoreSetSection({
-      operatorInfoReport: {},
-      operatorInfoReportLoaded: true,
-    }));
-    yield getError(e);
-  }
+  yield queryResultAnalysis(
+    api.getOperatorInfoReport,
+    {
+      queue: value,
+    },
+    function* (res) {
+      yield put(actions.reportsStoreSetSection({
+        operatorInfo: res,
+        operatorInfoLoading: false,
+      }));
+    },
+    function* () {
+      yield put(actions.reportsStoreSetSection({
+        operatorInfo: undefined,
+        operatorInfoLoading: false,
+      }));
+    },
+  );
 }
 
 export function* canBeCanceledGetOperatorInfoReport(action) {

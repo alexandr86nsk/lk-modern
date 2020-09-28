@@ -2,143 +2,111 @@ import React from 'react';
 import '../../ReportsPage.scss';
 import { connect } from 'react-redux';
 import actions from '../../../../redux/actions/actions';
-import { callStatisticTable, operatorInfoTable } from '../settings';
-import UITable from '../../../../components/UITable/UITable';
-import UIBlockTitle from '../../../../components/UIBlockTitle/UIBlockTitle';
-import UITextField from '../../../../components/UITextField/UITextField';
-import UIReactSelect from '../../../../components/UIReactSelect/UIReactSelect';
-import UIReactDatePicker from '../../../../components/UIReactDatePicker/UIReactDatePicker';
-import UIInput from '../../../../components/UIInput/UIInput';
-import filterSelectedCounter from '../../../../components/UITable/common/filterSelectedCounter';
+import { callStatisticTableDataTemplate } from './settings';
+import UIRsuiteTable from '../../../../components/UIRsuiteTable/UIRsuiteTable';
+import tableDefaultConfig from '../../../../components/UIRsuiteTable/tableDeafultConfig';
+import CallStatisticFilter from './CallStatisticFilter';
+import UIElementTitle from '../../../../components/UIElementTitle/UIElementTitle';
+import OperatorInfo from './OperatorInfo';
 
 function IndicatorsTab(props) {
   const {
-    callStatisticReport,
-    callStatisticReportLoaded,
-    operatorInfoReport,
-    operatorInfoReportLoaded,
+    callStatisticTableStore,
+    reportsStoreSetCallStatisticTableStoreSection,
+    callStatisticTableTemplate,
+    reportsStoreSetCallStatisticTableTemplateSection,
+    callStatistic,
+    callStatisticFilter,
+    operatorInfo,
+    operatorInfoLoading,
     reportsStoreGetCallStatistic,
     reportsStoreGetCallStatisticCancel,
     reportsStoreGetOperatorInfo,
     reportsStoreGetOperatorInfoCancel,
-    callStatisticReportSearchString,
     reportsStoreSetSection,
-    callStatisticReportSelectedBriefcaseFilter,
-    callStatisticReportSelectedQueuePhoneFilter,
-    briefcases,
-  } = props;
+  } = props || {};
 
-  const { OperatorInUpdate, OperatorInCall, OperatorInWaiting } = operatorInfoReport || {};
+  const {
+    selectedCallStatisticBriefcase,
+  } = callStatisticFilter || {};
 
-  const handleRefreshCallStatisticTable = React.useCallback(() => {
-    if (callStatisticReportSelectedQueuePhoneFilter === 0 || callStatisticReportSelectedQueuePhoneFilter) {
-      reportsStoreGetCallStatistic(callStatisticReportSelectedQueuePhoneFilter);
-    } else {
-      reportsStoreGetCallStatistic();
-    }
-  }, [callStatisticReportSelectedQueuePhoneFilter, reportsStoreGetCallStatistic]);
-
-  const handleRefreshOperatorInfoTable = React.useCallback(() => {
-    reportsStoreGetOperatorInfo();
-  }, [reportsStoreGetOperatorInfo]);
-
-  const handleSetFilter = React.useCallback((editName, editValue) => {
-    reportsStoreSetSection({
-      callStatisticReportSelectedBriefcaseFilter: editValue && (editValue.value || editValue.value === 0) ? editValue.value : null,
-      callStatisticReportSelectedQueuePhoneFilter: editValue && (editValue.queuePhone || editValue.queuePhone === 0) ? editValue.queuePhone : null,
-    });
-  }, [reportsStoreSetSection]);
-
-  React.useEffect(() => {
-    if (callStatisticReportSelectedQueuePhoneFilter === 0 || callStatisticReportSelectedQueuePhoneFilter) {
-      reportsStoreGetCallStatistic(callStatisticReportSelectedQueuePhoneFilter);
-    } else {
-      reportsStoreGetCallStatistic();
-    }
-  }, [callStatisticReportSelectedQueuePhoneFilter, reportsStoreGetCallStatistic]);
-
-  React.useEffect(() => {
-    reportsStoreGetOperatorInfo();
-  }, [reportsStoreGetOperatorInfo]);
+  const handleRefreshTable = React.useCallback(() => {
+    reportsStoreGetOperatorInfo(selectedCallStatisticBriefcase);
+    reportsStoreGetCallStatistic(selectedCallStatisticBriefcase);
+  }, [
+    selectedCallStatisticBriefcase,
+    reportsStoreGetOperatorInfo,
+    reportsStoreGetCallStatistic,
+  ]);
 
   React.useEffect(() => () => {
     reportsStoreGetCallStatisticCancel();
     reportsStoreGetOperatorInfoCancel();
   }, [reportsStoreGetCallStatisticCancel, reportsStoreGetOperatorInfoCancel]);
 
-  const handleSearch = React.useCallback((value) => {
-    reportsStoreSetSection({ callStatisticReportSearchString: value });
-  }, [reportsStoreSetSection]);
+  React.useEffect(() => {
+    if (!callStatisticTableTemplate || !callStatisticTableStore) {
+      reportsStoreSetSection({
+        callStatisticTableTemplate: callStatisticTableDataTemplate,
+        callStatisticTableStore: {
+          ...tableDefaultConfig,
+          type: '--transparent',
+          tableRowHeight: 36,
+          search: true,
+          customId: 'QueuePhone',
+          filter: true,
+          filterCustom: <CallStatisticFilter />,
+        },
+      });
+    }
+  }, [
+    callStatisticTableTemplate,
+    callStatisticTableStore,
+    reportsStoreSetSection,
+  ]);
 
-  const handleClearTableFilter = React.useCallback(() => {
-    reportsStoreSetSection({
-      callStatisticReportSelectedBriefcaseFilter: '',
-      callStatisticReportSelectedQueuePhoneFilter: '',
+  React.useEffect(() => {
+    reportsStoreSetCallStatisticTableStoreSection({
+      refreshCallback: handleRefreshTable,
     });
-  }, [reportsStoreSetSection]);
+  }, [
+    handleRefreshTable,
+    reportsStoreSetCallStatisticTableStoreSection,
+  ]);
 
-  const renderFilter = React.useMemo(
-    () => (
-      <div className="grid-wrapper">
-        <UIReactSelect
-          type="--style-1c"
-          title="Название кампании"
-          name="callStatisticReportSelectedBriefcaseFilter"
-          data={callStatisticReportSelectedBriefcaseFilter}
-          options={briefcases}
-          fullValueCallback={handleSetFilter}
-          isClearable
-        />
-      </div>
-    ),[handleSetFilter, callStatisticReportSelectedBriefcaseFilter, briefcases],
-  );
-
-  const filterSelected = React.useMemo(
-    () => filterSelectedCounter([
-      callStatisticReportSelectedBriefcaseFilter,
-    ]),
-    [
-      callStatisticReportSelectedBriefcaseFilter
-    ],
-  );
+  React.useEffect(() => {
+    handleRefreshTable();
+  }, [handleRefreshTable]);
 
   return (
     <div className="reports-page__indicators-tab">
-      <UITable
-        header={callStatisticTable}
-        data={callStatisticReport}
-        pagination
-        empty="Отчет пуст"
-        loadingData={!callStatisticReportLoaded}
-        selectable
-        sortable
-        refresh
-        refreshCallback={handleRefreshCallStatisticTable}
-        search
-        searchString={callStatisticReportSearchString}
-        searchCallback={handleSearch}
-        filter
-        filterSelected={filterSelected}
-        filterBody={renderFilter}
-        filterClear={handleClearTableFilter}
-      />
-      <UIBlockTitle title="Статусы операторов" />
-      <UITextField type="inline underline" data={OperatorInCall === 0 || OperatorInCall ? OperatorInCall : ''} title="Разговор:" />
-      <UITextField type="inline underline" data={OperatorInUpdate === 0 || OperatorInUpdate ? OperatorInUpdate : ''} title="Поствызов:" />
-      <UITextField type="inline underline" data={OperatorInWaiting === 0 || OperatorInWaiting ? OperatorInWaiting : ''} title="Ожидание:" />
+      <div className="element-wrapper --fullscreen">
+        <UIElementTitle title="Статистика звонков" />
+        <UIRsuiteTable
+          tableStore={callStatisticTableStore}
+          tableStoreSetSection={reportsStoreSetCallStatisticTableStoreSection}
+          tableTemplate={callStatisticTableTemplate}
+          tableTemplateSetSection={reportsStoreSetCallStatisticTableTemplateSection}
+          tableData={callStatistic}
+        />
+      </div>
+      <div className="element-wrapper --fullscreen">
+        <UIElementTitle title="Статусы операторов" />
+        <OperatorInfo data={operatorInfo} loading={operatorInfoLoading} />
+      </div>
     </div>
   );
 }
 
 const mapStateToProps = (state) => ({
-  operatorInfoReport: state.reportsStore.operatorInfoReport,
-  operatorInfoReportLoaded: state.reportsStore.operatorInfoReportLoaded,
-  callStatisticReport: state.reportsStore.callStatisticReport,
-  callStatisticReportSelectedBriefcaseFilter: state.reportsStore.callStatisticReportSelectedBriefcaseFilter,
-  callStatisticReportSelectedQueuePhoneFilter: state.reportsStore.callStatisticReportSelectedQueuePhoneFilter,
-  callStatisticReportLoaded: state.reportsStore.callStatisticReportLoaded,
-  callStatisticReportSearchString: state.reportsStore.callStatisticReportSearchString,
-  briefcases: state.reportsStore.briefcases,
+  operatorInfo: state.reportsStore.operatorInfo,
+  operatorInfoLoading: state.reportsStore.operatorInfoLoading,
+  callStatistic: state.reportsStore.callStatistic,
+  callStatisticFilter: state.reportsStore.callStatisticFilter,
+  callStatisticTableStore: state.reportsStore.callStatisticTableStore,
+  callStatisticTableTemplate: state.reportsStore.callStatisticTableTemplate,
+  reportsStoreSetCallStatisticTableStoreSection: state.reportsStore.reportsStoreSetCallStatisticTableStoreSection,
+  reportsStoreSetCallStatisticTableTemplateSection: state.reportsStore.reportsStoreSetCallStatisticTableTemplateSection,
 });
 
 const mapDispatchToProps = { ...actions };

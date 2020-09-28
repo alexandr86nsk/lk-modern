@@ -33,10 +33,10 @@ function UIRsuiteTable(props) {
     filterBody,
     filterType,
     filterBodyTitle,
+    filterCustom,
     search,
     searchPlaceholder,
     searchString,
-    searchCustom,
     refresh,
     refreshCallback,
     refreshTitle,
@@ -52,7 +52,6 @@ function UIRsuiteTable(props) {
     paginationServerSide,
     searchServerSide,
     sortServerSide,
-    loading,
     type,
     cellBordered,
     bordered,
@@ -242,7 +241,7 @@ function UIRsuiteTable(props) {
             searchPlaceholder={searchPlaceholder}
             searchString={searchString}
             searchSetString={searchSetString}
-            searchCustom={searchCustom}
+            filterCustom={filterCustom}
             refresh={refresh}
             refreshCallback={refreshCallback}
             refreshTitle={refreshTitle}

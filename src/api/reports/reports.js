@@ -14,21 +14,20 @@ export const getHistoryReport = (data) => requestParser({
   params: data,
 });
 
-export const getHistoryExcell = (data) => axios.get(
-  `${qs}Reports/CallTotalValuesReportFile?briefcaseId=${
-    data.selectedHistoryBriefcase || ''
-  }&startDate=${
-    data.historyFrom ? JSON.stringify(data.historyFrom).replace(/"/g, '') : ''
-  }&endDate=${
-    data.historyTo ? JSON.stringify(data.historyTo).replace(/"/g, '') : ''
-  }`,
-);
+export const getHistoryExcell = (data) => requestParser({
+  method: 'get',
+  url: 'Reports/CallTotalValuesReportFile',
+  params: data,
+});
 
-export const getCallStatisticReport = (data) => {
-  if (data === 0 || data) {
-    return axios.get(`${qs}CallStatistic/Get?queue=${data}`);
-  }
-  return axios.get(`${qs}CallStatistic/GetList`);
-};
+export const getCallStatisticReport = (data) => requestParser({
+  method: 'get',
+  url: `CallStatistic/Get${data.queue ? '' : 'List'}`,
+  params: data,
+});
 
-export const getOperatorInfoReport = () => axios.get(`${qs}MemberQueue/GetOperatorInfo`);
+export const getOperatorInfoReport = (data) => requestParser({
+  method: 'get',
+  url: 'MemberQueue/GetOperatorInfo',
+  params: data,
+});
