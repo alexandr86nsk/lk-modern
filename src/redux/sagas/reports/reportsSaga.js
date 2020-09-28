@@ -1,18 +1,10 @@
 import {
-  call, put, fork, take, cancel,
+  put, fork, take, cancel,
 } from 'redux-saga/effects';
 import { saveAs } from 'file-saver';
 import api from '../../../api/api';
 import actions from '../../actions/actions';
-import { queryResultAnalysis, setErrorToast } from '../common/globalSaga';
-
-function* getError(error) {
-  if (error.response && error.response.data.description) {
-    yield setErrorToast(error.response.data.description);
-  } else {
-    yield setErrorToast('При зугрузке данных произошла ошибка. Пожалуйста обновите страницу');
-  }
-}
+import { queryResultAnalysis } from '../common/globalSaga';
 
 /* ***************************** getBriefcases ********************** */
 function* getBriefcases() {
@@ -120,7 +112,7 @@ function* getHistoryReport(value) {
   }));
   if (!auto) {
     yield put(actions.reportsStoreSetSection({
-      historyLoaded: false,
+      historyLoading: true,
     }));
   }
   yield queryResultAnalysis(
@@ -133,14 +125,14 @@ function* getHistoryReport(value) {
     function* (res) {
       yield put(actions.reportsStoreSetSection({
         history: res,
-        historyLoaded: true,
+        historyLoading: false,
         isLastRequestComplete: true,
       }));
     },
     function* () {
       yield put(actions.reportsStoreSetSection({
         history: undefined,
-        historyLoaded: true,
+        historyLoading: false,
         isLastRequestComplete: true,
       }));
     },

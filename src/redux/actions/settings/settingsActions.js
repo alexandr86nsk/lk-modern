@@ -1,4 +1,4 @@
-/* ******************************* settingsStore  ********************************************** */
+/* ******************************* SettingsStore  ********************************************** */
 export const settingsStoreSetSection = (value) => ({
   type: 'SETTINGS_STORE_SET_SECTION',
   value,
@@ -10,148 +10,74 @@ export const settingsStoreSetSubSection = (name, value) => ({
   value,
 });
 
+export const settingsStoreChangeRecallItem = (id, value) => ({
+  type: 'SETTINGS_STORE_CHANGE_RECALL_ITEM',
+  id,
+  value,
+});
+
+export const settingsStoreChangeTimeZoneItem = (value) => ({
+  type: 'SETTINGS_STORE_CHANGE_TIME_ZONE_ITEM',
+  value,
+});
+
+export const settingsStoreChangeQueuePhoneItem = (value) => ({
+  type: 'SETTINGS_STORE_CHANGE_QUEUE_PHONE_ITEM',
+  value,
+});
+
 export const settingsStoreClear = () => ({
   type: 'SETTINGS_STORE_CLEAR',
 });
 
-/* ************************** settings **************************** */
-export const settingsStoreGetSettings = () => ({
-  type: 'SETTINGS_STORE_GET_SETTINGS',
+export const settingsStoreGetAll = () => ({
+  type: 'SETTINGS_STORE_GET_ALL',
 });
 
-export const settingsStoreGetSettingsCancel = () => ({
-  type: 'SETTINGS_STORE_GET_SETTINGS_CANCEL',
+export const settingsStoreGetAllCancel = () => ({
+  type: 'SETTINGS_STORE_GET_ALL_CANCEL',
 });
 
-export const settingsStoreUpdateSettings = (value) => ({
-  type: 'SETTINGS_STORE_UPDATE_SETTINGS',
+export const settingsStoreGetMain = () => ({
+  type: 'SETTINGS_STORE_GET_MAIN',
+});
+
+export const settingsStoreGetMainCancel = () => ({
+  type: 'SETTINGS_STORE_GET_MAIN_CANCEL',
+});
+
+export const settingsStoreUpdateMain = (value) => ({
+  type: 'SETTINGS_STORE_UPDATE_MAIN',
   value,
 });
 
-export const settingsStoreSaveSettings = (value) => ({
-  type: 'SETTINGS_STORE_SAVE_SETTINGS',
+export const settingsStoreUpdateMainCancel = () => ({
+  type: 'SETTINGS_STORE_UPDATE_MAIN_CANCEL',
+});
+
+export const settingsStoreUpdateRecall = (value) => ({
+  type: 'SETTINGS_STORE_UPDATE_RECALL',
   value,
 });
 
-export const settingsStoreSaveSettingsCancel = () => ({
-  type: 'SETTINGS_STORE_SAVE_SETTINGS_CANCEL',
+export const settingsStoreUpdateRecallCancel = () => ({
+  type: 'SETTINGS_STORE_UPDATE_RECALL_CANCEL',
 });
 
-/* ************************** users **************************** */
-export const settingsStoreGetUsers = (value) => ({
-  type: 'SETTINGS_STORE_GET_USERS',
+export const settingsStoreUpdateTimeZone = (value) => ({
+  type: 'SETTINGS_STORE_UPDATE_TIME_ZONE',
   value,
 });
 
-export const settingsStoreGetUsersCancel = () => ({
-  type: 'SETTINGS_STORE_GET_USERS_CANCEL',
+export const settingsStoreUpdateTimeZoneCancel = () => ({
+  type: 'SETTINGS_STORE_UPDATE_TIME_ZONE_CANCEL',
 });
 
-export const settingsStoreGetUserRoles = () => ({
-  type: 'SETTINGS_STORE_GET_USER_ROLES',
-});
-
-export const settingsStoreGetUserRolesCancel = () => ({
-  type: 'SETTINGS_STORE_GET_USER_ROLES_CANCEL',
-});
-
-export const settingsStoreSetUsersTableStoreSection = (value) => ({
-  type: 'SETTINGS_STORE_SET_USERS_TABLE_STORE_SECTION',
+export const settingsStoreUpdateQueuePhone = (value) => ({
+  type: 'SETTINGS_STORE_UPDATE_QUEUE_PHONE',
   value,
 });
 
-export const settingsStoreSetUsersTableTemplateSection = (value) => ({
-  type: 'SETTINGS_STORE_SET_USERS_TABLE_TEMPLATE_SECTION',
-  value,
-});
-
-export const settingsStoreGetUserInfo = (value) => ({
-  type: 'SETTINGS_STORE_GET_USER_INFO',
-  value,
-});
-
-export const settingsStoreGetUserInfoCancel = () => ({
-  type: 'SETTINGS_STORE_GET_USER_INFO_CANCEL',
-});
-
-export const settingsStoreSaveUser = (value) => ({
-  type: 'SETTINGS_STORE_SAVE_USER',
-  value,
-});
-
-export const settingsStoreSaveUserCancel = () => ({
-  type: 'SETTINGS_STORE_SAVE_USER_CANCEL',
-});
-
-export const settingsStoreRemoveUser = (value) => ({
-  type: 'SETTINGS_STORE_REMOVE_USER',
-  value,
-});
-
-export const settingsStoreRemoveUserCancel = () => ({
-  type: 'SETTINGS_STORE_REMOVE_USER_CANCEL',
-});
-
-/* ************************** templates **************************** */
-export const settingsStoreGetTemplates = () => ({
-  type: 'SETTINGS_STORE_GET_TEMPLATES',
-});
-
-export const settingsStoreGetTemplatesCancel = () => ({
-  type: 'SETTINGS_STORE_GET_TEMPLATES_CANCEL',
-});
-
-export const settingsStoreSetTemplatesTableStoreSection = (value) => ({
-  type: 'SETTINGS_STORE_SET_TEMPLATES_TABLE_STORE_SECTION',
-  value,
-});
-
-export const settingsStoreSetTemplatesTableTemplateSection = (value) => ({
-  type: 'SETTINGS_STORE_SET_TEMPLATES_TABLE_TEMPLATE_SECTION',
-  value,
-});
-
-export const settingsStoreGetTemplateInfo = (value) => ({
-  type: 'SETTINGS_STORE_GET_TEMPLATE_INFO',
-  value,
-});
-
-export const settingsStoreGetTemplateInfoCancel = () => ({
-  type: 'SETTINGS_STORE_GET_TEMPLATE_INFO_CANCEL',
-});
-
-export const settingsStoreSaveTemplate = (value) => ({
-  type: 'SETTINGS_STORE_SAVE_TEMPLATE',
-  value,
-});
-
-export const settingsStoreSaveTemplateCancel = () => ({
-  type: 'SETTINGS_STORE_SAVE_TEMPLATE_CANCEL',
-});
-
-export const settingsStoreRemoveTemplate = (value) => ({
-  type: 'SETTINGS_STORE_REMOVE_TEMPLATE',
-  value,
-});
-
-export const settingsStoreRemoveTemplateCancel = () => ({
-  type: 'SETTINGS_STORE_REMOVE_TEMPLATE_CANCEL',
-});
-
-export const settingsStoreGetTemplateVar = () => ({
-  type: 'SETTINGS_STORE_GET_TEMPLATE_VAR',
-});
-
-export const settingsStoreGetTemplateVarCancel = () => ({
-  type: 'SETTINGS_STORE_GET_TEMPLATE_VAR_CANCEL',
-});
-
-/* ************************** dadata **************************** */
-export const settingsStoreDadataGetAddress = (value) => ({
-  type: 'SETTINGS_STORE_DADATA_GET_ADDRESS',
-  value,
-});
-
-export const settingsStoreDadataGetAddressCancel = () => ({
-  type: 'SETTINGS_STORE_DADATA_GET_ADDRESS_CANCEL',
+export const settingsStoreUpdateQueuePhoneCancel = () => ({
+  type: 'SETTINGS_STORE_UPDATE_QUEUE_PHONE_CANCEL',
 });

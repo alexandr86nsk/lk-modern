@@ -23,7 +23,7 @@ const colors = [
 
 function HistoryTabTable(props) {
   const {
-    dataLoaded,
+    loading,
     data,
   } = props || {};
 
@@ -80,17 +80,15 @@ function HistoryTabTable(props) {
 
   return (
     <div className={`history-table${!dataLoaded ? ' loading' : ''}`}>
-      {!dataLoaded && <UILoader text="Загрузка" type="--google" dimmed />}
+      {loading && <UILoader text="Загрузка" type="--google" dimmed />}
       <div className="history-table__body">
-        {dataLoaded && !data && <UIMissingData />}
-        {dataLoaded && data && (
+        {!loading && data && (
         <Table celled size="small">
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell colSpan="6" textAlign="center">Отчет</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
-
           <Table.Body>
             <Table.Row>
               <Table.Cell>Название кампании</Table.Cell>
@@ -149,6 +147,7 @@ function HistoryTabTable(props) {
           </Table.Body>
         </Table>
         )}
+        {!loading && !data && <UIMissingData />}
       </div>
     </div>
   );

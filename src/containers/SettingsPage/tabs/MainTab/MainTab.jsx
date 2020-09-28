@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { Button } from 'semantic-ui-react';
 import actions from '../../../../redux/actions/actions';
 import UIInput from '../../../../components/UIInput/UIInput';
+import UILoader from '../../../../components/UILoader/UILoader';
+import UIMissingData from '../../../../components/UIMissingData/UIMissingData';
 
 const options = {
   SocketAddressAMI: 'SocketAddressAMI',
@@ -28,6 +30,7 @@ function MainTab(props) {
   const {
     main,
     updatingMainSettings,
+    loadingMainSettings,
     settingsStoreUpdateMain,
     settingsStoreSetSubSection,
   } = props;
@@ -42,37 +45,49 @@ function MainTab(props) {
     settingsStoreUpdateMain(main);
   }, [main, settingsStoreUpdateMain]);
 
-  const renderInputs = React.useMemo(() => Object.keys(main).map((v) => {
-    if (options[v]) {
-      return (
-        <UIInput
-          type="--style-1c"
-          key={options[v]}
-          title={options[v]}
-          data={main[v]}
-          name={v}
-          callback={handleChangeValue}
-        />
-      );
+  const renderInputs = React.useMemo(() => {
+    if (main) {
+      Object.keys(main).map((v) => {
+        if (options[v]) {
+          return (
+            <UIInput
+              type="--style-1c --transparent"
+              key={options[v]}
+              title={options[v]}
+              data={main[v]}
+              name={v}
+              callback={handleChangeValue}
+            />
+          );
+        }
+        return null;
+      });
     }
     return null;
-  }), [main, handleChangeValue]);
+  }, [main, handleChangeValue]);
 
   return (
     <div className="settings-page__main-tab">
-      <div className="input-block">
-        {renderInputs}
-      </div>
-      <div className="controls">
-        <Button
-          content="Сохранить основные настройки"
-          icon="check"
-          labelPosition="left"
-          positive
-          onClick={handleSaveChanges}
-          loading={updatingMainSettings}
-        />
-      </div>
+      {loadingMainSettings && <UILoader type="--google" dimmed />}
+      {!loadingMainSettings && main && (
+        <>
+          <div className="input-block">
+            {renderInputs}
+          </div>
+          <div className="controls">
+            <Button
+              content="Сохранить основные настройки"
+              icon="check"
+              labelPosition="left"
+              circular
+              primary
+              onClick={handleSaveChanges}
+              loading={updatingMainSettings}
+            />
+          </div>
+        </>
+      )}
+      {!loadingMainSettings && !main && <UIMissingData />}
     </div>
   );
 }
@@ -80,6 +95,7 @@ function MainTab(props) {
 const mapStateToProps = (state) => ({
   main: state.settingsStore.main,
   updatingMainSettings: state.settingsStore.updatingMainSettings,
+  loadingMainSettings: state.settingsStore.loadingMainSettings,
 });
 
 const mapDispatchToProps = { ...actions };

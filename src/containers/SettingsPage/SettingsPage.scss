@@ -11,16 +11,15 @@
   }
 
   &__main-tab {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    position: relative;
 
     .input-block {
       display: grid;
       grid-template: auto / 1fr;
-      // grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       grid-gap: .5em;
-
-/*      .ui-input {
-        max-width: 300px;
-      }*/
     }
   }
 

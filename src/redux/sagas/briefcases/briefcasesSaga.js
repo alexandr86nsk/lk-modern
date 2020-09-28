@@ -1,12 +1,12 @@
 import {
-  call, put, fork, take, cancel,
+  put, fork, take, cancel,
 } from 'redux-saga/effects';
 import api from '../../../api/api';
 import actions from '../../actions/actions';
 import { queryResultAnalysis, setSuccessToast } from '../common/globalSaga';
 
-/* ***************************** briefcasesStoreGetBriefcases ********************** */
-function* briefcasesStoreGetBriefcases() {
+/* ***************************** getBriefcases ********************** */
+function* getBriefcases() {
   yield put(actions.briefcasesStoreSetTableStoreSection({
     tableLoading: true,
   }));
@@ -30,9 +30,9 @@ function* briefcasesStoreGetBriefcases() {
 }
 
 export function* canBeCanceledBriefcasesStoreGetBriefcases() {
-  const bgBriefcasesStoreGetBriefcases = yield fork(briefcasesStoreGetBriefcases);
+  const bgGetBriefcases = yield fork(getBriefcases);
   yield take('BRIEFCASES_STORE_GET_BRIEFCASES_CANCEL');
-  yield cancel(bgBriefcasesStoreGetBriefcases);
+  yield cancel(bgGetBriefcases);
 }
 
 /* ***************************** getMainSettings ********************** */

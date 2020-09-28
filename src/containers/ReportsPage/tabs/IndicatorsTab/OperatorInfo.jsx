@@ -2,6 +2,7 @@ import React from 'react';
 import UITextField from '../../../../components/UITextField/UITextField';
 import UILoader from '../../../../components/UILoader/UILoader';
 import UIInput from '../../../../components/UIInput/UIInput';
+import UIMissingData from '../../../../components/UIMissingData/UIMissingData';
 
 const OperatorInfo = (props) => {
   const {
@@ -18,9 +19,14 @@ const OperatorInfo = (props) => {
   return (
     <div className="operator-info">
       {loading && <UILoader type="--google" dimmed />}
-      <UIInput data={OperatorInCall} disabled type="--style-1c --transparent" title="Разговор:" />
-      <UIInput data={OperatorInUpdate} disabled type="--style-1c --transparent" title="Поствызов:" />
-      <UIInput data={OperatorInWaiting} disabled type="--style-1c --transparent" title="Ожидание:" />
+      {!loading && data && (
+        <>
+          <UIInput data={OperatorInCall} disabled type="--style-1c --transparent" title="Разговор:" />
+          <UIInput data={OperatorInUpdate} disabled type="--style-1c --transparent" title="Поствызов:" />
+          <UIInput data={OperatorInWaiting} disabled type="--style-1c --transparent" title="Ожидание:" />
+        </>
+      )}
+      {!loading && !data && <UIMissingData />}
     </div>
   );
 };

@@ -10,7 +10,7 @@ function HistoryTab(props) {
   const {
     history,
     isLastRequestComplete,
-    historyLoaded,
+    historyLoading,
     historyFilter,
     historyLoadingExcell,
     reportsStoreGetHistoryExcell,
@@ -97,7 +97,7 @@ function HistoryTab(props) {
           <HistoryFilter />
         </div>
       </div>
-      <HistoryTabTable dataLoaded={historyLoaded} data={history} />
+      <HistoryTabTable loading={historyLoading} data={history} />
     </div>
   );
 }
@@ -105,7 +105,7 @@ function HistoryTab(props) {
 const mapStateToProps = (state) => ({
   isLastRequestComplete: state.reportsStore.isLastRequestComplete,
   history: state.reportsStore.history,
-  historyLoaded: state.reportsStore.historyLoaded,
+  historyLoading: state.reportsStore.historyLoading,
   historyLoadingExcell: state.reportsStore.historyLoadingExcell,
   historyFilter: state.reportsStore.historyFilter,
 });

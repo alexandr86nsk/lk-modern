@@ -113,6 +113,7 @@
       display: grid;
       grid-template: auto / 1fr;
       grid-gap: .5em;
+      min-height: 115px;
     }
   }
 }

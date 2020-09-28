@@ -4,7 +4,7 @@ import './UILoader.scss';
 function UILoader(props) {
   const {
     size,
-    text,
+    text = 'Загрузка',
     type,
     dimmed,
     hideDots,

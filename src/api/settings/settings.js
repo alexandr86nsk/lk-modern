@@ -1,4 +1,4 @@
-/* ********************* settings ***************** */
+/* ********************* settings_OLD ***************** */
 import requestParser_with_refresh_token from '../requestParser_with_refresh_token';
 
 export const settingsStoreGetSettings = () => requestParser_with_refresh_token({
