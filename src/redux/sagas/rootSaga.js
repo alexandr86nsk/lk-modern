@@ -2,6 +2,7 @@ import { takeLatest, takeEvery } from 'redux-saga/effects';
 import canBeCanceledAuthStoreLogIn from './auth/authSaga';
 import * as briefcasesSaga from './briefcases/briefcasesSaga';
 import * as reportsSaga from './reports/reportsSaga';
+import * as settingsSaga from './settings/settingsSaga';
 
 function* rootSaga() {
   yield takeLatest('AUTH_STORE_LOG_IN', canBeCanceledAuthStoreLogIn);
@@ -16,6 +17,14 @@ function* rootSaga() {
   yield takeLatest('REPORTS_STORE_GET_ACTUAL_STATE', reportsSaga.canBeCanceledGetActualStateReport);
   yield takeLatest('REPORTS_STORE_GET_CALL_STATISTIC', reportsSaga.canBeCanceledGetCallStatisticReport);
   yield takeLatest('REPORTS_STORE_GET_OPERATOR_INFO', reportsSaga.canBeCanceledGetOperatorInfoReport);
+  yield takeLatest('SETTINGS_STORE_GET_MAIN', settingsSaga.canBeCanceledGetMain);
+  yield takeLatest('SETTINGS_STORE_UPDATE_MAIN', settingsSaga.canBeCanceledUpdateMain);
+  yield takeLatest('SETTINGS_STORE_GET_RECALL', settingsSaga.canBeCanceledGetRecall);
+  yield takeLatest('SETTINGS_STORE_UPDATE_RECALL', settingsSaga.canBeCanceledUpdateRecall);
+  yield takeLatest('SETTINGS_STORE_GET_TIME_ZONE', settingsSaga.canBeCanceledGetTimeZone);
+  yield takeLatest('SETTINGS_STORE_UPDATE_TIME_ZONE', settingsSaga.canBeCanceledUpdateTimeZone);
+  /*yield takeLatest('SETTINGS_STORE_GET_QUEUE_PHONE', settingsSaga.canBeCanceledGetQueuePhone);
+  yield takeLatest('SETTINGS_STORE_UPDATE_QUEUE_PHONE', settingsSaga.canBeCanceledUpdateQueuePhone);*/
 }
 
 export default rootSaga;

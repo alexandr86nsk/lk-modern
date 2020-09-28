@@ -1,20 +1,27 @@
 import React from 'react';
-import UITextField from '../../../../components/UITextField/UITextField';
 import UIReactSelect from '../../../../components/UIReactSelect/UIReactSelect';
 
 function TimeZoneItem(props) {
   const {
-    data = {},
-    callback = (f) => f,
-  } = props;
+    data,
+    callback,
+  } = props || {};
+
+  const {
+    CityName,
+    TimeZone,
+    StartCall,
+    StopCall,
+  } = data || {};
 
   const handleChangeValue = React.useCallback((editName, editValue) => {
-    callback({
-      ...data,
-      [editName]: editValue,
-    });
+    if (callback) {
+      callback({
+        ...data,
+        [editName]: editValue,
+      });
+    }
   }, [data, callback]);
-
 
   const timeOptions = React.useMemo(() => {
     const arr = [];
@@ -27,24 +34,27 @@ function TimeZoneItem(props) {
     return arr;
   }, []);
 
-
   return (
-    <div className="time-zone-item">
-      <UITextField type="inline" data={`${data.CityName} (${data.TimeZone})`} />
-      <UIReactSelect
-        placeholder="Начало обзвона"
-        name="StartCall"
-        data={data.StartCall}
-        callback={handleChangeValue}
-        options={timeOptions}
-      />
-      <UIReactSelect
-        placeholder="Конец обзвона"
-        name="StopCall"
-        data={data.StopCall}
-        callback={handleChangeValue}
-        options={timeOptions}
-      />
+    <div className="time-zone-item item">
+      <div className="item__title">{`${CityName} (${TimeZone})`}</div>
+      <div className="item__body">
+        <UIReactSelect
+          title="Начало обзвона"
+          name="StartCall"
+          data={StartCall}
+          callback={handleChangeValue}
+          options={timeOptions}
+          type="--style-1c --transparent"
+        />
+        <UIReactSelect
+          title="Конец обзвона"
+          name="StopCall"
+          data={StopCall}
+          callback={handleChangeValue}
+          options={timeOptions}
+          type="--style-1c --transparent"
+        />
+      </div>
     </div>
   );
 }

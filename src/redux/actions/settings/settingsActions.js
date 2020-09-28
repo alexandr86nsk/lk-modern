@@ -30,20 +30,36 @@ export const settingsStoreClear = () => ({
   type: 'SETTINGS_STORE_CLEAR',
 });
 
-export const settingsStoreGetAll = () => ({
-  type: 'SETTINGS_STORE_GET_ALL',
-});
-
-export const settingsStoreGetAllCancel = () => ({
-  type: 'SETTINGS_STORE_GET_ALL_CANCEL',
-});
-
 export const settingsStoreGetMain = () => ({
   type: 'SETTINGS_STORE_GET_MAIN',
 });
 
 export const settingsStoreGetMainCancel = () => ({
   type: 'SETTINGS_STORE_GET_MAIN_CANCEL',
+});
+
+export const settingsStoreGetRecall = () => ({
+  type: 'SETTINGS_STORE_GET_RECALL',
+});
+
+export const settingsStoreGetRecallCancel = () => ({
+  type: 'SETTINGS_STORE_GET_RECALL_CANCEL',
+});
+
+export const settingsStoreGetTimeZone = () => ({
+  type: 'SETTINGS_STORE_GET_TIME_ZONE',
+});
+
+export const settingsStoreGetTimeZoneCancel = () => ({
+  type: 'SETTINGS_STORE_GET_TIME_ZONE_CANCEL',
+});
+
+export const settingsStoreGetQueuePhone = () => ({
+  type: 'SETTINGS_STORE_GET_QUEUE_PHONE',
+});
+
+export const settingsStoreGetQueuePhoneCancel = () => ({
+  type: 'SETTINGS_STORE_GET_QUEUE_PHONE_CANCEL',
 });
 
 export const settingsStoreUpdateMain = (value) => ({

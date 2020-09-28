@@ -1,5 +1,3 @@
-import axios from 'axios';
-import qs from '../qs';
 import requestParser from '../requestParser';
 
 export const getActualStateReport = (data) => requestParser({

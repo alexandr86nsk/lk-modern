@@ -1,17 +1,23 @@
 import React from 'react';
 import '../../SettingsPage.scss';
 import { connect } from 'react-redux';
+import { Button, Icon } from 'semantic-ui-react';
 import actions from '../../../../redux/actions/actions';
 import TimeZoneItem from './TimeZoneItem';
-import { Button } from "semantic-ui-react";
+import UILoader from '../../../../components/UILoader/UILoader';
+import UIMissingData from '../../../../components/UIMissingData/UIMissingData';
 
 function TimeZoneTab(props) {
   const {
     timeZone,
     updatingTimeZoneSettings,
+    loadingTimeZoneSettings,
+    settingsStoreGetTimeZone,
+    settingsStoreGetTimeZoneCancel,
     settingsStoreUpdateTimeZone,
+    settingsStoreUpdateTimeZoneCancel,
     settingsStoreChangeTimeZoneItem,
-  } = props;
+  } = props || {};
 
   const handleChangeValue = React.useCallback((value) => {
     settingsStoreChangeTimeZoneItem(value);
@@ -21,28 +27,49 @@ function TimeZoneTab(props) {
     settingsStoreUpdateTimeZone(timeZone);
   }, [timeZone, settingsStoreUpdateTimeZone]);
 
-  const renderContent = React.useMemo(
-    () => timeZone.map((v) => (
-      <TimeZoneItem key={v.TimeZoneId} data={v} callback={handleChangeValue} />
-    )),
-    [timeZone, handleChangeValue],
-  );
+  const renderItems = React.useMemo(() => {
+    if (timeZone && Array.isArray(timeZone)) {
+      return timeZone.map((v) => {
+        const { TimeZoneId } = v || {};
+        return <TimeZoneItem key={TimeZoneId} data={v} callback={handleChangeValue} />;
+      });
+    } return null;
+  },
+  [timeZone, handleChangeValue]);
+
+  React.useEffect(() => {
+    settingsStoreGetTimeZone();
+  }, [settingsStoreGetTimeZone]);
+
+  React.useEffect(() => () => {
+    settingsStoreGetTimeZoneCancel();
+    settingsStoreUpdateTimeZoneCancel();
+  }, [settingsStoreGetTimeZoneCancel, settingsStoreUpdateTimeZoneCancel]);
 
   return (
-    <div className="settings-page__time-zone-tab">
-      <div className="input-block">
-        {renderContent}
-      </div>
-      <div className="controls">
-        <Button
-          content="Сохранить настройки часовых поясов"
-          icon="check"
-          labelPosition="left"
-          positive
-          onClick={handleSaveChanges}
-          loading={updatingTimeZoneSettings}
-        />
-      </div>
+    <div className="settings-page__time-zone-tab tab">
+      {loadingTimeZoneSettings && <UILoader type="--google" dimmed />}
+      {!loadingTimeZoneSettings && timeZone && (
+        <>
+          <div className="input-block">
+            {renderItems}
+          </div>
+          <div className="controls">
+            <Button
+              circular
+              positive
+              size="tiny"
+              loading={updatingTimeZoneSettings}
+              onClick={handleSaveChanges}
+              title="Сохранить настройки часовых поясов"
+            >
+              <Icon name="check" />
+              Сохранить
+            </Button>
+          </div>
+        </>
+      )}
+      {!loadingTimeZoneSettings && !timeZone && <UIMissingData />}
     </div>
   );
 }
@@ -50,6 +77,7 @@ function TimeZoneTab(props) {
 const mapStateToProps = (state) => ({
   timeZone: state.settingsStore.timeZone,
   updatingTimeZoneSettings: state.settingsStore.updatingTimeZoneSettings,
+  loadingTimeZoneSettings: state.settingsStore.loadingTimeZoneSettings,
 });
 
 const mapDispatchToProps = { ...actions };

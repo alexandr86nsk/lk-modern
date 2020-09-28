@@ -5,7 +5,7 @@ import userStore from './user/userStore';
 import tokenStore from './token/tokenStore';
 import modalStore from './common/modalStore';
 import toastsStore from './common/toastsStore';
-import settingsStore from './settings_OLD/settingsStore';
+import settingsStore from './settings/settingsStore';
 import reportsStore from './reports/reportsStore';
 import zoneStore from './zone/zoneStore';
 import popUpStore from './common/popUpStore';

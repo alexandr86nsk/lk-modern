@@ -1,78 +1,42 @@
-/* ********************* settings_OLD ***************** */
-import requestParser_with_refresh_token from '../requestParser_with_refresh_token';
+import axios from 'axios';
+import qs from '../qs';
+import requestParser from '../requestParser';
 
-export const settingsStoreGetSettings = () => requestParser_with_refresh_token({
+export const getMainSettings = () => requestParser({
   method: 'get',
-  url: 'setting',
+  url: 'Settings/Get',
 });
 
-export const settingsStoreSaveSettings = (data) => requestParser_with_refresh_token({
-  method: 'put',
-  url: 'setting/bulk',
-  data,
-});
-
-export const settingsStoreGetUsers = (data) => requestParser_with_refresh_token({
+export const updateMainSettings = (data) => requestParser({
   method: 'post',
-  url: 'user/GetPagination',
+  url: 'Settings/Update',
   data,
 });
 
-export const settingsStoreGetUserRoles = () => requestParser_with_refresh_token({
+export const getRecallSettings = () => requestParser({
   method: 'get',
-  url: 'role',
+  url: 'RetryRules/Get',
 });
 
-export const settingsStoreGetUserInfo = (id) => requestParser_with_refresh_token({
-  method: 'get',
-  url: `user/${id}`,
-});
-
-export const settingsStoreSaveUser = (data) => requestParser_with_refresh_token({
-  method: 'put',
-  url: 'user',
-  data,
-});
-
-export const settingsStoreAddUser = (data) => requestParser_with_refresh_token({
+export const updateRecallSettings = (data) => requestParser({
   method: 'post',
-  url: 'user',
+  url: 'RetryRules/Update',
   data,
 });
 
-export const settingsStoreRemoveUser = (id) => requestParser_with_refresh_token({
-  method: 'delete',
-  url: `user/${id}`,
-});
-
-export const settingsStoreGetTemplates = () => requestParser_with_refresh_token({
+export const getTimeZoneSettings = () => requestParser({
   method: 'get',
-  url: 'messageTemplate',
+  url: 'TimeZoneOptions/Get',
 });
 
-export const settingsStoreGetTemplateInfo = (id) => requestParser_with_refresh_token({
-  method: 'get',
-  url: `messageTemplate/${id}`,
-});
-
-export const settingsStoreGetTemplateVar = () => requestParser_with_refresh_token({
-  method: 'get',
-  url: 'varTemplate',
-});
-
-export const settingsStoreSaveTemplate = (data) => requestParser_with_refresh_token({
-  method: 'put',
-  url: 'messageTemplate',
-  data,
-});
-
-export const settingsStoreAddTemplate = (data) => requestParser_with_refresh_token({
+export const updateTimeZoneSettings = (data) => requestParser({
   method: 'post',
-  url: 'messageTemplate',
+  url: 'TimeZoneOptions/Update',
   data,
 });
 
-export const settingsStoreRemoveTemplate = (id) => requestParser_with_refresh_token({
-  method: 'delete',
-  url: `messageTemplate/${id}`,
-});
+/* export const getQueuePhoneSettings = () => axios.get(`${qs}QueueAsteriskOptions/GetList`);
+
+export const getQueuePhoneControlTypes = () => axios.get(`${qs}QueueControlTypes/Get`);
+
+export const updateQueuePhoneSettings = (item) => axios.post(`${qs}QueueAsteriskOptions/Update`, [item]); */

@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../SettingsPage.scss';
 import { connect } from 'react-redux';
-import { Button } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 import actions from '../../../../redux/actions/actions';
 import UIInput from '../../../../components/UIInput/UIInput';
 import UILoader from '../../../../components/UILoader/UILoader';
@@ -32,8 +32,11 @@ function MainTab(props) {
     updatingMainSettings,
     loadingMainSettings,
     settingsStoreUpdateMain,
+    settingsStoreUpdateMainCancel,
     settingsStoreSetSubSection,
-  } = props;
+    settingsStoreGetMain,
+    settingsStoreGetMainCancel,
+  } = props || {};
 
   const handleChangeValue = React.useCallback((editName, editValue) => {
     settingsStoreSetSubSection('main', {
@@ -47,7 +50,7 @@ function MainTab(props) {
 
   const renderInputs = React.useMemo(() => {
     if (main) {
-      Object.keys(main).map((v) => {
+      return Object.keys(main).map((v) => {
         if (options[v]) {
           return (
             <UIInput
@@ -66,8 +69,17 @@ function MainTab(props) {
     return null;
   }, [main, handleChangeValue]);
 
+  React.useEffect(() => {
+    settingsStoreGetMain();
+  }, [settingsStoreGetMain]);
+
+  React.useEffect(() => () => {
+    settingsStoreGetMainCancel();
+    settingsStoreUpdateMainCancel();
+  }, [settingsStoreGetMainCancel, settingsStoreUpdateMainCancel]);
+
   return (
-    <div className="settings-page__main-tab">
+    <div className="settings-page__main-tab tab">
       {loadingMainSettings && <UILoader type="--google" dimmed />}
       {!loadingMainSettings && main && (
         <>
@@ -76,14 +88,16 @@ function MainTab(props) {
           </div>
           <div className="controls">
             <Button
-              content="Сохранить основные настройки"
-              icon="check"
-              labelPosition="left"
               circular
-              primary
-              onClick={handleSaveChanges}
+              positive
+              size="tiny"
               loading={updatingMainSettings}
-            />
+              onClick={handleSaveChanges}
+              title="Сохранить основные настройки"
+            >
+              <Icon name="check" />
+              Сохранить
+            </Button>
           </div>
         </>
       )}

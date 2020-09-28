@@ -10,7 +10,7 @@ const routes = [
     component: BriefCasesPage,
   },
   {
-    path: '/settings_OLD',
+    path: '/settings',
     exact: true,
     component: SettingsPage,
   },

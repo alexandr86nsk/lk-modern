@@ -1,8 +1,8 @@
 import React from 'react';
 import MainTab from './tabs/MainTab/MainTab';
-// import RecallTab from './tabs/RecallTab/RecallTab';
-// import TimeZoneTab from './tabs/TimeZoneTab/TimeZoneTab';
-// import ArchiveTab from './tabs/ArchiveTab/ArchiveTab';
+import RecallTab from './tabs/RecallTab/RecallTab';
+import TimeZoneTab from './tabs/TimeZoneTab/TimeZoneTab';
+// import QueuePhoneTab from './tabs/QueuePhoneTab/QueuePhoneTab';
 
 const settingsTabs = [
   {
@@ -10,7 +10,7 @@ const settingsTabs = [
     title: 'Основные',
     item: <MainTab />,
   },
-/*  {
+  {
     id: 1,
     title: 'Настройки перезвона',
     item: <RecallTab />,
@@ -20,10 +20,10 @@ const settingsTabs = [
     title: 'Настройки часовых поясов',
     item: <TimeZoneTab />,
   },
-  {
+/*  {
     id: 3,
     title: 'Настройки Групп Очереди Операторов',
-    item: <ArchiveTab />,
+    item: <QueuePhoneTab />,
   },*/
 ];
 

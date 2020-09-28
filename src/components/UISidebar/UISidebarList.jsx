@@ -19,7 +19,7 @@ const UISidebarList = [
       {
         id: 1,
         title: 'Настройки',
-        link: '/settings_OLD',
+        link: '/settings',
         icon: <SettingsIcon />,
       },
       {
