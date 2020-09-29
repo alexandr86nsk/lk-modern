@@ -1,7 +1,7 @@
 import BriefCasesPage from '../containers/BriefcasesPage/BriefcasesPage';
 import SettingsPage from '../containers/SettingsPage/SettingsPage';
 import ReportsPage from '../containers/ReportsPage/ReportsPage';
-import TestPage from '../containers/TestPage/TestPage';
+import ReportsGridPage from '../containers/ReportsGridPage/ReportsGridPage';
 
 const routes = [
   {
@@ -20,9 +20,9 @@ const routes = [
     component: ReportsPage,
   },
   {
-    path: '/test',
+    path: '/reports_grid',
     exact: true,
-    component: TestPage,
+    component: ReportsGridPage,
   },
 ];
 

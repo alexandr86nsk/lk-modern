@@ -1,0 +1,21 @@
+.reports-grid-page {
+
+  &__top-menu {
+    font-size: .9em;
+  }
+
+  &__body {
+    flex: 1;
+    position: relative;
+    margin-top: .7em;
+  }
+
+  &__scroll-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+  }
+}

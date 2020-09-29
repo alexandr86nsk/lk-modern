@@ -42,3 +42,5 @@ function useResizeObserver(resizeSubject) {
 
   return contentRect;
 }
+
+export default useResizeObserver;

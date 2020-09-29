@@ -5,6 +5,7 @@ import sortBy from 'lodash/sortBy';
 import UIPagination from '../UIPagination/UIPagination';
 import UIRsuiteTableControlBlock from './UIRsuiteTableControlBlock/UIRsuiteTableControlBlock';
 import UIRsuiteTableBody from './UIRsuiteTableBody/UIRsuiteTableBody';
+import useResizeObserver from '../UICustomHooks/useResizeObserver/useResizeObserver';
 
 function UIRsuiteTable(props) {
   const {
@@ -58,31 +59,7 @@ function UIRsuiteTable(props) {
   } = tableStore || {};
 
   const tableBodyRef = React.useRef(null);
-  const [tableBodySize, setTableBodySize] = React.useState({ width: 0, height: 0 });
-
-  React.useEffect(() => {
-    const { current } = tableBodyRef || {};
-    const resizeObserver = new ResizeObserver(() => {
-      setTableBodySize({
-        width: current.offsetWidth,
-        height: current.offsetHeight,
-      });
-    });
-
-    resizeObserver.observe(tableBodyRef.current);
-
-    return () => resizeObserver.disconnect();
-  }, []);
-
-  React.useEffect(() => {
-    const { current } = tableBodyRef || {};
-    if (current) {
-      setTableBodySize({
-        width: current.offsetWidth,
-        height: current.offsetHeight,
-      });
-    }
-  }, []);
+  const { width: tableBodyWidth, height: tableBodyHeight } = useResizeObserver(tableBodyRef);
 
   React.useEffect(() => {
     if (searchString) {
@@ -99,7 +76,7 @@ function UIRsuiteTable(props) {
         const usedWidth = tableTemplate.reduce((acc, v) => (v.width ? acc + v.width : acc), 0);
         return tableTemplate.map((v) => {
           if (!v.width) {
-            const w = (tableBodySize.width - 2 - usedWidth) / nonWidthCells;
+            const w = (tableBodyWidth - 2 - usedWidth) / nonWidthCells;
             return {
               ...v,
               width: w < 90 ? 90 : w,
@@ -111,21 +88,7 @@ function UIRsuiteTable(props) {
       return tableTemplate;
     }
     return null;
-  }, [tableBodySize, tableTemplate]);
-
-  /*  React.useEffect(() => {
-    const { current } = tableBodyRef || {};
-    function handleResize() {
-      setTableBodySize({
-        width: current.offsetWidth,
-        height: current.offsetHeight,
-      });
-    }
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []); */
+  }, [tableBodyWidth, tableTemplate]);
 
   React.useEffect(() => {
     if (paginationNumberOfItemsToPage) {
@@ -284,7 +247,7 @@ function UIRsuiteTable(props) {
             onRowDoubleClick={onRowDoubleClick}
             tableHeaderHeight={tableHeaderHeight}
             tableRowHeight={tableRowHeight}
-            tableBodyHeight={tableBodySize.height}
+            tableBodyHeight={tableBodyHeight}
             tableVirtualized={tableVirtualized}
             cellBordered={cellBordered}
             bordered={bordered}
@@ -305,7 +268,6 @@ function UIRsuiteTable(props) {
           />
         )}
       </div>
-
     </div>
   );
 }

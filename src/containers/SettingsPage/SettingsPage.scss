@@ -11,7 +11,7 @@
 
   .input-block {
     position: absolute;
-    top: 45px;
+    top: 40px;
     right: 0;
     bottom: 0;
     left: 0;
@@ -30,6 +30,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    font-size: .9em;
   }
 
   .item {
@@ -60,25 +61,5 @@
 
   &__queue-phone-tab {
 
-  }
-}
-
-.queue-phone-tab__item {
-  display: grid;
-  grid-template: auto / repeat(24, 1fr);
-  grid-gap: 1.5em;
-
-  > div {
-    grid-column: span 12;
-
-    &:nth-of-type(1),
-    &:nth-of-type(6) {
-      grid-column: span 24;
-    }
-  }
-
-  .ui-react-select,
-  .ui-input {
-    margin: 0;
   }
 }
