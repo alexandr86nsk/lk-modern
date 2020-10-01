@@ -2,12 +2,12 @@
   width: 100%;
   flex: 1;
   display: grid;
-  grid-template: 50px 1fr 50px / 1fr;
+  grid-template: 50px minmax(400px, 1fr) 50px / 1fr;
   grid-gap: .5em;
   font-size: 11px;
 
   @media screen and (max-width: 767px){
-    grid-template: 100px 1fr 100px / 1fr;
+    grid-template: 100px minmax(400px, 1fr) 100px / 1fr;
   }
 
   &__body {
