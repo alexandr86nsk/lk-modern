@@ -70,4 +70,4 @@ const UIRsuiteTableMenuItem = (props) => {
   );
 };
 
-export default UIRsuiteTableMenuItem;
+export default React.memo(UIRsuiteTableMenuItem);
