@@ -71,6 +71,10 @@
 
       &__body {
         flex: 1;
+
+        .ui.table {
+          background-color: transparent;
+        }
       }
 
       &.loading {
@@ -103,6 +107,15 @@
     grid-template: 1fr auto / 1fr;
     grid-gap: 1em;
     flex: 1;
+
+    .element-wrapper {
+      box-shadow: none;
+      border: 2px solid rgba(var(--theme-border-color-rgb), .2);
+    }
+
+    .ui-element-title {
+      font-weight: 500;
+    }
 
     > div {
       display: flex;
