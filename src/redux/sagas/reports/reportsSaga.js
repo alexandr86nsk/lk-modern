@@ -87,6 +87,7 @@ function* getActualStateReport(value) {
         tableLoading: false,
       }));
     },
+    auto,
   );
 }
 
@@ -136,6 +137,7 @@ function* getHistoryReport(value) {
         isLastRequestComplete: true,
       }));
     },
+    auto,
   );
 }
 
