@@ -8,6 +8,7 @@ import UIBlockTitle from '../../components/UIBlockTitle/UIBlockTitle';
 import UIDropdownMenu from '../../components/UIDropdownMenu/UIDropdownMenu';
 import menuTemplate from './settings';
 import ReportsGridLayout from './ReactGridLayout/ReportsGridLayout';
+import ReactGridToolbox from './ReactGridToolbox/ReactGridToolbox';
 
 function ReportsGridPage(props) {
   const {
@@ -34,6 +35,9 @@ function ReportsGridPage(props) {
           callback={(v) => console.log('selected: ', v)}
           items={menuTemplate}
         />
+      </div>
+      <div className="reports-grid-page__toolbox">
+        <ReactGridToolbox />
       </div>
       <div className="reports-grid-page__body">
         <div className="reports-grid-page__scroll-content" ref={contentRef}>
