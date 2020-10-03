@@ -32,14 +32,14 @@ const stringToDate = (string) => {
   return 0;
 };
 
-function JobCallHandlingReport(props) {
+const JobCallHandlingReport = (props) => {
   const {
     item,
-    testPageStoreGetJobCallHandlingReport,
-    testPageStoreGetJobCallHandlingReportCancel,
-    testPageStoreUpdateReport,
+    reportsGridStoreGetJobCallHandlingReport,
+    reportsGridStoreGetJobCallHandlingReportCancel,
+    reportsGridStoreSetReportSection,
     briefcases,
-  } = props;
+  } = props || {};
 
   const {
     id,
@@ -59,9 +59,15 @@ function JobCallHandlingReport(props) {
     const postTime = AveragePostTime ? stringToDate(AveragePostTime) : 0;
     const idleTime = AverageIdleTime ? stringToDate(AverageIdleTime) : 0;
     const total = talkTime + postTime + idleTime;
-    const AverageTalkingTimePercent = AverageTalkingTime && total ? ((talkTime / total) * 100).toFixed(0) : 0;
-    const AveragePostTimePercent = AveragePostTime && total ? ((postTime / total) * 100).toFixed(0) : 0;
-    const AverageIdleTimePercent = AverageIdleTime && total ? ((idleTime / total) * 100).toFixed(0) : 0;
+    const AverageTalkingTimePercent = AverageTalkingTime && total
+      ? ((talkTime / total) * 100).toFixed(0)
+      : 0;
+    const AveragePostTimePercent = AveragePostTime && total
+      ? ((postTime / total) * 100).toFixed(0)
+      : 0;
+    const AverageIdleTimePercent = AverageIdleTime && total
+      ? ((idleTime / total) * 100).toFixed(0)
+      : 0;
     return [
       {
         name: 'Среднее время разговора',
@@ -80,23 +86,23 @@ function JobCallHandlingReport(props) {
 
   React.useEffect(() => {
     if (selectedBriefcase) {
-      testPageStoreGetJobCallHandlingReport({
+      reportsGridStoreGetJobCallHandlingReport({
         id,
         selectedBriefcase,
       });
     }
-  }, [id, selectedBriefcase, testPageStoreGetJobCallHandlingReport]);
+  }, [id, selectedBriefcase, reportsGridStoreGetJobCallHandlingReport]);
 
   React.useEffect(() => () => {
-    testPageStoreGetJobCallHandlingReportCancel();
-  }, [testPageStoreGetJobCallHandlingReportCancel]);
+    reportsGridStoreGetJobCallHandlingReportCancel();
+  }, [reportsGridStoreGetJobCallHandlingReportCancel]);
 
   const handleChangeFilter = React.useCallback((editName, editValue) => {
-    testPageStoreUpdateReport({
+    reportsGridStoreSetReportSection({
       id,
       [editName]: editValue,
     });
-  }, [id, testPageStoreUpdateReport]);
+  }, [id, reportsGridStoreSetReportSection]);
 
   const renderTableContent = React.useMemo(() => {
     if (data) {
@@ -111,8 +117,9 @@ function JobCallHandlingReport(props) {
   },
   [data]);
 
-  const renderPieContent = React.useMemo(() => memoizedPieData.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index]} />),
-    [memoizedPieData]);
+  const renderPieContent = React.useMemo(
+    () => memoizedPieData.map((entry, index) => (<Cell key={`cell-${entry}`} fill={COLORS[index]} />)), [memoizedPieData],
+  );
 
   const renderCustomizedLabel = React.useCallback(({
     cx, cy, midAngle, innerRadius, outerRadius, percent, index,
@@ -177,10 +184,10 @@ function JobCallHandlingReport(props) {
       </div>
     </div>
   );
-}
+};
 
 const mapStateToProps = (state) => ({
-  briefcases: state.referencesStore.briefcases,
+  briefcases: state.reportsGridStore.briefcases,
 });
 
 const mapDispatchToProps = { ...actions };

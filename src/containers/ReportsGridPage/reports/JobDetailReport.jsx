@@ -6,15 +6,14 @@ import UIReactSelect from '../../../components/UIReactSelect/UIReactSelect';
 import UILoader from '../../../components/UILoader/UILoader';
 import JobDetailReportItem from './JobDetailReportItem';
 
-
-function JobDetailReport(props) {
+const JobDetailReport = (props) => {
   const {
     item,
-    testPageStoreGetJobDetailReport,
-    testPageStoreGetJobDetailReportCancel,
-    testPageStoreUpdateReport,
+    reportsGridStoreGetJobDetailReport,
+    reportsGridStoreGetJobDetailReportCancel,
+    reportsGridStoreUpdateReport,
     briefcases,
-  } = props;
+  } = props || {};
 
   const {
     id,
@@ -31,23 +30,23 @@ function JobDetailReport(props) {
 
   React.useEffect(() => {
     if (selectedBriefcase) {
-      testPageStoreGetJobDetailReport({
+      reportsGridStoreGetJobDetailReport({
         id,
         selectedBriefcase,
       });
     }
-  }, [id, selectedBriefcase, testPageStoreGetJobDetailReport]);
+  }, [id, selectedBriefcase, reportsGridStoreGetJobDetailReport]);
 
   React.useEffect(() => () => {
-    testPageStoreGetJobDetailReportCancel();
-  }, [testPageStoreGetJobDetailReportCancel]);
+    reportsGridStoreGetJobDetailReportCancel();
+  }, [reportsGridStoreGetJobDetailReportCancel]);
 
   const handleChangeFilter = React.useCallback((editName, editValue) => {
-    testPageStoreUpdateReport({
+    reportsGridStoreUpdateReport({
       id,
       [editName]: editValue,
     });
-  }, [id, testPageStoreUpdateReport]);
+  }, [id, reportsGridStoreUpdateReport]);
 
   const renderPercentageJobDetails = React.useMemo(
     () => <JobDetailReportItem data={PercentageJobDetails} title="Процентные данные задания" />,
@@ -100,10 +99,10 @@ function JobDetailReport(props) {
       </div>
     </div>
   );
-}
+};
 
 const mapStateToProps = (state) => ({
-  briefcases: state.referencesStore.briefcases,
+  briefcases: state.reportsGridStore.briefcases,
 });
 
 const mapDispatchToProps = { ...actions };

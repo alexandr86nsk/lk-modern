@@ -2,20 +2,20 @@ import React from 'react';
 import { connect } from 'react-redux';
 import actions from '../../../redux/actions/actions';
 import UIReactSelect from '../../../components/UIReactSelect/UIReactSelect';
-import UITable from "../../../components/UITable/UITable";
-import { jobStatusReportTableHeader, jobHistoryReportTableHeader } from "./settings";
+import UITable from '../../../components/UITable/UITable';
+import { jobStatusReportTableHeader, jobHistoryReportTableHeader } from './settings';
 
-function JobStatusReport(props) {
+const JobStatusReport = (props) => {
   const {
-    jobHistory,
     item,
-    testPageStoreGetJobStatusReport,
-    testPageStoreGetJobStatusReportCancel,
-    testPageStoreGetJobHistoryReport,
-    testPageStoreGetJobHistoryReportCancel,
-    testPageStoreUpdateReport,
+    isJobHistory,
+    reportsGridStoreGetJobStatusReport,
+    reportsGridStoreGetJobStatusReportCancel,
+    reportsGridStoreGetJobHistoryReport,
+    reportsGridStoreGetJobHistoryReportCancel,
+    reportsGridStoreUpdateReport,
     briefcases,
-  } = props;
+  } = props || {};
 
   const {
     id,
@@ -25,41 +25,46 @@ function JobStatusReport(props) {
     tableSearchString,
   } = item || {};
 
-
   React.useEffect(() => {
     if (selectedBriefcase) {
-      if (jobHistory) {
-        testPageStoreGetJobHistoryReport({
+      if (isJobHistory) {
+        reportsGridStoreGetJobHistoryReport({
           id,
           selectedBriefcase,
         });
       } else {
-        testPageStoreGetJobStatusReport({
+        reportsGridStoreGetJobStatusReport({
           id,
           selectedBriefcase,
         });
       }
     }
-  }, [id, jobHistory, selectedBriefcase, testPageStoreGetJobStatusReport, testPageStoreGetJobHistoryReport]);
+  }, [
+    id,
+    isJobHistory,
+    selectedBriefcase,
+    reportsGridStoreGetJobStatusReport,
+    reportsGridStoreGetJobHistoryReport,
+  ]);
 
   React.useEffect(() => () => {
-    testPageStoreGetJobStatusReportCancel();
-    testPageStoreGetJobHistoryReportCancel();
-  }, [testPageStoreGetJobStatusReportCancel, testPageStoreGetJobHistoryReportCancel]);
+    reportsGridStoreGetJobStatusReportCancel();
+    reportsGridStoreGetJobHistoryReportCancel();
+  }, [reportsGridStoreGetJobStatusReportCancel, reportsGridStoreGetJobHistoryReportCancel]);
 
   const handleChangeFilter = React.useCallback((editName, editValue) => {
-    testPageStoreUpdateReport({
+    reportsGridStoreUpdateReport({
       id,
       [editName]: editValue,
     });
-  }, [id, testPageStoreUpdateReport]);
+  }, [id, reportsGridStoreUpdateReport]);
 
   const handleSearch = React.useCallback((value) => {
-    testPageStoreUpdateReport({
+    reportsGridStoreUpdateReport({
       id,
       tableSearchString: value,
     });
-  }, [testPageStoreUpdateReport, id]);
+  }, [reportsGridStoreUpdateReport, id]);
 
   return (
     <div className="job-status-report">
@@ -77,7 +82,7 @@ function JobStatusReport(props) {
           <UITable
             fixed
             sortable
-            header={jobHistory ? jobHistoryReportTableHeader : jobStatusReportTableHeader}
+            header={isJobHistory ? jobHistoryReportTableHeader : jobStatusReportTableHeader}
             data={data}
             pagination
             search
@@ -91,10 +96,10 @@ function JobStatusReport(props) {
       </div>
     </div>
   );
-}
+};
 
 const mapStateToProps = (state) => ({
-  briefcases: state.referencesStore.briefcases,
+  briefcases: state.reportsGridStore.briefcases,
 });
 
 const mapDispatchToProps = { ...actions };

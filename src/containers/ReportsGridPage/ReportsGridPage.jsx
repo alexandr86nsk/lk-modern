@@ -12,18 +12,21 @@ import ReactGridToolbox from './ReactGridToolbox/ReactGridToolbox';
 
 function ReportsGridPage(props) {
   const {
-    popUpStoreClear,
+    reportsGridStoreAddReport,
+    reportsGridStoreGetBriefcases,
+    reportsGridStoreGetBriefcasesCancel,
   } = props || {};
 
   const contentRef = React.useRef(null);
 
   React.useEffect(() => {
-  }, []);
+    reportsGridStoreGetBriefcases();
+  }, [reportsGridStoreGetBriefcases]);
 
   React.useEffect(() => () => {
-    popUpStoreClear();
+    reportsGridStoreGetBriefcasesCancel();
   }, [
-    popUpStoreClear,
+    reportsGridStoreGetBriefcasesCancel,
   ]);
 
   return (
@@ -32,7 +35,9 @@ function ReportsGridPage(props) {
       <div className="reports-grid-page__top-menu">
         <UIDropdownMenu
           title="Добавить отчет"
-          callback={(v) => console.log('selected: ', v)}
+          callback={() => reportsGridStoreAddReport({
+            id: Math.random(),
+          })}
           items={menuTemplate}
         />
       </div>
@@ -48,13 +53,6 @@ function ReportsGridPage(props) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  tableStore: state.briefcasesStore.tableStore,
-  tableTemplate: state.briefcasesStore.tableTemplate,
-  briefcases: state.briefcasesStore.briefcases,
-  trySaveBriefcase: state.briefcasesStore.trySaveBriefcase,
-});
-
 const mapDispatchToProps = { ...actions };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReportsGridPage);
+export default connect(null, mapDispatchToProps)(ReportsGridPage);

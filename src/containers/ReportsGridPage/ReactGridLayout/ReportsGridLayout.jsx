@@ -1,26 +1,36 @@
 import RGL from 'react-grid-layout';
 import React from 'react';
 import './ReportsGridLayout.scss';
-import _ from 'lodash';
+import { connect } from 'react-redux';
 import useResizeObserver from '../../../components/UICustomHooks/useResizeObserver/useResizeObserver';
+import actions from '../../../redux/actions/actions';
 
 function ReportsGridLayout(props) {
   const {
     parent,
+    reports,
   } = props || {};
 
   const { width } = useResizeObserver(parent);
 
-  const generateLayout = React.useMemo(() => _.map(new Array(20), (item, i) => {
-    const y = Math.ceil(Math.random() * 4) + 1;
-    return {
-      x: (i * 2) % 12,
-      y: Math.floor(i / 6) * y,
-      w: 2,
-      h: y,
-      i: i.toString(),
-    };
-  }), []);
+  const generateLayout = React.useMemo(() => {
+    if (reports && Array.isArray(reports)) {
+      return reports.map((v, i) => {
+        const {
+          x, y, w, h, id,
+        } = v || {};
+        const randomY = Math.ceil(Math.random() * 4) + 1;
+        return {
+          x: x ?? (i * 2) % 12,
+          y: y ?? Math.floor(i / 6) * randomY,
+          w: w ?? 6,
+          h: h ?? randomY,
+          i: id ?? i.toString(),
+        };
+      });
+    }
+    return null;
+  }, [reports]);
 
   const [layout, setLayout] = React.useState(generateLayout);
 
@@ -28,11 +38,19 @@ function ReportsGridLayout(props) {
     setLayout(value);
   }, []);
 
-  const generateDOM = React.useMemo(() => _.map(_.range(20), (i) => (
-    <div key={i}>
-      <span className="text">{i}</span>
-    </div>
-  )), []);
+  const generateDOM = React.useMemo(() => {
+    if (reports && Array.isArray(reports)) {
+      return reports.map((v, i) => {
+        const { id } = v || {};
+        return (
+          <div key={id ?? i}>
+            <span className="text">{i}</span>
+          </div>
+        );
+      });
+    }
+    return null;
+  }, [reports]);
 
   return (
     <RGL
@@ -46,4 +64,10 @@ function ReportsGridLayout(props) {
   );
 }
 
-export default React.memo(ReportsGridLayout);
+const mapStateToProps = (state) => ({
+  reports: state.reportsGridStore.reports,
+});
+
+const mapDispatchToProps = { ...actions };
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReportsGridLayout);

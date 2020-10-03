@@ -7,9 +7,8 @@ import modalStore from './common/modalStore';
 import toastsStore from './common/toastsStore';
 import settingsStore from './settings/settingsStore';
 import reportsStore from './reports/reportsStore';
-import zoneStore from './zone/zoneStore';
+import reportsGridStore from './reportsGrid/reportsGridStore';
 import popUpStore from './common/popUpStore';
-import calendarStore from './calendar/calendarStore';
 import globalStore from './common/globalStore';
 import briefcasesStore from './briefcases/briefcasesStore';
 
@@ -17,14 +16,13 @@ const rootReducer = (history) => combineReducers({
   router: connectRouter(history),
   settingsStore,
   reportsStore,
+  reportsGridStore,
   authStore,
   userStore,
   tokenStore,
   modalStore,
   toastsStore,
   popUpStore,
-  zoneStore,
-  calendarStore,
   globalStore,
   briefcasesStore,
 });

@@ -2,6 +2,7 @@ import { takeLatest, takeEvery } from 'redux-saga/effects';
 import canBeCanceledAuthStoreLogIn from './auth/authSaga';
 import * as briefcasesSaga from './briefcases/briefcasesSaga';
 import * as reportsSaga from './reports/reportsSaga';
+import * as reportsGridSaga from './reportsGrid/reportsGridSaga';
 import * as settingsSaga from './settings/settingsSaga';
 
 function* rootSaga() {
@@ -23,8 +24,6 @@ function* rootSaga() {
   yield takeLatest('SETTINGS_STORE_UPDATE_RECALL', settingsSaga.canBeCanceledUpdateRecall);
   yield takeLatest('SETTINGS_STORE_GET_TIME_ZONE', settingsSaga.canBeCanceledGetTimeZone);
   yield takeLatest('SETTINGS_STORE_UPDATE_TIME_ZONE', settingsSaga.canBeCanceledUpdateTimeZone);
-  /*yield takeLatest('SETTINGS_STORE_GET_QUEUE_PHONE', settingsSaga.canBeCanceledGetQueuePhone);
-  yield takeLatest('SETTINGS_STORE_UPDATE_QUEUE_PHONE', settingsSaga.canBeCanceledUpdateQueuePhone);*/
 }
 
 export default rootSaga;

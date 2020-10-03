@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table, Icon } from 'semantic-ui-react';
-import * as moment from "moment";
+import * as moment from 'moment';
 
 moment.locale('ru');
 
@@ -31,11 +31,11 @@ const keyVariables = {
   CalcQueueLimitCoefficient: 'Рекомендуемый Hit rate (количество линий расчетное в режиме авто)',
 };
 
-function JobDetailReportItem(props) {
+const JobDetailReportItem = (props) => {
   const {
-    data = {},
+    data,
     title,
-  } = props;
+  } = props || {};
 
   const [height, setHeight] = React.useState('auto');
 
@@ -45,12 +45,15 @@ function JobDetailReportItem(props) {
 
   const renderContent = React.useMemo(() => {
     if (height) {
-      return Object.keys(data).map((v) => (
-        <Table.Row key={v}>
-          <Table.Cell>{keyVariables[v] || v}</Table.Cell>
-          <Table.Cell>{v.includes("Date") ? moment(data[v]).format('DD.MM.YYYY HH:mm:ss') : data[v]}</Table.Cell>
-        </Table.Row>
-      ));
+      return Object.keys(data).map((v) => {
+        const { [v]: dataValue } = data || {};
+        return (
+          <Table.Row key={v}>
+            <Table.Cell>{keyVariables[v] || v}</Table.Cell>
+            <Table.Cell>{v.includes('Date') ? moment(dataValue).format('DD.MM.YYYY HH:mm:ss') : dataValue}</Table.Cell>
+          </Table.Row>
+        );
+      });
     }
     return null;
   },
@@ -71,6 +74,6 @@ function JobDetailReportItem(props) {
       {renderContent}
     </>
   );
-}
+};
 
 export default React.memo(JobDetailReportItem);
