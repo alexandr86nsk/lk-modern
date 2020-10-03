@@ -31,4 +31,4 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = { ...actions };
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(PagePopUp));
+export default connect(mapStateToProps, mapDispatchToProps)(PagePopUp);

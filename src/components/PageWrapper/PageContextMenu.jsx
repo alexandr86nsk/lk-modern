@@ -40,4 +40,4 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = { ...actions };
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(PageContextMenu));
+export default connect(mapStateToProps, mapDispatchToProps)(PageContextMenu);

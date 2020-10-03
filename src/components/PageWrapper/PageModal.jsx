@@ -112,4 +112,4 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = { ...actions };
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(PageModal));
+export default connect(mapStateToProps, mapDispatchToProps)(PageModal);

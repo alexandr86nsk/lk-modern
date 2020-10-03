@@ -66,4 +66,4 @@ function PageWrapper(props) {
 
 const mapDispatchToProps = { ...actions };
 
-export default connect(null, mapDispatchToProps)(React.memo(PageWrapper));
+export default connect(null, mapDispatchToProps)(PageWrapper);
