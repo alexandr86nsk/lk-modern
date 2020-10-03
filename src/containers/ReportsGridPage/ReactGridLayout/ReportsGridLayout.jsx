@@ -1,5 +1,5 @@
-import RGL from 'react-grid-layout';
 import React from 'react';
+import RGL from 'react-grid-layout';
 import './ReportsGridLayout.scss';
 import { connect } from 'react-redux';
 import useResizeObserver from '../../../components/UICustomHooks/useResizeObserver/useResizeObserver';
