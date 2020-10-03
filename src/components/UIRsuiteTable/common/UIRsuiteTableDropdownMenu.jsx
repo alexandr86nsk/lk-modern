@@ -7,7 +7,7 @@ function UIRsuiteTableDropdownMenu(props) {
   const {
     data,
     actions,
-  } = props;
+  } = props || {};
 
   const handleEdit = React.useCallback(() => actions.edit(data), [actions, data]);
 

@@ -31,4 +31,4 @@ const OperatorInfo = (props) => {
   );
 };
 
-export default OperatorInfo;
+export default React.memo(OperatorInfo);

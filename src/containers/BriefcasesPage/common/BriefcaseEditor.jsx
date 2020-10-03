@@ -20,4 +20,4 @@ function BriefcaseEditor() {
   );
 }
 
-export default BriefcaseEditor;
+export default React.memo(BriefcaseEditor);

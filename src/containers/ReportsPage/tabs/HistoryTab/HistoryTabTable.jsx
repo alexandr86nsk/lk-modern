@@ -153,4 +153,4 @@ function HistoryTabTable(props) {
   );
 }
 
-export default HistoryTabTable;
+export default React.memo(HistoryTabTable);

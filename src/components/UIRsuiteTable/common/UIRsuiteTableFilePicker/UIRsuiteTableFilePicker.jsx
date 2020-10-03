@@ -43,4 +43,4 @@ function UIRsuiteTableFilePicker(props) {
   );
 }
 
-export default UIRsuiteTableFilePicker;
+export default React.memo(UIRsuiteTableFilePicker);
