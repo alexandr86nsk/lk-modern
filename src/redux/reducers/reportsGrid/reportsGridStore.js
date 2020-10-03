@@ -1,4 +1,4 @@
-const initialReportsGridStore = { reports: [] };
+const initialReportsGridStore = { reports: [1, 2, 3, 4] };
 
 export default function reportsGridStore(state = initialReportsGridStore, action) {
   switch (action.type) {

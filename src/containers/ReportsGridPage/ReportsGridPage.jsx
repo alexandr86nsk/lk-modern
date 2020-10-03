@@ -36,7 +36,7 @@ function ReportsGridPage(props) {
         <UIDropdownMenu
           title="Добавить отчет"
           callback={() => reportsGridStoreAddReport({
-            id: Math.random(),
+            id: Math.ceil(Math.random() * 100),
           })}
           items={menuTemplate}
         />

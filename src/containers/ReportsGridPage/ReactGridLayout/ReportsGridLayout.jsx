@@ -13,6 +13,8 @@ function ReportsGridLayout(props) {
 
   const { width } = useResizeObserver(parent);
 
+  const [mounted, setMounted] = React.useState(false);
+
   const generateLayout = React.useMemo(() => {
     if (reports && Array.isArray(reports)) {
       return reports.map((v, i) => {
@@ -52,12 +54,17 @@ function ReportsGridLayout(props) {
     return null;
   }, [reports]);
 
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <RGL
       layout={layout}
       onLayoutChange={handleLayoutChange}
       isBounded
       width={width ?? 1000}
+      rowHeight={30}
     >
       {generateDOM}
     </RGL>
