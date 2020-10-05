@@ -126,10 +126,10 @@ function UIRsuiteTableBody(props) {
   ]);
 
   const handleSetContextMenuData = React.useCallback((rowData, e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
     if (actions && Array.isArray(actions)) {
+      e.preventDefault();
+      e.stopPropagation();
+
       setCustomActionsMenu(actions.filter((v) => !v.showCondition
         || (v.showCondition && v.showCondition(rowData))));
     }

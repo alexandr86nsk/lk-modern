@@ -26,8 +26,8 @@ const UIRsuiteTableMenuItem = (props) => {
   }, [action, uploadCallback]);
 
   const handleCallback = React.useCallback((e) => {
-    e.stopPropagation();
     if (callback && action) {
+      e.stopPropagation();
       callback(action);
     }
   }, [action, callback]);
