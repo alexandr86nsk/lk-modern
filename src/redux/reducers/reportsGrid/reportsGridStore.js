@@ -1,4 +1,42 @@
-const initialReportsGridStore = { reports: [1, 2, 3, 4] };
+const arr = [
+  {
+    id: 0,
+    x: 0,
+    y: 0,
+    w: 6,
+    h: 5,
+  },
+  {
+    id: 1,
+    x: 6,
+    y: 0,
+    w: 6,
+    h: 5,
+  },
+  {
+    id: 2,
+    x: 12,
+    y: 0,
+    w: 6,
+    h: 5,
+  },
+  {
+    id: 3,
+    x: 18,
+    y: 0,
+    w: 6,
+    h: 5,
+  },
+  {
+    id: 4,
+    x: 24,
+    y: 0,
+    w: 6,
+    h: 5,
+  },
+];
+
+const initialReportsGridStore = { reports: [0, 1, 2, 3, 4] };
 
 export default function reportsGridStore(state = initialReportsGridStore, action) {
   switch (action.type) {
