@@ -1,5 +1,5 @@
 import React from 'react';
-import { Responsive } from 'react-grid-layout';
+import { Responsive as ResponsiveGridLayout } from 'react-grid-layout';
 import './ReportsGridLayout.scss';
 import { connect } from 'react-redux';
 import useResizeObserver from '../../../components/UICustomHooks/useResizeObserver/useResizeObserver';
@@ -60,7 +60,7 @@ function ReportsGridLayout(props) {
               i: id ?? i.toString(),
               x: x ?? (i + 1) % 2 ? 0 : 6,
               y: y ?? Math.trunc((i + 1) / 3) * 5,
-              w: w ?? 5,
+              w: w ?? 6,
               h: h ?? 5,
             }}
           >
@@ -75,19 +75,16 @@ function ReportsGridLayout(props) {
   console.log('layouts', stateLayouts);
 
   return (
-    <Responsive
+    <ResponsiveGridLayout
       className="layout"
       layouts={stateLayouts}
-      cols={{
-        lg: 12, md: 10, sm: 6, xs: 4, xxs: 2,
-      }}
       onLayoutChange={onLayoutChange}
-      width={width ?? 1200}
+      width={width ?? 1210}
       rowHeight={90}
       isBounded
     >
       {generateDOM}
-    </Responsive>
+    </ResponsiveGridLayout>
   );
 }
 
