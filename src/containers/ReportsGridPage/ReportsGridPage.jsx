@@ -3,6 +3,7 @@ import './ReportsGridPage.scss';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 import { connect } from 'react-redux';
+import uuid from 'uuid';
 import actions from '../../redux/actions/actions';
 import UIBlockTitle from '../../components/UIBlockTitle/UIBlockTitle';
 import UIDropdownMenu from '../../components/UIDropdownMenu/UIDropdownMenu';
@@ -36,7 +37,7 @@ function ReportsGridPage(props) {
         <UIDropdownMenu
           title="Добавить отчет"
           callback={() => reportsGridStoreAddReport({
-            id: Math.ceil(Math.random() * 100),
+            id: uuid.v4(),
           })}
           items={menuTemplate}
         />
