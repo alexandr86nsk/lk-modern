@@ -58,8 +58,8 @@ function ReportsGridLayout(props) {
             key={id ?? i}
             data-grid={{
               i: id ?? i.toString(),
-              x: x ?? (i + 1) % 2 ? 0 : 6,
-              y: y ?? Math.trunc((i + 1) / 3) * 5,
+              x: x ?? 0,
+              y: y ?? Infinity,
               w: w ?? 6,
               h: h ?? 5,
             }}
@@ -71,8 +71,6 @@ function ReportsGridLayout(props) {
     }
     return null;
   }, [reports]);
-
-  console.log('layouts', stateLayouts);
 
   return (
     <ResponsiveGridLayout

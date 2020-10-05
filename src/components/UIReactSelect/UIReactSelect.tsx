@@ -1,9 +1,10 @@
 import React, { CSSProperties } from 'react';
 import './UIReactSelect.scss';
-import Select from 'react-select';
+import Select, { createFilter } from 'react-select';
 import { GroupedOptionsType } from 'react-select/src/types';
 import ErrorIcon from './error-icon.svg';
 import SuccessIcon from './check-icon.svg';
+import UIReactSelectList from './UIReactSelectList/UIReactSelectList';
 
 interface IOptions {
   [index: number]: { value?: string | number; label?: string };
@@ -161,6 +162,8 @@ function UIReactSelect(props: IUIReactSelectProps) {
     }
     return (
       <Select
+        filterOption={createFilter({ ignoreAccents: false })}
+        // components={optimizeSelect.components}
         styles={customStyles}
         isLoading={loading}
         className="ui-react-select__container"
