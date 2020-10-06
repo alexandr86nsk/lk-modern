@@ -23,6 +23,7 @@
     "sourceMap": true,
     "allowSyntheticDefaultImports": true,
     "types": ["node"],
+    "downlevelIteration": true
   },
   "compileOnSave": false,
   "buildOnSave": false

@@ -6,6 +6,7 @@ export const historyFilterDataTemplate = [
     type: 'select',
     otherProps: {
       type: '--style-1c --transparent --translate-title',
+      isVirtualized: true,
     },
   },
   {

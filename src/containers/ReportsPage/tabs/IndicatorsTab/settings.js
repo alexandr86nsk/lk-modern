@@ -90,6 +90,7 @@ export const callStatisticFilterDataTemplate = [
     type: 'select',
     otherProps: {
       type: '--style-1c --transparent',
+      isVirtualized: true,
     },
   },
 ];

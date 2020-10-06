@@ -1,29 +1,37 @@
 import React from 'react';
-import { MenuListComponentProps } from 'react-select/lib/components/Menu';
 import { FixedSizeList as List } from 'react-window';
-import './UIReactSelectList.scss';
+// import { components } from 'react-select';
+// import { OptionProps } from 'react-select/src/components/Option';
+import { MenuListComponentProps } from 'react-select/src/components/Menu';
+import { IOptions } from '../UIReactSelect';
 
 const height = 35;
 
-type SelectOption = {
-  value: string
-  label: string
-  [key: string]: string
-};
-
-const UIReactSelectList = React.memo((props: MenuListComponentProps<SelectOption>) => {
+const UIReactSelectList = React.memo((props: MenuListComponentProps<IOptions>) => {
   const {
     options, children, maxHeight, getValue,
   } = props || {};
-  const [value] = React.useMemo(() => getValue() as SelectOption[], [getValue]);
+
+  const [value] = React.useMemo(() => getValue(), [getValue]);
   const initialOffset = React.useMemo(() => options.indexOf(value) * height, [
     value,
     options,
   ]);
 
+  const isOverflow = React.useMemo(() => {
+    if (children && Array.isArray(children)) {
+      const h = children.length * height;
+      return h > maxHeight;
+    }
+    return false;
+  }, [maxHeight, children]);
+
+  if (!children || !Array.isArray(children)) return null;
+
   return (
     <List
-      height={maxHeight}
+      width=""
+      height={isOverflow ? maxHeight : children.length * height}
       itemCount={children.length}
       itemSize={height}
       initialScrollOffset={initialOffset}
@@ -33,16 +41,19 @@ const UIReactSelectList = React.memo((props: MenuListComponentProps<SelectOption
   );
 });
 
-function OptimizedOption(props: OptionProps<SelectOption>) {
+/* function OptimizedOption(props: OptionProps<IOptions>): JSX.Element {
+  const { children } = props || {};
+  // eslint-disable-next-line no-param-reassign,react/destructuring-assignment
   delete props.innerProps.onMouseMove;
+  // eslint-disable-next-line no-param-reassign,react/destructuring-assignment
   delete props.innerProps.onMouseOver;
-  return <components.Option {...props}>{props.children}</components.Option>;
-}
+  return <components.Option {...props}>{children}</components.Option>;
+} */
 
 const optimizeSelect = {
   components: {
     MenuList: UIReactSelectList,
-    Option: OptimizedOption,
+    // Option: OptimizedOption,
   },
 };
 

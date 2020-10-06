@@ -4,9 +4,9 @@ import Select, { createFilter } from 'react-select';
 import { GroupedOptionsType } from 'react-select/src/types';
 import ErrorIcon from './error-icon.svg';
 import SuccessIcon from './check-icon.svg';
-import UIReactSelectList from './UIReactSelectList/UIReactSelectList';
+import optimizeSelect from './UIReactSelectList/UIReactSelectList';
 
-interface IOptions {
+export interface IOptions {
   [index: number]: { value?: string | number; label?: string };
   value?: string | number;
   label?: string;
@@ -33,6 +33,7 @@ interface IUIReactSelectProps {
   loading?: boolean;
   disabled?: boolean;
   loadingMessage?: (obj: { inputValue: string }) => string | null;
+  isVirtualized?: boolean;
 }
 
 const customStyles = {
@@ -62,6 +63,7 @@ function UIReactSelect(props: IUIReactSelectProps) {
     loading,
     disabled,
     loadingMessage,
+    isVirtualized,
   } = props || {};
 
   const renderPlaceholder = React.useMemo(() => {
@@ -163,7 +165,7 @@ function UIReactSelect(props: IUIReactSelectProps) {
     return (
       <Select
         filterOption={createFilter({ ignoreAccents: false })}
-        // components={optimizeSelect.components}
+        components={isVirtualized && !loading ? optimizeSelect.components : undefined}
         styles={customStyles}
         isLoading={loading}
         className="ui-react-select__container"
@@ -193,6 +195,7 @@ function UIReactSelect(props: IUIReactSelectProps) {
     isClearable,
     isMulti,
     readOnly,
+    isVirtualized,
   ]);
 
   return (

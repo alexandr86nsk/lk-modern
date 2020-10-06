@@ -58,6 +58,7 @@ export const actualStateFilterDataTemplate = [
     type: 'select',
     otherProps: {
       type: '--style-1c --transparent --translate-title',
+      isVirtualized: true,
     },
   },
   {

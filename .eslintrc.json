@@ -70,5 +70,12 @@
       }
     }
   ],
-  "settings": { "react": { "version": "detect" } }
+  "settings": {
+    "react": { "version": "detect" },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true
+      }
+    }
+  }
 }
