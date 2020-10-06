@@ -20,6 +20,13 @@ function ReportsGridPage(props) {
 
   const contentRef = React.useRef(null);
 
+  const handleAddReport = React.useCallback((value) => {
+    reportsGridStoreAddReport({
+      id: uuid.v4(),
+      type: value,
+    });
+  }, [reportsGridStoreAddReport]);
+
   React.useEffect(() => {
     reportsGridStoreGetBriefcases();
   }, [reportsGridStoreGetBriefcases]);
@@ -36,9 +43,7 @@ function ReportsGridPage(props) {
       <div className="reports-grid-page__top-menu">
         <UIDropdownMenu
           title="Добавить отчет"
-          callback={() => reportsGridStoreAddReport({
-            id: uuid.v4(),
-          })}
+          callback={handleAddReport}
           items={menuTemplate}
         />
       </div>

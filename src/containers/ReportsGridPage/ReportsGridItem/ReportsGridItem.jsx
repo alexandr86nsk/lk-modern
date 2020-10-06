@@ -4,6 +4,14 @@ import actions from '../../../redux/actions/actions';
 import JobDetailReport from '../reports/JobDetailReport';
 import JobStatusReport from '../reports/JobStatusReport';
 import JobCallHandlingReport from '../reports/JobCallHandlingReport';
+import './ReportsGridItem.scss';
+
+const reportTitle = {
+  jobDetailReport: 'Детали задания',
+  jobStatusReport: 'Статус задания',
+  jobHistoryReport: 'Динамическая история задания',
+  jobCallHandlingReport: 'Эффективность работы сотрудников',
+};
 
 const ReportsGridItem = (props) => {
   const {
@@ -14,8 +22,6 @@ const ReportsGridItem = (props) => {
   const {
     id,
     type,
-    title,
-    reportType,
   } = item || {};
 
   const handleRemoveReport = React.useCallback(() => {
@@ -23,25 +29,25 @@ const ReportsGridItem = (props) => {
   }, [reportsGridStoreRemoveReport, id]);
 
   const renderReportBody = React.useMemo(() => {
-    switch (reportType) {
-      case 0:
+    switch (type) {
+      case 'jobDetailReport':
         return <JobDetailReport item={item} />;
-      case 1:
+      case 'jobStatusReport':
         return <JobStatusReport item={item} />;
-      case 2:
+      case 'jobHistoryReport':
         return <JobStatusReport item={item} isJobHistory />;
-      case 3:
+      case 'jobCallHandlingReport':
         return <JobCallHandlingReport item={item} />;
       default:
         return null;
     }
-  }, [item, reportType]);
+  }, [item, type]);
 
   return (
     <div className={`report${type ? ` ${type}` : ''}`}>
       <div className="report__header">
         <div role="presentation" className="report__header-title ellipsis-element">
-          {title}
+          {reportTitle[type]}
         </div>
         <div className="report__header-spotlight">
           <div role="presentation" className="report__header-btn close" onClick={handleRemoveReport} title="Закрыть" />

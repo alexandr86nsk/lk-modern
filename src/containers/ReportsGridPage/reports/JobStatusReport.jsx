@@ -7,14 +7,15 @@ import { jobStatusReportTableHeader, jobHistoryReportTableHeader } from './setti
 
 const JobStatusReport = (props) => {
   const {
+    briefcases,
+    briefcasesLoading,
     item,
     isJobHistory,
     reportsGridStoreGetJobStatusReport,
     reportsGridStoreGetJobStatusReportCancel,
     reportsGridStoreGetJobHistoryReport,
     reportsGridStoreGetJobHistoryReportCancel,
-    reportsGridStoreUpdateReport,
-    briefcases,
+    reportsGridStoreSetReportSection,
   } = props || {};
 
   const {
@@ -53,30 +54,21 @@ const JobStatusReport = (props) => {
   }, [reportsGridStoreGetJobStatusReportCancel, reportsGridStoreGetJobHistoryReportCancel]);
 
   const handleChangeFilter = React.useCallback((editName, editValue) => {
-    reportsGridStoreUpdateReport({
+    reportsGridStoreSetReportSection({
       id,
       [editName]: editValue,
     });
-  }, [id, reportsGridStoreUpdateReport]);
+  }, [id, reportsGridStoreSetReportSection]);
 
   const handleSearch = React.useCallback((value) => {
-    reportsGridStoreUpdateReport({
+    reportsGridStoreSetReportSection({
       id,
       tableSearchString: value,
     });
-  }, [reportsGridStoreUpdateReport, id]);
+  }, [reportsGridStoreSetReportSection, id]);
 
   return (
     <div className="job-status-report">
-      <div className="report__filter">
-        <UIReactSelect
-          name="selectedBriefcase"
-          options={briefcases || []}
-          data={selectedBriefcase}
-          callback={handleChangeFilter}
-          placeholder="Выберите кампанию"
-        />
-      </div>
       <div className="job-status-report__body">
         <div className="job-status-report__table">
           <UITable
@@ -94,12 +86,26 @@ const JobStatusReport = (props) => {
           />
         </div>
       </div>
+      <div className="report__filter">
+        <UIReactSelect
+          name="selectedBriefcase"
+          title="Название кампании"
+          options={briefcases}
+          data={selectedBriefcase}
+          callback={handleChangeFilter}
+          loading={briefcasesLoading}
+          placeholder="Выберите кампанию"
+          type="--style-1c --transparent"
+          isVirtualized
+        />
+      </div>
     </div>
   );
 };
 
 const mapStateToProps = (state) => ({
   briefcases: state.reportsGridStore.briefcases,
+  briefcasesLoading: state.reportsGridStore.briefcasesLoading,
 });
 
 const mapDispatchToProps = { ...actions };

@@ -1,4 +1,13 @@
 .react-grid-item {
-  background: #ccc;
-  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+
+  &.react-grid-placeholder {
+    background-color: rgba(var(--light-theme-color-rgb), .4);
+  }
+
+  & > .react-resizable-handle::after {
+    width: 6px;
+    height: 6px;
+  }
 }

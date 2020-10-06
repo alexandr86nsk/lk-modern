@@ -16,6 +16,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: scroll;
   }
 }

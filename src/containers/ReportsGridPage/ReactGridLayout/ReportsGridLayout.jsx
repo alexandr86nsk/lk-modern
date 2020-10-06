@@ -4,6 +4,7 @@ import './ReportsGridLayout.scss';
 import { connect } from 'react-redux';
 import useResizeObserver from '../../../components/UICustomHooks/useResizeObserver/useResizeObserver';
 import actions from '../../../redux/actions/actions';
+import ReportsGridItem from '../ReportsGridItem/ReportsGridItem';
 
 function getFromLS(key) {
   let ls = {};
@@ -34,6 +35,7 @@ function ReportsGridLayout(props) {
   const {
     parent,
     reports,
+    reportsGridStoreSetReportSection,
   } = props || {};
 
   const { width } = useResizeObserver(parent);
@@ -45,6 +47,9 @@ function ReportsGridLayout(props) {
   const onLayoutChange = React.useCallback((layout, layouts) => {
     saveToLS('layouts', layouts);
     setStateLayouts(layouts);
+    reportsGridStoreSetReportSection({
+
+    })
   }, []);
 
   const generateDOM = React.useMemo(() => {
@@ -64,7 +69,7 @@ function ReportsGridLayout(props) {
               h: h ?? 5,
             }}
           >
-            <span className="text">{id ?? i}</span>
+            <ReportsGridItem item={v} />
           </div>
         );
       });
@@ -80,6 +85,7 @@ function ReportsGridLayout(props) {
       width={width ?? 1210}
       rowHeight={90}
       isBounded
+      draggableHandle=".report__header"
     >
       {generateDOM}
     </ResponsiveGridLayout>
