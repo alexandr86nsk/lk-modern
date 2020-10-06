@@ -25,6 +25,10 @@ function* rootSaga() {
   yield takeLatest('SETTINGS_STORE_GET_TIME_ZONE', settingsSaga.canBeCanceledGetTimeZone);
   yield takeLatest('SETTINGS_STORE_UPDATE_TIME_ZONE', settingsSaga.canBeCanceledUpdateTimeZone);
   yield takeLatest('REPORTS_GRID_STORE_GET_BRIEFCASES', reportsGridSaga.canBeCanceledGetBriefcases);
+  yield takeEvery('REPORTS_GRID_STORE_GET_JOB_DETAIL_REPORT', reportsGridSaga.canBeCanceledGetJobDetailReport);
+  yield takeEvery('REPORTS_GRID_STORE_GET_JOB_STATUS_REPORT', reportsGridSaga.canBeCanceledGetJobStatusReport);
+  yield takeEvery('REPORTS_GRID_STORE_GET_JOB_HISTORY_REPORT', reportsGridSaga.canBeCanceledGetJobHistoryReport);
+  yield takeEvery('REPORTS_GRID_STORE_GET_JOB_CALL_HANDLING_REPORT', reportsGridSaga.canBeCanceledGetJobCallHandlingReport);
 }
 
 export default rootSaga;

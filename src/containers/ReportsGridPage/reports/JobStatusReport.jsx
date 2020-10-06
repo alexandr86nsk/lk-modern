@@ -27,18 +27,16 @@ const JobStatusReport = (props) => {
   } = item || {};
 
   React.useEffect(() => {
-    if (selectedBriefcase) {
-      if (isJobHistory) {
-        reportsGridStoreGetJobHistoryReport({
-          id,
-          selectedBriefcase,
-        });
-      } else {
-        reportsGridStoreGetJobStatusReport({
-          id,
-          selectedBriefcase,
-        });
-      }
+    if (isJobHistory) {
+      reportsGridStoreGetJobHistoryReport({
+        id,
+        selectedBriefcase,
+      });
+    } else {
+      reportsGridStoreGetJobStatusReport({
+        id,
+        selectedBriefcase,
+      });
     }
   }, [
     id,
