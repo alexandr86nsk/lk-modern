@@ -5,38 +5,52 @@ export const jobStatusReportTableHeader = [
   {
     id: 0,
     title: 'Название задания',
-    value: 'BriefcaseTitle',
+    dataKey: 'BriefcaseTitle',
     type: '',
+    width: 135,
+    column: {
+      sortable: true,
+    },
   },
   {
     id: 1,
     title: 'Статус задания',
-    value: 'StatusName',
+    dataKey: 'StatusName',
     type: 'component',
-    controls: [],
+    width: 170,
     component: (data) => (
       <div className={`job-status${data.StatusName.includes('запущена') ? ' active' : ''}`}>{data.StatusName}</div>
     ),
+    column: {
+      sortable: true,
+    },
   },
   {
     id: 2,
-    title: 'Время запуска задания',
-    value: 'StartDate',
+    title: 'Время запуска',
+    dataKey: 'StartDate',
     type: 'date',
-    dateFormat: "DD.MM.YYYY HH:mm:ss"
+    dateFormat: 'DD.MM.YYYY HH:mm:ss',
+    column: {
+      sortable: true,
+    },
   },
   {
     id: 3,
     title: 'Количество людей подключенных к заданию',
-    value: 'TotalOperators',
+    dataKey: 'TotalOperators',
     type: '',
+    width: 290,
+    column: {
+      sortable: true,
+    },
   },
   {
     id: 4,
     title: '% завершения',
-    value: 'Percentage',
+    dataKey: 'Percentage',
     type: 'component',
-    controls: [],
+    width: 110,
     component: (data) => (
       <div className="progress-bar">
         {data.Percentage || data.Percentage === 0 ? (
@@ -51,6 +65,9 @@ export const jobStatusReportTableHeader = [
         ) : <span>Нет данных</span>}
       </div>
     ),
+    column: {
+      sortable: true,
+    },
   },
 ];
 
@@ -76,7 +93,7 @@ export const jobHistoryReportTableHeader = [
     title: 'Время запуска задания',
     value: 'StartDate',
     type: 'date',
-    dateFormat: "DD.MM.YYYY HH:mm:ss"
+    dateFormat: 'DD.MM.YYYY HH:mm:ss',
   },
   {
     id: 3,

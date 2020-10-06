@@ -38,6 +38,11 @@
     padding: .8em;
   }
 
+  &__table .--component .ui-rsuite-table__cell-data  {
+    flex: 1;
+    overflow: unset;
+  }
+
   .rs-table-cell-header.actions .rs-table-cell-content {
     justify-content: center;
   }

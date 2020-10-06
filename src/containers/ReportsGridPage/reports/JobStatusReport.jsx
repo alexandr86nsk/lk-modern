@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import actions from '../../../redux/actions/actions';
 import UIReactSelect from '../../../components/UIReactSelect/UIReactSelect';
-import UITable from '../../../components/UITable/UITable';
 import { jobStatusReportTableHeader, jobHistoryReportTableHeader } from './settings';
+import tableDefaultConfig from '../../../components/UIRsuiteTable/tableDeafultConfig';
+import UIRsuiteTable from '../../../components/UIRsuiteTable/UIRsuiteTable';
 
 const JobStatusReport = (props) => {
   const {
@@ -11,11 +12,11 @@ const JobStatusReport = (props) => {
     briefcasesLoading,
     item,
     isJobHistory,
-    reportsGridStoreGetJobStatusReport,
-    reportsGridStoreGetJobStatusReportCancel,
-    reportsGridStoreGetJobHistoryReport,
-    reportsGridStoreGetJobHistoryReportCancel,
+    reportsGridStoreGetReport,
+    reportsGridStoreGetReportCancel,
     reportsGridStoreSetReportSection,
+    reportsGridStoreSetReportTableStoreSection,
+    reportsGridStoreSetReportTableTemplateSection,
   } = props || {};
 
   const {
@@ -23,33 +24,38 @@ const JobStatusReport = (props) => {
     data,
     selectedBriefcase,
     loading,
-    tableSearchString,
+    type,
+    isLastRequestComplete,
+    tableTemplate,
+    tableStore,
   } = item || {};
 
-  React.useEffect(() => {
-    if (isJobHistory) {
-      reportsGridStoreGetJobHistoryReport({
+  const refreshReport = React.useCallback((value) => {
+    reportsGridStoreGetReport({
+      data: {
         id,
+        type,
         selectedBriefcase,
-      });
-    } else {
-      reportsGridStoreGetJobStatusReport({
-        id,
-        selectedBriefcase,
-      });
-    }
+      },
+      auto: value,
+    });
   }, [
     id,
-    isJobHistory,
+    type,
     selectedBriefcase,
-    reportsGridStoreGetJobStatusReport,
-    reportsGridStoreGetJobHistoryReport,
+    reportsGridStoreGetReport,
   ]);
 
-  React.useEffect(() => () => {
-    reportsGridStoreGetJobStatusReportCancel();
-    reportsGridStoreGetJobHistoryReportCancel();
-  }, [reportsGridStoreGetJobStatusReportCancel, reportsGridStoreGetJobHistoryReportCancel]);
+  const refreshTimerCallback = React.useCallback(() => {
+    if (isLastRequestComplete) {
+      refreshReport(true);
+    }
+  }, [isLastRequestComplete, refreshReport]);
+
+  React.useEffect(() => {
+    const refreshTimer = setInterval(refreshTimerCallback, 3000);
+    return () => clearInterval(refreshTimer);
+  }, [refreshTimerCallback]);
 
   const handleChangeFilter = React.useCallback((editName, editValue) => {
     reportsGridStoreSetReportSection({
@@ -58,29 +64,69 @@ const JobStatusReport = (props) => {
     });
   }, [id, reportsGridStoreSetReportSection]);
 
-  const handleSearch = React.useCallback((value) => {
-    reportsGridStoreSetReportSection({
+  const handleChangeTableStore = React.useCallback((value) => {
+    reportsGridStoreSetReportTableStoreSection({
       id,
-      tableSearchString: value,
+      ...value,
     });
-  }, [reportsGridStoreSetReportSection, id]);
+  }, [id, reportsGridStoreSetReportTableStoreSection]);
+
+  const handleChangeTableTemplate = React.useCallback((value) => {
+    reportsGridStoreSetReportTableTemplateSection({
+      id,
+      ...value,
+    });
+  }, [id, reportsGridStoreSetReportTableTemplateSection]);
+
+  React.useEffect(() => {
+    if (!tableTemplate || !tableStore) {
+      reportsGridStoreSetReportSection({
+        id,
+        tableTemplate: isJobHistory ? jobHistoryReportTableHeader : jobStatusReportTableHeader,
+        tableStore: {
+          ...tableDefaultConfig,
+          type: '--transparent',
+          tableRowHeight: 36,
+          search: true,
+          customId: 'BriefcaseTitle',
+          refresh: false,
+        },
+      });
+    }
+  }, [
+    id,
+    isJobHistory,
+    tableTemplate,
+    tableStore,
+    reportsGridStoreSetReportSection,
+  ]);
+
+  React.useEffect(() => {
+    reportsGridStoreSetReportTableStoreSection({
+      id,
+      tableLoading: loading,
+    });
+  },[id, loading, reportsGridStoreSetReportTableStoreSection]);
+
+  React.useEffect(() => {
+    reportsGridStoreGetReportCancel(id);
+    refreshReport(false);
+  }, [id, refreshReport, reportsGridStoreGetReportCancel]);
+
+  React.useEffect(() => () => {
+    reportsGridStoreGetReportCancel(id);
+  }, [id, reportsGridStoreGetReportCancel]);
 
   return (
     <div className="job-status-report">
       <div className="job-status-report__body">
         <div className="job-status-report__table">
-          <UITable
-            fixed
-            sortable
-            header={isJobHistory ? jobHistoryReportTableHeader : jobStatusReportTableHeader}
-            data={data}
-            pagination
-            search
-            searchString={tableSearchString}
-            searchCallback={handleSearch}
-            empty="Отчет пуст"
-            loadingData={loading}
-            selectable
+          <UIRsuiteTable
+            tableStore={tableStore}
+            tableStoreSetSection={handleChangeTableStore}
+            tableTemplate={tableTemplate}
+            tableTemplateSetSection={handleChangeTableTemplate}
+            tableData={data}
           />
         </div>
       </div>

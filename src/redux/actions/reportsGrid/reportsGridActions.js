@@ -27,6 +27,16 @@ export const reportsGridStoreRemoveReport = (value) => ({
   value,
 });
 
+export const reportsGridStoreGetReport = (value) => ({
+  type: 'REPORTS_GRID_STORE_GET_REPORT',
+  value,
+});
+
+export const reportsGridStoreGetReportCancel = (value) => ({
+  type: 'REPORTS_GRID_STORE_GET_REPORT_CANCEL',
+  value,
+});
+
 export const reportsGridStoreGetJobDetailReport = (value) => ({
   type: 'REPORTS_GRID_STORE_GET_JOB_DETAIL_REPORT',
   value,
@@ -61,4 +71,14 @@ export const reportsGridStoreGetJobCallHandlingReport = (value) => ({
 
 export const reportsGridStoreGetJobCallHandlingReportCancel = () => ({
   type: 'REPORTS_GRID_STORE_GET_JOB_CALL_HANDLING_REPORT_CANCEL',
+});
+
+export const reportsGridStoreSetReportTableStoreSection = (value) => ({
+  type: 'REPORTS_GRID_STORE_SET_REPORT_TABLE_STORE_SECTION',
+  value,
+});
+
+export const reportsGridStoreSetReportTableTemplateSection = (value) => ({
+  type: 'REPORTS_GRID_STORE_SET_REPORT_TABLE_TEMPLATE_SECTION',
+  value,
 });

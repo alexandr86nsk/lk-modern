@@ -82,6 +82,10 @@
       background-color: var(--white);
     }
 
+    &__filter {
+      padding-top: 1em;
+    }
+
     .job-detail-report,
     .job-status-report,
     .job-call-handling-report {
@@ -103,6 +107,8 @@
         padding-right: 3px;
         overflow-x: hidden;
         overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
       }
 
       &__table-subtitle {
@@ -116,47 +122,21 @@
 
     .job-status-report {
 
-      .ui-table {
+      .job-status {
 
-        .ui.progress:last-child {
-          margin: 0;
+        &:before {
+          content: '';
+          display: inline-block;
+          width: .8em;
+          height: .8em;
+          border-radius: 50%;
+          background-color: var(--error-color);
+          margin-right: .5em;
+          vertical-align: middle;
         }
 
-        .ui.progress .bar > .progress {
-          font-size: 8px;
-          font-weight: normal;
-          color: var(--white);
-        }
-
-        .job-status {
-
-          &:before {
-            content: '';
-            display: inline-block;
-            width: 1em;
-            height: 1em;
-            border-radius: 50%;
-            background-color: var(--error-color);
-            margin-right: .5em;
-            vertical-align: middle;
-          }
-
-          &.active:before {
-            background-color: var(--success-color);
-          }
-        }
-
-        &__controls-block {
-
-          .controls-block__right-block {
-            flex: 1;
-          }
-
-          .search-wrapper {
-            max-width: 250px;
-            width: 100%;
-            margin-left: auto;
-          }
+        &.active:before {
+          background-color: var(--success-color);
         }
       }
     }

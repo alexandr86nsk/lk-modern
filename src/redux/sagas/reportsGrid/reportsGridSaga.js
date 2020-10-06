@@ -1,17 +1,16 @@
 import {
-  call, put, fork, take, cancel, delay,
+  call, put, fork, take, cancel,
 } from 'redux-saga/effects';
 import api from '../../../api/api';
 import actions from '../../actions/actions';
-import { queryResultAnalysis, setErrorToast } from '../common/globalSaga';
+import { queryResultAnalysis } from '../common/globalSaga';
 
-function* getError(error) {
-  if (error.response && error.response.data.description) {
-    yield setErrorToast(error.response.data.description);
-  } else {
-    yield setErrorToast('При зугрузке данных произошла ошибка. Пожалуйста обновите страницу');
-  }
-}
+const reportsType = {
+  jobDetailReport: 'getJobDetailReport',
+  jobStatusReport: 'getJobStatusReport',
+  jobHistoryReport: 'getJobHistoryReport',
+  jobCallHandlingReport: 'getJobCallHandlingReport',
+};
 
 /* ***************************** getBriefcases ********************** */
 function* getBriefcases() {
@@ -48,7 +47,61 @@ export function* canBeCanceledGetBriefcases() {
   yield cancel(bgGetBriefcases);
 }
 
-/* ***************************** getJobDetailReport ********************** */
+/* ***************************** getReport ********************** */
+function* getReport(value) {
+  const { auto, data } = value || {};
+  const { selectedBriefcase, id, type } = data || {};
+  if (!auto) {
+    yield put(actions.reportsGridStoreSetReportSection({
+      id,
+      loading: true,
+      isLastRequestComplete: false,
+    }));
+  } else {
+    yield put(actions.reportsGridStoreSetReportSection({
+      id,
+      isLastRequestComplete: false,
+    }));
+  }
+  yield queryResultAnalysis(
+    api[reportsType[type]],
+    { briefcaseId: selectedBriefcase },
+    function* (res) {
+      yield put(actions.reportsGridStoreSetReportSection({
+        id,
+        loading: false,
+        isLastRequestComplete: true,
+        data: res,
+      }));
+    },
+    function* () {
+      yield put(actions.reportsGridStoreSetReportSection({
+        id,
+        loading: false,
+        isLastRequestComplete: true,
+      }));
+    },
+  );
+}
+
+export function* canBeCanceledGetReport(action) {
+  const bgGetReport = yield fork(getReport, action.value);
+  const {
+    data,
+  } = action.value || {};
+  const {
+    id,
+  } = data || {};
+  const cancelAction = yield take('REPORTS_GRID_STORE_GET_REPORT_CANCEL');
+  const {
+    value: cancelId,
+  } = cancelAction || {};
+  if (id === cancelId) {
+    yield cancel(bgGetReport);
+  }
+}
+
+/* /!* ***************************** getJobDetailReport ********************** *!/
 function* getJobDetailReport(value) {
   const { auto, selectedBriefcase, id } = value || {};
   if (!auto) {
@@ -88,9 +141,9 @@ export function* canBeCanceledGetJobDetailReport(action) {
   const bgGetJobDetailReport = yield fork(getJobDetailReport, action.value);
   yield take('REPORTS_GRID_STORE_GET_JOB_DETAIL_REPORT_CANCEL');
   yield cancel(bgGetJobDetailReport);
-}
+} */
 
-/* ***************************** getJobStatusReport ********************** */
+/* /!* ***************************** getJobStatusReport ********************** *!/
 function* getJobStatusReport(value) {
   const { auto, selectedBriefcase, id } = value || {};
   if (!auto) {
@@ -130,9 +183,9 @@ export function* canBeCanceledGetJobStatusReport(action) {
   const bgGetJobStatusReport = yield fork(getJobStatusReport, action.value);
   yield take('REPORTS_GRID_STORE_GET_JOB_STATUS_REPORT_CANCEL');
   yield cancel(bgGetJobStatusReport);
-}
+} */
 
-/* ***************************** getJobHistoryReport ********************** */
+/* /!* ***************************** getJobHistoryReport ********************** *!/
 function* getJobHistoryReport(value) {
   if (!value.auto) {
     yield put(actions.reportsGridStoreSetReportSection({
@@ -145,7 +198,7 @@ function* getJobHistoryReport(value) {
     // yield delay(50000);
     yield put(actions.reportsGridStoreSetReportSection({
       id: value.id,
-      data: res.data, /* [
+      data: res.data, /!* [
         {...res.data[0], BriefcaseTitle: 'Test1', StatusName: "Кампания готовиться"},
         {...res.data[0], BriefcaseTitle: 'Test2', StartDate: '2020-06-02T01:32:34+00:00', StatusName: "Кампания запущена"},
         {...res.data[0], BriefcaseTitle: 'Test3', StartDate: '2020-06-02T02:32:34+00:00'},
@@ -157,7 +210,7 @@ function* getJobHistoryReport(value) {
         {...res.data[0], BriefcaseTitle: 'Test9', StartDate: '2020-06-02T08:32:34+00:00', StatusName: "Кампания запущена"},
         {...res.data[0], BriefcaseTitle: 'Test10', StartDate: '2020-06-02T09:32:34+00:00'},
         {...res.data[0], BriefcaseTitle: 'Test11', StartDate: '2020-06-02T09:52:34+00:00', StatusName: "Кампания завершена"},
-      ], */
+      ], *!/
       loading: false,
     }));
   } catch (e) {
@@ -174,7 +227,7 @@ export function* canBeCanceledGetJobHistoryReport(action) {
   yield take('TEST_PAGE_STORE_GET_JOB_HISTORY_REPORT_CANCEL');
   yield cancel(bgGetJobHistoryReport);
 }
-/* ***************************** getJobCallHandlingReport ********************** */
+/!* ***************************** getJobCallHandlingReport ********************** *!/
 function* getJobCallHandlingReport(value) {
   if (!value.auto) {
     yield put(actions.reportsGridStoreSetReportSection({
@@ -203,4 +256,4 @@ export function* canBeCanceledGetJobCallHandlingReport(action) {
   const bgGetJobCallHandlingReport = yield fork(getJobCallHandlingReport, action.value);
   yield take('TEST_PAGE_STORE_GET_JOB_CALL_HANDLING_REPORT_CANCEL');
   yield cancel(bgGetJobCallHandlingReport);
-}
+} */

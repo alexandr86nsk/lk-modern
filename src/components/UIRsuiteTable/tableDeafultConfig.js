@@ -6,7 +6,7 @@ const tableDefaultConfig = {
   paginationCurrentPage: 1,
   paginationNumberOfItemsToPage: 15,
   paginationTotalItems: undefined,
-  filter: true,
+  filter: undefined,
   filterSelectedItemsCount: undefined,
   filterType: undefined,
   filterBodyTitle: undefined,

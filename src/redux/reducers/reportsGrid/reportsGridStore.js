@@ -30,6 +30,42 @@ export default function reportsGridStore(state = initialReportsGridStore, action
         ...state,
         reports: state.reports.filter((v) => v.id !== action.value),
       };
+    case 'REPORTS_GRID_STORE_SET_REPORT_TABLE_STORE_SECTION':
+      return {
+        ...state,
+        reports: state.reports.map((v) => {
+          const { id, ...otherValue } = action.value || {};
+          if (v.id === id) {
+            const { tableStore } = v || {};
+            return {
+              ...v,
+              tableStore: {
+                ...tableStore,
+                ...otherValue,
+              },
+            };
+          }
+          return v;
+        }),
+      };
+    case 'REPORTS_GRID_STORE_SET_REPORT_TABLE_TEMPLATE_SECTION':
+      return {
+        ...state,
+        reports: state.reports.map((v) => {
+          const { id, ...otherValue } = action.value || {};
+          if (v.id === id) {
+            const { tableTemplate } = v || {};
+            return {
+              ...v,
+              tableTemplate: {
+                ...tableTemplate,
+                ...otherValue,
+              },
+            };
+          }
+          return v;
+        }),
+      };
     case 'REPORTS_GRID_STORE_CLEAR':
       return initialReportsGridStore;
     default:
