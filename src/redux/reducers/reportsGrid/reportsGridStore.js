@@ -57,10 +57,17 @@ export default function reportsGridStore(state = initialReportsGridStore, action
             const { tableTemplate } = v || {};
             return {
               ...v,
-              tableTemplate: {
-                ...tableTemplate,
-                ...otherValue,
-              },
+              tableTemplate: tableTemplate.map((w) => {
+                const { dataKey: thisDataKey } = v || {};
+                const { dataKey } = otherValue || {};
+                if (thisDataKey === dataKey) {
+                  return {
+                    ...w,
+                    ...otherValue,
+                  };
+                }
+                return w;
+              }),
             };
           }
           return v;

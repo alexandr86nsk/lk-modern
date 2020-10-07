@@ -32,7 +32,15 @@
     background-color: rgba(var(--white-rgb), 0.85);
   }
 
-  .rs-table-cell .rs-table-cell-content {
+  &__table .rs-table-cell-group-fixed-right,
+  &__table .rs-table-cell.rs-table-cell-last {
+
+    .rs-table-cell-content {
+      padding-right: 18px;
+    }
+  }
+
+  &__table .rs-table-cell .rs-table-cell-content {
     display: flex;
     align-items: center;
     padding: .8em;
@@ -43,7 +51,14 @@
     overflow: unset;
   }
 
-  .rs-table-cell-header.actions .rs-table-cell-content {
+  &__table &__header-title {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__table .rs-table-cell-header.actions .rs-table-cell-content {
     justify-content: center;
   }
 
@@ -99,21 +114,13 @@
       align-items: center;
       justify-content: center;
     }
-
-    .rs-table-cell-group-fixed-right,
-    .rs-table-cell.rs-table-cell-last {
-
-      .rs-table-cell-content {
-        padding-right: 18px;
-      }
-    }
   }
 
-  .rs-table-cell-header-sort-wrapper {
+  &__table .rs-table-cell-header-sort-wrapper {
     margin-left: .5em;
   }
 
-  .rs-table-cell-header-icon-sort {
+  &__table .rs-table-cell-header-icon-sort {
 
     &:after {
       display: inline-block;
@@ -143,7 +150,7 @@
     }
   }
 
-  .rs-table-column-resize-spanner {
+  &__table .rs-table-column-resize-spanner {
     width: 3px;
 
     &:hover {
@@ -151,24 +158,24 @@
     }
   }
 
-  .rs-table-mouse-area {
+  &__table .rs-table-mouse-area {
     background: var(--medium-theme-color);
   }
 
-  .rs-table:not(.rs-table-column-resizing) .rs-table-cell-header .rs-table-cell:hover~.rs-table-column-resize-spanner,
-  .rs-table:not(.rs-table-column-resizing) .rs-table-column-resize-spanner:hover {
+  &__table .rs-table:not(.rs-table-column-resizing) .rs-table-cell-header .rs-table-cell:hover~.rs-table-column-resize-spanner,
+  &__table .rs-table:not(.rs-table-column-resizing) .rs-table-column-resize-spanner:hover {
     background-color: var(--medium-theme-color);
   }
 
-  .rs-table:not(.rs-table-column-resizing) .rs-table-cell-header .rs-table-cell:hover~.rs-table-column-resize-spanner:after,
-  .rs-table:not(.rs-table-column-resizing) .rs-table-cell-header .rs-table-cell:hover~.rs-table-column-resize-spanner:before,
-  .rs-table:not(.rs-table-column-resizing) .rs-table-column-resize-spanner:hover:after,
-  .rs-table:not(.rs-table-column-resizing) .rs-table-column-resize-spanner:hover:before {
+  &__table .rs-table:not(.rs-table-column-resizing) .rs-table-cell-header .rs-table-cell:hover~.rs-table-column-resize-spanner:after,
+  &__table .rs-table:not(.rs-table-column-resizing) .rs-table-cell-header .rs-table-cell:hover~.rs-table-column-resize-spanner:before,
+  &__table .rs-table:not(.rs-table-column-resizing) .rs-table-column-resize-spanner:hover:after,
+  &__table .rs-table:not(.rs-table-column-resizing) .rs-table-column-resize-spanner:hover:before {
     display: block;
   }
 
-  .rs-table-column-resize-spanner:after,
-  .rs-table-column-resize-spanner:before {
+  &__table .rs-table-column-resize-spanner:after,
+  &__table .rs-table-column-resize-spanner:before {
     content: " ";
     position: absolute;
     width: 0;
@@ -179,47 +186,47 @@
     display: none;
   }
 
-  .rs-table-column-resize-spanner:after {
+  &__table .rs-table-column-resize-spanner:after {
     border: 3px dashed transparent;
     border-left: 3px solid var(--medium-theme-color);
     left: 4px;
   }
 
-  .rs-table-column-resize-spanner:before {
+  &__table .rs-table-column-resize-spanner:before {
     border: 3px dashed transparent;
     border-right: 3px solid var(--medium-theme-color);
     right: 4px;
   }
 
-  .rs-table-scrollbar-horizontal .rs-table-scrollbar-pressed,
-  .rs-table-scrollbar-horizontal:hover {
+  &__table .rs-table-scrollbar-horizontal .rs-table-scrollbar-pressed,
+  &__table .rs-table-scrollbar-horizontal:hover {
     height: 10px;
     box-shadow: none;
   }
 
-  .rs-table-scrollbar-vertical .rs-table-scrollbar-pressed,
-  .rs-table-scrollbar-vertical:hover {
+  &__table .rs-table-scrollbar-vertical .rs-table-scrollbar-pressed,
+  &__table .rs-table-scrollbar-vertical:hover {
     width: 10px;
     box-shadow: none;
   }
 
-  .rs-table-scrollbar-horizontal .rs-table-scrollbar-pressed .rs-table-scrollbar-handle,
-  .rs-table-scrollbar-horizontal:hover .rs-table-scrollbar-handle {
+  &__table .rs-table-scrollbar-horizontal .rs-table-scrollbar-pressed .rs-table-scrollbar-handle,
+  &__table .rs-table-scrollbar-horizontal:hover .rs-table-scrollbar-handle {
     top: 1px;
     height: 8px;
   }
 
-  .rs-table-scrollbar-vertical .rs-table-scrollbar-pressed .rs-table-scrollbar-handle,
-  .rs-table-scrollbar-vertical:hover .rs-table-scrollbar-handle {
+  &__table .rs-table-scrollbar-vertical .rs-table-scrollbar-pressed .rs-table-scrollbar-handle,
+  &__table .rs-table-scrollbar-vertical:hover .rs-table-scrollbar-handle {
     left: 1px;
     width: 8px;
   }
 
-  .rs-table-scrollbar {
+  &__table .rs-table-scrollbar {
     background: rgba(var(--light-theme-color-rgb),.2);
   }
 
-  .rs-table-scrollbar-handle {
+  &__table .rs-table-scrollbar-handle {
     background: rgba(var(--light-theme-color-rgb),.8);
   }
 }

@@ -182,7 +182,14 @@ function UIRsuiteTableBody(props) {
             {...column}
             onResize={tableOnColumnResizeCallback}
           >
-            <HeaderCell className={isActions ? 'actions' : ''} title={title}>{title}</HeaderCell>
+            <HeaderCell
+              className={isActions ? 'actions' : ''}
+              title={title}
+              depth={0}
+              width={width}
+            >
+              <div className="ui-rsuite-table__header-title">{title}</div>
+            </HeaderCell>
             <UIRsuiteTableCell
               tableData={tableData}
               actions={actions}

@@ -122,23 +122,6 @@
 
     .job-status-report {
 
-      .job-status {
-
-        &:before {
-          content: '';
-          display: inline-block;
-          width: .8em;
-          height: .8em;
-          border-radius: 50%;
-          background-color: var(--error-color);
-          margin-right: .5em;
-          vertical-align: middle;
-        }
-
-        &.active:before {
-          background-color: var(--success-color);
-        }
-      }
     }
 
     .job-call-handling-report {

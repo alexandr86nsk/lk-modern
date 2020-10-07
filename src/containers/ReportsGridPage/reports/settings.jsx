@@ -1,5 +1,6 @@
 import React from 'react';
-import { Progress } from 'semantic-ui-react';
+import ProgressBar from './ProgressBar/ProgressBar';
+import JobStatus from './JobStatus/JobStatus';
 
 export const jobStatusReportTableHeader = [
   {
@@ -18,9 +19,7 @@ export const jobStatusReportTableHeader = [
     dataKey: 'StatusName',
     type: 'component',
     width: 170,
-    component: (data) => (
-      <div className={`job-status${data.StatusName.includes('запущена') ? ' active' : ''}`}>{data.StatusName}</div>
-    ),
+    component: (el, _) => <JobStatus data={el} dataKey="StatusName" />,
     column: {
       sortable: true,
     },
@@ -31,6 +30,7 @@ export const jobStatusReportTableHeader = [
     dataKey: 'StartDate',
     type: 'date',
     dateFormat: 'DD.MM.YYYY HH:mm:ss',
+    width: 165,
     column: {
       sortable: true,
     },
@@ -50,21 +50,7 @@ export const jobStatusReportTableHeader = [
     title: '% завершения',
     dataKey: 'Percentage',
     type: 'component',
-    width: 110,
-    component: (data) => (
-      <div className="progress-bar">
-        {data.Percentage || data.Percentage === 0 ? (
-          <Progress
-            percent={data.Percentage}
-            progress
-            size="small"
-            error={!data.Percentage}
-            warning={data.Percentage < 70}
-            success={data.Percentage > 69}
-          />
-        ) : <span>Нет данных</span>}
-      </div>
-    ),
+    component: (el, _) => <ProgressBar data={el} dataKey="Percentage" />,
     column: {
       sortable: true,
     },
@@ -75,54 +61,82 @@ export const jobHistoryReportTableHeader = [
   {
     id: 0,
     title: 'Название задания',
-    value: 'BriefcaseTitle',
+    dataKey: 'BriefcaseTitle',
     type: '',
+    width: 135,
+    column: {
+      sortable: true,
+    },
   },
   {
     id: 1,
     title: 'Статус задания',
-    value: 'StatusName',
+    dataKey: 'StatusName',
     type: 'component',
-    controls: [],
-    component: (data) => (
-      <div className={`job-status${data.StatusName.includes('запущена') ? ' active' : ''}`}>{data.StatusName}</div>
-    ),
+    component: (el, _) => <JobStatus data={el} dataKey="StatusName" />,
+    width: 135,
+    column: {
+      sortable: true,
+    },
   },
   {
     id: 2,
     title: 'Время запуска задания',
-    value: 'StartDate',
+    dataKey: 'StartDate',
     type: 'date',
     dateFormat: 'DD.MM.YYYY HH:mm:ss',
+    column: {
+      sortable: true,
+    },
   },
   {
     id: 3,
     title: 'Количество соединений',
-    value: 'ConnectionsCount',
+    dataKey: 'ConnectionsCount',
     type: '',
+    width: 135,
+    column: {
+      sortable: true,
+    },
   },
   {
     id: 4,
     title: 'Количество потерянных соединений',
-    value: 'LostConnectionsCount',
+    dataKey: 'LostConnectionsCount',
     type: '',
+    width: 135,
+    column: {
+      sortable: true,
+    },
   },
   {
     id: 5,
     title: 'Количество должников',
-    value: 'DebtorsCount',
+    dataKey: 'DebtorsCount',
     type: '',
+    width: 135,
+    column: {
+      sortable: true,
+    },
   },
   {
     id: 6,
     title: 'Количество обещаний',
-    value: 'PromiseCount',
+    dataKey: 'PromiseCount',
     type: '',
+    width: 135,
+    column: {
+      sortable: true,
+    },
   },
   {
     id: 7,
     title: 'Время работы задания',
-    value: 'PassedTime',
+    dataKey: 'PassedTime',
     type: '',
+    width: 135,
+    column: {
+      sortable: true,
+    },
   },
 ];

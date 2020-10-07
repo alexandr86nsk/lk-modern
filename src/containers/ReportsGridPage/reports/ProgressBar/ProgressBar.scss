@@ -1,0 +1,17 @@
+.progress-bar {
+  font-size: .8em;
+
+  .ui.small.progress {
+    margin: 0;
+  }
+
+  .ui.small.progress .bar {
+    height: 1.2em;
+  }
+
+  .ui.progress .bar > .progress {
+    font-size: .65em;
+    font-weight: normal;
+    color: var(--white);
+  }
+}

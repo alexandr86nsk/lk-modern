@@ -79,7 +79,7 @@ function UIRsuiteTable(props) {
             const w = (tableBodyWidth - 2 - usedWidth) / nonWidthCells;
             return {
               ...v,
-              width: w < 90 ? 90 : w,
+              width: w < 120 ? 120 : w,
             };
           }
           return v;
