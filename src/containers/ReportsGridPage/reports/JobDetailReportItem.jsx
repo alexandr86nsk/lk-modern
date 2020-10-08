@@ -44,7 +44,7 @@ const JobDetailReportItem = (props) => {
   }, [height]);
 
   const renderContent = React.useMemo(() => {
-    if (height) {
+    if (height && data) {
       return Object.keys(data).map((v) => {
         const { [v]: dataValue } = data || {};
         return (
@@ -61,11 +61,10 @@ const JobDetailReportItem = (props) => {
 
   return (
     <>
-      <Table.Row>
+      <Table.Row onClick={handleActiveClick}>
         <Table.Cell colSpan="2" singleLine className="job-detail-report__table-subtitle">
           <Icon
             name={height ? 'minus square outline' : 'plus square outline'}
-            onClick={handleActiveClick}
             className="job-detail-report__table-expand-btn"
           />
           <b className="ellipsis-element">{title || ''}</b>

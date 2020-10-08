@@ -9,10 +9,11 @@ import JobDetailReportItem from './JobDetailReportItem';
 const JobDetailReport = (props) => {
   const {
     item,
-    reportsGridStoreGetJobDetailReport,
-    reportsGridStoreGetJobDetailReportCancel,
-    reportsGridStoreUpdateReport,
     briefcases,
+    briefcasesLoading,
+    reportsGridStoreGetReport,
+    reportsGridStoreGetReportCancel,
+    reportsGridStoreSetReportSection,
   } = props || {};
 
   const {
@@ -20,6 +21,8 @@ const JobDetailReport = (props) => {
     data,
     selectedBriefcase,
     loading,
+    type,
+    isLastRequestComplete,
   } = item || {};
 
   const {
@@ -28,25 +31,39 @@ const JobDetailReport = (props) => {
     SystemParamsJobDetails,
   } = data || {};
 
-  React.useEffect(() => {
-    if (selectedBriefcase) {
-      reportsGridStoreGetJobDetailReport({
+  const refreshReport = React.useCallback((value) => {
+    reportsGridStoreGetReport({
+      data: {
         id,
+        type,
         selectedBriefcase,
-      });
-    }
-  }, [id, selectedBriefcase, reportsGridStoreGetJobDetailReport]);
+      },
+      auto: value,
+    });
+  }, [
+    id,
+    type,
+    selectedBriefcase,
+    reportsGridStoreGetReport,
+  ]);
 
-  React.useEffect(() => () => {
-    reportsGridStoreGetJobDetailReportCancel();
-  }, [reportsGridStoreGetJobDetailReportCancel]);
+  const refreshTimerCallback = React.useCallback(() => {
+    if (isLastRequestComplete) {
+      refreshReport(true);
+    }
+  }, [isLastRequestComplete, refreshReport]);
+
+  React.useEffect(() => {
+    const refreshTimer = setInterval(refreshTimerCallback, 3000);
+    return () => clearInterval(refreshTimer);
+  }, [refreshTimerCallback]);
 
   const handleChangeFilter = React.useCallback((editName, editValue) => {
-    reportsGridStoreUpdateReport({
+    reportsGridStoreSetReportSection({
       id,
       [editName]: editValue,
     });
-  }, [id, reportsGridStoreUpdateReport]);
+  }, [id, reportsGridStoreSetReportSection]);
 
   const renderPercentageJobDetails = React.useMemo(
     () => <JobDetailReportItem data={PercentageJobDetails} title="Процентные данные задания" />,
@@ -63,17 +80,17 @@ const JobDetailReport = (props) => {
     [SystemParamsJobDetails],
   );
 
+  React.useEffect(() => {
+    reportsGridStoreGetReportCancel(id);
+    refreshReport(false);
+  }, [id, refreshReport, reportsGridStoreGetReportCancel]);
+
+  React.useEffect(() => () => {
+    reportsGridStoreGetReportCancel(id);
+  }, [id, reportsGridStoreGetReportCancel]);
+
   return (
     <div className="job-detail-report">
-      <div className="report__filter">
-        <UIReactSelect
-          name="selectedBriefcase"
-          options={briefcases || []}
-          data={selectedBriefcase}
-          callback={handleChangeFilter}
-          placeholder="Выберите кампанию"
-        />
-      </div>
       <div className="job-detail-report__body">
         {loading
           && (
@@ -97,12 +114,26 @@ const JobDetailReport = (props) => {
           </Table>
         </div>
       </div>
+      <div className="report__filter">
+        <UIReactSelect
+          name="selectedBriefcase"
+          title="Название кампании"
+          options={briefcases}
+          data={selectedBriefcase}
+          callback={handleChangeFilter}
+          loading={briefcasesLoading}
+          placeholder="Выберите кампанию"
+          type="--style-1c --transparent"
+          isVirtualized
+        />
+      </div>
     </div>
   );
 };
 
 const mapStateToProps = (state) => ({
   briefcases: state.reportsGridStore.briefcases,
+  briefcasesLoading: state.reportsGridStore.briefcasesLoading,
 });
 
 const mapDispatchToProps = { ...actions };

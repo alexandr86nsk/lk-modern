@@ -35,10 +35,11 @@ const stringToDate = (string) => {
 const JobCallHandlingReport = (props) => {
   const {
     item,
-    reportsGridStoreGetJobCallHandlingReport,
-    reportsGridStoreGetJobCallHandlingReportCancel,
-    reportsGridStoreSetReportSection,
     briefcases,
+    briefcasesLoading,
+    reportsGridStoreGetReport,
+    reportsGridStoreGetReportCancel,
+    reportsGridStoreSetReportSection,
   } = props || {};
 
   const {
@@ -46,6 +47,8 @@ const JobCallHandlingReport = (props) => {
     data,
     selectedBriefcase,
     loading,
+    type,
+    isLastRequestComplete,
   } = item || {};
 
   const {
@@ -84,18 +87,32 @@ const JobCallHandlingReport = (props) => {
     ];
   }, [AverageTalkingTime, AveragePostTime, AverageIdleTime]);
 
-  React.useEffect(() => {
-    if (selectedBriefcase) {
-      reportsGridStoreGetJobCallHandlingReport({
+  const refreshReport = React.useCallback((value) => {
+    reportsGridStoreGetReport({
+      data: {
         id,
+        type,
         selectedBriefcase,
-      });
-    }
-  }, [id, selectedBriefcase, reportsGridStoreGetJobCallHandlingReport]);
+      },
+      auto: value,
+    });
+  }, [
+    id,
+    type,
+    selectedBriefcase,
+    reportsGridStoreGetReport,
+  ]);
 
-  React.useEffect(() => () => {
-    reportsGridStoreGetJobCallHandlingReportCancel();
-  }, [reportsGridStoreGetJobCallHandlingReportCancel]);
+  const refreshTimerCallback = React.useCallback(() => {
+    if (isLastRequestComplete) {
+      refreshReport(true);
+    }
+  }, [isLastRequestComplete, refreshReport]);
+
+  React.useEffect(() => {
+    const refreshTimer = setInterval(refreshTimerCallback, 3000);
+    return () => clearInterval(refreshTimer);
+  }, [refreshTimerCallback]);
 
   const handleChangeFilter = React.useCallback((editName, editValue) => {
     reportsGridStoreSetReportSection({
@@ -103,6 +120,7 @@ const JobCallHandlingReport = (props) => {
       [editName]: editValue,
     });
   }, [id, reportsGridStoreSetReportSection]);
+
 
   const renderTableContent = React.useMemo(() => {
     if (data) {
@@ -135,17 +153,17 @@ const JobCallHandlingReport = (props) => {
     );
   }, []);
 
+  React.useEffect(() => {
+    reportsGridStoreGetReportCancel(id);
+    refreshReport(false);
+  }, [id, refreshReport, reportsGridStoreGetReportCancel]);
+
+  React.useEffect(() => () => {
+    reportsGridStoreGetReportCancel(id);
+  }, [id, reportsGridStoreGetReportCancel]);
+
   return (
     <div className="job-call-handling-report">
-      <div className="report__filter">
-        <UIReactSelect
-          name="selectedBriefcase"
-          options={briefcases || []}
-          data={selectedBriefcase}
-          callback={handleChangeFilter}
-          placeholder="Выберите кампанию"
-        />
-      </div>
       <div className="job-call-handling-report__body">
         {loading
         && (
@@ -181,6 +199,19 @@ const JobCallHandlingReport = (props) => {
             </Table.Body>
           </Table>
         </div>
+      </div>
+      <div className="report__filter">
+        <UIReactSelect
+          name="selectedBriefcase"
+          title="Название кампании"
+          options={briefcases}
+          data={selectedBriefcase}
+          callback={handleChangeFilter}
+          loading={briefcasesLoading}
+          placeholder="Выберите кампанию"
+          type="--style-1c --transparent"
+          isVirtualized
+        />
       </div>
     </div>
   );

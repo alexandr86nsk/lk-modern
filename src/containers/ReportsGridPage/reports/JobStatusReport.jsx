@@ -8,10 +8,10 @@ import UIRsuiteTable from '../../../components/UIRsuiteTable/UIRsuiteTable';
 
 const JobStatusReport = (props) => {
   const {
-    briefcases,
-    briefcasesLoading,
     item,
     isJobHistory,
+    briefcases,
+    briefcasesLoading,
     reportsGridStoreGetReport,
     reportsGridStoreGetReportCancel,
     reportsGridStoreSetReportSection,
