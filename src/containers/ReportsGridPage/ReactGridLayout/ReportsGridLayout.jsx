@@ -85,6 +85,7 @@ function ReportsGridLayout(props) {
       width={width ?? 1210}
       rowHeight={90}
       isBounded
+      margin={[15, 15]}
       draggableHandle=".report__header"
     >
       {generateDOM}
