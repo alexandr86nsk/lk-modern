@@ -1,7 +1,18 @@
 .reports-grid-page {
 
   &__top-menu {
-    font-size: .9em;
+    display: flex;
+    align-items: center;
+  }
+
+  &__report-list {
+    flex: 1;
+  }
+
+  &__toolbox {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
   }
 
   &__body {

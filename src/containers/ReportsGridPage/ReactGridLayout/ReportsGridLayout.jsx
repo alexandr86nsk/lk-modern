@@ -37,18 +37,12 @@ function ReportsGridLayout(props) {
     reports,
     gridLayouts = {},
     reportsGridStoreSetSection,
-    reportsGridStoreSetReportSection,
   } = props || {};
 
   const { width } = useResizeObserver(parent);
 
-  // const stateOriginalLayouts = React.useMemo(() => JSON.parse(JSON.stringify(originalLayouts)), []);
-
-  const [stateLayouts, setStateLayouts] = React.useState(originalLayouts);
-
   const onLayoutChange = React.useCallback((layout, layouts) => {
     saveToLS('layouts', layouts);
-    setStateLayouts(layouts);
     reportsGridStoreSetSection({
       gridLayouts: layouts,
     });

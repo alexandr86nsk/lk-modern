@@ -9,7 +9,6 @@ import UIBlockTitle from '../../components/UIBlockTitle/UIBlockTitle';
 import UIDropdownMenu from '../../components/UIDropdownMenu/UIDropdownMenu';
 import menuTemplate from './settings';
 import ReportsGridLayout from './ReactGridLayout/ReportsGridLayout';
-import ReactGridToolbox from './ReactGridToolbox/ReactGridToolbox';
 
 function ReportsGridPage(props) {
   const {
@@ -27,6 +26,10 @@ function ReportsGridPage(props) {
     });
   }, [reportsGridStoreAddReport]);
 
+  const handleGetToolbox = React.useCallback((value) => {
+    console.log('Toolbox', value);
+  }, []);
+
   React.useEffect(() => {
     reportsGridStoreGetBriefcases();
   }, [reportsGridStoreGetBriefcases]);
@@ -41,14 +44,21 @@ function ReportsGridPage(props) {
     <div className="reports-grid-page page__content">
       <UIBlockTitle title="Отчеты" />
       <div className="reports-grid-page__top-menu">
-        <UIDropdownMenu
-          title="Добавить отчет"
-          callback={handleAddReport}
-          items={menuTemplate}
-        />
-      </div>
-      <div className="reports-grid-page__toolbox">
-        <ReactGridToolbox />
+        <div className="reports-grid-page__report-list">
+          <UIDropdownMenu
+            title="Добавить отчет"
+            callback={handleAddReport}
+            items={menuTemplate}
+          />
+        </div>
+        <div className="reports-grid-page__toolbox">
+          <UIDropdownMenu
+            menuDirection="left"
+            title="Сохраненные панели"
+            callback={handleGetToolbox}
+            items={menuTemplate}
+          />
+        </div>
       </div>
       <div className="reports-grid-page__body">
         <div className="reports-grid-page__scroll-content" ref={contentRef}>

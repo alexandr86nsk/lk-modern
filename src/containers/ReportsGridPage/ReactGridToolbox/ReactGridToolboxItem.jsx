@@ -5,7 +5,7 @@ const ReactGridToolboxItem = (props) => {
   return (
     <div
       role="presentation"
-      className="toolbox__items__item"
+      className="toolbox__item"
       onClick={() => {}}
     >
       {data}

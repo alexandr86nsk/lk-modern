@@ -6,7 +6,7 @@ const ReactGridToolbox = (props) => {
   return (
     <div className="toolbox">
       <span className="toolbox__title">Toolbox</span>
-      <div className="toolbox__items">
+      <div className="toolbox__list">
         {data.map((item) => (
           <ReactGridToolboxItem
             key={item.i}
