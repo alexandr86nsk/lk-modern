@@ -4,14 +4,15 @@
   bottom: 1em;
   left: 1em;
   background-color: var(--white);
+  display: flex;
+  flex-direction: column;
   z-index: 8;
 
   &__wrapper {
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 100%;
+    flex: 1;
   }
 
   &__top-panel {
@@ -57,12 +58,13 @@
 
   &__data-block {
     flex: 1;
+    display: flex;
+    flex-direction: column;
     padding: .5em;
   }
 
   &__body {
-    width: 100%;
-    height: 100%;
+    flex: 1;
   }
 
   .ui-scroll-to-top {

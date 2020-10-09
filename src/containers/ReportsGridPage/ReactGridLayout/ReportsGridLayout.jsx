@@ -29,28 +29,30 @@ function saveToLS(key, value) {
   }
 }
 
-const originalLayouts = getFromLS('layouts') || {};
+const originalLayouts = JSON.parse(JSON.stringify(getFromLS('layouts') || {}));
 
 function ReportsGridLayout(props) {
   const {
     parent,
     reports,
+    gridLayouts = {},
+    reportsGridStoreSetSection,
     reportsGridStoreSetReportSection,
   } = props || {};
 
   const { width } = useResizeObserver(parent);
 
-  const stateOriginalLayouts = React.useMemo(() => JSON.parse(JSON.stringify(originalLayouts)), []);
+  // const stateOriginalLayouts = React.useMemo(() => JSON.parse(JSON.stringify(originalLayouts)), []);
 
-  const [stateLayouts, setStateLayouts] = React.useState(stateOriginalLayouts);
+  const [stateLayouts, setStateLayouts] = React.useState(originalLayouts);
 
   const onLayoutChange = React.useCallback((layout, layouts) => {
     saveToLS('layouts', layouts);
     setStateLayouts(layouts);
-    reportsGridStoreSetReportSection({
-
-    })
-  }, []);
+    reportsGridStoreSetSection({
+      gridLayouts: layouts,
+    });
+  }, [reportsGridStoreSetSection]);
 
   const generateDOM = React.useMemo(() => {
     if (reports && Array.isArray(reports)) {
@@ -80,7 +82,7 @@ function ReportsGridLayout(props) {
   return (
     <ResponsiveGridLayout
       className="layout"
-      layouts={stateLayouts}
+      layouts={gridLayouts}
       onLayoutChange={onLayoutChange}
       width={width ?? 1210}
       rowHeight={90}
@@ -95,6 +97,7 @@ function ReportsGridLayout(props) {
 
 const mapStateToProps = (state) => ({
   reports: state.reportsGridStore.reports,
+  gridLayouts: state.reportsGridStore.gridLayouts,
 });
 
 const mapDispatchToProps = { ...actions };

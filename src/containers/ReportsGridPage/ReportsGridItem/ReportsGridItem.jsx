@@ -44,17 +44,19 @@ const ReportsGridItem = (props) => {
   }, [item, type]);
 
   return (
-    <div className={`report${type ? ` ${type}` : ''}`}>
-      <div className="report__header">
-        <div role="presentation" className="report__header-title ellipsis-element">
-          {reportTitle[type]}
+    <div className={`report${type ? ` ${type}` : ''} --styled`}>
+      <div className="report__wrapper">
+        <div className="report__header">
+          <div role="presentation" className="report__header-title ellipsis-element">
+            {reportTitle[type]}
+          </div>
+          <div className="report__header-spotlight">
+            <div role="presentation" className="report__header-btn close" onClick={handleRemoveReport} title="Закрыть" />
+          </div>
         </div>
-        <div className="report__header-spotlight">
-          <div role="presentation" className="report__header-btn close" onClick={handleRemoveReport} title="Закрыть" />
+        <div className="report__body">
+          {renderReportBody}
         </div>
-      </div>
-      <div className="report__body">
-        {renderReportBody}
       </div>
     </div>
   );
