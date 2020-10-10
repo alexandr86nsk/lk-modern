@@ -5,31 +5,7 @@ import { connect } from 'react-redux';
 import useResizeObserver from '../../../components/UICustomHooks/useResizeObserver/useResizeObserver';
 import actions from '../../../redux/actions/actions';
 import ReportsGridItem from '../ReportsGridItem/ReportsGridItem';
-
-/* function getFromLS(key) {
-  let ls = {};
-  if (global.localStorage) {
-    try {
-      ls = JSON.parse(global.localStorage.getItem('reportsGridLayout')) || {};
-    } catch (e) {
-      /!* Ignore *!/
-    }
-  }
-  return ls[key];
-}
-
-function saveToLS(key, value) {
-  if (global.localStorage) {
-    global.localStorage.setItem(
-      'reportsGridLayout',
-      JSON.stringify({
-        [key]: value,
-      }),
-    );
-  }
-} */
-
-// const originalLayouts = JSON.parse(JSON.stringify(getFromLS('layouts') || {}));
+import UILoader from '../../../components/UILoader/UILoader';
 
 function ReportsGridLayout(props) {
   const {
@@ -41,8 +17,10 @@ function ReportsGridLayout(props) {
 
   const { width } = useResizeObserver(parent);
 
+  const firstRender = React.useRef(true);
+  const [loading, setLoading] = React.useState(true);
+
   const onLayoutChange = React.useCallback((layout, layouts) => {
-    // saveToLS('layouts', layouts);
     reportsGridStoreSetSection({
       gridLayouts: layouts,
     });
@@ -73,19 +51,38 @@ function ReportsGridLayout(props) {
     return null;
   }, [reports]);
 
+  const timeOut = React.useMemo(() => {
+    if (reports && Array.isArray(reports)) {
+      return reports.length;
+    }
+    return 0;
+  }, [reports]);
+
+  React.useEffect(() => {
+    if (firstRender) {
+      firstRender.current = false;
+      setTimeout(() => setLoading(false), timeOut * 100);
+    }
+  }, [timeOut]);
+
   return (
-    <ResponsiveGridLayout
-      className="layout"
-      layouts={gridLayouts}
-      onLayoutChange={onLayoutChange}
-      width={width ?? 1210}
-      rowHeight={90}
-      isBounded
-      margin={[15, 15]}
-      draggableHandle=".report__header"
-    >
-      {generateDOM}
-    </ResponsiveGridLayout>
+    <>
+      {loading && <UILoader type="--google" dimmed />}
+      {!loading && (
+      <ResponsiveGridLayout
+        className="layout"
+        layouts={gridLayouts}
+        onLayoutChange={onLayoutChange}
+        width={width ?? 1210}
+        rowHeight={90}
+        isBounded
+        margin={[15, 15]}
+        draggableHandle=".report__header"
+      >
+        {generateDOM}
+      </ResponsiveGridLayout>
+      )}
+    </>
   );
 }
 

@@ -109,11 +109,6 @@ const JobCallHandlingReport = (props) => {
     }
   }, [isLastRequestComplete, refreshReport]);
 
-  React.useEffect(() => {
-    const refreshTimer = setInterval(refreshTimerCallback, 3000);
-    return () => clearInterval(refreshTimer);
-  }, [refreshTimerCallback]);
-
   const handleChangeFilter = React.useCallback((editName, editValue) => {
     reportsGridStoreSetReportSection({
       id,
@@ -154,13 +149,21 @@ const JobCallHandlingReport = (props) => {
   }, []);
 
   React.useEffect(() => {
-    reportsGridStoreGetReportCancel(id);
     refreshReport(false);
-  }, [id, refreshReport, reportsGridStoreGetReportCancel]);
+  }, [refreshReport]);
+
+  React.useEffect(() => {
+    const refreshTimer = setInterval(refreshTimerCallback, 5000);
+    return () => clearInterval(refreshTimer);
+  }, [refreshTimerCallback]);
 
   React.useEffect(() => () => {
     reportsGridStoreGetReportCancel(id);
-  }, [id, reportsGridStoreGetReportCancel]);
+    reportsGridStoreSetReportSection({
+      id,
+      isLastRequestComplete: true,
+    });
+  }, [id, reportsGridStoreSetReportSection, reportsGridStoreGetReportCancel]);
 
   return (
     <div className="job-call-handling-report">
