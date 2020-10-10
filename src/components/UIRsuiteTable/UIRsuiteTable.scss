@@ -2,15 +2,19 @@
   width: 100%;
   flex: 1;
   display: grid;
-  grid-template: 50px 1fr 50px / 1fr;
-  grid-gap: .5em;
+  grid-template: auto 1fr auto / 1fr;
+  grid-gap: 1em;
 
   @media screen and (max-width: 767px){
-    grid-template: 100px 1fr 100px / 1fr;
+    grid-gap: 2em;
   }
 
   &__body {
     position: relative;
+
+    @media screen and (max-width: 767px){
+      min-height: 500px;
+    }
   }
 
   &__table {

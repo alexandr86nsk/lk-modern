@@ -26,7 +26,6 @@ export const briefcasesTableTemplate = [
     id: 2,
     title: 'Действия',
     type: 'icon-actions',
-    fixed: 'right',
     width: 155,
   },
 ];

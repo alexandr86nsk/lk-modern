@@ -196,8 +196,8 @@
     background-color: var(--medium-theme-color);
   }
 
-  .react-datepicker__day.react-datepicker__day--keyboard-selected{
-    background-color: rgba(var(--light-theme-color), .5);
+  .react-datepicker__day.react-datepicker__day--keyboard-selected {
+    background-color: rgba(var(--light-theme-color-rgb), .5);
   }
 
   .react-datepicker__day.react-datepicker__day--today.react-datepicker__day--keyboard-selected,

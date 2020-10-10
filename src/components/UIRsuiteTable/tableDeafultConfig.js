@@ -22,6 +22,7 @@ const tableDefaultConfig = {
   tableHeaderHeight: undefined,
   tableRowHeight: undefined,
   tableIsResizable: undefined,
+  tableIsAutoHeight: undefined,
   cellBordered: undefined,
   bordered: undefined,
 };

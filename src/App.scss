@@ -92,6 +92,10 @@
       right: 1em;
       z-index: 1;
 
+      @media screen and (max-width: 1000px) {
+        display: none;
+      }
+
       .ui.button {
         box-shadow: none;
         background-color: transparent;

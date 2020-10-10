@@ -16,7 +16,7 @@
   z-index: 3;
 
   @media screen and (max-width: 500px) {
-    grid-template: auto auto / 1fr;
+    grid-template: auto / 1fr;
     grid-gap: 1.5em;
   }
 
@@ -69,6 +69,10 @@
 
     &__bottom-side {
       grid-column-end: span 2;
+
+      @media screen and (max-width: 500px) {
+        grid-column-end: unset;
+      }
     }
   }
 

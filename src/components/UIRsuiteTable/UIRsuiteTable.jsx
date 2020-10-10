@@ -45,6 +45,7 @@ function UIRsuiteTable(props) {
     readOnly,
     sortSortingValue,
     tableLoading,
+    tableIsAutoHeight,
     tableHeaderHeight,
     tableRowHeight,
     tableVirtualized,
@@ -248,6 +249,7 @@ function UIRsuiteTable(props) {
             tableHeaderHeight={tableHeaderHeight}
             tableRowHeight={tableRowHeight}
             tableBodyHeight={tableBodyHeight}
+            tableIsAutoHeight={tableIsAutoHeight}
             tableVirtualized={tableVirtualized}
             cellBordered={cellBordered}
             bordered={bordered}

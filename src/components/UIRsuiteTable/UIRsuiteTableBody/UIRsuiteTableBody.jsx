@@ -25,6 +25,7 @@ function UIRsuiteTableBody(props) {
     tableIsResizable = true,
     tableBodyHeight,
     tableVirtualized = true,
+    tableIsAutoHeight,
     cellBordered,
     bordered,
   } = props || {};
@@ -234,6 +235,7 @@ function UIRsuiteTableBody(props) {
           onRowContextMenu={handleSetContextMenuData}
           shouldUpdateScroll={false}
           rowKey={customId || 'id'}
+          autoHeight={tableIsAutoHeight}
         >
           {memoizedTableColumns}
         </Table>

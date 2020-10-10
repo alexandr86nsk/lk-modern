@@ -4,14 +4,6 @@
   display: flex;
   flex-direction: column;
 
-  .ui-rsuite-table {
-    grid-template: 90px 1fr 50px / 1fr;
-
-    @media screen and (max-width: 767px){
-      grid-template: 140px 1fr 100px / 1fr;
-    }
-  }
-
   &__actual-state-tab {
     display: flex;
     flex-direction: column;
@@ -24,6 +16,11 @@
 
       @media screen and (max-width: 767px){
         grid-template: auto auto / repeat(2, 1fr);
+        grid-gap: 1.5em;
+      }
+
+      @media screen and (max-width: 500px){
+        grid-template: auto / 1fr;
         grid-gap: 1.5em;
       }
     }
@@ -52,12 +49,8 @@
       grid-gap: .5em;
 
       @media screen and (max-width: 767px){
-        grid-template: auto auto / repeat(2, 1fr);
+        grid-template: auto / 1fr;
         grid-gap: 1.5em;
-
-        div:first-of-type {
-          grid-column-end: span 2;
-        }
       }
     }
 
@@ -83,7 +76,7 @@
 
       .ui.small.progress {
         margin: 0;
-        min-width: 250px;
+        min-width: 150px;
       }
 
       .ui.progress .bar > .progress {
@@ -110,6 +103,7 @@
 
     .element-wrapper {
       box-shadow: none;
+      padding: 1em 1.5em;
       border: 2px solid rgba(var(--theme-border-color-rgb), .2);
     }
 
@@ -127,7 +121,7 @@
       display: grid;
       grid-template: auto / 1fr;
       grid-gap: .5em;
-      min-height: 115px;
+      font-size: .85em;
     }
   }
 }

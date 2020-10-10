@@ -83,7 +83,7 @@ function HistoryTabTable(props) {
       {loading && <UILoader text="Загрузка" type="--google" dimmed />}
       <div className="history-table__body">
         {!loading && data && (
-        <Table celled size="small">
+        <Table celled size="small" unstackable>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell colSpan="6" textAlign="center">Отчет</Table.HeaderCell>
