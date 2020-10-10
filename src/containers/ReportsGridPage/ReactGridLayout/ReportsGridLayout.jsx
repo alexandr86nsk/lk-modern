@@ -6,13 +6,13 @@ import useResizeObserver from '../../../components/UICustomHooks/useResizeObserv
 import actions from '../../../redux/actions/actions';
 import ReportsGridItem from '../ReportsGridItem/ReportsGridItem';
 
-function getFromLS(key) {
+/* function getFromLS(key) {
   let ls = {};
   if (global.localStorage) {
     try {
       ls = JSON.parse(global.localStorage.getItem('reportsGridLayout')) || {};
     } catch (e) {
-      /* Ignore */
+      /!* Ignore *!/
     }
   }
   return ls[key];
@@ -27,9 +27,9 @@ function saveToLS(key, value) {
       }),
     );
   }
-}
+} */
 
-const originalLayouts = JSON.parse(JSON.stringify(getFromLS('layouts') || {}));
+// const originalLayouts = JSON.parse(JSON.stringify(getFromLS('layouts') || {}));
 
 function ReportsGridLayout(props) {
   const {
@@ -42,7 +42,7 @@ function ReportsGridLayout(props) {
   const { width } = useResizeObserver(parent);
 
   const onLayoutChange = React.useCallback((layout, layouts) => {
-    saveToLS('layouts', layouts);
+    // saveToLS('layouts', layouts);
     reportsGridStoreSetSection({
       gridLayouts: layouts,
     });

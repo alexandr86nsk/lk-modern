@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import './UITable.scss';
 import { Table } from 'semantic-ui-react';
 import * as moment from 'moment';
-import _ from 'lodash';
+import sortBy from 'lodash/sortBy';
 import UITableCell from './UITableCell';
 import UIPagination from '../UIPagination/UIPagination';
 import UISelect from '../UISelect/UISelect';
@@ -129,15 +129,15 @@ function UITable(props) {
     }
 
     if (sortDefault && sortDefault.length) {
-      result = _.sortBy(result, sortDefault);
+      result = sortBy(result, sortDefault);
     }
 
     if (sorting.column && sorting.direction === 'ascending') {
-      result = _.sortBy(result, sorting.column);
+      result = sortBy(result, sorting.column);
     }
 
     if (sorting.column && sorting.direction === 'descending') {
-      result = _.sortBy(result, sorting.column).reverse();
+      result = sortBy(result, sorting.column).reverse();
     }
 
     return result;

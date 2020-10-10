@@ -1,7 +1,6 @@
 import React from 'react';
 import './UIModal.scss';
 import { Button, Icon } from 'semantic-ui-react';
-import UIButton from '../UIButton/UIButton';
 import CloseIcon from '../../static/images/close-24px.svg';
 import UILoader from '../UILoader/UILoader';
 
@@ -23,7 +22,7 @@ function UIModal(props) {
     loading,
     loadingText,
     readOnly,
-  } = props;
+  } = props || {};
 
   React.useEffect(() => {
     document.body.classList.add('modal');
@@ -54,7 +53,7 @@ function UIModal(props) {
   }, [callback]);
 
   return (
-    <div className={`ui-modal${active ? ' active' : ''} ${type}`}>
+    <div className={`ui-modal${active ? ' active' : ''}${type ? ` ${type}` : ''}`}>
       <div className="confirm-block">
         <div className="confirm-block__title">
           <div className="confirm-block__icon">
@@ -73,12 +72,6 @@ function UIModal(props) {
           <div className="confirm-block__controls">
             {(!hidePositive && !readOnly) && (
             <div className="confirm-block__accept-btn">
-              {/* <UIButton
-                title={buttons.positive}
-                type="positive"
-                callback={handleAcceptClick}
-                disabled={disabledPositive}
-              /> */}
               <Button
                 circular
                 positive
@@ -93,11 +86,6 @@ function UIModal(props) {
             )}
             {!hideNegative && (
             <div className="confirm-block__reject-btn">
-              {/*<UIButton
-                title={readOnly ? 'Закрыть' : buttons.negative}
-                type="negative"
-                callback={handleClose}
-              />*/}
               <Button
                 circular
                 negative

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, Progress } from 'semantic-ui-react';
 import * as moment from 'moment';
-import _ from 'lodash';
+import sortBy from 'lodash/sortBy';
 import UILoader from '../../../../components/UILoader/UILoader';
 import UIMissingData from '../../../../components/UIMissingData/UIMissingData';
 
@@ -44,7 +44,7 @@ function HistoryTabTable(props) {
 
   const renderResults = React.useMemo(() => {
     if (CauseResults) {
-      return _.sortBy(CauseResults, 'Percentage').reverse().map((v, index) => {
+      return sortBy(CauseResults, 'Percentage').reverse().map((v, index) => {
         const {
           CauseId = '',
           CauseName = '',

@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../ReportsPage.scss';
-import _ from 'lodash';
+import sortBy from 'lodash/sortBy';
 import { connect } from 'react-redux';
 import actions from '../../../../redux/actions/actions';
 import { actualStateTableDataTemplate } from './settings';
@@ -69,7 +69,7 @@ function ActualStateTab(props) {
   ]);
 
   const sortedActualState = React.useMemo(
-    () => _.sortBy(actualState, 'CallModifyDate').reverse(),
+    () => sortBy(actualState, 'CallModifyDate').reverse(),
     [actualState],
   );
 

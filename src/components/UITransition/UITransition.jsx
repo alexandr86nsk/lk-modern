@@ -1,6 +1,6 @@
 import React, { cloneElement } from 'react';
 import './UITransition.scss';
-import _ from 'lodash';
+import get from 'lodash/get';
 
 function UITransition(props) {
   const {
@@ -16,7 +16,7 @@ function UITransition(props) {
   }, [delay]);
 
   const className = React.useMemo(() => {
-    const childClasses = _.get(children, 'props.className');
+    const childClasses = get(children, 'props.className');
     return `${childClasses || ''} ${active ? `active ${animation}` : ''}`;
   }, [active, animation, children]);
 

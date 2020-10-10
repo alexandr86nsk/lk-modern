@@ -22,7 +22,12 @@ class ErrorBoundary extends React.Component {
     if (errorInfo) {
       // Error path
       return (
-        <div>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+        >
           <h2>Something went wrong.</h2>
           <details style={{ whiteSpace: 'pre-wrap' }}>
             {error && error.toString()}
