@@ -11,17 +11,20 @@ import UIDropdownMenu from '../../components/UIDropdownMenu/UIDropdownMenu';
 import menuTemplate from './settings';
 import ReportsGridLayout from './ReactGridLayout/ReportsGridLayout';
 import useKeyboardObserver from '../../components/UICustomHooks/useKeyboardObserver/useKeyboardObserver';
+import UIReactSelect from '../../components/UIReactSelect/UIReactSelect';
+import BriefcaseEditor from '../BriefcasesPage/common/BriefcaseEditor';
+import ToolboxEditor from './ReactGridToolbox/ToolboxEditor';
 
-function getFromLS(key) {
-  let ls = {};
+function getFromLS() {
+  let ls = [];
   if (global.localStorage) {
     try {
-      ls = JSON.parse(global.localStorage.getItem('reportsGridToolbox')) || {};
+      ls = JSON.parse(global.localStorage.getItem('reportsGridToolbox')) || [];
     } catch (e) {
       /* Ignore */
     }
   }
-  return ls[key];
+  return ls;
 }
 
 function saveToLS(value) {
@@ -33,16 +36,21 @@ function saveToLS(value) {
   }
 }
 
-const originalLayouts = JSON.parse(JSON.stringify(getFromLS('layouts') || {}));
-
 function ReportsGridPage(props) {
   const {
+    reports,
+    gridLayouts,
+    selectedToolbox,
     reportsGridStoreAddReport,
     reportsGridStoreGetBriefcases,
     reportsGridStoreGetBriefcasesCancel,
+    reportsGridStoreSetSection,
+    popUpStoreSetSection,
   } = props || {};
 
   const contentRef = React.useRef(null);
+
+  const [toolboxList, setToolboxList] = React.useState(getFromLS());
 
   const handleAddReport = React.useCallback((value) => {
     reportsGridStoreAddReport({
@@ -84,15 +92,45 @@ function ReportsGridPage(props) {
 
   useKeyboardObserver(handlePressKey);
 
-  const handleGetToolbox = React.useCallback((value) => {
-    console.log('Toolbox', value);
-  }, []);
-
-  const handleSaveToolbox = React.useCallback(() => {
-    saveToLS({
-
+  const handleSelectToolbox = React.useCallback((_, editValue) => {
+    const { reports: thisReports, gridLayouts: thisGridLayouts } = editValue || {};
+    reportsGridStoreSetSection({
+      reports: thisReports,
+      gridLayouts: thisGridLayouts,
     });
-  }, []);
+  }, [reportsGridStoreSetSection]);
+
+  const handleSaveToolbox = React.useCallback((title) => {
+    const list = [...toolboxList, {
+      id: uuid.v4(),
+      title,
+      value: {
+        reports,
+        gridLayouts,
+      },
+    }];
+    saveToLS(list);
+    setToolboxList(list);
+  }, [
+    toolboxList,
+    reports,
+    gridLayouts,
+  ]);
+
+  const handleSaveToolboxClick = React.useCallback(() => {
+    popUpStoreSetSection({
+      show: true,
+      component: (
+        <ToolboxEditor
+          callback={handleSaveToolbox}
+          list={toolboxList}
+          title="Сохранение панели"
+        />
+      ),
+      type: '--right --25 --rounded --styled --compact',
+      title: 'Сохранение',
+    });
+  }, [toolboxList, popUpStoreSetSection, handleSaveToolbox]);
 
   React.useEffect(() => {
     reportsGridStoreGetBriefcases();
@@ -117,10 +155,9 @@ function ReportsGridPage(props) {
         </div>
         <div className="reports-grid-page__toolbox">
           <UIDropdownMenu
-            menuDirection="left"
             title="Сохраненные панели"
-            callback={handleGetToolbox}
-            items={menuTemplate}
+            callback={handleAddReport}
+            items={toolboxList}
           />
           <div className="reports-grid-page__save-btn">
             <Button
@@ -128,7 +165,7 @@ function ReportsGridPage(props) {
               primary
               size="tiny"
               loading={false}
-              onClick={handleSaveToolbox}
+              onClick={handleSaveToolboxClick}
               icon="save"
               title="Сохранить панель"
             />
@@ -144,6 +181,12 @@ function ReportsGridPage(props) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  reports: state.reportsGridStore.reports,
+  gridLayouts: state.reportsGridStore.gridLayouts,
+  selectedToolbox: state.reportsGridStore.selectedToolbox,
+});
+
 const mapDispatchToProps = { ...actions };
 
-export default connect(null, mapDispatchToProps)(ReportsGridPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ReportsGridPage);

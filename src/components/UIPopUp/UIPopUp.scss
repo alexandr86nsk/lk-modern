@@ -29,6 +29,7 @@
   &__title {
     color: var(--white);
     margin: 0 auto;
+    padding-left: 2.5em;
   }
 
   &__close-block {
@@ -87,6 +88,8 @@
 
   &.--right &__title {
     order: 2;
+    padding-right: 2.5em;
+    padding-left: unset;
 
     @media screen and (max-width: 450px) {
       order: unset;
@@ -177,5 +180,10 @@
 
   &.--styled &__wrapper {
     background: transparent url(../../static/images/gold_left_top.png) no-repeat left top;
+  }
+
+  /* ********************************* compact **************************** */
+  &.--compact {
+    bottom: unset;
   }
 }
