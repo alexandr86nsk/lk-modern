@@ -10,6 +10,7 @@ import PageModal from './PageModal';
 import PagePopUp from './PagePopUp';
 import useScrollPage from '../UICustomHooks/useScrollPage/useScrollPage';
 import UIScrollToTop from '../UIScrollToTop/UIScrollToTop';
+import ErrorBoundary from '../UIErrorBoundary/UIErrorBoundary';
 
 function PageWrapper(props) {
   const {
@@ -45,7 +46,9 @@ function PageWrapper(props) {
                     icon={fixedContent ? 'compress' : 'expand'}
                   />
                 </div>
-                {children}
+                <ErrorBoundary>
+                  {children}
+                </ErrorBoundary>
                 <PagePopUp />
               </div>
               <PageFooter />

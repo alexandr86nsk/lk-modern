@@ -45,11 +45,11 @@
       border-top-left-radius: 6px;
       border-top-right-radius: 6px;
       user-select: none;
-      cursor: grab;
+      // cursor: grab;
 
-      &:active {
+      /*&:active {
         cursor: grabbing;
-      }
+      }*/
     }
 
     &__header-spotlight {
