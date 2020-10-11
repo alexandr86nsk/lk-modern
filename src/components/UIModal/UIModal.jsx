@@ -11,10 +11,7 @@ function UIModal(props) {
     type = '',
     title = 'Подтверждение',
     body = 'Вы действительно хотите это сделать?',
-    buttons = {
-      positive: 'Да',
-      negative: 'Нет',
-    },
+    buttons,
     hideNegative,
     hidePositive,
     disabledPositive,
@@ -23,6 +20,11 @@ function UIModal(props) {
     loadingText,
     readOnly,
   } = props || {};
+
+  const {
+    positiveTitle,
+    negativeTitle,
+  } = buttons || {};
 
   React.useEffect(() => {
     document.body.classList.add('modal');
@@ -80,7 +82,7 @@ function UIModal(props) {
                 disabled={disabledPositive}
               >
                 <Icon name="check" />
-                {buttons.positive}
+                {positiveTitle || 'Да'}
               </Button>
             </div>
             )}
@@ -93,7 +95,7 @@ function UIModal(props) {
                 onClick={handleClose}
               >
                 <Icon name="close" />
-                {readOnly ? 'Закрыть' : buttons.negative}
+                {readOnly ? 'Закрыть' : (negativeTitle || 'Нет')}
               </Button>
             </div>
             )}

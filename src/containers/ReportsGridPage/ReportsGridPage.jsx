@@ -106,22 +106,43 @@ function ReportsGridPage(props) {
     });
   }, [reportsGridStoreSetSection]);
 
-  const saveToolbox = React.useCallback((title) => {
-    const list = [...toolboxList, {
-      id: uuid.v4(),
-      title,
-      value: {
-        reports,
-        gridLayouts,
-        toolboxTitle: title,
-      },
-    }];
+  const saveToolbox = React.useCallback((value) => {
+    const { title, hasDouble } = value || {};
+    let list = toolboxList;
+    if (hasDouble) {
+      list = toolboxList.map((v) => {
+        const { title: thisTitle } = v || {};
+        if (thisTitle === title) {
+          return {
+            ...v,
+            value: {
+              reports,
+              gridLayouts,
+              toolboxTitle: title,
+            },
+          };
+        }
+        return v;
+      });
+    } else {
+      list = [...toolboxList, {
+        id: uuid.v4(),
+        title,
+        value: {
+          reports,
+          gridLayouts,
+          toolboxTitle: title,
+        },
+      }];
+    }
     saveToLS(list);
     setToolboxList(list);
+    popUpStoreClear();
   }, [
     toolboxList,
     reports,
     gridLayouts,
+    popUpStoreClear,
   ]);
 
   const handleSaveToolbox = React.useCallback((title) => {
@@ -131,16 +152,23 @@ function ReportsGridPage(props) {
     if (hasDouble) {
       modalStoreSetSection({
         show: true,
-        tempData: title,
+        tempData: {
+          title,
+          hasDouble,
+        },
         outputBody: {
           icon: <WarningIcon />,
           title: 'Важно',
           body: <div>Уже есть панель с таким названием. Перезаписать?</div>,
+          buttons: {
+            positiveTitle: 'Перезаписать',
+            negativeTitle: 'Отмена',
+          },
         },
         callback: saveToolbox,
       });
     } else {
-      saveToolbox(title);
+      saveToolbox({ title });
     }
   }, [
     toolboxList,
@@ -191,7 +219,10 @@ function ReportsGridPage(props) {
             items={menuTemplate}
           />
         </div>
-        <div className="reports-grid-page__toolbox">
+        <div className="reports-grid-page__toolbox-title">
+          {toolboxTitle}
+        </div>
+        <div className="reports-grid-page__toolbox-selector">
           <UIDropdownMenu
             title="Сохраненные панели"
             callback={handleSelectToolbox}

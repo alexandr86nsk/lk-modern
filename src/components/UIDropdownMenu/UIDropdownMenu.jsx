@@ -13,7 +13,7 @@ function UIDropdownMenu(props) {
   } = props || {};
 
   const renderItems = React.useMemo(() => {
-    if (items && Array.isArray(items)) {
+    if (items && Array.isArray(items) && items.length) {
       return items.map((v) => {
         const { id } = v || {};
         return (
@@ -25,7 +25,7 @@ function UIDropdownMenu(props) {
         );
       });
     }
-    return null;
+    return <UIDropdownMenuItem title="Нет записей" />;
   }, [items, callback]);
 
   return (

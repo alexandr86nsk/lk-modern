@@ -1,3 +1,9 @@
 .ui-dropdown-menu {
 
+  .ui.dropdown .menu .description {
+
+    @media screen and (max-width: 1000px){
+      display: none;
+    }
+  }
 }

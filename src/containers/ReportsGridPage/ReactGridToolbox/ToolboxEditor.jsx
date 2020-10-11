@@ -33,7 +33,7 @@ function ToolboxEditor(props) {
       </div>
       <div className="popup__body">
         <UIInput
-          title="Введите название"
+          title="Название панели"
           type="--style-1c --transparent --translate-title"
           data={stateTitle}
           callback={handleChangeTitle}

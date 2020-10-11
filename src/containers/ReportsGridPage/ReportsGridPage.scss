@@ -3,17 +3,45 @@
   &__top-menu {
     display: flex;
     align-items: center;
+    justify-content: center;
+    background-color: rgba(var(--theme-border-color-rgb), 0.05);
+    padding: 0 1em;
+    border: 1px solid rgba(var(--theme-border-color-rgb), 0.25);
+    border-radius: .4em;
+
+    @media screen and (max-width: 767px) {
+      flex-wrap: wrap;
+    }
   }
 
   &__report-list {
-    flex: 1;
+    flex: 1 2 305px;
+    padding: 1.2em 0;
   }
 
-  &__toolbox {
-    flex: 1;
+  &__toolbox-title {
+    flex: 1 2 305px;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--theme-title-color);
+    padding: .4em 0;
+
+    @media screen and (max-width: 767px) {
+      text-align: start;
+    }
+  }
+
+  &__toolbox-selector {
+    flex: 1 2 305px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    padding: .4em 0;
+
+    @media screen and (max-width: 767px) {
+      justify-content: flex-start;
+    }
   }
 
   &__save-btn {

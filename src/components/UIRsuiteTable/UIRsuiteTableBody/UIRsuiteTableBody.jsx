@@ -218,6 +218,7 @@ function UIRsuiteTableBody(props) {
     tableTemplate && (
       <>
         <Table
+          translate3d={false}
           bordered={bordered}
           id="ui-rsuite-table"
           data={tableData}
