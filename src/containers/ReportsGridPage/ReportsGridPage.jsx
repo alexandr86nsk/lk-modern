@@ -128,7 +128,7 @@ function ReportsGridPage(props) {
         />
       ),
       type: '--right --25 --rounded --styled --compact',
-      title: 'Сохранение',
+      title: 'Отчеты',
     });
   }, [toolboxList, popUpStoreSetSection, handleSaveToolbox]);
 
