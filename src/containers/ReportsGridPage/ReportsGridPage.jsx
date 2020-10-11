@@ -230,7 +230,6 @@ function ReportsGridPage(props) {
           />
           <div className="reports-grid-page__save-btn">
             <Button
-              circular
               primary
               size="tiny"
               loading={false}
