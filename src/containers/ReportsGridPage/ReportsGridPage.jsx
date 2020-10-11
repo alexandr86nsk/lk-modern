@@ -11,9 +11,8 @@ import UIDropdownMenu from '../../components/UIDropdownMenu/UIDropdownMenu';
 import menuTemplate from './settings';
 import ReportsGridLayout from './ReactGridLayout/ReportsGridLayout';
 import useKeyboardObserver from '../../components/UICustomHooks/useKeyboardObserver/useKeyboardObserver';
-import UIReactSelect from '../../components/UIReactSelect/UIReactSelect';
-import BriefcaseEditor from '../BriefcasesPage/common/BriefcaseEditor';
 import ToolboxEditor from './ReactGridToolbox/ToolboxEditor';
+import WarningIcon from '../../static/images/warning-24px.svg';
 
 function getFromLS() {
   let ls = [];
@@ -40,12 +39,14 @@ function ReportsGridPage(props) {
   const {
     reports,
     gridLayouts,
-    selectedToolbox,
+    toolboxTitle,
     reportsGridStoreAddReport,
     reportsGridStoreGetBriefcases,
     reportsGridStoreGetBriefcasesCancel,
     reportsGridStoreSetSection,
     popUpStoreSetSection,
+    popUpStoreClear,
+    modalStoreSetSection,
   } = props || {};
 
   const contentRef = React.useRef(null);
@@ -92,21 +93,27 @@ function ReportsGridPage(props) {
 
   useKeyboardObserver(handlePressKey);
 
-  const handleSelectToolbox = React.useCallback((_, editValue) => {
-    const { reports: thisReports, gridLayouts: thisGridLayouts } = editValue || {};
+  const handleSelectToolbox = React.useCallback((value) => {
+    const {
+      reports: thisReports,
+      gridLayouts: thisGridLayouts,
+      toolboxTitle: thisTitle,
+    } = value || {};
     reportsGridStoreSetSection({
       reports: thisReports,
       gridLayouts: thisGridLayouts,
+      toolboxTitle: thisTitle,
     });
   }, [reportsGridStoreSetSection]);
 
-  const handleSaveToolbox = React.useCallback((title) => {
+  const saveToolbox = React.useCallback((title) => {
     const list = [...toolboxList, {
       id: uuid.v4(),
       title,
       value: {
         reports,
         gridLayouts,
+        toolboxTitle: title,
       },
     }];
     saveToLS(list);
@@ -117,20 +124,49 @@ function ReportsGridPage(props) {
     gridLayouts,
   ]);
 
+  const handleSaveToolbox = React.useCallback((title) => {
+    const hasDouble = toolboxList && Array.isArray(toolboxList)
+      ? toolboxList.find((v) => v.title === title)
+      : false;
+    if (hasDouble) {
+      modalStoreSetSection({
+        show: true,
+        tempData: title,
+        outputBody: {
+          icon: <WarningIcon />,
+          title: 'Важно',
+          body: <div>Уже есть панель с таким названием. Перезаписать?</div>,
+        },
+        callback: saveToolbox,
+      });
+    } else {
+      saveToolbox(title);
+    }
+  }, [
+    toolboxList,
+    saveToolbox,
+    modalStoreSetSection,
+  ]);
+
   const handleSaveToolboxClick = React.useCallback(() => {
     popUpStoreSetSection({
       show: true,
       component: (
         <ToolboxEditor
-          callback={handleSaveToolbox}
-          list={toolboxList}
-          title="Сохранение панели"
+          saveCallback={handleSaveToolbox}
+          cancelCallback={popUpStoreClear}
+          title={toolboxTitle}
         />
       ),
       type: '--right --25 --rounded --styled --compact',
       title: 'Отчеты',
     });
-  }, [toolboxList, popUpStoreSetSection, handleSaveToolbox]);
+  }, [
+    toolboxTitle,
+    popUpStoreSetSection,
+    popUpStoreClear,
+    handleSaveToolbox,
+  ]);
 
   React.useEffect(() => {
     reportsGridStoreGetBriefcases();
@@ -138,8 +174,10 @@ function ReportsGridPage(props) {
 
   React.useEffect(() => () => {
     reportsGridStoreGetBriefcasesCancel();
+    popUpStoreClear();
   }, [
     reportsGridStoreGetBriefcasesCancel,
+    popUpStoreClear,
   ]);
 
   return (
@@ -156,7 +194,7 @@ function ReportsGridPage(props) {
         <div className="reports-grid-page__toolbox">
           <UIDropdownMenu
             title="Сохраненные панели"
-            callback={handleAddReport}
+            callback={handleSelectToolbox}
             items={toolboxList}
           />
           <div className="reports-grid-page__save-btn">
@@ -184,7 +222,7 @@ function ReportsGridPage(props) {
 const mapStateToProps = (state) => ({
   reports: state.reportsGridStore.reports,
   gridLayouts: state.reportsGridStore.gridLayouts,
-  selectedToolbox: state.reportsGridStore.selectedToolbox,
+  toolboxTitle: state.reportsGridStore.toolboxTitle,
 });
 
 const mapDispatchToProps = { ...actions };

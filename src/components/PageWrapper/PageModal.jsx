@@ -18,7 +18,7 @@ function PageModal(props) {
     loadingText,
     asyncClose,
     readOnly,
-  } = props;
+  } = props || {};
 
   const [active, setActive] = React.useState(false);
 
