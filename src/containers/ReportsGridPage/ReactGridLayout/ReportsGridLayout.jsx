@@ -76,6 +76,7 @@ function ReportsGridLayout(props) {
         width={width ?? 1210}
         rowHeight={90}
         isBounded
+        containerPadding={[10, 10]}
         margin={[15, 15]}
         draggableHandle=".report__header"
       >

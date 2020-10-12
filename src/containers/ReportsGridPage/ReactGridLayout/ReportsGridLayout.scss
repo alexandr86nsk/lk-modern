@@ -3,11 +3,11 @@
   flex-direction: column;
 
   &:hover {
-    z-index: 10;
+    z-index: 6;
   }
 
   &:focus-within {
-    z-index: 11;
+    z-index: 7;
   }
 
   &.react-grid-placeholder {

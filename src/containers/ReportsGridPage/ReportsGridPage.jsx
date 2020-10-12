@@ -219,6 +219,7 @@ function ReportsGridPage(props) {
   return (
     <div className="reports-grid-page page__content">
       <UIBlockTitle title="Отчеты" />
+
       <div className="reports-grid-page__top-menu">
         <div className="reports-grid-page__report-list">
           <UIDropdownMenu
@@ -238,42 +239,29 @@ function ReportsGridPage(props) {
             menuDirection="left"
           />
         </div>
-        <div className="reports-grid-page__btns">
-          {/*<Button
-              primary
-              circular
-              size="tiny"
-              onClick={handleSaveToolboxClick}
-              icon="save"
-              title="Сохранить панель"
-            />
-            <Button
-              circular
-              size="tiny"
-              onClick={handleClearToolboxClick}
-              icon="close"
-              title="Очистить панель"
-            />*/}
-          <Button
-            circular
-            primary
-            size="tiny"
-            onClick={handleSaveToolboxClick}
-            title="Сохранить панель"
-          >
-            <Icon name="save" />
-            Сохранить
-          </Button>
-          <Button
-            circular
-            size="tiny"
-            onClick={handleClearToolboxClick}
-            title="Очистить панель"
-          >
-            <Icon name="close" />
-            Очистить
-          </Button>
-        </div>
+      </div>
+      <div className="reports-grid-page__btns">
+        <Button
+          circular
+          primary
+          size="tiny"
+          disabled={!(reports && Array.isArray(reports) && reports.length)}
+          onClick={handleSaveToolboxClick}
+          title="Сохранить панель"
+        >
+          <Icon name="save" />
+          Сохранить
+        </Button>
+        <Button
+          circular
+          size="tiny"
+          disabled={!(reports && Array.isArray(reports) && reports.length)}
+          onClick={handleClearToolboxClick}
+          title="Очистить панель"
+        >
+          <Icon name="close" />
+          Очистить
+        </Button>
       </div>
       <div className="reports-grid-page__body">
         <div className="reports-grid-page__scroll-content" ref={contentRef}>

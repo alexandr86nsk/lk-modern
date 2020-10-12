@@ -53,6 +53,7 @@ function ToolboxEditor(props) {
           circular
           positive
           size="tiny"
+          disabled={!stateTitle}
           onClick={handleSaveClick}
         >
           <Icon name="check" />
