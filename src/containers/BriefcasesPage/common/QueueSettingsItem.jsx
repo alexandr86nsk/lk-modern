@@ -40,7 +40,7 @@ function QueueSettingsItem(props) {
               content="Сохранить"
               icon="check"
               labelPosition="left"
-              positive
+              primary
               onClick={saveCallback}
               loading={trySave}
               disabled={disableSaveButton}

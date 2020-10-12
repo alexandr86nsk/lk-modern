@@ -89,7 +89,7 @@ function MainTab(props) {
           <div className="controls">
             <Button
               circular
-              positive
+              primary
               size="tiny"
               loading={updatingMainSettings}
               onClick={handleSaveChanges}

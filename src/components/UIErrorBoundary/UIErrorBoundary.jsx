@@ -28,7 +28,7 @@ class ErrorBoundary extends React.Component {
           alignItems: 'center',
         }}
         >
-          <h2>Something went wrong.</h2>
+          <h2>Что-то пошло не так.</h2>
           <details style={{ whiteSpace: 'pre-wrap' }}>
             {error && error.toString()}
             <br />

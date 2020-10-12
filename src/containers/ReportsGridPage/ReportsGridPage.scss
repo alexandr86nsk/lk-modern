@@ -1,6 +1,7 @@
 .reports-grid-page {
 
   &__top-menu {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -8,6 +9,7 @@
     padding: 0 1em;
     border: 1px solid rgba(var(--theme-border-color-rgb), 0.25);
     border-radius: .4em;
+    grid-gap: 1em;
 
     @media screen and (max-width: 767px) {
       flex-wrap: wrap;
@@ -15,12 +17,17 @@
   }
 
   &__report-list {
-    flex: 1 2 305px;
+    flex: 1 1 170px;
     padding: 1.2em 0;
+    white-space: nowrap;
+
+    @media screen and (max-width: 767px) {
+      flex: 1 1 400px;
+    }
   }
 
   &__toolbox-title {
-    flex: 1 2 305px;
+    flex: 3 1 305px;
     text-align: center;
     font-size: 1.2em;
     font-weight: 700;
@@ -28,24 +35,38 @@
     padding: .4em 0;
 
     @media screen and (max-width: 767px) {
-      text-align: start;
+      flex: 1 1 400px;
     }
   }
 
   &__toolbox-selector {
-    flex: 1 2 305px;
+    flex: 1 1 170px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     padding: .4em 0;
+    white-space: nowrap;
 
     @media screen and (max-width: 767px) {
-      justify-content: flex-start;
+      flex: 1 1 400px;
     }
   }
 
-  &__save-btn {
-    margin-left: 1.4em;
+  &__btns {
+    position: absolute;
+    right: 0;
+    bottom: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: .5em;
+    font-size: .8em;
+    grid-gap: .4em;
+
+    @media screen and (max-width: 767px) {
+      position: unset;
+      flex: 1 1 400px;
+    }
   }
 
   &__body {

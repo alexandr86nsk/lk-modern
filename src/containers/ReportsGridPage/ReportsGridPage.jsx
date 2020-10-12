@@ -4,7 +4,7 @@ import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 import { connect } from 'react-redux';
 import uuid from 'uuid';
-import { Button } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 import actions from '../../redux/actions/actions';
 import UIBlockTitle from '../../components/UIBlockTitle/UIBlockTitle';
 import UIDropdownMenu from '../../components/UIDropdownMenu/UIDropdownMenu';
@@ -196,6 +196,14 @@ function ReportsGridPage(props) {
     handleSaveToolbox,
   ]);
 
+  const handleClearToolboxClick = React.useCallback(() => {
+    reportsGridStoreSetSection({
+      toolboxTitle: undefined,
+      reports: [],
+      gridLayouts: undefined,
+    });
+  }, [reportsGridStoreSetSection]);
+
   React.useEffect(() => {
     reportsGridStoreGetBriefcases();
   }, [reportsGridStoreGetBriefcases]);
@@ -219,25 +227,52 @@ function ReportsGridPage(props) {
             items={menuTemplate}
           />
         </div>
-        <div className="reports-grid-page__toolbox-title">
-          {toolboxTitle}
+        <div className="reports-grid-page__toolbox-title ellipsis-element" title={toolboxTitle || ''}>
+          <span>{toolboxTitle || ''}</span>
         </div>
         <div className="reports-grid-page__toolbox-selector">
           <UIDropdownMenu
             title="Сохраненные панели"
             callback={handleSelectToolbox}
             items={toolboxList}
+            menuDirection="left"
           />
-          <div className="reports-grid-page__save-btn">
-            <Button
+        </div>
+        <div className="reports-grid-page__btns">
+          {/*<Button
               primary
+              circular
               size="tiny"
-              loading={false}
               onClick={handleSaveToolboxClick}
               icon="save"
               title="Сохранить панель"
             />
-          </div>
+            <Button
+              circular
+              size="tiny"
+              onClick={handleClearToolboxClick}
+              icon="close"
+              title="Очистить панель"
+            />*/}
+          <Button
+            circular
+            primary
+            size="tiny"
+            onClick={handleSaveToolboxClick}
+            title="Сохранить панель"
+          >
+            <Icon name="save" />
+            Сохранить
+          </Button>
+          <Button
+            circular
+            size="tiny"
+            onClick={handleClearToolboxClick}
+            title="Очистить панель"
+          >
+            <Icon name="close" />
+            Очистить
+          </Button>
         </div>
       </div>
       <div className="reports-grid-page__body">

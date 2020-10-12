@@ -59,7 +59,7 @@ function RecallTab(props) {
           <div className="controls">
             <Button
               circular
-              positive
+              primary
               size="tiny"
               loading={updatingRecallSettings}
               onClick={handleSaveChanges}

@@ -1,8 +1,52 @@
 .ui-dropdown-menu {
 
+  @media screen and (max-width: 767px) {
+    min-height: 1.1em;
+  }
+
+  .ui.dropdown.active {
+
+    @media screen and (max-width: 767px) {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 11;
+      background-color: rgba(var(--elegant-color-rgb), 0.5);
+
+      > .text,
+      > .dropdown.icon {
+        display: none;
+      }
+    }
+  }
+
+  .ui.dropdown .menu {
+    max-width: 370px;
+    min-width: unset;
+
+    @media screen and (max-width: 767px) {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 1em !important;
+      right: 1em !important;
+      margin: auto;
+      height: max-content;
+      max-width: unset;
+    }
+  }
+
+  .ui.dropdown .menu .item {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
   .ui.dropdown .menu .description {
 
-    @media screen and (max-width: 1000px){
+    @media screen and (max-width: 767px){
       display: none;
     }
   }

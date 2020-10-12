@@ -57,7 +57,7 @@ function TimeZoneTab(props) {
           <div className="controls">
             <Button
               circular
-              positive
+              primary
               size="tiny"
               loading={updatingTimeZoneSettings}
               onClick={handleSaveChanges}

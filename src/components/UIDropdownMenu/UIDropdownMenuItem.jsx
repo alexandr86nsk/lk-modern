@@ -18,6 +18,7 @@ function UIDropdownMenuItem(props) {
 
   return (
     <Dropdown.Item
+      title={title}
       text={title}
       onClick={handleClick}
       {...otherProps}
