@@ -6,7 +6,6 @@ interface IUISemanticCheckboxProps {
   title?: string;
   name: string;
   callback: (name: string, value: boolean) => void;
-  mask?: string;
   data: boolean;
   disabled?: boolean;
   type?: string,
