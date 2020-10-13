@@ -40,15 +40,15 @@
       &:after {
         top: 50%;
         transform: translateY(-50%);
-        width: 1.4em;
-        height: 1.4em;
+        width: 1.3em;
+        height: 1.3em;
         left: .1em;
         z-index: unset;
       }
     }
 
     input:checked ~ label:after {
-      left: 1.2em;
+      left: 1.25em;
     }
   }
 
