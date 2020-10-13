@@ -42,13 +42,13 @@
         transform: translateY(-50%);
         width: 1.3em;
         height: 1.3em;
-        left: .1em;
+        left: .15em;
         z-index: unset;
       }
     }
 
     input:checked ~ label:after {
-      left: 1.25em;
+      left: 1.35em;
     }
   }
 
