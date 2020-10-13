@@ -85,6 +85,7 @@
       background-color: var(--white);
       outline: none;
       transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+      box-shadow: none;
 
       &::-webkit-outer-spin-button,
       &::-webkit-inner-spin-button {
