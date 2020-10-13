@@ -171,7 +171,7 @@ const JobCallHandlingReport = (props) => {
         {loading
         && (
           <div className="job-call-handling-report__loader">
-            <UILoader text="Идет загрузка данных..." />
+            <UILoader text="Идет загрузка данных" />
           </div>
         )}
         <div className="job-call-handling-report__chart">
