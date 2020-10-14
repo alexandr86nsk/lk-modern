@@ -9,14 +9,16 @@ const height = 35;
 
 const UIReactSelectList = React.memo((props: MenuListComponentProps<IOptions>) => {
   const {
-    options, children, maxHeight, getValue,
+    options = [], children, maxHeight, getValue,
   } = props || {};
 
   const [value] = React.useMemo(() => getValue(), [getValue]);
-  const initialOffset = React.useMemo(() => options.indexOf(value) * height, [
-    value,
-    options,
-  ]);
+  const initialOffset = React.useMemo(() => {
+    if (options && Array.isArray(options)) {
+      return options.indexOf(value) * height;
+    }
+    return null;
+  }, [value, options]);
 
   const isOverflow = React.useMemo(() => {
     if (children && Array.isArray(children)) {
@@ -26,7 +28,7 @@ const UIReactSelectList = React.memo((props: MenuListComponentProps<IOptions>) =
     return false;
   }, [maxHeight, children]);
 
-  if (!children || !Array.isArray(children)) return null;
+  if (!children || !Array.isArray(children)) return (<div className="ui-react-select__option --empty">Список пуст</div>);
 
   return (
     <List

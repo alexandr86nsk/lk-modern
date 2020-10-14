@@ -49,6 +49,13 @@
     padding: .8em;
   }
 
+  &__option.--empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .8em 1em;
+  }
+
   &__control {
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
   }
