@@ -108,7 +108,7 @@ function ReportsGridPage(props) {
 
   const saveToolbox = React.useCallback((value) => {
     const { title, hasDouble } = value || {};
-    let list = toolboxList;
+    let list;
     if (hasDouble) {
       list = toolboxList.map((v) => {
         const { title: thisTitle } = v || {};
