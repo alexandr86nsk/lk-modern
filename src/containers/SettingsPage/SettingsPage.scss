@@ -127,6 +127,10 @@
       overflow: auto;
       font-size: .9em;
 
+      .ui.small.table {
+        min-width: 800px;
+      }
+
       &__checkbox-wrapper {
         display: flex;
         justify-content: center;
