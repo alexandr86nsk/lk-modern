@@ -8,6 +8,7 @@ import tableDefaultConfig from '../../../../components/UIRsuiteTable/tableDeaful
 import CallStatisticFilter from './CallStatisticFilter';
 import UIElementTitle from '../../../../components/UIElementTitle/UIElementTitle';
 import OperatorInfo from './OperatorInfo';
+import UILoader from '../../../../components/UILoader/UILoader';
 
 function IndicatorsTab(props) {
   const {
@@ -56,6 +57,7 @@ function IndicatorsTab(props) {
           customId: 'QueuePhone',
           filter: true,
           filterCustom: <CallStatisticFilter />,
+          tableLoader: <UILoader type="--google" dimmed />,
         },
       });
     }

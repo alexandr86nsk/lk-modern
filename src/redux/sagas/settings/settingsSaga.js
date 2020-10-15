@@ -120,7 +120,7 @@ function* getCompletionCodes() {
       }));
     },
     function* () {
-      yield put(actions.reportsStoreSetSection({
+      yield put(actions.settingsStoreSetSection({
         completionCodes: undefined,
         loadingCompletionCodes: false,
       }));
@@ -132,6 +132,34 @@ export function* canBeCanceledGetCompletionCodes() {
   const bgGetCompletionCodes = yield fork(getCompletionCodes);
   yield take('SETTINGS_STORE_GET_COMPLETION_CODES_CANCEL');
   yield cancel(bgGetCompletionCodes);
+}
+
+/* ***************************** updateCompletionCode ********************** */
+function* updateCompletionCode(value) {
+  yield put(actions.settingsStoreSetSection({
+    updatingCompletionCode: true,
+  }));
+  yield queryResultAnalysis(
+    api.getTimeZoneSettings,
+    undefined,
+    function* () {
+      yield put(actions.settingsStoreSetSection({
+        updatingCompletionCode: false,
+      }));
+      yield setSuccessToast('Изменения успешно сохранены.');
+    },
+    function* () {
+      yield put(actions.settingsStoreSetSection({
+        updatingCompletionCode: false,
+      }));
+    },
+  );
+}
+
+export function* canBeCanceledUpdateCompletionCode(action) {
+  const bgUpdateCompletionCode = yield fork(updateCompletionCode, action.value);
+  yield take('SETTINGS_STORE_UPDATE_COMPLETION_CODE_CANCEL');
+  yield cancel(bgUpdateCompletionCode);
 }
 
 /* /!* ***************************** getQueuePhoneSettings ********************** *!/

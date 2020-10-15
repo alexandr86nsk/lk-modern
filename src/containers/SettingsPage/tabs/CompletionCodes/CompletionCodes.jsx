@@ -12,16 +12,16 @@ function CompletionCodes(props) {
   const {
     completionCodes,
     loadingCompletionCodes,
-    settingsStoreSetSubSection,
+    updatingCompletionCode,
     settingsStoreGetCompletionCodes,
     settingsStoreGetCompletionCodesCancel,
+    settingsStoreUpdateCompletionCode,
+    settingsStoreUpdateCompletionCodeCancel,
   } = props || {};
 
-  const handleChangeValue = React.useCallback((editName, editValue) => {
-    settingsStoreSetSubSection('completionCodes', {
-      [editName]: editValue,
-    });
-  }, [settingsStoreSetSubSection]);
+  const handleChangeValue = React.useCallback((value) => {
+    settingsStoreUpdateCompletionCode(value);
+  }, [settingsStoreUpdateCompletionCode]);
 
   const tableRef = React.useRef(null);
 
@@ -46,11 +46,15 @@ function CompletionCodes(props) {
 
   React.useEffect(() => () => {
     settingsStoreGetCompletionCodesCancel();
-  }, [settingsStoreGetCompletionCodesCancel]);
+    settingsStoreUpdateCompletionCodeCancel();
+  }, [
+    settingsStoreGetCompletionCodesCancel,
+    settingsStoreUpdateCompletionCodeCancel,
+  ]);
 
   return (
     <div className="settings-page__completion-codes-tab tab" ref={tableRef}>
-      {loadingCompletionCodes && <UILoader type="--google" dimmed />}
+      {(loadingCompletionCodes || updatingCompletionCode) && <UILoader type="--google" dimmed />}
       {!loadingCompletionCodes && completionCodes && (
       <div className="table">
         <Table selectable celled fixed size="small" unstackable>
@@ -78,6 +82,7 @@ function CompletionCodes(props) {
 const mapStateToProps = (state) => ({
   completionCodes: state.settingsStore.completionCodes,
   loadingCompletionCodes: state.settingsStore.loadingCompletionCodes,
+  updatingCompletionCode: state.settingsStore.updatingCompletionCode,
 });
 
 const mapDispatchToProps = { ...actions };

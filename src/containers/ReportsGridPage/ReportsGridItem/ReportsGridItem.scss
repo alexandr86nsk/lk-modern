@@ -10,6 +10,10 @@
     box-shadow: 1px 4px 10px 0 rgba(118, 88, 198, 0.1);
     font-size: .9em;
 
+    .ui-react-select {
+      z-index: 3;
+    }
+
     &__wrapper {
       position: relative;
       display: flex;
@@ -45,11 +49,6 @@
       border-top-left-radius: 6px;
       border-top-right-radius: 6px;
       user-select: none;
-      // cursor: grab;
-
-      /*&:active {
-        cursor: grabbing;
-      }*/
     }
 
     &__header-spotlight {

@@ -20,6 +20,7 @@ function UIRsuiteTableBody(props) {
     sortSetSortingValue,
     tableOnColumnResizeCallback,
     tableLoading,
+    tableLoader,
     tableHeaderHeight = 28,
     tableRowHeight = 28,
     tableIsResizable = true,
@@ -214,11 +215,14 @@ function UIRsuiteTableBody(props) {
     tableTemplate,
   ]);
 
+  const renderLoading = React.useCallback(() => tableLoader, [tableLoader]);
+
   return (
     tableTemplate && (
       <>
         <Table
           translate3d={false}
+          renderLoading={tableLoader ? renderLoading : undefined}
           bordered={bordered}
           id="ui-rsuite-table"
           data={tableData}

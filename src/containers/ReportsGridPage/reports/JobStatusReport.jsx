@@ -5,6 +5,7 @@ import UIReactSelect from '../../../components/UIReactSelect/UIReactSelect';
 import { jobStatusReportTableHeader, jobHistoryReportTableHeader } from './settings';
 import tableDefaultConfig from '../../../components/UIRsuiteTable/tableDeafultConfig';
 import UIRsuiteTable from '../../../components/UIRsuiteTable/UIRsuiteTable';
+import UILoader from '../../../components/UILoader/UILoader';
 
 const JobStatusReport = (props) => {
   const {
@@ -85,6 +86,7 @@ const JobStatusReport = (props) => {
           search: true,
           customId: 'BriefcaseTitle',
           refresh: false,
+          tableLoader: <UILoader type="--google" dimmed />,
         },
       });
     }

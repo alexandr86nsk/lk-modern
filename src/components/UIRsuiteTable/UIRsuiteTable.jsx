@@ -45,6 +45,7 @@ function UIRsuiteTable(props) {
     readOnly,
     sortSortingValue,
     tableLoading,
+    tableLoader,
     tableIsAutoHeight,
     tableHeaderHeight,
     tableRowHeight,
@@ -241,6 +242,7 @@ function UIRsuiteTable(props) {
             sortSortingValue={sortSortingValue}
             sortSetSortingValue={sortSetSortingValue}
             tableLoading={tableLoading}
+            tableLoader={tableLoader}
             tableIsResizable={tableIsResizable}
             tableIsWordWrap={tableIsWordWrap}
             tableOnColumnResizeCallback={handleColumnResize}

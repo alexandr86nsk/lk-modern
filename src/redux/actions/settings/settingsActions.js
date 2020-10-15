@@ -105,3 +105,12 @@ export const settingsStoreGetCompletionCodes = () => ({
 export const settingsStoreGetCompletionCodesCancel = () => ({
   type: 'SETTINGS_STORE_GET_COMPLETION_CODES_CANCEL',
 });
+
+export const settingsStoreUpdateCompletionCode = (value) => ({
+  type: 'SETTINGS_STORE_UPDATE_COMPLETION_CODE',
+  value,
+});
+
+export const settingsStoreUpdateCompletionCodeCancel = () => ({
+  type: 'SETTINGS_STORE_UPDATE_COMPLETION_CODE_CANCEL',
+});

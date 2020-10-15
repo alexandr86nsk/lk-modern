@@ -32,7 +32,7 @@ interface IUIReactSelectProps {
   readOnly?: boolean;
   loading?: boolean;
   disabled?: boolean;
-  loadingMessage?: (obj: { inputValue: string }) => string | null;
+  loadingMessage?: string;
   isVirtualized?: boolean;
 }
 
@@ -150,6 +150,8 @@ function UIReactSelect(props: IUIReactSelectProps) {
     return undefined;
   }, [isMulti, data, options]);
 
+  const renderLoader = React.useCallback(() => loadingMessage || 'Загрузка...', [loadingMessage]);
+
   const renderBody = React.useMemo(() => {
     const { label: thisLabel } = memoizedValue || {};
     if (readOnly) {
@@ -179,14 +181,14 @@ function UIReactSelect(props: IUIReactSelectProps) {
         isClearable={isClearable}
         isMulti={isMulti}
         closeMenuOnSelect={!isMulti}
-        loadingMessage={loadingMessage}
+        loadingMessage={renderLoader}
         isDisabled={disabled}
       />
     );
   }, [
+    renderLoader,
     renderPlaceholder,
     disabled,
-    loadingMessage,
     loading,
     memoizedValue,
     options,

@@ -25,6 +25,7 @@ function* rootSaga() {
   yield takeLatest('SETTINGS_STORE_GET_TIME_ZONE', settingsSaga.canBeCanceledGetTimeZone);
   yield takeLatest('SETTINGS_STORE_UPDATE_TIME_ZONE', settingsSaga.canBeCanceledUpdateTimeZone);
   yield takeLatest('SETTINGS_STORE_GET_COMPLETION_CODES', settingsSaga.canBeCanceledGetCompletionCodes);
+  yield takeLatest('SETTINGS_STORE_UPDATE_COMPLETION_CODE', settingsSaga.canBeCanceledUpdateCompletionCode);
   yield takeLatest('REPORTS_GRID_STORE_GET_BRIEFCASES', reportsGridSaga.canBeCanceledGetBriefcases);
   yield takeEvery('REPORTS_GRID_STORE_GET_REPORT', reportsGridSaga.canBeCanceledGetReport);
 }

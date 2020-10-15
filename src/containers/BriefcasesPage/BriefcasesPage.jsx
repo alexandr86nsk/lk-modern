@@ -8,6 +8,7 @@ import WarningIcon from '../../static/images/warning-24px.svg';
 import UIRsuiteTable from '../../components/UIRsuiteTable/UIRsuiteTable';
 import tableDefaultConfig from '../../components/UIRsuiteTable/tableDeafultConfig';
 import BriefcaseEditor from './common/BriefcaseEditor';
+import UILoader from '../../components/UILoader/UILoader';
 
 function BriefcasesPage(props) {
   const {
@@ -97,6 +98,7 @@ function BriefcasesPage(props) {
           filter: false,
           search: true,
           customId: 'QueuePhone',
+          tableLoader: <UILoader type="--google" dimmed />,
         },
       });
     }

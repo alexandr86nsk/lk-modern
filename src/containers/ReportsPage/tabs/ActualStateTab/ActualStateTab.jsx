@@ -7,6 +7,7 @@ import { actualStateTableDataTemplate } from './settings';
 import UIRsuiteTable from '../../../../components/UIRsuiteTable/UIRsuiteTable';
 import tableDefaultConfig from '../../../../components/UIRsuiteTable/tableDeafultConfig';
 import ActualStateFilter from './ActualStateFilter';
+import UILoader from '../../../../components/UILoader/UILoader';
 
 function ActualStateTab(props) {
   const {
@@ -86,6 +87,7 @@ function ActualStateTab(props) {
           filter: true,
           filterCustom: <ActualStateFilter />,
           refresh: false,
+          tableLoader: <UILoader type="--google" dimmed />,
         },
       });
     }

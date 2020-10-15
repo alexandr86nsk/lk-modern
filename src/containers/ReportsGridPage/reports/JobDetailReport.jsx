@@ -98,7 +98,7 @@ const JobDetailReport = (props) => {
         {loading
           && (
           <div className="job-detail-report__loader">
-            <UILoader text="Идет загрузка данных" />
+            <UILoader type="--google" dimmed />
           </div>
           )}
         <div className="job-detail-report__table">
