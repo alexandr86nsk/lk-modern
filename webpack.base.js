@@ -4,8 +4,9 @@ const path = require('path');
 module.exports = (devMode) => ({
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'css/[name][hash].css',
-      chunkFilename: 'css/[id][hash].css',
+      filename: 'css/[name].css',
+      // filename: 'css/[name][hash].css',
+      // chunkFilename: 'css/[id][hash].css',
     }),
   ],
   resolve: {

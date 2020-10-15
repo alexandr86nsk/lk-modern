@@ -92,7 +92,49 @@ export function* canBeCanceledGetTimeZone() {
   yield cancel(bgGetTimeZoneSettings);
 }
 
-/*/!* ***************************** getQueuePhoneSettings ********************** *!/
+/* ***************************** getCompletionCodes ********************** */
+function* getCompletionCodes() {
+  yield put(actions.settingsStoreSetSection({
+    loadingCompletionCodes: true,
+  }));
+  yield queryResultAnalysis(
+    api.getTimeZoneSettings,
+    undefined,
+    function* (res) {
+      console.log('completionCodes: ', res);
+      const arr = [];
+      for (let i = 1; i < 20; i += 1) {
+        arr.push({
+          id: i,
+          name: `Тестовый код завершения из БИТА #${i}`,
+          rpc: Math.random() > 0.5,
+          cr: Math.random() > 0.5,
+          closure: Math.random() > 0.5,
+          abandon: Math.random() > 0.5,
+          dontCall: Math.random() > 0.5,
+        });
+      }
+      yield put(actions.settingsStoreSetSection({
+        completionCodes: arr,
+        loadingCompletionCodes: false,
+      }));
+    },
+    function* () {
+      yield put(actions.reportsStoreSetSection({
+        completionCodes: undefined,
+        loadingCompletionCodes: false,
+      }));
+    },
+  );
+}
+
+export function* canBeCanceledGetCompletionCodes() {
+  const bgGetCompletionCodes = yield fork(getCompletionCodes);
+  yield take('SETTINGS_STORE_GET_COMPLETION_CODES_CANCEL');
+  yield cancel(bgGetCompletionCodes);
+}
+
+/* /!* ***************************** getQueuePhoneSettings ********************** *!/
 function* getQueuePhoneSettings() {
   yield put(actions.settingsStoreSetSection({
     loadingQueuePhoneSettings: true,
@@ -139,7 +181,7 @@ export function* canBeCanceledGetQueuePhone() {
   const bgGetQueuePhoneSettings = yield fork(getQueuePhoneSettings);
   yield take('SETTINGS_STORE_GET_QUEUE_PHONE_CANCEL');
   yield cancel(bgGetQueuePhoneSettings);
-}*/
+} */
 
 /* ***************************** updateMainSettings ********************** */
 function* updateMainSettings(value) {
@@ -225,7 +267,7 @@ export function* canBeCanceledUpdateTimeZone(action) {
   yield cancel(bgUpdateTimeZoneSettings);
 }
 
-/*/!* ***************************** updateQueuePhoneSettings ********************** *!/
+/* /!* ***************************** updateQueuePhoneSettings ********************** *!/
 function* updateQueuePhoneSettings(value) {
   yield queryResultAnalysis(
     api.updateQueuePhoneSettings,
@@ -244,4 +286,4 @@ export function* canBeCanceledUpdateQueuePhone(action) {
   const bgUpdateQueuePhoneSettings = yield fork(updateQueuePhoneSettings, action.value);
   yield take('SETTINGS_STORE_UPDATE_QUEUE_PHONE_CANCEL');
   yield cancel(bgUpdateQueuePhoneSettings);
-}*/
+} */

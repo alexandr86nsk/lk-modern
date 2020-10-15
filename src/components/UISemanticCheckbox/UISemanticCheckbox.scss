@@ -16,6 +16,20 @@
     font-size: .8em;
   }
 
+  &__checkbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .ui.checkbox input:checked ~ .box:after, .ui.checkbox input:checked ~ label:after {
+    color: var(--medium-theme-color);
+  }
+
+  .ui.radio.checkbox input:checked ~ .box:after, .ui.radio.checkbox input:checked ~ label:after {
+    background-color: var(--medium-theme-color);
+  }
+
   .ui.checkbox.toggle {
     width: 3em;
     min-height: 1.8em;

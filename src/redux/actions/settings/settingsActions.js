@@ -97,3 +97,11 @@ export const settingsStoreUpdateQueuePhone = (value) => ({
 export const settingsStoreUpdateQueuePhoneCancel = () => ({
   type: 'SETTINGS_STORE_UPDATE_QUEUE_PHONE_CANCEL',
 });
+
+export const settingsStoreGetCompletionCodes = () => ({
+  type: 'SETTINGS_STORE_GET_COMPLETION_CODES',
+});
+
+export const settingsStoreGetCompletionCodesCancel = () => ({
+  type: 'SETTINGS_STORE_GET_COMPLETION_CODES_CANCEL',
+});
