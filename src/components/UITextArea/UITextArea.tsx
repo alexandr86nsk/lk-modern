@@ -1,5 +1,7 @@
 import React from 'react';
 import './UITextArea.scss';
+import { Popup } from 'semantic-ui-react';
+import HintIcon from '../UIInput/hint-icon.svg';
 
 interface IUITextAreaProps {
   title?: string;
@@ -9,6 +11,7 @@ interface IUITextAreaProps {
   minLength?: number;
   disabled?: boolean;
   vertical?: boolean;
+  type?: string;
 }
 
 function UITextArea(props: IUITextAreaProps) {
@@ -20,6 +23,7 @@ function UITextArea(props: IUITextAreaProps) {
     minLength = 0,
     disabled,
     vertical,
+    type,
   } = props || {};
 
   const handleChange = React.useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -31,11 +35,15 @@ function UITextArea(props: IUITextAreaProps) {
   }, [callback, name]);
 
   return (
-    <div className={`ui-textarea ${data && data.length < minLength ? 'error' : ''}`}>
+    <div className={`ui-textarea${data && data.length < minLength ? ' error' : ''}${type ? ` ${type}` : ''}`}>
       {title
       && (
-      <div className="ui-textarea__title font-type-b-10">
-        <span className="ellipsis-element">{title}</span>
+      <div className="ui-textarea__title">
+        <div className="ui-textarea__title-content" title={title}>
+          <span className="ellipsis-element">
+            {title}
+          </span>
+        </div>
       </div>
       )}
       <textarea

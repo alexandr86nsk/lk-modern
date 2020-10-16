@@ -56,7 +56,7 @@
     }
 
     &:disabled {
-      background-color: var(--theme-disabled-color);
+      background-color: rgba(var(--theme-disabled-color-rgb), .25);
     }
   }
 
@@ -355,6 +355,21 @@
     }
   }
 
+  /* ****************************** vertical ********************************** */
+  &.--vertical {
+    flex-direction: column;
+  }
+
+  &.--vertical &__title {
+    border-right: none;
+    border-bottom: 1px solid rgba(var(--theme-border-color-rgb), 0.5);
+    width: 100%;
+  }
+
+  &.--vertical &__body {
+    width: 100%;
+  }
+
   /* ****************************** transparent ********************************** */
   &.--transparent &__input {
     background-color: rgba(var(--white-rgb), .6);
@@ -380,6 +395,8 @@
     flex: unset;
     transition: all .2s linear;
     opacity: .6;
+    user-select: none;
+    pointer-events: none;
   }
 
   &.--translate-title:focus-within {
