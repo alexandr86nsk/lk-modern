@@ -4,9 +4,9 @@ const path = require('path');
 module.exports = (devMode) => ({
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'css/[name].css',
-      // filename: 'css/[name][hash].css',
-      // chunkFilename: 'css/[id][hash].css',
+      filename: devMode ? 'css/[name].css' : 'css/[name][hash].css',
+      chunkFilename: devMode ? 'css/[id].css' : 'css/[id][hash].css',
+      reloadAll: devMode,
     }),
   ],
   resolve: {
@@ -34,14 +34,7 @@ module.exports = (devMode) => ({
       },
       {
         test: /\.less$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              hmr: devMode,
-              reloadAll: true,
-            },
-          },
+        use: [MiniCssExtractPlugin.loader,
           'css-loader',
           'postcss-loader',
           'less-loader',
@@ -50,13 +43,7 @@ module.exports = (devMode) => ({
       {
         test: /\.(sa|sc|c)ss$/,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              hmr: devMode,
-              reloadAll: true,
-            },
-          },
+          MiniCssExtractPlugin.loader,
           'css-loader',
           'postcss-loader',
           'sass-loader',
