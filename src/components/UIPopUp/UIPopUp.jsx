@@ -1,33 +1,33 @@
 import React from 'react';
 import './UIPopUp.scss';
+import { motion } from 'framer-motion';
 import CloseIcon from '../../static/images/close-10px.svg';
 import useScrollPage from '../UICustomHooks/useScrollPage/useScrollPage';
 import UIScrollToTop from '../UIScrollToTop/UIScrollToTop';
-import { motion } from 'framer-motion';
 
 const popup = {
   initial: {
     opacity: 0.5,
-    clipPath: "circle(3px at calc(100% - 3em) 3em)",
+    clipPath: 'circle(3px at calc(100% - 3em) 3em)',
   },
   open: (height = 1000) => ({
     clipPath: `circle(${height * 2 + 200}px at calc(100% - 3em) 3em)`,
     transition: {
-      type: "spring",
-      stiffness: 20,
+      type: 'spring',
+      stiffness: 40,
       restDelta: 2,
     },
     opacity: 1,
   }),
   closed: {
-    clipPath: "circle(3px at calc(100% - 3em) 3em)",
+    clipPath: 'circle(3px at calc(100% - 3em) 3em)',
     transition: {
-      type: "spring",
+      type: 'spring',
       stiffness: 400,
       damping: 40,
     },
   },
-}
+};
 
 function UIPopUp(props) {
   const {
@@ -37,6 +37,7 @@ function UIPopUp(props) {
     type,
     closingImpossible,
     title,
+    animationDisabled,
   } = props || {};
 
   const [scroll, setScroll] = React.useState(false);
@@ -64,36 +65,36 @@ function UIPopUp(props) {
   }, [handleClose, noEscape]);
 
   return (
-      <motion.div
-        className={`ui-popup ${type || ''}`}
-        variants={popup}
-        initial="initial"
-        animate="open"
-        exit="closed"
-      >
-        <div className="ui-popup__wrapper">
-          <div className="ui-popup__top-panel">
-            <div className="ui-popup__title">{title || ''}</div>
+    <motion.div
+      className={`ui-popup ${type || ''}`}
+      variants={animationDisabled ? undefined : popup}
+      initial="initial"
+      animate="open"
+      exit="closed"
+    >
+      <div className="ui-popup__wrapper">
+        <div className="ui-popup__top-panel">
+          <div className="ui-popup__title">{title || ''}</div>
+          <div
+            className="ui-popup__close-block"
+          >
             <div
-              className="ui-popup__close-block"
+              role="presentation"
+              className="ui-popup__close-btn"
+              onClick={handleClose}
             >
-              <div
-                role="presentation"
-                className="ui-popup__close-btn"
-                onClick={handleClose}
-              >
-                <CloseIcon />
-              </div>
+              <CloseIcon />
             </div>
-          </div>
-          <div className="ui-popup__data-block">
-            <div className="ui-popup__body" ref={pageEl}>
-              {component && component}
-            </div>
-            <UIScrollToTop isVisible={scroll} refEl={pageEl.current} />
           </div>
         </div>
-      </motion.div>
+        <div className="ui-popup__data-block">
+          <div className="ui-popup__body" ref={pageEl}>
+            {component && component}
+          </div>
+          <UIScrollToTop isVisible={scroll} refEl={pageEl.current} />
+        </div>
+      </div>
+    </motion.div>
   );
 }
 

@@ -405,6 +405,14 @@ $amount: 18px;
 .ui-loader.--ios-dimmed {
   padding: 1.5em;
   border-radius: 1.3em;
-  background-color: rgba(var(--medium-theme-color-rgb), 0.95);
+  background-color: rgba(var(--medium-theme-color-rgb), 0.9);
   color: var(--white);
+}
+
+/* ***************************************** horizontal *********************************** */
+.ui-loader.--horizontal {
+  flex-direction: row;
+}
+.ui-loader.--horizontal .ui-loader__title {
+  padding: 0 0 0 1em;
 }

@@ -8,6 +8,10 @@
   flex-direction: column;
   z-index: 8;
 
+  @media screen and (max-width: 450px) {
+    right: 1em;
+  }
+
   &__wrapper {
     position: relative;
     display: flex;
@@ -81,7 +85,6 @@
     left: unset;
 
     @media screen and (max-width: 450px) {
-      right: 1em;
       left: 1em;
     }
   }
@@ -149,6 +152,18 @@
 
     @media screen and (max-width: 1000px) {
       width: 90%;
+    }
+
+    @media screen and (max-width: 450px) {
+      width: unset;
+    }
+  }
+
+  &.--98 {
+    width: 98%;
+
+    @media screen and (max-width: 1000px) {
+      width: 97%;
     }
 
     @media screen and (max-width: 450px) {
