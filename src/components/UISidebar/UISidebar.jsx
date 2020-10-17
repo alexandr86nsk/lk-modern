@@ -19,8 +19,10 @@ function UISidebar(props) {
   const sidebarRef = React.useRef(null);
 
   const handleClose = React.useCallback(() => {
-    globalStoreSetSection({ showSidebar: false });
-  }, [globalStoreSetSection]);
+    if (showSidebar) {
+      globalStoreSetSection({ showSidebar: false });
+    }
+  }, [showSidebar, globalStoreSetSection]);
 
   useOutsideClick(sidebarRef, handleClose);
 

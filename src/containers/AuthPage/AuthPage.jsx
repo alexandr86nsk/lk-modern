@@ -60,7 +60,7 @@ function AuthPage(props) {
           <div className="form__body">
             {tryLogIn && (
             <div className="form__loader">
-              <UILoader type="--google --ios-dimmed" text="Выполняется авторизация" />
+              <UILoader type="--google --horizontal --ios-dimmed" text="Выполняется авторизация" />
             </div>
             )}
             <div className="auth-page__logo">
@@ -69,12 +69,12 @@ function AuthPage(props) {
             <div className="form__header">Авторизация</div>
             <div className="form__input-block" ref={inputEl}>
               <UIInput
-                title="Телефон"
+                title="Логин"
                 name="login"
                 callback={handleChangeValue}
                 data={login}
                 mask="00000000000"
-                type="--transparent"
+                type="--style-1c --transparent --translate-title"
               />
               <UIInput
                 title="Пароль"
@@ -82,7 +82,7 @@ function AuthPage(props) {
                 password
                 callback={handleChangeValue}
                 data={password}
-                type="--transparent"
+                type="--style-1c --transparent --translate-title"
               />
             </div>
             <div className="form__btn-block">
