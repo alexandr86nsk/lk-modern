@@ -1,7 +1,4 @@
-const initialAuthStore = {
-  login: '70000000000',
-  password: '000000',
-};
+const initialAuthStore = {};
 
 export default function authStore(state = initialAuthStore, action) {
   switch (action.type) {
