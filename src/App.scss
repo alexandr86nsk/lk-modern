@@ -47,6 +47,10 @@
       max-width: unset;
     }
 
+    &.fixed .page-header {
+      visibility: hidden;
+    }
+
     &.fixed .page__content > .ui-block-title {
       display: none;
     }
