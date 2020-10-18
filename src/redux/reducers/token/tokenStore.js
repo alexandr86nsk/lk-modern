@@ -1,4 +1,6 @@
-const initialTokenStore = {};
+const initialTokenStore = {
+  token: '',
+};
 
 export default function tokenStore(state = initialTokenStore, action) {
   switch (action.type) {
