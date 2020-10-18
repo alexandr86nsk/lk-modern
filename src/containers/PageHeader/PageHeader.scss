@@ -55,14 +55,30 @@
       position: relative;
       height: 100%;
       padding: 1em 1.5em;
+      min-width: 200px;
+      max-width: 250px;
 
-      & > span {
-        white-space: nowrap;
+      @media screen and (max-width: 767px) {
+        min-width: unset;
+        max-width: unset;
+      }
+
+      &__title {
+        display: flex;
+        flex-direction: column;
         margin: 0 1em;
-        user-select: none;
 
-        @media screen and (max-width: 1000px) {
+        @media screen and (max-width: 767px) {
           display: none;
+        }
+
+        > span {
+          word-break: break-word;
+          user-select: none;
+
+          &:nth-of-type(2) {
+            font-size: .7em;
+          }
         }
       }
 
@@ -72,6 +88,15 @@
         border-radius: 50%;
         background-color: var(--white);
         overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        svg {
+          width: 1.5em;
+          height: 1.5em;
+          fill: var(--medium-theme-color);
+        }
       }
 
       .user-menu {

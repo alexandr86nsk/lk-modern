@@ -1,12 +1,12 @@
 import { applyMiddleware, createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { routerMiddleware } from 'connected-react-router';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from '../redux/reducers/rootReducer';
 import rootSaga from '../redux/sagas/rootSaga';
 import history from '../history/history';
 
-const preloadedState = localStorage.getItem('tokenStore') ? { tokenStore: JSON.parse(localStorage.getItem('tokenStore')) } : {};
+const preloadedState = localStorage.getItem('token') ? { tokenStore: { token: localStorage.getItem('token') } } : {};
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
@@ -23,7 +23,7 @@ const store = createStore(
 sagaMiddleware.run(rootSaga);
 
 store.subscribe(() => {
-  localStorage.setItem('tokenStore', JSON.stringify(store.getState().tokenStore));
+  localStorage.setItem('token', store.getState().tokenStore.token);
 });
 
 export default store;

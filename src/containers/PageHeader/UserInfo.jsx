@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import jwt from 'jwt-decode';
-import avatarIcon from '../../static/images/user-icon.jpg';
+import AvatarIcon from './avatar-icon.svg';
 import UserIcon from '../../static/images/avatar.svg';
 import LogoutIcon from '../../static/images/power_settings_new-24px.svg';
 import SettingsIcon from '../../static/images/settings.svg';
@@ -31,6 +31,11 @@ const userMenu = [
   },
 ];
 
+const userRole = {
+  Administrator: 'Администратор',
+  User: 'Пользователь',
+};
+
 function UserInfo(props) {
   const {
     logout,
@@ -45,9 +50,8 @@ function UserInfo(props) {
   }, [token]);
 
   const {
-    FirstName: firstName,
-    MiddleName: middleName,
-    LastName: lastName,
+    userName,
+    role,
   } = userData || {};
 
   const menuEl = useRef(null);
@@ -75,26 +79,27 @@ function UserInfo(props) {
     );
   }), [logout]);
 
-  return firstName || middleName || lastName
-    ? (
-      <div
-        role="presentation"
-        className={`user-info ${showMenu ? 'active' : ''}`}
-        onClick={handleShowMenu}
-        ref={menuEl}
-      >
-        <div className="avatar">
-          <img src={avatarIcon} alt="avatar" />
-        </div>
-        <span>{`${lastName ? `${lastName} ` : ''}${firstName ? `${firstName} ` : ''}${middleName}`}</span>
-        <div className="user-menu">
-          <nav className="user-menu__list">
-            {renderUserMenu}
-          </nav>
-        </div>
+  return (
+    <div
+      role="presentation"
+      className={`user-info ${showMenu ? 'active' : ''}`}
+      onClick={handleShowMenu}
+      ref={menuEl}
+    >
+      <div className="avatar">
+        <AvatarIcon />
       </div>
-    )
-    : null;
+      <div className="user-info__title">
+        <span>{userName || 'Не указано'}</span>
+        {role && <span>{userRole[role]}</span>}
+      </div>
+      <div className="user-menu">
+        <nav className="user-menu__list">
+          {renderUserMenu}
+        </nav>
+      </div>
+    </div>
+  );
 }
 
 export default React.memo(UserInfo);
