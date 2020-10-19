@@ -201,7 +201,7 @@
     right: 3em;
   }
 
-  &:not(.empty) &__input {
+  &:not(.empty):not(.disabled) &__input {
     padding-right: 2.8em;
   }
 

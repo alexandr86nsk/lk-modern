@@ -132,6 +132,9 @@ function UIInput(props: IUIInputProps) {
     if (type) {
       str = `${str} ${type}`;
     }
+    if (disabled) {
+      str = `${str} disabled`;
+    }
     if (isSearch) {
       str = `${str} search`;
     }
@@ -247,12 +250,11 @@ function UIInput(props: IUIInputProps) {
         className="ui-input__input"
         thousandSeparator
         onValueChange={handleChangeNumberInput}
-        value={data}
+        value={momentDate}
       />
     );
   }, [
     readOnly,
-    data,
     disabled,
     handleChangeNumberInput,
     placeholder,
