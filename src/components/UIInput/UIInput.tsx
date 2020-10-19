@@ -189,6 +189,7 @@ function UIInput(props: IUIInputProps) {
     }
     return str;
   }, [
+    disabled,
     isSearch,
     type,
     hint,
