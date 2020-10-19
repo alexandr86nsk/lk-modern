@@ -26,6 +26,24 @@
     color: var(--medium-theme-color);
   }
 
+  .ui.checkbox {
+    font-size: inherit;
+    min-height: 1.2em;
+    line-height: 1.2em;
+    min-width: 1.2em;
+
+    label {
+      &:before,
+      &:after {
+        width: 1.2em;
+        height: 1.2em;
+      }
+      &:after {
+        font-size: 1em;
+      }
+    }
+  }
+
   .ui.radio.checkbox input:checked ~ .box:after, .ui.radio.checkbox input:checked ~ label:after {
     background-color: var(--medium-theme-color);
   }
