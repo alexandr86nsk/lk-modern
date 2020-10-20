@@ -26,6 +26,9 @@ interface IUIReactDatePickerProps {
   disabled?: boolean;
   placeholder?: string;
   isClearable?: boolean;
+  minDate?: Date,
+  maxDate?: Date,
+  successFormat?: string;
 }
 
 function UIReactDatePicker(props: IUIReactDatePickerProps) {
@@ -45,8 +48,23 @@ function UIReactDatePicker(props: IUIReactDatePickerProps) {
     disabled,
     placeholder,
     isClearable = true,
+    minDate,
+    maxDate,
+    successFormat,
     ...moreProps
   } = props || {};
+
+  const compareDate = React.useCallback(() => {
+    try {
+      const curr = new Date(data).getTime();
+      const min = new Date(minDate).getTime();
+      const max = new Date(maxDate).getTime();
+      return curr >= (min || -Infinity) && curr <= (max || Infinity);
+    } catch (e) {
+      return false;
+    }
+  },
+  [data, minDate, maxDate]);
 
   const renderPlaceholder = React.useMemo(() => {
     if (placeholder) {
@@ -94,27 +112,36 @@ function UIReactDatePicker(props: IUIReactDatePickerProps) {
 
   const className = React.useMemo(() => {
     let str = 'ui-react-datepicker';
+    if (type) {
+      str = `${str} ${type}`;
+    }
     if (focus) {
       str = `${str} focus`;
-    }
-    if (data) {
-      str = `${str} data`;
-    } else {
-      str = `${str} empty`;
     }
     if (required) {
       str = `${str} required`;
       if (!data) {
         str = `${str} error`;
-      } else {
-        str = `${str} success`;
       }
     }
-    if (type) {
-      str = `${str} ${type}`;
+    if (data) {
+      str = `${str} data`;
+
+      if (required && (minDate || maxDate)) {
+        if (compareDate()) {
+          str = `${str} success`;
+        }
+      }
+      if (minDate || maxDate) {
+        if (!compareDate()) {
+          str = `${str} error`;
+        }
+      }
+    } else {
+      str = `${str} empty`;
     }
     return str;
-  }, [data, focus, required, type]);
+  }, [compareDate, minDate, maxDate, data, focus, required, type]);
 
   return (
     <div className={className}>
@@ -165,7 +192,7 @@ function UIReactDatePicker(props: IUIReactDatePickerProps) {
             {required && <div className="required-icon">*</div>}
           </div>
         )}
-        <div className="ui-react-datepicker__error" title="Ошибка">
+        <div className="ui-react-datepicker__error" title={successFormat ? `Ошибка: ${successFormat}` : 'Ошибка в поле'}>
           <ErrorIcon />
         </div>
         <div className="ui-react-datepicker__success" title="Верно">

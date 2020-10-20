@@ -109,12 +109,12 @@ function UIInput(props: IUIInputProps) {
     }
   }, [callback, name]);
 
-  const composeLength = React.useCallback(
+  const compareLength = React.useCallback(
     () => data.toString().length >= minLength,
     [data, minLength],
   );
 
-  const composeInteger = React.useCallback(
+  const compareInteger = React.useCallback(
     () => data >= (minInteger || -Infinity)
       && data <= (maxInteger || Infinity),
     [
@@ -148,43 +148,47 @@ function UIInput(props: IUIInputProps) {
       }
     }
     if (data || data === 0) {
-      if (!isInteger && required && minLength) {
-        if (composeLength()) {
+      if (required && !isInteger && minLength) {
+        if (compareLength()) {
           str = `${str} success`;
-        } else {
-          str = `${str} error`;
         }
       }
       if (!isInteger && minLength) {
-        if (!composeLength()) {
+        if (!compareLength()) {
           str = `${str} error`;
+        }
+      }
+      if (required && isInteger && (minInteger || maxInteger)) {
+        if (compareInteger()) {
+          str = `${str} success`;
         }
       }
       if (isInteger && (minInteger || maxInteger)) {
-        if (composeInteger()) {
-          str = `${str} success`;
-        } else {
+        if (!compareInteger()) {
           str = `${str} error`;
+        }
+      }
+      if (required && isEmail) {
+        if (validateEmail(data)) {
+          str = `${str} success`;
         }
       }
       if (isEmail) {
-        if (validateEmail(data)) {
-          str = `${str} success`;
-        } else {
+        if (!validateEmail(data)) {
           str = `${str} error`;
         }
       }
-      if (isUrl) {
+      if (required && isUrl) {
         if (validateUrl(data)) {
           str = `${str} success`;
-        } else {
+        }
+      }
+      if (isUrl) {
+        if (!validateUrl(data)) {
           str = `${str} error`;
         }
       }
     } else {
-      if (!isInteger && minLength) {
-        str = `${str} error`;
-      }
       str = `${str} empty`;
     }
     return str;
@@ -194,14 +198,14 @@ function UIInput(props: IUIInputProps) {
     type,
     hint,
     readOnly,
-    composeLength,
+    compareLength,
     data,
     isEmail,
     minLength,
     required,
     isUrl,
     isInteger,
-    composeInteger,
+    compareInteger,
     maxInteger,
     minInteger,
   ]);
@@ -297,7 +301,7 @@ function UIInput(props: IUIInputProps) {
         {renderBody}
         {!readOnly && !disabled && (
           <>
-            <div className="ui-input__error" title="Ошибка в поле">
+            <div className="ui-input__error" title={successFormat ? `Ошибка: ${successFormat}` : 'Ошибка в поле'}>
               <ErrorIcon />
             </div>
             <div className="ui-input__success" title="Поле заполнено верно">
