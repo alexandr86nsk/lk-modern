@@ -61,6 +61,10 @@
 
     &.fixed .page {
       position: unset;
+
+      .ui-popup {
+        position: fixed;
+      }
     }
 
     &.fixed .page__content {
