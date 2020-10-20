@@ -27,6 +27,7 @@ function UIRsuiteTableControlBlock(props) {
     refresh,
     refreshCallback,
     refreshTitle,
+    refreshCustom,
   } = props || {};
 
   return (
@@ -74,7 +75,7 @@ function UIRsuiteTableControlBlock(props) {
             />
           </div>
         )}
-        {refresh && (
+        {refresh && !refreshCustom && (
           <div
             title="Обновить таблицу"
             role="presentation"
@@ -85,6 +86,7 @@ function UIRsuiteTableControlBlock(props) {
             {refreshTitle && <span>{refreshTitle}</span>}
           </div>
         )}
+        {refresh && refreshCustom && refreshCustom}
       </div>
       {filter && filterCustom && (
       <div className="control-block__bottom-side">

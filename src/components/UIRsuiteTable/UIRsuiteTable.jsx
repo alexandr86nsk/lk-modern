@@ -41,6 +41,7 @@ function UIRsuiteTable(props) {
     refresh,
     refreshCallback,
     refreshTitle,
+    refreshCustom,
     contextMenu,
     readOnly,
     sortSortingValue,
@@ -224,6 +225,7 @@ function UIRsuiteTable(props) {
             refresh={refresh}
             refreshCallback={refreshCallback}
             refreshTitle={refreshTitle}
+            refreshCustom={refreshCustom}
           />
         )}
       </div>
