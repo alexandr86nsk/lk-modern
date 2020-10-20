@@ -37,6 +37,7 @@ interface IUIInputProps {
   isSearch?: boolean;
   maxInteger?: number;
   minInteger?: number;
+  customValidation?: (value: string | number) => boolean;
 }
 
 function UIInput(props: IUIInputProps) {
@@ -66,6 +67,7 @@ function UIInput(props: IUIInputProps) {
     maxInteger,
     minInteger,
     isSearch,
+    customValidation,
   } = props || {};
 
   const elRef = React.useRef<HTMLHeadingElement | null>(null);
@@ -188,11 +190,18 @@ function UIInput(props: IUIInputProps) {
           str = `${str} error`;
         }
       }
+      if (required && customValidation && customValidation(data)) {
+        str = `${str} success`;
+      }
+      if (customValidation && !customValidation(data)) {
+        str = `${str} error`;
+      }
     } else {
       str = `${str} empty`;
     }
     return str;
   }, [
+    customValidation,
     disabled,
     isSearch,
     type,
