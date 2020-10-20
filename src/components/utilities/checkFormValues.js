@@ -11,6 +11,7 @@ const checkFormValues = (el, source = {}) => {
     maxInteger,
     minDate,
     maxDate,
+    customValidation,
   } = otherProps || {};
   const {
     [dataKey]: value,
@@ -55,6 +56,11 @@ const checkFormValues = (el, source = {}) => {
           errors += 1;
         }
       } catch (e) {
+        errors += 1;
+      }
+    }
+    if (customValidation) {
+      if (!customValidation(value)) {
         errors += 1;
       }
     }
