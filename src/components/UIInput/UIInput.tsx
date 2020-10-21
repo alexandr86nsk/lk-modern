@@ -17,6 +17,7 @@ interface IUIInputProps {
   callback: (name: string, value: string | number) => void;
   mask?: string;
   minLength?: number;
+  maxLength?: number;
   data: string | number;
   disabled?: boolean;
   isEmail?: boolean;
@@ -47,6 +48,7 @@ function UIInput(props: IUIInputProps) {
     callback,
     mask,
     minLength = 0,
+    maxLength,
     data,
     isEmail,
     isUrl,
@@ -112,18 +114,15 @@ function UIInput(props: IUIInputProps) {
   }, [callback, name]);
 
   const compareLength = React.useCallback(
-    () => data.toString().length >= minLength,
-    [data, minLength],
+    () => data.toString().length >= (minLength || -Infinity)
+      && data.toString().length <= (maxLength || Infinity),
+    [data, minLength, maxLength],
   );
 
   const compareInteger = React.useCallback(
     () => data >= (minInteger || -Infinity)
       && data <= (maxInteger || Infinity),
-    [
-      data,
-      minInteger,
-      maxInteger,
-    ],
+    [data, minInteger, maxInteger],
   );
 
   const className = React.useMemo(() => {
@@ -150,12 +149,12 @@ function UIInput(props: IUIInputProps) {
       }
     }
     if (data || data === 0) {
-      if (required && !isInteger && minLength) {
+      if (required && !isInteger && (minLength || maxLength)) {
         if (compareLength()) {
           str = `${str} success`;
         }
       }
-      if (!isInteger && minLength) {
+      if (!isInteger && (minLength || maxLength)) {
         if (!compareLength()) {
           str = `${str} error`;
         }
@@ -211,6 +210,7 @@ function UIInput(props: IUIInputProps) {
     data,
     isEmail,
     minLength,
+    maxLength,
     required,
     isUrl,
     isInteger,

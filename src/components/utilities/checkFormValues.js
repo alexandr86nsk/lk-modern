@@ -7,6 +7,7 @@ const checkFormValues = (el, source = {}) => {
   const {
     required,
     minLength,
+    maxLength,
     minInteger,
     maxInteger,
     minDate,
@@ -24,6 +25,11 @@ const checkFormValues = (el, source = {}) => {
   if (value || value === 0) {
     if (minLength) {
       if (value.length < minLength) {
+        errors += 1;
+      }
+    }
+    if (maxLength) {
+      if (value.length > maxLength) {
         errors += 1;
       }
     }
