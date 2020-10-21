@@ -34,7 +34,6 @@ const CompletionCodesItem = (props) => {
           <UISemanticCheckbox
             data={rpc}
             name="rpc"
-            radio
             callback={handleChangeValue}
           />
         </div>
@@ -44,7 +43,6 @@ const CompletionCodesItem = (props) => {
           <UISemanticCheckbox
             data={cr}
             name="cr"
-            radio
             callback={handleChangeValue}
           />
         </div>
@@ -54,7 +52,6 @@ const CompletionCodesItem = (props) => {
           <UISemanticCheckbox
             data={closure}
             name="closure"
-            radio
             callback={handleChangeValue}
           />
         </div>
@@ -64,7 +61,6 @@ const CompletionCodesItem = (props) => {
           <UISemanticCheckbox
             data={abandon}
             name="abandon"
-            radio
             callback={handleChangeValue}
           />
         </div>
@@ -74,7 +70,6 @@ const CompletionCodesItem = (props) => {
           <UISemanticCheckbox
             data={dontCall}
             name="dontCall"
-            radio
             callback={handleChangeValue}
           />
         </div>
