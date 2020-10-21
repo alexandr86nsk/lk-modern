@@ -15,7 +15,7 @@ interface IUIInputProps {
   title?: string;
   name: string;
   callback: (name: string, value: string | number) => void;
-  mask?: string;
+  mask?: string | Array<string|RegExp>;
   minLength?: number;
   maxLength?: number;
   data: string | number;
@@ -248,7 +248,7 @@ function UIInput(props: IUIInputProps) {
           maskChar={null}
           formatChars={{
             0: '[0-9]',
-            a: '[A-Za-z]',
+            a: '[A-zА-я]',
             '*': '[A-Za-z0-9]',
           }}
           type={isPassword
