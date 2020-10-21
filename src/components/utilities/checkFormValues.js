@@ -24,22 +24,22 @@ const checkFormValues = (el, source = {}) => {
   }
   if (value || value === 0) {
     if (minLength) {
-      if (value.length < minLength) {
+      if (value.length <= minLength) {
         errors += 1;
       }
     }
     if (maxLength) {
-      if (value.length > maxLength) {
+      if (value.length >= maxLength) {
         errors += 1;
       }
     }
     if (minInteger) {
-      if (value < minInteger) {
+      if (value <= minInteger) {
         errors += 1;
       }
     }
     if (maxInteger) {
-      if (value > maxInteger) {
+      if (value >= maxInteger) {
         errors += 1;
       }
     }
@@ -47,7 +47,7 @@ const checkFormValues = (el, source = {}) => {
       try {
         const curr = new Date(value).getTime();
         const min = new Date(minDate).getTime();
-        if (curr < min) {
+        if (curr <= min) {
           errors += 1;
         }
       } catch (e) {
@@ -58,7 +58,7 @@ const checkFormValues = (el, source = {}) => {
       try {
         const curr = new Date(value).getTime();
         const max = new Date(maxDate).getTime();
-        if (curr > max) {
+        if (curr >= max) {
           errors += 1;
         }
       } catch (e) {
