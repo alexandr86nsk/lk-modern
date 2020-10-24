@@ -102,11 +102,10 @@
       .user-menu {
         display: none;
         position: absolute;
-        top: calc(100% + 1px);
+        top: 100%;
         right: 0;
         width: 100%;
         background-color: var(--white);
-        border-top: none;
         box-shadow: 1px 10px 20px rgba(var(--theme-border-color-rgb), 0.6);
         overflow: hidden;
         z-index: 10;

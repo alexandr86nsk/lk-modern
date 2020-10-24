@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import { useRoutes } from 'react-router-dom';
+import { useLocation, useRoutes } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AnimatePresence, motion } from 'framer-motion';
 import routes from './routes';
@@ -17,16 +17,17 @@ function App(props) {
   const isAuth = React.useMemo(() => !!token, [token]);
 
   const element = useRoutes(routes);
+  const { pathname } = useLocation();
 
   return (
     <div className="App">
       <PageWrapper isAuth={isAuth}>
-        <AnimatePresence>
+        <AnimatePresence exitBeforeEnter>
           <motion.div
+            key={pathname}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition }}
-            exit={{ opacity: 0, transition: { duration: 1.5, ...transition } }}
-            transition={transition}
+            exit={{ opacity: 0, transition: { ...transition, duration: 0.2 } }}
           >
             {isAuth ? element : <AuthPage />}
           </motion.div>

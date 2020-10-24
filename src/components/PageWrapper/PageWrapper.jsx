@@ -1,7 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Button } from 'semantic-ui-react';
-import * as actions from '../../redux/actions/actions';
 import UIToasts from '../UIToasts/UIToasts';
 import UISideBar from '../UISidebar/UISidebar';
 import PageHeader from '../../containers/PageHeader/PageHeader';
@@ -33,11 +31,15 @@ function PageWrapper(props) {
         ? (
           <div className={`content${fixedContent ? ' fixed' : ''}`}>
             <div className="menu-container">
-              <UISideBar />
+              <ErrorBoundary>
+                <UISideBar />
+              </ErrorBoundary>
             </div>
             <div className="page-container">
-              <PageHeader />
-              <div className="page">
+              <ErrorBoundary>
+                <PageHeader />
+              </ErrorBoundary>
+              <div className="page" ref={pageEl}>
                 <div className="page__fixed-btn">
                   <Button
                     title={fixedContent ? 'Свернуть' : 'Развернуть на весь экран'}
@@ -49,24 +51,25 @@ function PageWrapper(props) {
                 <ErrorBoundary>
                   {children}
                 </ErrorBoundary>
-                <PagePopUp />
+                <ErrorBoundary>
+                  <PagePopUp />
+                </ErrorBoundary>
               </div>
-              <PageFooter />
-              <PageModal />
-              <UIToasts />
+              <ErrorBoundary>
+                <PageFooter />
+              </ErrorBoundary>
+              <ErrorBoundary>
+                <PageModal />
+              </ErrorBoundary>
+              <ErrorBoundary>
+                <UIToasts />
+              </ErrorBoundary>
               <UIScrollToTop isVisible={scroll} refEl={pageEl.current} />
             </div>
           </div>
-        )
-        : (
-          <>
-            {children}
-          </>
-        )}
+        ) : children}
     </>
   );
 }
 
-const mapDispatchToProps = { ...actions };
-
-export default connect(null, mapDispatchToProps)(PageWrapper);
+export default React.memo(PageWrapper);

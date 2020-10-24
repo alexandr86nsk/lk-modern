@@ -44,7 +44,11 @@ function UserInfo(props) {
 
   const userData = React.useMemo(() => {
     if (token) {
-      return jwt(token);
+      try {
+        return jwt(token);
+      } catch (e) {
+        return null;
+      }
     }
     return null;
   }, [token]);

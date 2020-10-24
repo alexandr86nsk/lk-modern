@@ -1,6 +1,7 @@
 import React from 'react';
 import './UISidebar.scss';
 import { connect } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import UILogo from '../UILogo/UILogo';
 import UISidebarItem from './UISidebarItem';
 import UISidebarList from './UISidebarList';
@@ -10,13 +11,14 @@ import useOutsideClick from '../UICustomHooks/useOutsideClick/useOutsideClick';
 
 function UISidebar(props) {
   const {
-    path,
     type,
     showSidebar,
     globalStoreSetSection,
   } = props || {};
 
   const sidebarRef = React.useRef(null);
+
+  const { pathname } = useLocation();
 
   const handleClose = React.useCallback(() => {
     if (showSidebar) {
@@ -27,7 +29,7 @@ function UISidebar(props) {
   useOutsideClick(sidebarRef, handleClose);
 
   const renderMenu = React.useMemo(() => UISidebarList.map((v) => {
-    const currentPath = `/${path.split('/')[1]}`;
+    const currentPath = `/${pathname.split('/')[1]}`;
     const {
       id, link, items, title,
     } = v || {};
@@ -39,7 +41,7 @@ function UISidebar(props) {
           <li key={`subKey${wId}`}>
             <UISidebarItem
               item={w}
-              active={wLink === `/${currentPath}` || wLink === path}
+              active={wLink === `/${currentPath}` || wLink === pathname}
             />
           </li>
         );
@@ -55,10 +57,10 @@ function UISidebar(props) {
       <UISidebarItem
         key={id}
         item={v}
-        active={link === `/${currentPath}` || link === path}
+        active={link === `/${currentPath}` || link === pathname}
       />
     );
-  }), [path]);
+  }), [pathname]);
 
   return (
     <aside
@@ -88,7 +90,6 @@ function UISidebar(props) {
 
 const mapStateToProps = (state) => ({
   showSidebar: state.globalStore.showSidebar,
-  path: state.router.location.pathname,
 });
 
 const mapDispatchToProps = { ...actions };
