@@ -79,7 +79,7 @@ function HistoryTabTable(props) {
   [CauseResults]);
 
   return (
-    <div className={`index-table${loading ? ' loading' : ''}`}>
+    <div className={`history-table${loading ? ' loading' : ''}`}>
       {loading && <UILoader text="Загрузка" type="--google" dimmed />}
       <div className="history-table__body">
         {!loading && data && (
@@ -97,7 +97,7 @@ function HistoryTabTable(props) {
             <Table.Row>
               <Table.Cell colSpan="6" />
             </Table.Row>
-            <Table.Row className="index-table__row-header">
+            <Table.Row className="history-table__row-header">
               <Table.Cell colSpan="3" />
               <Table.Cell>Звонки</Table.Cell>
               <Table.Cell collapsing>Соединение</Table.Cell>
@@ -136,7 +136,7 @@ function HistoryTabTable(props) {
             <Table.Row>
               <Table.Cell colSpan="6" />
             </Table.Row>
-            <Table.Row className="index-table__row-header">
+            <Table.Row className="history-table__row-header">
               <Table.Cell>Код завершения</Table.Cell>
               <Table.Cell colSpan="2">Расшифровка кода</Table.Cell>
               <Table.Cell>Описание события</Table.Cell>
