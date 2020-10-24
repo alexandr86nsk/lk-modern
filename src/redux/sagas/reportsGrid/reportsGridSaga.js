@@ -1,7 +1,7 @@
 import {
   call, put, fork, take, cancel,
 } from 'redux-saga/effects';
-import api from '../../../api/api';
+import api from '../../../api';
 import actions from '../../actions/actions';
 import { queryResultAnalysis } from '../common/globalSaga';
 

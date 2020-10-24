@@ -17,6 +17,7 @@ function App(props) {
   const isAuth = React.useMemo(() => !!token, [token]);
 
   const element = useRoutes(routes);
+  console.log('element: ', element);
   const { pathname } = useLocation();
 
   return (
