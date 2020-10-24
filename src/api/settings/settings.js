@@ -1,42 +1,34 @@
-import axios from 'axios';
-import qs from '../qs';
-import requestParser from '../requestParser';
+import requestParserWithoutToken from '../requestParserWithoutToken';
 
-export const getMainSettings = () => requestParser({
+export const getMainSettings = () => requestParserWithoutToken({
   method: 'get',
   url: 'Settings/Get',
 });
 
-export const updateMainSettings = (data) => requestParser({
+export const updateMainSettings = (data) => requestParserWithoutToken({
   method: 'post',
   url: 'Settings/Update',
   data,
 });
 
-export const getRecallSettings = () => requestParser({
+export const getRecallSettings = () => requestParserWithoutToken({
   method: 'get',
   url: 'RetryRules/Get',
 });
 
-export const updateRecallSettings = (data) => requestParser({
+export const updateRecallSettings = (data) => requestParserWithoutToken({
   method: 'post',
   url: 'RetryRules/Update',
   data,
 });
 
-export const getTimeZoneSettings = () => requestParser({
+export const getTimeZoneSettings = () => requestParserWithoutToken({
   method: 'get',
   url: 'TimeZoneOptions/Get',
 });
 
-export const updateTimeZoneSettings = (data) => requestParser({
+export const updateTimeZoneSettings = (data) => requestParserWithoutToken({
   method: 'post',
   url: 'TimeZoneOptions/Update',
   data,
 });
-
-/* export const getQueuePhoneSettings = () => axios.get(`${qs}QueueAsteriskOptions/GetList`);
-
-export const getQueuePhoneControlTypes = () => axios.get(`${qs}QueueControlTypes/Get`);
-
-export const updateQueuePhoneSettings = (item) => axios.post(`${qs}QueueAsteriskOptions/Update`, [item]); */

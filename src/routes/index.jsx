@@ -1,8 +1,8 @@
 import React from 'react';
-import BriefCasesPage from '../containers/BriefcasesPage/BriefcasesPage';
-import SettingsPage from '../containers/SettingsPage/SettingsPage';
-import ReportsPage from '../containers/ReportsPage/ReportsPage';
-import ReportsGridPage from '../containers/ReportsGridPage/ReportsGridPage';
+import BriefCasesPage from '../pages/BriefcasesPage/BriefcasesPage';
+import SettingsPage from '../pages/SettingsPage/SettingsPage';
+import ReportsPage from '../pages/ReportsPage/ReportsPage';
+import ReportsGridPage from '../pages/ReportsGridPage/ReportsGridPage';
 
 const routes = [
   {

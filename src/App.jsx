@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { AnimatePresence, motion } from 'framer-motion';
 import routes from './routes';
 import PageWrapper from './components/PageWrapper/PageWrapper';
-import AuthPage from './containers/AuthPage/AuthPage';
+import AuthPage from './pages/AuthPage/AuthPage';
 
 const transition = { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] };
 

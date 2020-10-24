@@ -1,5 +1,5 @@
 import axios from 'axios';
-import qs from './qs';
+import { qs } from '../constants';
 import store from '../store/store';
 
 /* ********************** token **************** */
@@ -13,7 +13,7 @@ const getErrorCode = (error) => (error && error.response && error.response.statu
   ? error.response.status
   : null);
 
-const requestParser_with_refresh_token = async (props) => {
+const requestParserWithRefreshToken = async (props) => {
   const {
     method,
     url,
@@ -52,7 +52,7 @@ const requestParser_with_refresh_token = async (props) => {
           } = refreshResData || {};
           if (token && refreshToken) {
             await store.dispatch({ type: 'TOKEN_STORE_SET_SECTION', value: { token, refreshToken } });
-            return requestParser_with_refresh_token({
+            return requestParserWithRefreshToken({
               method,
               url,
               data,
@@ -70,7 +70,7 @@ const requestParser_with_refresh_token = async (props) => {
           }
           if (getErrorCode(err) === 404) {
             if (!repeated) {
-              return requestParser_with_refresh_token({
+              return requestParserWithRefreshToken({
                 method,
                 url,
                 data,
@@ -95,4 +95,4 @@ const requestParser_with_refresh_token = async (props) => {
   }
 };
 
-export default requestParser_with_refresh_token;
+export default requestParserWithRefreshToken;

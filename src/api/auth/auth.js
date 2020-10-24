@@ -1,12 +1,12 @@
 /* ********************* auth ***************** */
-import requestParser from '../requestParser';
+import requestParserWithoutToken from '../requestParserWithoutToken';
 
 const logIn = (data) => {
   const {
     login,
     password,
   } = data || {};
-  return requestParser({
+  return requestParserWithoutToken({
     method: 'post',
     url: 'login',
     data: {
