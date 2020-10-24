@@ -37,8 +37,8 @@ function UISelect(props) {
   );
 
   const handleChangeOptionsView = React.useCallback(() => {
-    setShowOptions(!showOptions);
-  }, [showOptions]);
+    setShowOptions((prev) => !prev);
+  }, []);
 
   const memoizedOptions = React.useMemo(() => {
     if (options && Array.isArray(options)) {
