@@ -151,7 +151,7 @@ i.icon.cast:before { content: '\e307'}
 i.icon.cast.connected:before { content: '\e308'}
 i.icon.center.focus.strong:before { content: '\e3b4'}
 i.icon.center.focus.weak:before { content: '\e3b5'}
-i.icon.change.history:before { content: '\e86b'}
+i.icon.change.index:before { content: '\e86b'}
 i.icon.chat:before { content: '\e0b7'}
 i.icon.chat.bubble:before { content: '\e0ca'}
 i.icon.chat.bubble.outline:before { content: '\e0cb'}
@@ -403,7 +403,7 @@ i.icon.help.outline:before { content: '\e8fd'}
 i.icon.high.quality:before { content: '\e024'}
 i.icon.highlight:before { content: '\e25f'}
 i.icon.highlight.off:before { content: '\e888'}
-i.icon.history:before { content: '\e889'}
+i.icon.index:before { content: '\e889'}
 i.icon.home:before { content: '\e88a'}
 i.icon.hot.tub:before { content: '\eb46'}
 i.icon.hotel:before { content: '\e53a'}

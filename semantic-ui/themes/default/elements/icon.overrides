@@ -495,7 +495,7 @@ i.icon.helicopter:before { content: "\f533"; }
 i.icon.highlighter:before { content: "\f591"; }
 i.icon.hiking:before { content: "\f6ec"; }
 i.icon.hippo:before { content: "\f6ed"; }
-i.icon.history:before { content: "\f1da"; }
+i.icon.index:before { content: "\f1da"; }
 i.icon.hockey.puck:before { content: "\f453"; }
 i.icon.holly.berry:before { content: "\f7aa"; }
 i.icon.home:before { content: "\f015"; }
@@ -1477,9 +1477,9 @@ i.icon.zoom.out:before { content: "\f010"; }
   i.icon.window.maximize.outline:before { content: "\f2d0"; }
   i.icon.window.minimize.outline:before { content: "\f2d1"; }
   i.icon.window.restore.outline:before { content: "\f2d2"; }
-  
 
-  
+
+
 }
 .loadOutlineIcons();
 
@@ -1941,7 +1941,7 @@ i.icon.zoom.out:before { content: "\f010"; }
   i.icon.youtube:before { content: "\f167"; font-family: @brandFontName; }
   i.icon.youtube.square:before { content: "\f431"; font-family: @brandFontName; }
   i.icon.zhihu:before { content: "\f63f"; font-family: @brandFontName; }
-  
+
 
   /* Aliases */
   i.icon.american.express:before { content: "\f1f3"; font-family: @brandFontName; }
@@ -1996,6 +1996,6 @@ i.icon.zoom.out:before { content: "\f010"; }
   i.icon.yc:before { content: "\f23b"; font-family: @brandFontName; }
   i.icon.ycombinator:before { content: "\f23b"; font-family: @brandFontName; }
   i.icon.youtube.play:before { content: "\f167"; font-family: @brandFontName; }
-  
+
 }
 .loadBrandIcons();

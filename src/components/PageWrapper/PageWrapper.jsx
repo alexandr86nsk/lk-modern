@@ -24,8 +24,8 @@ function PageWrapper(props) {
   useScrollPage(setScroll, pageEl);
 
   const handleSetFixedContent = React.useCallback(() => {
-    setFixedContent(!fixedContent);
-  }, [fixedContent]);
+    setFixedContent((prev) => !prev);
+  }, []);
 
   return (
     <>

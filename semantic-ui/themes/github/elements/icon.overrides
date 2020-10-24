@@ -82,7 +82,7 @@
 .icon.globe:before { content: '\f0b6'} /*  */
 .icon.graph:before { content: '\f043'} /*  */
 .icon.heart:before { content: '\2665'} /* ♥ */
-.icon.history:before { content: '\f07e'} /*  */
+.icon.index:before { content: '\f07e'} /*  */
 .icon.home:before { content: '\f08d'} /*  */
 .icon.horizontal.rule:before { content: '\f070'} /*  */
 .icon.hourglass:before { content: '\f09e'} /*  */

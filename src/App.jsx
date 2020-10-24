@@ -1,55 +1,41 @@
 import React from 'react';
 import './App.scss';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { useRoutes } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { AnimatePresence } from 'framer-motion';
-import routes from './routes/routes';
-import PrivateRoutes from './routes/privateRoutes';
+import { AnimatePresence, motion } from 'framer-motion';
+import routes from './routes';
 import PageWrapper from './components/PageWrapper/PageWrapper';
-// import AuthPage from './containers/AuthPage/AuthPage';
+import AuthPage from './containers/AuthPage/AuthPage';
 
-const App = (/* props */) =>
-// const { token } = props || {};
+const transition = { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] };
 
-  (
+function App(props) {
+  const {
+    token = 'test',
+  } = props || {};
+
+  const isAuth = React.useMemo(() => !!token, [token]);
+
+  const element = useRoutes(routes);
+
+  return (
     <div className="App">
-      {/* <PageWrapper isAuth={true}> */}
-      <PageWrapper isAuth>
+      <PageWrapper isAuth={isAuth}>
         <AnimatePresence>
-          <Switch>
-            <Route
-              exact
-              path="/"
-              /* render={() => (
-                token ? <Redirect to="/zone" /> : <Redirect to="/sign-in" />
-              )} */
-              render={() => <Redirect to="/briefcases" />}
-            />
-            {/*            <Route
-              exact
-              path="/sign-in"
-              render={() => (
-                token ? <Redirect to="/zone" /> : <AuthPage />
-              )}
-            /> */}
-            {routes.map(({
-              path, exact, component: C, ...rest
-            }) => (
-              <PrivateRoutes
-                /* isLoggedIn={!!token} */
-                isLoggedIn
-                key={path}
-                path={path}
-                exact={exact}
-                component={<C {...rest} />}
-              />
-            ))}
-            <Route render={() => (<Redirect to="/" />)} />
-          </Switch>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition }}
+            exit={{ opacity: 0, transition: { duration: 1.5, ...transition } }}
+            transition={transition}
+          >
+            {isAuth ? element : <AuthPage />}
+          </motion.div>
         </AnimatePresence>
       </PageWrapper>
     </div>
   );
+}
+
 const mapStateToProps = (state) => ({
   token: state.tokenStore.token,
 });

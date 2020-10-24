@@ -4,7 +4,7 @@ import { routerMiddleware } from 'connected-react-router';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from '../redux/reducers/rootReducer';
 import rootSaga from '../redux/sagas/rootSaga';
-import history from '../history/history';
+import history from '../history';
 
 const preloadedState = localStorage.getItem('token') ? { tokenStore: { token: localStorage.getItem('token') } } : {};
 const sagaMiddleware = createSagaMiddleware();
