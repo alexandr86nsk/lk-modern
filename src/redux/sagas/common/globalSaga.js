@@ -1,10 +1,10 @@
 import { put, call } from 'redux-saga/effects';
-import uuid from 'uuid';
+import { v4 } from 'uuid';
 import actions from '../../actions/actions';
 
 export function* setErrorToast(text) {
   const toast = {
-    id: uuid.v4(),
+    id: v4(),
     type: 'error',
     text,
   };
@@ -13,7 +13,7 @@ export function* setErrorToast(text) {
 
 export function* setSuccessToast(text) {
   const toast = {
-    id: uuid.v4(),
+    id: v4(),
     type: 'success',
     text,
   };

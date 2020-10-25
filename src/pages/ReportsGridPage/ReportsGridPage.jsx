@@ -3,7 +3,7 @@ import './ReportsGridPage.scss';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 import { connect } from 'react-redux';
-import uuid from 'uuid';
+import { v4 } from 'uuid';
 import { Button, Icon } from 'semantic-ui-react';
 import actions from '../../redux/actions/actions';
 import UIBlockTitle from '../../components/UIBlockTitle/UIBlockTitle';
@@ -55,7 +55,7 @@ function ReportsGridPage(props) {
 
   const handleAddReport = React.useCallback((value) => {
     reportsGridStoreAddReport({
-      id: uuid.v4(),
+      id: v4(),
       type: value,
     });
   }, [reportsGridStoreAddReport]);
@@ -126,7 +126,7 @@ function ReportsGridPage(props) {
       });
     } else {
       list = [...toolboxList, {
-        id: uuid.v4(),
+        id: v4(),
         title,
         value: {
           reports,

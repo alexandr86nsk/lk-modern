@@ -4,15 +4,15 @@ const path = require('path');
 module.exports = (devMode) => ({
   plugins: [
     new MiniCssExtractPlugin({
-      filename: devMode ? 'css/[name].css' : 'css/[name][hash].css',
-      chunkFilename: devMode ? 'css/[id].css' : 'css/[id][hash].css',
+      filename: devMode ? 'css/[name].css' : 'css/[name][contenthash].css',
+      chunkFilename: devMode ? 'css/[id].css' : 'css/[id][chunkhash].css',
       reloadAll: devMode,
     }),
   ],
   resolve: {
     alias: {
-      '../../theme.config$': path.join(__dirname, '/semantic-ui/theme.config'),
-      '../semantic-ui/site': path.join(__dirname, '/semantic-ui/site'),
+      '../../theme.config$': path.join(__dirname, '../semantic-ui/theme.config'),
+      '../semantic-ui/site': path.join(__dirname, '../semantic-ui/site'),
     },
     extensions: ['.jsx', '.js', '.tsx', '.ts'],
   },
@@ -50,26 +50,8 @@ module.exports = (devMode) => ({
         ],
       },
       {
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: 'fonts/[name].[ext]',
-            },
-          },
-        ],
-      },
-      {
-        test: /\.(png|jpg|gif|ico)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: 'assets/[name].[ext]',
-            },
-          },
-        ],
+        test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
+        type: 'asset/resource',
       },
       {
         test: /\.svg$/,
@@ -87,16 +69,9 @@ module.exports = (devMode) => ({
         ],
       },
       {
-        test: /\.svg$/,
+        test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
         include: /node_modules/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: 'assets/[name].[ext]',
-            },
-          },
-        ],
+        type: 'asset/inline',
       },
     ],
   },

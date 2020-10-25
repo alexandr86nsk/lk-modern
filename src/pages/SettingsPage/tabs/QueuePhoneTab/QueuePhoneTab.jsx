@@ -1,8 +1,7 @@
 import React from 'react';
 import '../../SettingsPage.scss';
 import { connect } from 'react-redux';
-import { Button } from 'semantic-ui-react';
-import uuid from 'uuid';
+import { v4 } from 'uuid';
 import actions from '../../../../redux/actions/actions';
 import UITable from '../../../../components/UITable/UITable';
 import { queuePhoneTableHeader, queuePhoneItem } from './settings';
@@ -43,7 +42,7 @@ function QueuePhoneTab(props) {
     modalStoreSetSection({
       show: true,
       tempData: value || {
-        Id: uuid.v4(),
+        Id: v4(),
         QueuePhone: null,
         QueueLimitCoefficient: null,
         QueueLimitCoefficientPerOperatorMax: null,
