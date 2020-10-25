@@ -99,9 +99,8 @@
   "scripts": {
     "production": "node --max_old_space_size=4096 ./node_modules/webpack/bin/webpack.js --env.NODE_PATH=//nsk-dev-02/c$/www/BSV2 --mode=production --config webpack/webpack.spa.js",
     "test": "node --max_old_space_size=4096 ./node_modules/webpack/bin/webpack.js --env.NODE_PATH=//nsk-dev-04/c$/www/BSV2 --mode=production --config webpack/webpack.spa.js",
-    "prod": "webpack --mode=production --config webpack/webpack.spa.js",
+    "prod": "webpack --mode=production --config webpack.js",
     "dev": "webpack serve --mode=development --config webpack.js",
-    "dev-local": "webpack-dev-server --mode=development --config webpack/webpack.spa.js --host 0.0.0.0 --open http://192.168.1.53:9000/",
     "jest": "jest"
   },
   "eslintConfig": {
@@ -152,6 +151,7 @@
     "file-loader": "^6.1.1",
     "html-webpack-plugin": "^4.5.0",
     "jest": "^26.6.1",
+    "less": "^3.12.2",
     "less-loader": "^7.0.2",
     "mini-css-extract-plugin": "^1.2.0",
     "postcss": "^8.1.4",

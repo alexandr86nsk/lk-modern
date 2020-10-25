@@ -6,7 +6,6 @@ module.exports = (devMode) => ({
     new MiniCssExtractPlugin({
       filename: devMode ? 'css/[name].css' : 'css/[name][contenthash].css',
       chunkFilename: devMode ? 'css/[id].css' : 'css/[id][chunkhash].css',
-      reloadAll: devMode,
     }),
   ],
   resolve: {
@@ -34,7 +33,8 @@ module.exports = (devMode) => ({
       },
       {
         test: /\.less$/,
-        use: [MiniCssExtractPlugin.loader,
+        use: [
+          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
           'postcss-loader',
           'less-loader',
@@ -43,15 +43,22 @@ module.exports = (devMode) => ({
       {
         test: /\.(sa|sc|c)ss$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
           'postcss-loader',
           'sass-loader',
         ],
       },
       {
-        test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
-        type: 'asset/resource',
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'fonts/[name].[ext]',
+            },
+          },
+        ],
       },
       {
         test: /\.svg$/,
@@ -69,9 +76,27 @@ module.exports = (devMode) => ({
         ],
       },
       {
-        test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
+        test: /\.svg$/,
         include: /node_modules/,
-        type: 'asset/inline',
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'assets/[name].[ext]',
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpg|gif|ico)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'assets/[name].[ext]',
+            },
+          },
+        ],
       },
     ],
   },

@@ -16,7 +16,6 @@ const config = {
   devServer: {
     host: 'localhost',
     historyApiFallback: true,
-    publicPath: path.resolve(__dirname, '../dist'),
     contentBase: path.resolve(__dirname, '../dist'),
     open: true,
     compress: true,
