@@ -99,8 +99,8 @@
   "scripts": {
     "production": "node --max_old_space_size=4096 ./node_modules/webpack/bin/webpack.js --env.NODE_PATH=//nsk-dev-02/c$/www/BSV2 --mode=production --config webpack/webpack.spa.js",
     "test": "node --max_old_space_size=4096 ./node_modules/webpack/bin/webpack.js --env.NODE_PATH=//nsk-dev-04/c$/www/BSV2 --mode=production --config webpack/webpack.spa.js",
-    "prod": "webpack --mode=production --config webpack.js",
-    "dev": "webpack serve --mode=development --config webpack.js",
+    "prod": "webpack --mode production --config webpack.js",
+    "dev": "webpack serve --mode development --config webpack.js",
     "jest": "jest"
   },
   "eslintConfig": {
