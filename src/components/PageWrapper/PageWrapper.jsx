@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button } from 'semantic-ui-react';
 import UIToasts from '../UIToasts/UIToasts';
-import UISideBar from '../UISidebar/UISidebar';
 import PageHeader from '../../pages/PageHeader/PageHeader';
 import PageFooter from '../../pages/PageFooter/PageFooter';
 import PageModal from './PageModal';
@@ -9,8 +8,9 @@ import PagePopUp from './PagePopUp';
 import useScrollPage from '../UICustomHooks/useScrollPage/useScrollPage';
 import UIScrollToTop from '../UIScrollToTop/UIScrollToTop';
 import ErrorBoundary from '../UIErrorBoundary/UIErrorBoundary';
+import UISidebar from '../UISidebar/UISidebar';
 
-function PageWrapper(props) {
+async function PageWrapper(props) {
   const {
     children,
     isAuth,
@@ -32,7 +32,7 @@ function PageWrapper(props) {
           <div className={`content${fixedContent ? ' fixed' : ''}`}>
             <div className="menu-container">
               <ErrorBoundary>
-                <UISideBar />
+                <UISidebar />
               </ErrorBoundary>
             </div>
             <div className="page-container">

@@ -1,9 +1,18 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import BriefCasesPage from '../pages/BriefcasesPage/BriefcasesPage';
-import SettingsPage from '../pages/SettingsPage/SettingsPage';
-import ReportsPage from '../pages/ReportsPage/ReportsPage';
-import ReportsGridPage from '../pages/ReportsGridPage/ReportsGridPage';
+
+const Loadable = (Component) => (
+  <React.Suspense fallback={<div>Loading...</div>}>
+    <Component />
+  </React.Suspense>
+);
+
+const BriefCasesPage = Loadable(React.lazy(() => import('../pages/BriefcasesPage/BriefcasesPage')));
+const SettingsPage = Loadable(React.lazy(() => import('../pages/SettingsPage/SettingsPage')));
+const ReportsPage = Loadable(React.lazy(() => import('../pages/ReportsPage/ReportsPage')));
+const ReportsGridPage = Loadable(React.lazy(() => import('../pages/ReportsGridPage/ReportsGridPage')));
+
+console.log('BriefCasesPage: ', BriefCasesPage);
 
 const routes = [
   {
@@ -14,22 +23,22 @@ const routes = [
   {
     path: '/briefcases',
     caseSensitive: true,
-    element: <BriefCasesPage />,
+    element: BriefCasesPage,
   },
   {
     path: '/settings',
     caseSensitive: true,
-    element: <SettingsPage />,
+    element: SettingsPage,
   },
   {
     path: '/reports',
     caseSensitive: true,
-    element: <ReportsPage />,
+    element: ReportsPage,
   },
   {
     path: '/reports_grid',
     caseSensitive: true,
-    element: <ReportsGridPage />,
+    element: ReportsGridPage,
   },
 ];
 

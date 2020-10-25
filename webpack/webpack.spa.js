@@ -42,7 +42,7 @@ const config = {
         { from: path.resolve(__dirname, '../node_modules/tinymce/skins/ui/oxide'), to: 'skins/oxide' },
       ],
     }),
-    // new webpack.HotModuleReplacementPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /ru/),
   ],
 };

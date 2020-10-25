@@ -21,16 +21,16 @@ function App(props) {
   return (
     <div className="App">
       <PageWrapper isAuth={isAuth}>
-        <AnimatePresence exitBeforeEnter>
-          <motion.div
-            key={pathname}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, transition }}
-            exit={{ opacity: 0, transition: { ...transition, duration: 0.2 } }}
-          >
-            {isAuth ? element : <AuthPage />}
-          </motion.div>
-        </AnimatePresence>
+          <AnimatePresence exitBeforeEnter>
+            <motion.div
+              key={pathname}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1, transition }}
+              exit={{ opacity: 0, transition: { ...transition, duration: 0.2 } }}
+            >
+              {isAuth ? element : <AuthPage />}
+            </motion.div>
+          </AnimatePresence>
       </PageWrapper>
     </div>
   );
