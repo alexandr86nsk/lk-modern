@@ -92,6 +92,10 @@
     border-top: none;
   }
 
+  .ui.button.loading {
+    pointer-events: none !important;
+  }
+
   .page {
     display: grid;
     grid-template-rows: 1fr;
