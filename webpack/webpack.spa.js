@@ -21,7 +21,8 @@ const config = {
   },
   devServer: {
     historyApiFallback: true,
-    contentBase: path.resolve(__dirname, '../dist'),
+/*    contentBase: path.resolve(__dirname, '../dist'),
+    watchContentBase: true,*/
     open: true,
     hot: true,
     port: 9000,
