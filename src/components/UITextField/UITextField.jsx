@@ -14,7 +14,6 @@ function UITextField(props) {
 
   const momentDate = React.useMemo(() => {
     if (dateTime && data) {
-      moment.locale('ru');
       return moment(data).format(dateFormat);
     }
     return (data === 0 || data) ? data : '';

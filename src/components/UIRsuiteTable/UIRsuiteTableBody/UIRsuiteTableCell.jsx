@@ -90,7 +90,6 @@ const UIRsuiteTableCell = (props) => {
 
         return { data: items, title: '' };
       case 'date':
-        moment.locale('ru');
         return {
           data: rowData[dataKey] ? moment(rowData[dataKey]).format(dateFormat || 'DD.MM.YYYY HH:mm') : '',
           title: rowData[dataKey] ? moment(rowData[dataKey]).format(dateFormat || 'DD.MM.YYYY HH:mm') : '',

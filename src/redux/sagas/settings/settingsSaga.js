@@ -101,7 +101,6 @@ function* getCompletionCodes() {
     api.getTimeZoneSettings,
     undefined,
     function* (res) {
-      console.log('completionCodes: ', res);
       const arr = [];
       for (let i = 1; i < 20; i += 1) {
         arr.push({

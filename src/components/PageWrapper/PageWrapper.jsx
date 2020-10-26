@@ -10,7 +10,7 @@ import UIScrollToTop from '../UIScrollToTop/UIScrollToTop';
 import ErrorBoundary from '../UIErrorBoundary/UIErrorBoundary';
 import UISidebar from '../UISidebar/UISidebar';
 
-async function PageWrapper(props) {
+function PageWrapper(props) {
   const {
     children,
     isAuth,

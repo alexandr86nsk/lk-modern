@@ -40,8 +40,6 @@ function HistoryTabTable(props) {
     DroptCallAtTime = '',
   } = data || {};
 
-  moment.locale('ru');
-
   const renderResults = React.useMemo(() => {
     if (CauseResults) {
       return sortBy(CauseResults, 'Percentage').reverse().map((v, index) => {

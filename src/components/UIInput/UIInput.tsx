@@ -221,7 +221,6 @@ function UIInput(props: IUIInputProps) {
 
   const momentDate = React.useMemo(() => {
     if (isDate && data) {
-      moment.locale('ru');
       return moment.default(data).format(dateFormat);
     }
     return data ?? '';

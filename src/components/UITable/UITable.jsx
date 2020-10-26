@@ -41,9 +41,7 @@ function UITable(props) {
     refresh,
     refreshCallback,
     tableSize = 'small'
-  } = props;
-
-  moment.locale('ru');
+  } = props || {};
 
   const [currentPage, setCurrentPage] = React.useState(1);
   const [itemsPerPage, setItemsPerPage] = React.useState(paginationNumber || 20);

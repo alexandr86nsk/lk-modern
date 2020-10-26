@@ -2,8 +2,6 @@ import React from 'react';
 import { Table, Icon } from 'semantic-ui-react';
 import * as moment from 'moment';
 
-moment.locale('ru');
-
 const keyVariables = {
   CallPercentage: '% звонков',
   CallConnectedPercentage: '% соединений',

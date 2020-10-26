@@ -12,9 +12,7 @@ function UITableCell(props) {
     list = [],
     actions = {},
     selectable = false,
-  } = props;
-
-  moment.locale('ru');
+  } = props || {};
 
   const handleCellClick = React.useCallback(() => {
     if (selectable && actions.cellClick) {

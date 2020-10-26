@@ -9,8 +9,6 @@ import actions from '../../../redux/actions/actions';
 import UIReactSelect from '../../../components/UIReactSelect/UIReactSelect';
 import UILoader from '../../../components/UILoader/UILoader';
 
-moment.locale('ru');
-
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28'];
 
 const RADIAN = Math.PI / 180;

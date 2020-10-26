@@ -2,7 +2,7 @@ const path = require('path');
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const ManifestPlugin = require('webpack-manifest-plugin');
+// const ManifestPlugin = require('webpack-manifest-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
@@ -13,24 +13,22 @@ const config = {
   entry: {
     main: path.resolve(__dirname, '../src/index.jsx'),
   },
-  devServer: {
-    host: 'localhost',
-    historyApiFallback: true,
-    contentBase: path.resolve(__dirname, '../dist'),
-    open: true,
-    compress: true,
-    hot: true,
-    port: 9000,
-  },
   output: {
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/',
     filename: '[name].[contenthash].bundle.js',
     chunkFilename: '[name].[chunkhash].bundle.js',
   },
+  devServer: {
+    historyApiFallback: true,
+    contentBase: path.resolve(__dirname, '../dist'),
+    open: true,
+    hot: true,
+    port: 9000,
+  },
   plugins: [
     new CleanWebpackPlugin(),
-    new ManifestPlugin(),
+    // new ManifestPlugin(),
     new HtmlWebpackPlugin({
       title: 'Real App',
       template: path.resolve(__dirname, '../public/index.html'),
@@ -51,6 +49,11 @@ module.exports = (env, argv) => {
   if (argv.mode === 'development') {
     config.devtool = 'inline-source-map';
     config.mode = 'development';
+    config.output = {
+      ...config.output,
+      filename: '[name].bundle.js',
+      chunkFilename: '[name].bundle.js',
+    };
     config.plugins.push(new webpack.DefinePlugin({
       SERVER_URL: JSON.stringify('false'),
     }));
