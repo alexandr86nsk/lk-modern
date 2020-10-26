@@ -23,7 +23,7 @@ const store = createStore(
 sagaMiddleware.run(rootSaga);
 
 store.subscribe(() => {
-  localStorage.setItem('token', store.getState().tokenStore.token);
+  localStorage.setItem('token', JSON.stringify(store.getState().tokenStore.token));
 });
 
 export default store;
