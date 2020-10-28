@@ -132,6 +132,9 @@ function UIReactDatePicker(props: IUIReactDatePickerProps) {
           str = `${str} success`;
         }
       }
+      if (required && !(minDate || maxDate)) {
+        str = `${str} success`;
+      }
       if (minDate || maxDate) {
         if (!compareDate()) {
           str = `${str} error`;
