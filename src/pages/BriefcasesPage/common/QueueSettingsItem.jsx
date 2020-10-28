@@ -55,7 +55,7 @@ function QueueSettingsItem(props) {
         <div className={`settings-item__body${blockName ? ` ${blockName}` : ''}`}>
           {loading && (
             <div className="settings-item__loader">
-              <UILoader text="Загрузка" type="--clock" />
+              <UILoader text="Загрузка" type="--google" />
             </div>
           )}
           {body || <UIMissingData />}
