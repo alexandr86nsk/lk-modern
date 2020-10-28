@@ -9,6 +9,7 @@ import UIRsuiteTable from '../../components/UIRsuiteTable/UIRsuiteTable';
 import tableDefaultConfig from '../../components/UIRsuiteTable/tableDeafultConfig';
 import BriefcaseEditor from './common/BriefcaseEditor';
 import UILoader from '../../components/UILoader/UILoader';
+import UIPageLoader from '../../components/UIPageLoader/UIPageLoader';
 
 function BriefcasesPage(props) {
   const {
@@ -178,14 +179,15 @@ function BriefcasesPage(props) {
 
   return (
     <div className="briefcases-page page__content">
-      <UIBlockTitle title="Список очередей" />
+      <UIPageLoader />
+      {/*<UIBlockTitle title="Список очередей" />
       <UIRsuiteTable
         tableStore={tableStore}
         tableStoreSetSection={briefcasesStoreSetTableStoreSection}
         tableTemplate={tableTemplate}
         tableTemplateSetSection={briefcasesStoreSetTableTemplateSection}
         tableData={briefcases}
-      />
+      />*/}
     </div>
   );
 }
