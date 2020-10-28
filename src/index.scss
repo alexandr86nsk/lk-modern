@@ -9,6 +9,11 @@ body {
   overflow: hidden;
 }
 
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
+}
+
 .document-body {
 
   &.--styled {
@@ -53,9 +58,4 @@ body {
       z-index: -1;
     }
   }
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-  monospace;
 }
