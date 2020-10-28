@@ -10,6 +10,7 @@ const baseConfig = require('./webpack.base');
 const optimizationConfig = require('./webpack.optimization');
 
 const config = {
+  target: 'web',
   entry: {
     main: path.resolve(__dirname, '../src/index.jsx'),
   },
@@ -21,8 +22,7 @@ const config = {
   },
   devServer: {
     historyApiFallback: true,
-/*    contentBase: path.resolve(__dirname, '../dist'),
-    watchContentBase: true,*/
+    compress: true,
     open: true,
     hot: true,
     port: 9000,
