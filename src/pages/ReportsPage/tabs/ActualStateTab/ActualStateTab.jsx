@@ -87,7 +87,7 @@ function ActualStateTab(props) {
           filter: true,
           filterCustom: <ActualStateFilter />,
           refresh: false,
-          tableLoader: <UILoader title="Загрузка" type="google animation-3" dimmed />,
+          tableLoader: <UILoader title="Загрузка" type="google animation-2" dimmed />,
         },
       });
     }

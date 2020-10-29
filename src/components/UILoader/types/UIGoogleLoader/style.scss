@@ -69,7 +69,7 @@ $loader__barDimentions: .85em;
     transform: rotate(10deg);
 
     .loader__bar {
-      border-radius: $loader__barDimentions/2;
+      border-radius: 50%;
     }
   }
 }
