@@ -7,7 +7,7 @@ import {
 } from 'recharts';
 import actions from '../../../redux/actions/actions';
 import UIReactSelect from '../../../components/UIReactSelect/UIReactSelect';
-import UILoader from '../../../components/UILoader/UILoader';
+import UILoader from '../../../components/UILoader';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28'];
 

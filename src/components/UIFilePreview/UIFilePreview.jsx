@@ -9,7 +9,7 @@ import CloseIcon from '../../static/images/close-24px.svg';
 import IncreaseIcon from '../../static/images/add_circle_outline-24px.svg';
 import DecreaseIcon from '../../static/images/remove_circle_outline-24px.svg';
 import UIDraggable from '../UIDraggable/UIDraggable';
-import UILoader from '../UILoader/UILoader';
+import UILoader from '../UILoader';
 
 
 function UIFilePreview(props) {

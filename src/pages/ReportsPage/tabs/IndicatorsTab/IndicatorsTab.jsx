@@ -8,7 +8,7 @@ import tableDefaultConfig from '../../../../components/UIRsuiteTable/tableDeaful
 import CallStatisticFilter from './CallStatisticFilter';
 import UIElementTitle from '../../../../components/UIElementTitle/UIElementTitle';
 import OperatorInfo from './OperatorInfo';
-import UILoader from '../../../../components/UILoader/UILoader';
+import UILoader from '../../../../components/UILoader';
 
 function IndicatorsTab(props) {
   const {

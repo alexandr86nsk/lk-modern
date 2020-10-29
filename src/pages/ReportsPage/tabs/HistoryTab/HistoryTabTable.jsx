@@ -2,7 +2,7 @@ import React from 'react';
 import { Table, Progress } from 'semantic-ui-react';
 import * as moment from 'moment';
 import sortBy from 'lodash/sortBy';
-import UILoader from '../../../../components/UILoader/UILoader';
+import UILoader from '../../../../components/UILoader';
 import UIMissingData from '../../../../components/UIMissingData/UIMissingData';
 
 const colors = [

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Table } from 'semantic-ui-react';
 import actions from '../../../redux/actions/actions';
 import UIReactSelect from '../../../components/UIReactSelect/UIReactSelect';
-import UILoader from '../../../components/UILoader/UILoader';
+import UILoader from '../../../components/UILoader';
 import JobDetailReportItem from './JobDetailReportItem';
 
 const JobDetailReport = (props) => {

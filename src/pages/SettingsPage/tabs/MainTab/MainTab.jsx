@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Button, Icon } from 'semantic-ui-react';
 import actions from '../../../../redux/actions/actions';
 import UIInput from '../../../../components/UIInput/UIInput';
-import UILoader from '../../../../components/UILoader/UILoader';
+import UILoader from '../../../../components/UILoader';
 import UIMissingData from '../../../../components/UIMissingData/UIMissingData';
 
 const options = {
@@ -80,7 +80,7 @@ function MainTab(props) {
 
   return (
     <div className="settings-page__main-tab tab">
-      {loadingMainSettings && <UILoader type="--google" dimmed />}
+      {loadingMainSettings && <UILoader title="Загрузка" type="block-wave" dimmed />}
       {!loadingMainSettings && main && (
         <>
           <div className="input-block">

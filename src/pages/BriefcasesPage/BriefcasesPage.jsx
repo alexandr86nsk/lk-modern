@@ -8,8 +8,7 @@ import WarningIcon from '../../static/images/warning-24px.svg';
 import UIRsuiteTable from '../../components/UIRsuiteTable/UIRsuiteTable';
 import tableDefaultConfig from '../../components/UIRsuiteTable/tableDeafultConfig';
 import BriefcaseEditor from './common/BriefcaseEditor';
-import UILoader from '../../components/UILoader/UILoader';
-import UIBlockWaveLoader from '../../components/UILoader/types/UIBlockWaveLoader';
+import UILoader from '../../components/UILoader';
 
 function BriefcasesPage(props) {
   const {
@@ -97,7 +96,7 @@ function BriefcasesPage(props) {
           filter: false,
           search: true,
           customId: 'QueuePhone',
-          tableLoader: <UILoader type="--google" dimmed />,
+          tableLoader: <UILoader title="Загрузка" type="block-wave" dimmed />,
         },
       });
     }
@@ -179,15 +178,14 @@ function BriefcasesPage(props) {
 
   return (
     <div className="briefcases-page page__content">
-      <UIBlockWaveLoader />
-      {/*<UIBlockTitle title="Список очередей" />
+      <UIBlockTitle title="Список очередей" />
       <UIRsuiteTable
         tableStore={tableStore}
         tableStoreSetSection={briefcasesStoreSetTableStoreSection}
         tableTemplate={tableTemplate}
         tableTemplateSetSection={briefcasesStoreSetTableTemplateSection}
         tableData={briefcases}
-      />*/}
+      />
     </div>
   );
 }

@@ -11,7 +11,7 @@ import FilterIcon from '../../static/images/filter_list-24px.svg';
 import RefreshIcon from '../../static/images/refresh-24px.svg';
 import numberOfRecords from './common/numberOfRecords';
 import UITableFilter from './UITableFilter';
-import UILoader from '../UILoader/UILoader';
+import UILoader from '../UILoader';
 
 
 function UITable(props) {

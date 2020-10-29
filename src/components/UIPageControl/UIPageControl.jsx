@@ -1,6 +1,6 @@
 import React from 'react';
 import './UIPageControl.scss';
-import UILoader from '../UILoader/UILoader';
+import UILoader from '../UILoader';
 import UITransition from '../UITransition/UITransition';
 import controlButtons from './settings';
 

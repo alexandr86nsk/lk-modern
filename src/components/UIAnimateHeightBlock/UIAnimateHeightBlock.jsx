@@ -1,7 +1,7 @@
 import React from 'react';
 import './UIAnimateHeightBlock.scss';
 import AnimateHeight from 'react-animate-height';
-import UILoader from '../UILoader/UILoader';
+import UILoader from '../UILoader';
 
 const heightVariables = {
   true: 'auto',
