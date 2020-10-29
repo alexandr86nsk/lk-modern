@@ -215,7 +215,11 @@ function UIRsuiteTableBody(props) {
     tableTemplate,
   ]);
 
-  const renderLoading = React.useCallback(() => tableLoader, [tableLoader]);
+  const renderLoading = React.useCallback(() => (
+    <div className="ui-rsuite-table__loader">
+      {tableLoader}
+    </div>
+  ), [tableLoader]);
 
   return (
     tableTemplate && (

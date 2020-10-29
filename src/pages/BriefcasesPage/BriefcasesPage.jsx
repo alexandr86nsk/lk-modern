@@ -96,7 +96,7 @@ function BriefcasesPage(props) {
           filter: false,
           search: true,
           customId: 'QueuePhone',
-          tableLoader: <UILoader title="Загрузка" type="block-wave" dimmed />,
+          tableLoader: <UILoader title="Загрузка" dimmed />,
         },
       });
     }

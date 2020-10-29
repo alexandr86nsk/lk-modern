@@ -62,6 +62,10 @@
     justify-content: center;
   }
 
+  &__table &__loader {
+    font-size: 12px;
+  }
+
   &__cell.--icon-actions {
     font-size: .8em;
 
