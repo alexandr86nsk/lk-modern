@@ -11,6 +11,7 @@ import reportsGridStore from './reportsGrid/reportsGridStore';
 import popUpStore from './common/popUpStore';
 import globalStore from './common/globalStore';
 import briefcasesStore from './briefcases/briefcasesStore';
+import testStore from './test/testStore';
 
 const rootReducer = (history) => combineReducers({
   router: connectRouter(history),
@@ -25,6 +26,7 @@ const rootReducer = (history) => combineReducers({
   popUpStore,
   globalStore,
   briefcasesStore,
+  testStore,
 });
 
 export default rootReducer;

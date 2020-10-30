@@ -34,6 +34,12 @@ const UISidebarList = [
         link: '/reports_grid',
         icon: <ReportsIcon />,
       },
+      {
+        id: 4,
+        title: 'Inputs',
+        link: '/inputs',
+        icon: <ReportsIcon />,
+      },
     ],
   },
 ];

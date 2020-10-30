@@ -4,6 +4,7 @@ import BriefCasesPage from '../pages/BriefcasesPage/BriefcasesPage';
 import SettingsPage from '../pages/SettingsPage/SettingsPage';
 import ReportsPage from '../pages/ReportsPage/ReportsPage';
 import ReportsGridPage from '../pages/ReportsGridPage/ReportsGridPage';
+import InputTestPage from '../pages/InputTestPage';
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: '/reports_grid',
     caseSensitive: true,
     element: <ReportsGridPage />,
+  },
+  {
+    path: '/inputs',
+    caseSensitive: true,
+    element: <InputTestPage />,
   },
 ];
 
