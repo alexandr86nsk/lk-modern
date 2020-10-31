@@ -10,29 +10,47 @@ import ClearIcon from './clear-icon.svg';
 import HintIcon from './hint-icon.svg';
 import SearchIcon from './search-icon.svg';
 import RequiredIcon from './required-icon.svg';
-import classNameGenerator from "../utilities/classNameGenerator";
+import classNameGenerator from '../utilities/classNameGenerator';
 
-const compareLength = (value: string | number, min: number, max: number): boolean => {
+const compareLength = (value: string | number, min: number, max: number): string[] => {
   try {
+    const hasMin = !!(min || min === 0);
+    const hasMax = !!(max || max === 0);
+    const errors = [];
     const stringifiedValue = value.toString();
     const valueLength = stringifiedValue.length;
-    return valueLength >= (min || -Infinity) && valueLength <= (max || Infinity);
+    if (hasMin && valueLength < min) {
+      errors.push(`Количество введенных символов, меньше минимально допустимого! Минимум: ${min} символов.`);
+    }
+    if (hasMax && valueLength > max) {
+      errors.push(`Количество введенных символов, больше максимально допустимого! Максимум: ${max} символов.`);
+    }
+    return errors;
   } catch (e) {
     console.log('[UIInput] Error: ', e);
-    return false;
+    return [];
   }
 };
 
-const compareInteger = (value: string | number, min: number, max: number): boolean => {
+const compareInteger = (value: string | number, min: number, max: number): string[] => {
   try {
+    const hasMin = !!(min || min === 0);
+    const hasMax = !!(max || max === 0);
+    const errors = [];
     let numberifiedValue = value;
     if (typeof value === 'string') {
       numberifiedValue = parseInt(value, 10);
     }
-    return numberifiedValue >= (min || -Infinity) && numberifiedValue <= (max || Infinity);
+    if (hasMin && numberifiedValue < min) {
+      errors.push(`Указанное значение, меньше минимально допустимого! Минимум: ${min}.`);
+    }
+    if (hasMax && numberifiedValue > max) {
+      errors.push(`Указанное значение, больше максимально допустимого! Максимум: ${max}.`);
+    }
+    return errors;
   } catch (e) {
     console.log('[UIInput] Error: ', e);
-    return false;
+    return [];
   }
 };
 
@@ -58,12 +76,12 @@ interface IUIInputProps {
   hintMessage?: string;
   hintIcon?: string;
   placeholder?: string;
-  readOnly?: boolean;
+  isReadOnly?: boolean;
   type?: string;
   isSearch?: boolean;
   maxInteger?: number;
   minInteger?: number;
-  customValidation?: (value: string | number) => boolean;
+  customValidation?: (value: string | number) => string[];
 }
 
 function UIInput(props: IUIInputProps) {
@@ -87,7 +105,7 @@ function UIInput(props: IUIInputProps) {
     hint,
     hintMessage,
     placeholder,
-    readOnly,
+    isReadOnly,
     type,
     isInteger,
     maxInteger,
@@ -137,75 +155,48 @@ function UIInput(props: IUIInputProps) {
     }
   }, [callback, name]);
 
-  const className = React.useMemo(() => {
-    return classNameGenerator();
-  }, [];
+  const className = React.useMemo((): string => classNameGenerator({
+    baseClass: 'ui-input',
+    isReadOnly,
+    type,
+    disabled,
+  }), [isReadOnly, type, disabled]);
 
-  const errors = React.useMemo(() => {
-    const err = [];
+  const errors = React.useMemo((): string[] => {
+    let err = [];
+    const isEmpty = !data && data !== 0;
     if (required) {
-      if (!data && data !== 0) {
-        err.push('Поле')
+      if (isEmpty) {
+        err.push('Поле является обязательным, но незаполнено');
       }
     }
-    if (data || data === 0) {
-      if (required && !isInteger && (minLength || maxLength)) {
-        if (compareLength()) {
-          cls = `${cls} success`;
-        }
+    if (!isEmpty) {
+      if (!isInteger) {
+        err = [...err, ...compareLength(data, minLength, maxLength)];
       }
-      if (!isInteger && (minLength || maxLength)) {
-        if (!compareLength()) {
-          cls = `${cls} error`;
-        }
-      }
-      if (required && isInteger && (minInteger || maxInteger)) {
-        if (compareInteger()) {
-          cls = `${cls} success`;
-        }
-      }
-      if (isInteger && (minInteger || maxInteger)) {
-        if (!compareInteger()) {
-          cls = `${cls} error`;
-        }
-      }
-      if (required && isEmail) {
-        if (validateEmail(data)) {
-          cls = `${cls} success`;
-        }
+      if (isInteger) {
+        err = [...err, ...compareInteger(data, minInteger, maxInteger)];
       }
       if (isEmail) {
-        if (!validateEmail(data)) {
-          cls = `${cls} error`;
-        }
-      }
-      if (required && isUrl) {
-        if (validateUrl(data)) {
-          cls = `${cls} success`;
+        if (validateEmail(data)) {
+          err.push('Поле заполнено неверно! Пример верного формата: example@gmail.com');
         }
       }
       if (isUrl) {
-        if (!validateUrl(data)) {
-          cls = `${cls} error`;
+        if (validateUrl(data)) {
+          err.push('Поле заполнено неверно! Пример верного формата: http://example.ru');
         }
       }
-      if (required && customValidation && customValidation(data)) {
-        cls = `${cls} success`;
+      if (customValidation) {
+        err = [...err, ...customValidation(data)];
       }
-      if (customValidation && !customValidation(data)) {
-        cls = `${cls} error`;
-      }
-    } else {
-      cls = `${cls} empty`;
     }
-    return cls;
+    if (err && Array.isArray(err) && err.length > 0) {
+      return err;
+    }
+    return null;
   }, [
-      customValidation,
-    disabled,
-    isSearch,
-    type,
-    hint,
-    readOnly,
+    customValidation,
     data,
     isEmail,
     minLength,
@@ -215,7 +206,7 @@ function UIInput(props: IUIInputProps) {
     isInteger,
     maxInteger,
     minInteger,
-  ])
+  ]);
 
   const momentDate = React.useMemo(() => {
     if (isDate && data) {
@@ -275,14 +266,14 @@ function UIInput(props: IUIInputProps) {
             <div className="ui-input__text" title={title}>
               {title}
             </div>
-            {required && !readOnly && (
+            {required && !isReadOnly && (
               <div className="ui-input__icon-wrapper">
                 <div className="ui-input__icon ui-input__icon--required" title="Обязательное поле">
                   <RequiredIcon />
                 </div>
               </div>
             )}
-            {hint && !readOnly && (
+            {hint && !isReadOnly && (
               <div className="ui-input__icon-wrapper">
                 <div className="ui-input__icon ui-input__icon--hint">
                   <HintIcon />
@@ -295,7 +286,7 @@ function UIInput(props: IUIInputProps) {
       <div className="ui-input__body" ref={elRef}>
         <div className="ui-input__inner-wrapper">
           {renderBody}
-          {!disabled && !readOnly && (
+          {!disabled && !isReadOnly && (
           <>
             <div className="ui-input__icon-wrapper">
               <div role="presentation" className="ui-input__icon ui-input__icon--clear" title="Очистить" onClick={handleClear}>
