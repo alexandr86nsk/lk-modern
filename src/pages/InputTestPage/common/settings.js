@@ -5,7 +5,7 @@ const inputsTemplate = [
     dataKey: 'test1',
     type: 'input',
     otherProps: {
-      type: '--style-1c --transparent',
+      type: 'style-1c transparent',
     },
   },
   {
@@ -15,9 +15,8 @@ const inputsTemplate = [
     type: 'input',
     otherProps: {
       required: true,
-      successFormat: 'Обязательное поле',
       mask: '000',
-      type: '--style-1c --transparent',
+      type: 'style-1c transparent',
       minLength: 3,
       hint: true,
     },
@@ -29,9 +28,8 @@ const inputsTemplate = [
     type: 'input',
     otherProps: {
       required: true,
-      successFormat: 'Обязательное поле',
       mask: '000',
-      type: '--style-1c --transparent',
+      type: 'style-1c transparent',
     },
   },
   {
@@ -41,7 +39,6 @@ const inputsTemplate = [
     type: 'input',
     otherProps: {
       required: true,
-      successFormat: 'Обязательное поле',
       mask: '000',
     },
   },
@@ -52,7 +49,8 @@ const inputsTemplate = [
     type: 'input',
     otherProps: {
       required: true,
-      successFormat: 'Обязательное поле',
+      minLength: 3,
+      isEmail: true,
     },
   },
 ];

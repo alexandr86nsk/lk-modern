@@ -20,10 +20,10 @@ const compareLength = (value: string | number, min: number, max: number): string
     const stringifiedValue = value.toString();
     const valueLength = stringifiedValue.length;
     if (hasMin && valueLength < min) {
-      errors.push(`Количество введенных символов, меньше минимально допустимого! Минимум: ${min} символов.`);
+      errors.push(`Количество введенных символов, меньше минимально допустимого! Минимум: ${min}.`);
     }
     if (hasMax && valueLength > max) {
-      errors.push(`Количество введенных символов, больше максимально допустимого! Максимум: ${max} символов.`);
+      errors.push(`Количество введенных символов, больше максимально допустимого! Максимум: ${max}.`);
     }
     return errors;
   } catch (e) {
@@ -69,7 +69,6 @@ interface IUIInputProps {
   isMoney?: boolean;
   isPassword?: boolean;
   isInteger?: boolean;
-  validationMessage?: string;
   dateFormat?: string;
   required?: boolean;
   hint?: boolean;
@@ -99,7 +98,6 @@ function UIInput(props: IUIInputProps) {
     isDate,
     dateFormat = 'LLL',
     isPassword,
-    validationMessage,
     isMoney,
     required,
     hint,
@@ -155,19 +153,13 @@ function UIInput(props: IUIInputProps) {
     }
   }, [callback, name]);
 
-  const className = React.useMemo((): string => classNameGenerator({
-    baseClass: 'ui-input',
-    isReadOnly,
-    type,
-    disabled,
-  }), [isReadOnly, type, disabled]);
+  const isEmpty = React.useMemo(() => !data && data !== 0, [data]);
 
   const errors = React.useMemo((): string[] => {
     let err = [];
-    const isEmpty = !data && data !== 0;
     if (required) {
       if (isEmpty) {
-        err.push('Поле является обязательным, но незаполнено');
+        err.push('Поле является обязательным, но незаполнено!');
       }
     }
     if (!isEmpty) {
@@ -178,12 +170,12 @@ function UIInput(props: IUIInputProps) {
         err = [...err, ...compareInteger(data, minInteger, maxInteger)];
       }
       if (isEmail) {
-        if (validateEmail(data)) {
+        if (!validateEmail(data)) {
           err.push('Поле заполнено неверно! Пример верного формата: example@gmail.com');
         }
       }
       if (isUrl) {
-        if (validateUrl(data)) {
+        if (!validateUrl(data)) {
           err.push('Поле заполнено неверно! Пример верного формата: http://example.ru');
         }
       }
@@ -196,6 +188,7 @@ function UIInput(props: IUIInputProps) {
     }
     return null;
   }, [
+    isEmpty,
     customValidation,
     data,
     isEmail,
@@ -207,6 +200,15 @@ function UIInput(props: IUIInputProps) {
     maxInteger,
     minInteger,
   ]);
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+  const className = React.useMemo((): string => classNameGenerator({
+    baseClass: 'ui-input',
+    isReadOnly,
+    type,
+    disabled,
+    errors,
+  }), [errors, isReadOnly, type, disabled]);
 
   const momentDate = React.useMemo(() => {
     if (isDate && data) {
@@ -257,6 +259,13 @@ function UIInput(props: IUIInputProps) {
     isMoney,
   ]);
 
+  const renderErrors = React.useMemo(() => {
+    if (errors && Array.isArray(errors)) {
+      return errors.map((v) => (<li>{v}</li>));
+    }
+    return null;
+  }, [errors]);
+
   return (
     <div className={className}>
       {title
@@ -288,21 +297,27 @@ function UIInput(props: IUIInputProps) {
           {renderBody}
           {!disabled && !isReadOnly && (
           <>
-            <div className="ui-input__icon-wrapper">
-              <div role="presentation" className="ui-input__icon ui-input__icon--clear" title="Очистить" onClick={handleClear}>
-                <ClearIcon />
+            {!isEmpty && (
+              <div className="ui-input__icon-wrapper">
+                <div role="presentation" className="ui-input__icon ui-input__icon--clear" title="Очистить" onClick={handleClear}>
+                  <ClearIcon />
+                </div>
               </div>
-            </div>
-            <div className="ui-input__icon-wrapper">
-              <div className="ui-input__icon ui-input__icon--error" title="Ошибка в поле">
-                <ErrorIcon />
+            )}
+            {errors && (
+              <div className="ui-input__icon-wrapper">
+                <div className="ui-input__icon ui-input__icon--error" title="Ошибка в поле">
+                  <ErrorIcon />
+                </div>
               </div>
-            </div>
-            <div className="ui-input__icon-wrapper">
-              <div className="ui-input__icon ui-input__icon--success" title="Поле заполнено верно">
-                <SuccessIcon />
+            )}
+            {required && !errors && (
+              <div className="ui-input__icon-wrapper">
+                <div className="ui-input__icon ui-input__icon--success" title="Поле заполнено верно">
+                  <SuccessIcon />
+                </div>
               </div>
-            </div>
+            )}
           </>
           )}
           {isSearch && (
@@ -313,7 +328,13 @@ function UIInput(props: IUIInputProps) {
             </div>
           )}
         </div>
-        {validationMessage && <div className="ui-input__i-error">{validationMessage}</div>}
+        {errors && (
+          <div className="ui-input__i-error">
+            <ul>
+              {renderErrors}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );

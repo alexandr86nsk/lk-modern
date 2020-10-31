@@ -4,6 +4,7 @@ const classNameGenerator = (value) => {
     isReadOnly,
     type,
     disabled,
+    errors,
   } = value || {};
   let cls = baseClass;
   if (isReadOnly) {
@@ -25,6 +26,9 @@ const classNameGenerator = (value) => {
   }
   if (disabled) {
     cls = `${cls} ${baseClass}--disabled`;
+  }
+  if (errors) {
+    cls = `${cls} ${baseClass}--error`;
   }
   return cls;
 };
