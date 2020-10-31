@@ -140,18 +140,22 @@ function UIInput(props: IUIInputProps) {
     }
   }, [callback, name]);
 
+  const handleFocusInput = React.useCallback(() => {
+    if (elRef) {
+      const { current } = elRef || {};
+      const inputs = current.getElementsByTagName('input');
+      if (inputs && inputs[0]) {
+        inputs[0].focus();
+      }
+    }
+  }, []);
+
   const handleClear = React.useCallback(() => {
     if (callback) {
       callback(name, undefined);
-      if (elRef) {
-        const { current } = elRef || {};
-        const inputs = current.getElementsByTagName('input');
-        if (inputs && inputs[0]) {
-          inputs[0].focus();
-        }
-      }
+      handleFocusInput();
     }
-  }, [callback, name]);
+  }, [callback, name, handleFocusInput]);
 
   const isEmpty = React.useMemo(() => !data && data !== 0, [data]);
 
@@ -292,7 +296,7 @@ function UIInput(props: IUIInputProps) {
           </div>
         </div>
       )}
-      <div className="ui-input__body" ref={elRef}>
+      <div role="presentation" className="ui-input__body" ref={elRef} onClick={handleFocusInput}>
         <div className="ui-input__inner-wrapper">
           {renderBody}
           {!disabled && !isReadOnly && (

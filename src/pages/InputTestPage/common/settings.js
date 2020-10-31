@@ -53,6 +53,60 @@ const inputsTemplate = [
       isEmail: true,
     },
   },
+  {
+    id: 5,
+    title: 'Test6',
+    dataKey: 'test6',
+    type: 'input',
+    otherProps: {
+      type: 'style-1c transparent',
+    },
+  },
+  {
+    id: 6,
+    title: 'Test7',
+    dataKey: 'test7',
+    type: 'input',
+    otherProps: {
+      required: true,
+      mask: '000',
+      type: 'style-1c transparent',
+      minLength: 3,
+      hint: true,
+    },
+  },
+  {
+    id: 7,
+    title: 'Test8',
+    dataKey: 'test8',
+    type: 'input',
+    otherProps: {
+      required: true,
+      mask: '000',
+      type: 'style-1c transparent',
+    },
+  },
+  {
+    id: 8,
+    title: 'Test9',
+    dataKey: 'test9',
+    type: 'input',
+    otherProps: {
+      required: true,
+      mask: '000',
+    },
+  },
+  {
+    id: 9,
+    title: 'Test10',
+    dataKey: 'test10',
+    type: 'input',
+    otherProps: {
+      required: true,
+      minLength: 3,
+      isEmail: true,
+    },
+  },
 ];
 
 export default inputsTemplate;
