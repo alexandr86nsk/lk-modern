@@ -1,7 +1,7 @@
 const inputsTemplate = [
   {
     id: 0,
-    title: 'test1',
+    title: 'Test1',
     dataKey: 'test1',
     type: 'input',
     otherProps: {
@@ -10,7 +10,7 @@ const inputsTemplate = [
   },
   {
     id: 1,
-    title: 'test2',
+    title: 'Test2',
     dataKey: 'test2',
     type: 'input',
     otherProps: {
@@ -18,11 +18,13 @@ const inputsTemplate = [
       successFormat: 'Обязательное поле',
       mask: '000',
       type: '--style-1c --transparent',
+      minLength: 3,
+      hint: true,
     },
   },
   {
     id: 2,
-    title: 'test3',
+    title: 'Test3',
     dataKey: 'test3',
     type: 'input',
     otherProps: {
@@ -34,26 +36,23 @@ const inputsTemplate = [
   },
   {
     id: 3,
-    title: 'test4',
+    title: 'Test4',
     dataKey: 'test4',
     type: 'input',
     otherProps: {
       required: true,
       successFormat: 'Обязательное поле',
       mask: '000',
-      type: '--style-1c',
     },
   },
   {
     id: 4,
-    title: 'test5',
+    title: 'Test5',
     dataKey: 'test5',
     type: 'input',
     otherProps: {
       required: true,
       successFormat: 'Обязательное поле',
-      mask: '000',
-      type: '--style-1c',
     },
   },
 ];

@@ -1,52 +1,88 @@
 .ui-input {
   width: 100%;
 
-  svg {
-    width: 1.5em;
-    height: 1.5em;
+  &__inner-wrapper {
+    display: flex;
+    align-items: center;
+    grid-gap: .2em;
   }
 
   &__title {
-    margin-bottom: .5em;
+    padding: .3em .6em;
+    line-height: 1.5em;
+    font-size: .9em;
   }
 
-  &__hint-icon {
+  &__text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__icon-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
-
-    svg {
-      width: 2.2em;
-      height: 2.2em;
-      fill: var(--medium-theme-color);
-    }
   }
 
-  &__title-content {
-    display: flex;
-    align-items: center;
-    font-size: .8em;
+  &__icon {
+    width: 1.5em;
+    height: 1.5em;
+    opacity: .7;
+    overflow: hidden;
 
-    .required-icon {
+    &:hover {
+      opacity: 1;
+    }
+
+    svg {
+      display: block;
+      fill: currentColor;
+    }
+
+    &--required {
       color: var(--error-color);
-      transform: scale(1.5);
-      margin-left: .2em;
+      width: .5em;
+      height: .5em;
+      margin-bottom: 100%;
+    }
+
+    &--hint {
+      color: var(--medium-theme-color);
+    }
+
+    &--success {
+      color: var(--success-color);
+    }
+
+    &--error {
+      color: var(--error-color);
+    }
+
+    &--clear {
+      color: var(--stylish-color);
+      cursor: pointer;
     }
   }
 
   &__body {
     position: relative;
+    padding: .6em .8em;
+    background-color: var(--white);
+    border: 1px solid var(--theme-border-color);
+    border-radius: .3em;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+    &:focus-within {
+      border-color: transparent;
+      box-shadow: 0 0 0 .2em rgba(var(--medium-theme-color-rgb), .25);
+    }
   }
 
   &__input {
-    width: 100%;
-    padding: .8em;
-    background-color: var(--white);
-    background-clip: padding-box;
-    border: 1px solid var(--theme-border-color);
-    border-radius: 0.30769231rem;
-    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    flex: 1;
+    outline: 0;
+    border: none;
 
     &::placeholder {
       opacity: .5;
@@ -55,57 +91,20 @@
     &::-ms-clear {
       display: none;
     }
+  }
 
-    &:not(:disabled):focus {
+  /* ********************************** error ************************ */
+
+  &--error &__input:not(:disabled) {
+    color: var(--error-color);
+  }
+
+  &--error &__body {
+    border-color: var(--error-color);
+
+    &:focus-within {
       border-color: transparent;
-      outline: 0;
-      box-shadow: 0 0 0 0.2rem rgba(var(--medium-theme-color-rgb), 0.25);
-    }
-
-    &:disabled {
-      background-color: rgba(var(--theme-disabled-color-rgb), .25);
-    }
-  }
-
-  &__error,
-  &__success,
-  &__clear {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    right: .8em;
-    bottom: 0;
-    height: 100%;
-  }
-
-  &__clear {
-    display: flex;
-    cursor: pointer;
-
-    svg {
-      fill: rgba(var(--stylish-color-rgb), .5);
-    }
-
-    &:hover {
-
-      svg {
-        fill: var(--stylish-color);
-      }
-    }
-  }
-
-  &__success {
-
-    svg {
-      fill: var(--success-color);
-    }
-  }
-
-  &__error {
-
-    svg {
-      fill: var(--error-color);
+      box-shadow: 0 0 0 .2em rgba(var(--error-color-rgb), .25);
     }
   }
 
@@ -114,13 +113,13 @@
     background: var(--error-background-color);
     color: rgba(var(--error-color-rgb), .85);
     font-size: .9em;
-    border-radius: 0.30769231rem;
+    border-radius: 0.3em;
     display: none;
     top: calc(100% + .2em);
     margin-top: .5em;
     padding: .5em 1em;
-    z-index: 1;
     border: 1px solid var(--error-color);
+    z-index: 1;
 
     &:after, &:before {
       content: "";
@@ -171,22 +170,16 @@
     display: flex;
   }
 
-  &.success &__input:not(:disabled) {
-    padding-right: 2.8em;
-  }
-
-  &.error &__input:not(:disabled) {
+/*  &.error &__input:not(:disabled) {
     border-color: var(--error-color);
     color: var(--error-color);
     box-shadow: none;
-    padding-right: 2.8em;
 
     &:focus {
       border-color: transparent;
-      outline: 0;
-      box-shadow: 0 0 0 0.2rem rgba(var(--error-color-rgb), .25);
+      box-shadow: 0 0 0 0.2em rgba(var(--error-color-rgb), .25);
     }
-  }
+  }*/
 
   &.error &__error {
     display: flex;
@@ -260,7 +253,7 @@
     background-color: rgba(var(--theme-border-color-rgb), .05);
     border: none;
     border-right: 1px solid rgba(var(--theme-border-color-rgb), .5);
-    padding: .8em;
+    padding: .6em .8em;
     margin: 0;
     flex: .4;
     overflow: hidden;

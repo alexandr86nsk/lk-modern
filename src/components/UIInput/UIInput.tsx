@@ -2,14 +2,14 @@ import React from 'react';
 import './UIInput.scss';
 import InputMask from 'react-input-mask';
 import NumberFormat, { NumberFormatValues } from 'react-number-format';
-import { Popup } from 'semantic-ui-react';
 import * as moment from 'moment';
 import { validateEmail, validateUrl } from '../utilities/helpers';
-import ErrorIcon from './error-icon.svg';
-import SuccessIcon from './check-icon.svg';
+import ErrorIcon from './error-icon--outline.svg';
+import SuccessIcon from './check-icon--outline.svg';
 import ClearIcon from './clear-icon.svg';
 import HintIcon from './hint-icon.svg';
 import SearchIcon from './search-icon.svg';
+import RequiredIcon from './required-icon.svg';
 
 interface IUIInputProps {
   title?: string;
@@ -26,11 +26,11 @@ interface IUIInputProps {
   isMoney?: boolean;
   isPassword?: boolean;
   isInteger?: boolean;
-  successFormat?: string;
+  validationMessage?: string;
   dateFormat?: string;
   required?: boolean;
   hint?: boolean;
-  hintText?: string;
+  hintMessage?: string;
   hintIcon?: string;
   placeholder?: string;
   readOnly?: boolean;
@@ -56,12 +56,11 @@ function UIInput(props: IUIInputProps) {
     isDate,
     dateFormat = 'LLL',
     isPassword,
-    successFormat,
+    validationMessage,
     isMoney,
     required,
     hint,
-    hintText,
-    hintIcon,
+    hintMessage,
     placeholder,
     readOnly,
     type,
@@ -227,16 +226,6 @@ function UIInput(props: IUIInputProps) {
   }, [data, dateFormat, isDate]);
 
   const renderBody = React.useMemo(() => {
-    if (readOnly) {
-      return (
-        <div
-          className="ellipsis-element"
-          title={momentDate.toString() ?? 'нет данных'}
-        >
-          {momentDate ?? 'нет данных'}
-        </div>
-      );
-    }
     if (!isMoney) {
       return (
         <InputMask
@@ -267,7 +256,6 @@ function UIInput(props: IUIInputProps) {
       />
     );
   }, [
-    readOnly,
     disabled,
     handleChangeNumberInput,
     placeholder,
@@ -283,46 +271,58 @@ function UIInput(props: IUIInputProps) {
       {title
       && (
         <div className="ui-input__title">
-          <div className="ui-input__title-content" title={title}>
-            <span className="ellipsis-element">
+          <div className="ui-input__inner-wrapper">
+            <div className="ui-input__text" title={title}>
               {title}
-            </span>
-            {required && !readOnly && <div className="required-icon">*</div>}
+            </div>
+            {required && !readOnly && (
+              <div className="ui-input__icon-wrapper">
+                <div className="ui-input__icon ui-input__icon--required" title="Обязательное поле">
+                  <RequiredIcon />
+                </div>
+              </div>
+            )}
             {hint && !readOnly && (
-              <div className="ui-input__hint">
-                <Popup
-                  content={hintText}
-                  trigger={<div className="ui-input__hint-icon">{hintIcon || <HintIcon />}</div>}
-                  basic
-                />
+              <div className="ui-input__icon-wrapper">
+                <div className="ui-input__icon ui-input__icon--hint">
+                  <HintIcon />
+                </div>
               </div>
             )}
           </div>
         </div>
       )}
       <div className="ui-input__body" ref={elRef}>
-        {!disabled && !readOnly && (
-          <div role="presentation" className="ui-input__clear" title="Очистить" onClick={handleClear}>
-            <ClearIcon />
-          </div>
-        )}
-        {renderBody}
-        {!readOnly && !disabled && (
+        <div className="ui-input__inner-wrapper">
+          {renderBody}
+          {!disabled && !readOnly && (
           <>
-            <div className="ui-input__error" title={successFormat ? `Ошибка: ${successFormat}` : 'Ошибка в поле'}>
-              <ErrorIcon />
+            <div className="ui-input__icon-wrapper">
+              <div role="presentation" className="ui-input__icon ui-input__icon--clear" title="Очистить" onClick={handleClear}>
+                <ClearIcon />
+              </div>
             </div>
-            <div className="ui-input__success" title="Поле заполнено верно">
-              <SuccessIcon />
+            <div className="ui-input__icon-wrapper">
+              <div className="ui-input__icon ui-input__icon--error" title="Ошибка в поле">
+                <ErrorIcon />
+              </div>
+            </div>
+            <div className="ui-input__icon-wrapper">
+              <div className="ui-input__icon ui-input__icon--success" title="Поле заполнено верно">
+                <SuccessIcon />
+              </div>
             </div>
           </>
-        )}
-        {isSearch && (
-          <div className="ui-input__search" title="Поиск">
-            <SearchIcon />
-          </div>
-        )}
-        {successFormat && <div className="ui-input__i-error">{successFormat}</div>}
+          )}
+          {isSearch && (
+            <div className="ui-input__icon-wrapper">
+              <div className="ui-input__icon ui-input__icon--search" title="Поиск">
+                <SearchIcon />
+              </div>
+            </div>
+          )}
+        </div>
+        {validationMessage && <div className="ui-input__i-error">{validationMessage}</div>}
       </div>
     </div>
   );
