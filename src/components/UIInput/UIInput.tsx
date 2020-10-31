@@ -10,6 +10,31 @@ import ClearIcon from './clear-icon.svg';
 import HintIcon from './hint-icon.svg';
 import SearchIcon from './search-icon.svg';
 import RequiredIcon from './required-icon.svg';
+import classNameGenerator from "../utilities/classNameGenerator";
+
+const compareLength = (value: string | number, min: number, max: number): boolean => {
+  try {
+    const stringifiedValue = value.toString();
+    const valueLength = stringifiedValue.length;
+    return valueLength >= (min || -Infinity) && valueLength <= (max || Infinity);
+  } catch (e) {
+    console.log('[UIInput] Error: ', e);
+    return false;
+  }
+};
+
+const compareInteger = (value: string | number, min: number, max: number): boolean => {
+  try {
+    let numberifiedValue = value;
+    if (typeof value === 'string') {
+      numberifiedValue = parseInt(value, 10);
+    }
+    return numberifiedValue >= (min || -Infinity) && numberifiedValue <= (max || Infinity);
+  } catch (e) {
+    console.log('[UIInput] Error: ', e);
+    return false;
+  }
+};
 
 interface IUIInputProps {
   title?: string;
@@ -112,100 +137,75 @@ function UIInput(props: IUIInputProps) {
     }
   }, [callback, name]);
 
-  const compareLength = React.useCallback(
-    () => data.toString().length >= (minLength || -Infinity)
-      && data.toString().length <= (maxLength || Infinity),
-    [data, minLength, maxLength],
-  );
-
-  const compareInteger = React.useCallback(
-    () => data >= (minInteger || -Infinity)
-      && data <= (maxInteger || Infinity),
-    [data, minInteger, maxInteger],
-  );
-
   const className = React.useMemo(() => {
-    let str = 'ui-input';
-    if (readOnly) {
-      str = `${str} read-only`;
-    }
-    if (type) {
-      str = `${str} ${type}`;
-    }
-    if (disabled) {
-      str = `${str} disabled`;
-    }
-    if (isSearch) {
-      str = `${str} search`;
-    }
-    if (hint) {
-      str = `${str} hint`;
-    }
+    return classNameGenerator();
+  }, [];
+
+  const errors = React.useMemo(() => {
+    const err = [];
     if (required) {
-      str = `${str} required`;
       if (!data && data !== 0) {
-        str = `${str} error`;
+        err.push('Поле')
       }
     }
     if (data || data === 0) {
       if (required && !isInteger && (minLength || maxLength)) {
         if (compareLength()) {
-          str = `${str} success`;
+          cls = `${cls} success`;
         }
       }
       if (!isInteger && (minLength || maxLength)) {
         if (!compareLength()) {
-          str = `${str} error`;
+          cls = `${cls} error`;
         }
       }
       if (required && isInteger && (minInteger || maxInteger)) {
         if (compareInteger()) {
-          str = `${str} success`;
+          cls = `${cls} success`;
         }
       }
       if (isInteger && (minInteger || maxInteger)) {
         if (!compareInteger()) {
-          str = `${str} error`;
+          cls = `${cls} error`;
         }
       }
       if (required && isEmail) {
         if (validateEmail(data)) {
-          str = `${str} success`;
+          cls = `${cls} success`;
         }
       }
       if (isEmail) {
         if (!validateEmail(data)) {
-          str = `${str} error`;
+          cls = `${cls} error`;
         }
       }
       if (required && isUrl) {
         if (validateUrl(data)) {
-          str = `${str} success`;
+          cls = `${cls} success`;
         }
       }
       if (isUrl) {
         if (!validateUrl(data)) {
-          str = `${str} error`;
+          cls = `${cls} error`;
         }
       }
       if (required && customValidation && customValidation(data)) {
-        str = `${str} success`;
+        cls = `${cls} success`;
       }
       if (customValidation && !customValidation(data)) {
-        str = `${str} error`;
+        cls = `${cls} error`;
       }
     } else {
-      str = `${str} empty`;
+      cls = `${cls} empty`;
     }
-    return str;
+    return cls;
   }, [
-    customValidation,
+      customValidation,
     disabled,
     isSearch,
     type,
     hint,
     readOnly,
-    compareLength,
     data,
     isEmail,
     minLength,
@@ -213,10 +213,9 @@ function UIInput(props: IUIInputProps) {
     required,
     isUrl,
     isInteger,
-    compareInteger,
     maxInteger,
     minInteger,
-  ]);
+  ])
 
   const momentDate = React.useMemo(() => {
     if (isDate && data) {
@@ -226,33 +225,34 @@ function UIInput(props: IUIInputProps) {
   }, [data, dateFormat, isDate]);
 
   const renderBody = React.useMemo(() => {
-    if (!isMoney) {
+    if (isMoney) {
       return (
-        <InputMask
+        <NumberFormat
           className="ui-input__input"
-          onChange={handleChangeMaskInput}
-          mask={mask}
+          thousandSeparator
+          onValueChange={handleChangeNumberInput}
           value={momentDate}
-          maskChar={null}
-          formatChars={{
-            0: '[0-9]',
-            a: '[A-zА-я]',
-            '*': '[A-Za-z0-9]',
-          }}
-          type={isPassword
-            ? 'password'
-            : 'text'}
-          disabled={!!disabled}
-          placeholder={placeholder}
         />
+
       );
     }
     return (
-      <NumberFormat
+      <InputMask
         className="ui-input__input"
-        thousandSeparator
-        onValueChange={handleChangeNumberInput}
+        onChange={handleChangeMaskInput}
+        mask={mask}
         value={momentDate}
+        maskChar={null}
+        formatChars={{
+          0: '[0-9]',
+          a: '[A-zА-я]',
+          '*': '[A-Za-z0-9]',
+        }}
+        type={isPassword
+          ? 'password'
+          : 'text'}
+        disabled={!!disabled}
+        placeholder={placeholder}
       />
     );
   }, [

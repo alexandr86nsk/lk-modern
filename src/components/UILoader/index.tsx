@@ -20,7 +20,7 @@ function UILoader(props: IUILoaderProps) {
 
   const className = React.useMemo(() => {
     const baseClass = 'ui-loader';
-    let cls = 'ui-loader';
+    let cls = baseClass;
     if (type) {
       try {
         const typeArgs = type.split(' ');
