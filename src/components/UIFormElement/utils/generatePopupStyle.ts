@@ -1,4 +1,4 @@
-type IStyle = {
+export type IPopupStyle = {
   left?: string;
   right?: string;
   bottom?: string;
@@ -11,10 +11,12 @@ interface IRef<T> {
   readonly current: T | null | undefined;
 }
 
-const generateHintStyle = (iconRef: IRef<HTMLDivElement>, messageRef: IRef<HTMLDivElement>): IStyle => {
-  if (iconRef && messageRef) {
-    const { current: iconEl } = iconRef || {};
-    const { current: messageEl } = messageRef || {};
+const generatePopupStyle = (
+  parentRef: IRef<HTMLDivElement>, popupRef: IRef<HTMLDivElement>,
+): IPopupStyle | null => {
+  if (parentRef && popupRef) {
+    const { current: iconEl } = parentRef || {};
+    const { current: messageEl } = popupRef || {};
     const {
       top, right, left,
     } = iconEl.getBoundingClientRect();
@@ -29,14 +31,14 @@ const generateHintStyle = (iconRef: IRef<HTMLDivElement>, messageRef: IRef<HTMLD
     let elTop;
     let elWidth;
 
-    if (document.body.offsetWidth - right > 250) {
+    if (document.body.offsetWidth - left > 250) {
       elLeft = '0px';
     }
-    if (document.body.offsetWidth - right <= 250 && left > 250) {
+    if (document.body.offsetWidth - right <= 250 && right > 250) {
       elRight = '0px';
     }
-    if (document.body.offsetWidth - right <= 250 && left <= 250) {
-      elLeft = `${left}px`;
+    if (document.body.offsetWidth - right <= 250 && right <= 250) {
+      elLeft = `-${left}px`;
       elWidth = `${document.body.offsetWidth}px`;
     }
     if (top >= height) {
@@ -54,7 +56,7 @@ const generateHintStyle = (iconRef: IRef<HTMLDivElement>, messageRef: IRef<HTMLD
       visibility: 'visible',
     };
   }
-  return {};
+  return null;
 };
 
-export default generateHintStyle;
+export default generatePopupStyle;

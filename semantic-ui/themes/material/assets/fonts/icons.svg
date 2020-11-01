@@ -478,7 +478,7 @@ s-32 -14 -32 -32s14 -32 32 -32zM256 448c106 0 192 -77 192 -171c0 -59 -48 -106 -1
 d="M148 107l172 172l-41 41l-172 -172zM442 392c8 -8 9 -21 0 -30l-67 -67l41 -41l-30 -30l-30 30l-191 -190h-101v101l190 191l-30 30l30 30l41 -41l67 67c8 8 22 8 30 0z" />
     <glyph glyph-name="comment" unicode="comment"
 d="M384 341v43h-256v-43h256zM384 277v43h-256v-43h256zM384 213v43h-256v-43h256zM469 427v-384l-85 85h-299c-23 0 -42 20 -42 43v256c0 23 19 42 42 42h342c23 0 42 -19 42 -42z" />
-    <glyph glyph-name="compare" unicode="compare"
+    <glyph glyph-name="validateData" unicode="validateData"
 d="M405 448c23 0 43 -20 43 -43v-298c0 -23 -20 -43 -43 -43h-106v192l106 -128v277h-106v43h106zM213 128v128l-106 -128h106zM213 448v43h43v-470h-43v43h-106c-23 0 -43 20 -43 43v298c0 23 20 43 43 43h106z" />
     <glyph glyph-name="compare_arrows" unicode="compare_arrows"
 d="M320 235l-85 85l85 85v-64h149v-42h-149v-64zM192 213v64l85 -85l-85 -85v64h-149v42h149z" />

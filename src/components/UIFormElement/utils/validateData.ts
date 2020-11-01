@@ -45,7 +45,7 @@ const compareLength = (value: string | number, min: number, max: number): IError
     }
     return errors;
   } catch (e) {
-    console.log('[UIForm] Error: ', e);
+    console.log('[UIFormElement] Error: ', e);
     return [];
   }
 };
@@ -72,7 +72,7 @@ const compareInteger = (value: string | number, min: number, max: number): IErro
   }
 };
 
-const compare = (value: ICompareArgs): IErrors[] => {
+const validateData = (value: ICompareArgs): IErrors[] => {
   const {
     data,
     required,
@@ -119,4 +119,4 @@ const compare = (value: ICompareArgs): IErrors[] => {
   return null;
 };
 
-export default compare;
+export default validateData;

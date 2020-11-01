@@ -3,7 +3,7 @@ const inputsTemplate = [
     id: 0,
     title: 'Test1',
     dataKey: 'test1',
-    type: 'input',
+    elementType: 'input',
     otherProps: {
       type: 'style-1c transparent',
     },
@@ -12,7 +12,7 @@ const inputsTemplate = [
     id: 1,
     title: 'Test2',
     dataKey: 'test2',
-    type: 'input',
+    elementType: 'input',
     otherProps: {
       required: true,
       type: 'style-1c transparent',
@@ -32,7 +32,7 @@ const inputsTemplate = [
     id: 2,
     title: 'Test3',
     dataKey: 'test3',
-    type: 'input',
+    elementType: 'input',
     otherProps: {
       required: true,
       type: 'style-1c transparent',
@@ -42,7 +42,7 @@ const inputsTemplate = [
     id: 3,
     title: 'Test4',
     dataKey: 'test4',
-    type: 'input',
+    elementType: 'input',
     otherProps: {
       required: true,
     },
@@ -51,7 +51,7 @@ const inputsTemplate = [
     id: 4,
     title: 'Test5',
     dataKey: 'test5',
-    type: 'input',
+    elementType: 'input',
     otherProps: {
       required: true,
       minLength: 3,
@@ -62,7 +62,7 @@ const inputsTemplate = [
     id: 5,
     title: 'Test6',
     dataKey: 'test6',
-    type: 'input',
+    elementType: 'input',
     otherProps: {
       type: 'style-1c transparent',
       hint: true,
@@ -74,7 +74,7 @@ const inputsTemplate = [
     id: 6,
     title: 'Test7',
     dataKey: 'test7',
-    type: 'input',
+    elementType: 'input',
     otherProps: {
       required: true,
       mask: '000',
@@ -89,7 +89,7 @@ const inputsTemplate = [
     id: 7,
     title: 'Test8',
     dataKey: 'test8',
-    type: 'input',
+    elementType: 'input',
     otherProps: {
       required: true,
       mask: '000',
@@ -100,7 +100,7 @@ const inputsTemplate = [
     id: 8,
     title: 'Test9',
     dataKey: 'test9',
-    type: 'input',
+    elementType: 'input',
     otherProps: {
       required: true,
       mask: '000',
@@ -110,7 +110,7 @@ const inputsTemplate = [
     id: 9,
     title: 'Test10',
     dataKey: 'test10',
-    type: 'input',
+    elementType: 'input',
     otherProps: {
       required: true,
       minLength: 3,

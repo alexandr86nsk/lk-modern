@@ -155,11 +155,11 @@ function UIInput(props: IUIInputProps) {
       if (document.body.offsetWidth - right > 250) {
         elLeft = '0px';
       }
-      if (document.body.offsetWidth - right <= 250 && left > 250) {
+      if (document.body.offsetWidth - right <= 250 && right > 250) {
         elRight = '0px';
       }
-      if (document.body.offsetWidth - right <= 250 && left <= 250) {
-        elLeft = left;
+      if (document.body.offsetWidth - right <= 250 && right <= 250) {
+        elLeft = -left;
         elWidth = document.body.offsetWidth;
       }
       if (top >= height) {
@@ -276,7 +276,7 @@ function UIInput(props: IUIInputProps) {
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   const className = React.useMemo((): string => classNameGenerator({
-    baseClass: 'ui-input',
+    baseClass: 'ui-UIInput',
     isReadOnly,
     type,
     disabled,

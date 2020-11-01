@@ -1,4 +1,15 @@
-const classNameGenerator = (value) => {
+import { IErrors } from './validateData';
+
+interface IArgs {
+  baseClass?: string;
+  isReadOnly?: boolean;
+  type?: string;
+  disabled?: boolean;
+  errors?: IErrors[] | null;
+  required?: boolean;
+}
+
+const generateClassName = (value: IArgs): string => {
   const {
     baseClass = '',
     isReadOnly,
@@ -37,4 +48,4 @@ const classNameGenerator = (value) => {
   return cls;
 };
 
-export default classNameGenerator;
+export default generateClassName;

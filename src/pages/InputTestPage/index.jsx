@@ -2,9 +2,9 @@ import React from 'react';
 import './style.scss';
 import { connect } from 'react-redux';
 import actions from '../../redux/actions/actions';
-import formGenerator from '../../components/utilities/formGenerator';
 import inputsTemplate from './common/settings';
 import UIBlockTitle from '../../components/UIBlockTitle/UIBlockTitle';
+import generateFormElements from '../../components/utilities/generateFormElements';
 
 function InputTestPage(props) {
   const {
@@ -19,7 +19,7 @@ function InputTestPage(props) {
   }, [testStoreSetSection]);
 
   const renderInputs = React.useMemo(
-    () => formGenerator(inputsTemplate, testStore, handleChangeValue),
+    () => generateFormElements(inputsTemplate, testStore, handleChangeValue),
     [testStore, handleChangeValue],
   );
 

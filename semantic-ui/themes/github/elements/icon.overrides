@@ -75,7 +75,7 @@
 .icon.git.branch.delete:before,
 .icon.git.branch:before { content: '\f020'} /*  */
 .icon.git.commit:before { content: '\f01f'} /*  */
-.icon.git.compare:before { content: '\f0ac'} /*  */
+.icon.git.validateData:before { content: '\f0ac'} /*  */
 .icon.git.merge:before { content: '\f023'} /*  */
 .icon.git.pull.request.abandoned:before,
 .icon.git.pull.request:before { content: '\f009'} /*  */

@@ -81,11 +81,11 @@ const localeRu = {
   closeYearSelector: 'Закрыть список годов',
   defaultPlaceholder: 'Выберете...',
 
-  // for input range value
+  // for UIInput range value
   from: 'от',
   to: 'до',
 
-  // used for input value when multi dates are selected
+  // used for UIInput value when multi dates are selected
   digitSeparator: ',',
 
   // if your provide -2 for example, year will be 2 digited

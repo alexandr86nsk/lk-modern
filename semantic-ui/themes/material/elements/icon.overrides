@@ -182,8 +182,8 @@ i.icon.collections.bookmark:before { content: '\e431'}
 i.icon.color.lens:before { content: '\e3b7'}
 i.icon.colorize:before { content: '\e3b8'}
 i.icon.comment:before { content: '\e0b9'}
-i.icon.compare:before { content: '\e3b9'}
-i.icon.compare.arrows:before { content: '\e915'}
+i.icon.validateData:before { content: '\e3b9'}
+i.icon.validateData.arrows:before { content: '\e915'}
 i.icon.computer:before { content: '\e30a'}
 i.icon.confirmation.number:before { content: '\e638'}
 i.icon.contact.mail:before { content: '\e0d0'}
