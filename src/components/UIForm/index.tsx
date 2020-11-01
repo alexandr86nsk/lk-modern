@@ -3,58 +3,17 @@ import './UIInput.scss';
 import InputMask from 'react-input-mask';
 import NumberFormat, { NumberFormatValues } from 'react-number-format';
 import * as moment from 'moment';
-import { validateEmail, validateUrl } from '../utilities/helpers';
 import ErrorIcon from './error-icon--outline.svg';
 import SuccessIcon from './check-icon--outline.svg';
 import ClearIcon from './clear-icon.svg';
 import HintIcon from './hint-icon.svg';
 import SearchIcon from './search-icon.svg';
 import RequiredIcon from './required-icon.svg';
-import classNameGenerator from '../utilities/classNameGenerator';
+import classNameGenerator from './utils/classNameGenerator';
+import compare, { IErrors } from './utils/compare';
+import generateHintStyle from './utils/setHintStyle';
 
-const compareLength = (value: string | number, min: number, max: number): string[] => {
-  try {
-    const hasMin = !!(min || min === 0);
-    const hasMax = !!(max || max === 0);
-    const errors = [];
-    const stringifiedValue = value.toString();
-    const valueLength = stringifiedValue.length;
-    if (hasMin && valueLength < min) {
-      errors.push(`Количество введенных символов, меньше минимально допустимого! Минимум: ${min}.`);
-    }
-    if (hasMax && valueLength > max) {
-      errors.push(`Количество введенных символов, больше максимально допустимого! Максимум: ${max}.`);
-    }
-    return errors;
-  } catch (e) {
-    console.log('[UIInput] Error: ', e);
-    return [];
-  }
-};
-
-const compareInteger = (value: string | number, min: number, max: number): string[] => {
-  try {
-    const hasMin = !!(min || min === 0);
-    const hasMax = !!(max || max === 0);
-    const errors = [];
-    let numberifiedValue = value;
-    if (typeof value === 'string') {
-      numberifiedValue = parseInt(value, 10);
-    }
-    if (hasMin && numberifiedValue < min) {
-      errors.push(`Указанное значение, меньше минимально допустимого! Минимум: ${min}.`);
-    }
-    if (hasMax && numberifiedValue > max) {
-      errors.push(`Указанное значение, больше максимально допустимого! Максимум: ${max}.`);
-    }
-    return errors;
-  } catch (e) {
-    console.log('[UIInput] Error: ', e);
-    return [];
-  }
-};
-
-interface UIFormElementProps {
+export interface IUFormProps {
   title?: string;
   name: string;
   callback: (name: string, value: string | number) => void;
@@ -80,10 +39,11 @@ interface UIFormElementProps {
   isSearch?: boolean;
   maxInteger?: number;
   minInteger?: number;
-  customValidation?: (value: string | number) => string[];
+  customValidation?: (value: string | number) => IErrors[];
+  isEmpty?: boolean;
 }
 
-function UIFormElement(props: UIFormElementProps) {
+function UIInput(props: IUFormProps) {
   const {
     title,
     name,
@@ -112,7 +72,21 @@ function UIFormElement(props: UIFormElementProps) {
     customValidation,
   } = props || {};
 
-  const elRef = React.useRef<HTMLHeadingElement | null>(null);
+  const bodyRef = React.useRef<HTMLDivElement | null>(null);
+  const hintIconRef = React.useRef<HTMLDivElement | null>(null);
+  const hintMessageRef = React.useRef<HTMLDivElement | null>(null);
+
+  const [hintStyle, setHintStyle] = React.useState({});
+
+  const getHintCoords = React.useCallback(() => {
+    if (hintIconRef && hintMessageRef) {
+      setHintStyle(generateHintStyle(hintIconRef, hintMessageRef));
+    }
+  }, []);
+
+  const clearHintCoords = React.useCallback(() => {
+    setHintStyle({});
+  }, []);
 
   const handleChangeMaskInput = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     if (callback) {
@@ -141,8 +115,8 @@ function UIFormElement(props: UIFormElementProps) {
   }, [callback, name]);
 
   const handleFocusInput = React.useCallback(() => {
-    if (elRef) {
-      const { current } = elRef || {};
+    if (bodyRef) {
+      const { current } = bodyRef || {};
       const inputs = current.getElementsByTagName('input');
       if (inputs && inputs[0]) {
         inputs[0].focus();
@@ -159,38 +133,20 @@ function UIFormElement(props: UIFormElementProps) {
 
   const isEmpty = React.useMemo(() => !data && data !== 0, [data]);
 
-  const errors = React.useMemo((): string[] => {
-    let err = [];
-    if (required) {
-      if (isEmpty) {
-        err.push('Поле является обязательным, но незаполнено!');
-      }
-    }
-    if (!isEmpty) {
-      if (!isInteger) {
-        err = [...err, ...compareLength(data, minLength, maxLength)];
-      }
-      if (isInteger) {
-        err = [...err, ...compareInteger(data, minInteger, maxInteger)];
-      }
-      if (isEmail) {
-        if (!validateEmail(data)) {
-          err.push('Поле заполнено неверно! Пример верного формата: example@gmail.com');
-        }
-      }
-      if (isUrl) {
-        if (!validateUrl(data)) {
-          err.push('Поле заполнено неверно! Пример верного формата: http://example.ru');
-        }
-      }
-      if (customValidation) {
-        err = [...err, ...customValidation(data)];
-      }
-    }
-    if (err && Array.isArray(err) && err.length > 0) {
-      return err;
-    }
-    return null;
+  const errors = React.useMemo(() => {
+    return compare({
+      data,
+      required,
+      minLength,
+      maxLength,
+      isInteger,
+      minInteger,
+      maxInteger,
+      isEmpty,
+      isEmail,
+      isUrl,
+      customValidation,
+    });
   }, [
     isEmpty,
     customValidation,
@@ -270,7 +226,12 @@ function UIFormElement(props: UIFormElementProps) {
 
   const renderErrors = React.useMemo(() => {
     if (errors && Array.isArray(errors)) {
-      return errors.map((v) => (<li>{v}</li>));
+      return errors.map((v: IErrors) => {
+        const { id, value } = v || {};
+        return (
+          <li key={id}>{value}</li>
+        );
+      });
     }
     return null;
   }, [errors]);
@@ -293,15 +254,24 @@ function UIFormElement(props: UIFormElementProps) {
             )}
             {hint && !isReadOnly && (
               <div className="ui-input__icon-wrapper">
-                <div className="ui-input__icon ui-input__icon--hint">
+                <div
+                  role="presentation"
+                  className="ui-input__icon ui-input__icon--hint"
+                  ref={hintIconRef}
+                  onMouseEnter={getHintCoords}
+                  onMouseLeave={clearHintCoords}
+                >
                   <HintIcon />
+                  <div className="ui-input__hint" ref={hintMessageRef} style={hintStyle}>
+                    {hintMessage}
+                  </div>
                 </div>
               </div>
             )}
           </div>
         </div>
       )}
-      <div role="presentation" className="ui-input__body" ref={elRef} onClick={handleFocusInput}>
+      <div role="presentation" className="ui-input__body" ref={bodyRef} onClick={handleFocusInput}>
         <div className="ui-input__inner-wrapper">
           <div className="ui-input__input-wrapper" title={momentDate}>
             {renderBody}
@@ -351,4 +321,4 @@ function UIFormElement(props: UIFormElementProps) {
   );
 }
 
-export default React.memo(UIFormElement);
+export default React.memo(UIInput);
