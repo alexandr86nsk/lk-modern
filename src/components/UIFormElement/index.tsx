@@ -76,6 +76,7 @@ function UIFormElement(props: IFormProps) {
   const hintMessageRef = React.useRef<HTMLDivElement | null>(null);
 
   const [hintStyle, setHintStyle] = React.useState<IPopupStyle | null>(null);
+  const [inputIsFocused, setInputIsFocused] = React.useState(false);
 
   const getHintCoords = React.useCallback(() => {
     setHintStyle(generatePopupStyle(hintIconRef, hintMessageRef));
@@ -89,13 +90,12 @@ function UIFormElement(props: IFormProps) {
     if (bodyRef) {
       const { current } = bodyRef || {};
       const inputs = current.getElementsByTagName('input');
-      if (inputs && inputs[0]
-        && document.activeElement && !document.activeElement.contains(inputs[0])
-      ) {
+      if (inputs && inputs[0] && !inputIsFocused) {
+        setInputIsFocused((prev) => !prev);
         inputs[0].focus();
       }
     }
-  }, []);
+  }, [inputIsFocused]);
 
   const handleClear = React.useCallback(() => {
     if (callback) {
