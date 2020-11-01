@@ -3,7 +3,6 @@ import './UIInput.scss';
 import InputMask from 'react-input-mask';
 import NumberFormat, { NumberFormatValues } from 'react-number-format';
 import * as moment from 'moment';
-import { v4 } from 'uuid';
 import { validateEmail, validateUrl } from '../utilities/helpers';
 import ErrorIcon from './error-icon--outline.svg';
 import SuccessIcon from './check-icon--outline.svg';
@@ -13,33 +12,18 @@ import SearchIcon from './search-icon.svg';
 import RequiredIcon from './required-icon.svg';
 import classNameGenerator from '../utilities/classNameGenerator';
 
-type IErrors = {
-  id: string;
-  value: string;
-};
-
-const compareLength = (value: string | number, min: number, max: number) => {
+const compareLength = (value: string | number, min: number, max: number): string[] => {
   try {
     const hasMin = !!(min || min === 0);
     const hasMax = !!(max || max === 0);
     const errors = [];
     const stringifiedValue = value.toString();
     const valueLength = stringifiedValue.length;
-    if (hasMin) {
-      if (valueLength < min) {
-        errors.push({
-          id: v4(),
-          value: `Количество введенных символов, меньше минимально допустимого! Минимум: ${min}.`,
-        });
-      }
+    if (hasMin && valueLength < min) {
+      errors.push(`Количество введенных символов, меньше минимально допустимого! Минимум: ${min}.`);
     }
-    if (hasMax) {
-      if (valueLength > max) {
-        errors.push({
-          id: v4(),
-          value: `Количество введенных символов, больше максимально допустимого! Максимум: ${max}.`,
-        });
-      }
+    if (hasMax && valueLength > max) {
+      errors.push(`Количество введенных символов, больше максимально допустимого! Максимум: ${max}.`);
     }
     return errors;
   } catch (e) {
@@ -48,7 +32,7 @@ const compareLength = (value: string | number, min: number, max: number) => {
   }
 };
 
-const compareInteger = (value: string | number, min: number, max: number) => {
+const compareInteger = (value: string | number, min: number, max: number): string[] => {
   try {
     const hasMin = !!(min || min === 0);
     const hasMax = !!(max || max === 0);
@@ -58,10 +42,10 @@ const compareInteger = (value: string | number, min: number, max: number) => {
       numberifiedValue = parseInt(value, 10);
     }
     if (hasMin && numberifiedValue < min) {
-      errors.push({ id: v4(), value: `Указанное значение, меньше минимально допустимого! Минимум: ${min}.` });
+      errors.push(`Указанное значение, меньше минимально допустимого! Минимум: ${min}.`);
     }
     if (hasMax && numberifiedValue > max) {
-      errors.push({ id: v4(), value: `Указанное значение, больше максимально допустимого! Максимум: ${max}.` });
+      errors.push(`Указанное значение, больше максимально допустимого! Максимум: ${max}.`);
     }
     return errors;
   } catch (e) {
@@ -70,7 +54,7 @@ const compareInteger = (value: string | number, min: number, max: number) => {
   }
 };
 
-interface IUIInputProps {
+interface UIFormElementProps {
   title?: string;
   name: string;
   callback: (name: string, value: string | number) => void;
@@ -99,7 +83,7 @@ interface IUIInputProps {
   customValidation?: (value: string | number) => string[];
 }
 
-function UIInput(props: IUIInputProps) {
+function UIFormElement(props: UIFormElementProps) {
   const {
     title,
     name,
@@ -128,35 +112,7 @@ function UIInput(props: IUIInputProps) {
     customValidation,
   } = props || {};
 
-  const bodyRef = React.useRef<HTMLHeadingElement | null>(null);
-  const hintIconRef = React.useRef<HTMLHeadingElement | null>(null);
-  const hintMessageRef = React.useRef<HTMLHeadingElement | null>(null);
-
-  const hintCoords = React.useMemo(() => {
-    if (hintIconRef && hintMessageRef) {
-      const { current: iconEl } = hintIconRef || {};
-      const { current: messageEl } = hintMessageRef || {};
-      console.log('iconEl: ', iconEl);
-      console.log('messageEl: ', messageEl);
-      /* const {
-        top, right, bottom, left,
-      } = iconEl.getBoundingClientRect(); */
-      /* const menuStyle = {
-        left: document.body.offsetWidth - iconEl.offsetWidth > 0
-          ? `${10}px`
-          : undefined,
-        right: document.body.offsetWidth - iconEl.offsetWidth < 0
-          ? `${document.body.offsetWidth}px`
-          : undefined,
-        top: document.body.offsetHeight - iconEl.offsetHeight > 0
-          ? `${5 === 0 ? (5 + 7) : 10}px`
-          : undefined,
-        bottom: document.body.offsetHeight - iconEl.offsetHeight < 0
-          ? `${1 === 0 ? (document.body.offsetHeight + 7) : document.body.offsetHeight}px`
-          : undefined,
-      }; */
-    }
-  }, []);
+  const elRef = React.useRef<HTMLHeadingElement | null>(null);
 
   const handleChangeMaskInput = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     if (callback) {
@@ -185,8 +141,8 @@ function UIInput(props: IUIInputProps) {
   }, [callback, name]);
 
   const handleFocusInput = React.useCallback(() => {
-    if (bodyRef) {
-      const { current } = bodyRef || {};
+    if (elRef) {
+      const { current } = elRef || {};
       const inputs = current.getElementsByTagName('input');
       if (inputs && inputs[0]) {
         inputs[0].focus();
@@ -203,11 +159,11 @@ function UIInput(props: IUIInputProps) {
 
   const isEmpty = React.useMemo(() => !data && data !== 0, [data]);
 
-  const errors = React.useMemo(() => {
+  const errors = React.useMemo((): string[] => {
     let err = [];
     if (required) {
       if (isEmpty) {
-        err.push({ id: v4(), value: 'Поле является обязательным, но незаполнено!' });
+        err.push('Поле является обязательным, но незаполнено!');
       }
     }
     if (!isEmpty) {
@@ -219,12 +175,12 @@ function UIInput(props: IUIInputProps) {
       }
       if (isEmail) {
         if (!validateEmail(data)) {
-          err.push({ id: v4(), value: 'Поле заполнено неверно! Пример верного формата: example@gmail.com' });
+          err.push('Поле заполнено неверно! Пример верного формата: example@gmail.com');
         }
       }
       if (isUrl) {
         if (!validateUrl(data)) {
-          err.push({ id: v4(), value: 'Поле заполнено неверно! Пример верного формата: http://example.ru' });
+          err.push('Поле заполнено неверно! Пример верного формата: http://example.ru');
         }
       }
       if (customValidation) {
@@ -314,12 +270,7 @@ function UIInput(props: IUIInputProps) {
 
   const renderErrors = React.useMemo(() => {
     if (errors && Array.isArray(errors)) {
-      return errors.map((v: IErrors) => {
-        const { id, value } = v || {};
-        return (
-          <li key={id}>{value}</li>
-        );
-      });
+      return errors.map((v) => (<li>{v}</li>));
     }
     return null;
   }, [errors]);
@@ -342,46 +293,43 @@ function UIInput(props: IUIInputProps) {
             )}
             {hint && !isReadOnly && (
               <div className="ui-input__icon-wrapper">
-                <div className="ui-input__icon ui-input__icon--hint" ref={hintIconRef}>
+                <div className="ui-input__icon ui-input__icon--hint">
                   <HintIcon />
-                  <div className="ui-input__hint" ref={hintMessageRef}>
-                    {hintMessage}
-                  </div>
                 </div>
               </div>
             )}
           </div>
         </div>
       )}
-      <div role="presentation" className="ui-input__body" ref={bodyRef} onClick={handleFocusInput}>
+      <div role="presentation" className="ui-input__body" ref={elRef} onClick={handleFocusInput}>
         <div className="ui-input__inner-wrapper">
           <div className="ui-input__input-wrapper" title={momentDate}>
             {renderBody}
           </div>
           {!disabled && !isReadOnly && (
-          <>
-            {!isEmpty && (
-              <div className="ui-input__icon-wrapper">
-                <div role="presentation" className="ui-input__icon ui-input__icon--clear" title="Очистить" onClick={handleClear}>
-                  <ClearIcon />
+            <>
+              {!isEmpty && (
+                <div className="ui-input__icon-wrapper">
+                  <div role="presentation" className="ui-input__icon ui-input__icon--clear" title="Очистить" onClick={handleClear}>
+                    <ClearIcon />
+                  </div>
                 </div>
-              </div>
-            )}
-            {errors && (
-              <div className="ui-input__icon-wrapper">
-                <div className="ui-input__icon ui-input__icon--error" title="Ошибка в поле">
-                  <ErrorIcon />
+              )}
+              {errors && (
+                <div className="ui-input__icon-wrapper">
+                  <div className="ui-input__icon ui-input__icon--error" title="Ошибка в поле">
+                    <ErrorIcon />
+                  </div>
                 </div>
-              </div>
-            )}
-            {required && !errors && (
-              <div className="ui-input__icon-wrapper">
-                <div className="ui-input__icon ui-input__icon--success" title="Поле заполнено верно">
-                  <SuccessIcon />
+              )}
+              {required && !errors && (
+                <div className="ui-input__icon-wrapper">
+                  <div className="ui-input__icon ui-input__icon--success" title="Поле заполнено верно">
+                    <SuccessIcon />
+                  </div>
                 </div>
-              </div>
-            )}
-          </>
+              )}
+            </>
           )}
           {isSearch && (
             <div className="ui-input__icon-wrapper">
@@ -403,4 +351,4 @@ function UIInput(props: IUIInputProps) {
   );
 }
 
-export default React.memo(UIInput);
+export default React.memo(UIFormElement);

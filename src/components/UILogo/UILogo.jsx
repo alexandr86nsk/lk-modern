@@ -10,8 +10,8 @@ function UILogo(props) {
         <img src={logo} alt="logo" />
       </div>
       <div className="ui-logo__title">
-        <span>Asterisk</span>
-        <span>dialer</span>
+        <span>Real</span>
+        <span>apps</span>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 .ui-input {
+  $base: &;
   width: 100%;
 
   &__inner-wrapper {
@@ -29,7 +30,6 @@
     width: 1.5em;
     height: 1.5em;
     opacity: .7;
-    overflow: hidden;
 
     &:hover {
       opacity: 1;
@@ -49,6 +49,11 @@
 
     &--hint {
       color: var(--medium-theme-color);
+      position: relative;
+
+      &:hover #{$base}__hint {
+        display: block;
+      }
     }
 
     &--success {
@@ -65,15 +70,26 @@
     }
   }
 
+  &__hint {
+    display: none;
+    position: absolute;
+    padding: .6em .8em;
+    border-radius: .3em;
+    background-color: var(--white);
+    box-shadow: 0 0 .2em .2em rgba(var(--medium-theme-color-rgb), .15);
+    z-index: 2;
+  }
+
   &__body {
     position: relative;
-    padding: .6em .8em;
+    line-height: 1.5em;
     background-color: var(--white);
     border: 1px solid var(--theme-border-color);
     border-radius: .3em;
     transition: border-color .2s ease-in-out, box-shadow .2s ease-in-out;
+    padding-right: .8em;
 
-    & .ui-input__inner-wrapper {
+    & #{$base}__inner-wrapper {
       grid-gap: .8em;
     }
 
@@ -83,10 +99,17 @@
     }
   }
 
+  &__input-wrapper {
+    flex: 1;
+    display: flex;
+  }
+
   &__input {
     flex: 1;
+    padding: .6em .8em;
     outline: 0;
     border: none;
+    border-radius: .3em;
 
     &::placeholder {
       opacity: .5;
@@ -155,7 +178,7 @@
     }
 
     ul {
-      list-style: circle;
+      list-style: disc;
       padding-left: 1.2em;
 
       li:not(:last-of-type) {
@@ -169,17 +192,30 @@
   }
 
   /* ********************************** error ************************ */
-
   &--error &__input:not(:disabled) {
     color: var(--error-color);
   }
 
   &--error &__body {
-    border-color: var(--error-color);
+    // border-color: var(--error-color);
 
     &:focus-within {
       border-color: transparent;
       box-shadow: 0 0 0 .2em rgba(var(--error-color-rgb), .25);
+    }
+  }
+
+  /* ********************************** success ************************ */
+  &--success &__input:not(:disabled) {
+    // color: var(--success-color);
+  }
+
+  &--success &__body {
+    // border-color: var(--success-color);
+
+    &:focus-within {
+      border-color: transparent;
+      box-shadow: 0 0 0 .2em rgba(var(--success-color-rgb), .25);
     }
   }
 
