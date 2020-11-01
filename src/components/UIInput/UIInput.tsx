@@ -128,34 +128,59 @@ function UIInput(props: IUIInputProps) {
     customValidation,
   } = props || {};
 
-  const bodyRef = React.useRef<HTMLHeadingElement | null>(null);
-  const hintIconRef = React.useRef<HTMLHeadingElement | null>(null);
-  const hintMessageRef = React.useRef<HTMLHeadingElement | null>(null);
+  const bodyRef = React.useRef<HTMLDivElement | null>(null);
+  const hintIconRef = React.useRef<HTMLDivElement | null>(null);
+  const hintMessageRef = React.useRef<HTMLDivElement | null>(null);
 
-  const hintCoords = React.useMemo(() => {
+  const [hintStyle, setHintStyle] = React.useState({});
+
+  const getHintCoords = React.useCallback(() => {
     if (hintIconRef && hintMessageRef) {
       const { current: iconEl } = hintIconRef || {};
       const { current: messageEl } = hintMessageRef || {};
-      console.log('iconEl: ', iconEl);
-      console.log('messageEl: ', messageEl);
-      /* const {
-        top, right, bottom, left,
-      } = iconEl.getBoundingClientRect(); */
-      /* const menuStyle = {
-        left: document.body.offsetWidth - iconEl.offsetWidth > 0
-          ? `${10}px`
-          : undefined,
-        right: document.body.offsetWidth - iconEl.offsetWidth < 0
-          ? `${document.body.offsetWidth}px`
-          : undefined,
-        top: document.body.offsetHeight - iconEl.offsetHeight > 0
-          ? `${5 === 0 ? (5 + 7) : 10}px`
-          : undefined,
-        bottom: document.body.offsetHeight - iconEl.offsetHeight < 0
-          ? `${1 === 0 ? (document.body.offsetHeight + 7) : document.body.offsetHeight}px`
-          : undefined,
-      }; */
+      const {
+        top, right, left,
+      } = iconEl.getBoundingClientRect();
+
+      const {
+        height,
+      } = messageEl.getBoundingClientRect();
+
+      let elLeft;
+      let elRight;
+      let elBottom;
+      let elTop;
+      let elWidth;
+
+      if (document.body.offsetWidth - right > 250) {
+        elLeft = '0px';
+      }
+      if (document.body.offsetWidth - right <= 250 && left > 250) {
+        elRight = '0px';
+      }
+      if (document.body.offsetWidth - right <= 250 && left <= 250) {
+        elLeft = left;
+        elWidth = document.body.offsetWidth;
+      }
+      if (top >= height) {
+        elBottom = 'calc(100% + 0.3em)';
+      } else {
+        elTop = 'calc(100% + 0.3em)';
+      }
+
+      setHintStyle({
+        left: elLeft,
+        right: elRight,
+        bottom: elBottom,
+        top: elTop,
+        width: elWidth,
+        visibility: 'visible',
+      });
     }
+  }, []);
+
+  const clearHintCoords = React.useCallback(() => {
+    setHintStyle({});
   }, []);
 
   const handleChangeMaskInput = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -342,9 +367,15 @@ function UIInput(props: IUIInputProps) {
             )}
             {hint && !isReadOnly && (
               <div className="ui-input__icon-wrapper">
-                <div className="ui-input__icon ui-input__icon--hint" ref={hintIconRef}>
+                <div
+                  role="presentation"
+                  className="ui-input__icon ui-input__icon--hint"
+                  ref={hintIconRef}
+                  onMouseEnter={getHintCoords}
+                  onMouseLeave={clearHintCoords}
+                >
                   <HintIcon />
-                  <div className="ui-input__hint" ref={hintMessageRef}>
+                  <div className="ui-input__hint" ref={hintMessageRef} style={hintStyle}>
                     {hintMessage}
                   </div>
                 </div>

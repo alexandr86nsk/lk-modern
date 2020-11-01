@@ -50,10 +50,6 @@
     &--hint {
       color: var(--medium-theme-color);
       position: relative;
-
-      &:hover #{$base}__hint {
-        display: block;
-      }
     }
 
     &--success {
@@ -71,13 +67,15 @@
   }
 
   &__hint {
-    display: none;
+    visibility: hidden;
+    width: 250px;
     position: absolute;
     padding: .6em .8em;
     border-radius: .3em;
     background-color: var(--white);
     box-shadow: 0 0 .2em .2em rgba(var(--medium-theme-color-rgb), .15);
     z-index: 2;
+    cursor: pointer;
   }
 
   &__body {
