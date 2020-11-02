@@ -15,7 +15,7 @@ const inputsTemplate = [
     elementType: 'input',
     otherProps: {
       required: true,
-      type: 'style-1c transparent',
+      type: 'style-1c',
       minLength: 3,
       hint: true,
       hintMessage: 'Хинт появляется сверху от элемента к которому относится. Если сверху нет места — открывается вниз.'
@@ -78,7 +78,7 @@ const inputsTemplate = [
     otherProps: {
       required: true,
       mask: '000',
-      type: 'style-1c transparent',
+      type: 'style-1c',
       minLength: 3,
       hint: true,
       hintMessage: 'Хинт появляется сверху от элемента к которому относится. Если сверху нет места — открывается вниз.'
@@ -113,8 +113,7 @@ const inputsTemplate = [
     elementType: 'input',
     otherProps: {
       required: true,
-      minLength: 3,
-      isEmail: true,
+      isMoney: true,
     },
   },
 ];

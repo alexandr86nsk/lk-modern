@@ -10,6 +10,7 @@ import generateClassName from './utils/generateClassName';
 import validateData, { IErrors } from './utils/validateData';
 import generatePopupStyle, { IPopupStyle } from './utils/generatePopupStyle';
 import UIInput from './elementTypes/UIInput';
+import useOutsideClick from '../UICustomHooks/useOutsideClick/useOutsideClick';
 
 interface IFormProps {
   title?: string;
@@ -17,7 +18,7 @@ interface IFormProps {
   name: string;
   elementType: string;
   callback: (name: string, value: string | number) => void;
-  mask?: string | Array<string|RegExp>;
+  mask?: string | Array<string | RegExp>;
   minLength?: number;
   maxLength?: number;
   disabled?: boolean;
@@ -78,6 +79,16 @@ function UIFormElement(props: IFormProps) {
   const [hintStyle, setHintStyle] = React.useState<IPopupStyle | null>(null);
   const [inputIsFocused, setInputIsFocused] = React.useState(false);
 
+  const handleSetFocusedInput = React.useCallback(() => {
+    setInputIsFocused(true);
+  }, []);
+
+  const handleSetUnFocusedInput = React.useCallback(() => {
+    setInputIsFocused(false);
+  }, []);
+
+  useOutsideClick(bodyRef, handleSetUnFocusedInput);
+
   const getHintCoords = React.useCallback(() => {
     setHintStyle(generatePopupStyle(hintIconRef, hintMessageRef));
   }, []);
@@ -90,12 +101,15 @@ function UIFormElement(props: IFormProps) {
     if (bodyRef) {
       const { current } = bodyRef || {};
       const inputs = current.getElementsByTagName('input');
-      if (inputs && inputs[0] && !inputIsFocused) {
-        setInputIsFocused((prev) => !prev);
-        inputs[0].focus();
+      if (inputs && inputs[0]) {
+        try {
+          inputs[0].focus();
+        } catch (e) {
+          console.log('[UIFormElement] Error: ', e);
+        }
       }
     }
-  }, [inputIsFocused]);
+  }, []);
 
   const handleClear = React.useCallback(() => {
     if (callback) {
@@ -139,7 +153,9 @@ function UIFormElement(props: IFormProps) {
     disabled,
     errors,
     required,
-  }), [errors, isReadOnly, type, disabled, required]);
+    inputIsFocused,
+    isEmpty,
+  }), [isEmpty, inputIsFocused, errors, isReadOnly, type, disabled, required]);
 
   const renderBody = React.useMemo(() => {
     switch (elementType) {
@@ -156,6 +172,7 @@ function UIFormElement(props: IFormProps) {
             isDate={isDate}
             mask={mask}
             isMoney={isMoney}
+            onFocus={handleSetFocusedInput}
           />
         );
       case 'select':
@@ -163,6 +180,7 @@ function UIFormElement(props: IFormProps) {
       default: return null;
     }
   }, [
+    handleSetFocusedInput,
     data,
     name,
     elementType,
@@ -261,7 +279,7 @@ function UIFormElement(props: IFormProps) {
             </div>
           )}
         </div>
-        {errors && (
+        {errors && inputIsFocused && (
           <div className="ui-form-element__i-error">
             <ul>
               {renderErrors}

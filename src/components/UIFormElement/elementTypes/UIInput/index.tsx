@@ -7,6 +7,7 @@ export interface IUIInputProps {
   data: string | number;
   name: string;
   callback: (name: string, value: string | number) => void;
+  onFocus: () => void;
   mask?: string | Array<string|RegExp>;
   disabled?: boolean;
   isDate?: boolean;
@@ -30,6 +31,7 @@ const UIInput = (props: IUIInputProps) => {
     isInteger,
     dateFormat,
     isDate,
+    onFocus,
   } = props || {};
 
   const momentDate = React.useMemo(() => {
@@ -81,6 +83,7 @@ const UIInput = (props: IUIInputProps) => {
         onValueChange={handleChangeNumberInput}
         value={momentDate}
         title={momentDate}
+        onFocus={onFocus}
       />
 
     );
@@ -103,6 +106,7 @@ const UIInput = (props: IUIInputProps) => {
       disabled={!!disabled}
       placeholder={placeholder}
       title={momentDate}
+      onFocus={onFocus}
     />
   );
 };

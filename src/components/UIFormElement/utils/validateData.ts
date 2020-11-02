@@ -89,7 +89,7 @@ const validateData = (value: ICompareArgs): IErrors[] => {
   let err = [];
   if (required) {
     if (isEmpty) {
-      err.push({ id: v4(), value: 'Поле является обязательным, но незаполнено!' });
+      err.push({ id: v4(), value: 'Поле является обязательным, но не заполнено!' });
     }
   }
   if (!isEmpty) {

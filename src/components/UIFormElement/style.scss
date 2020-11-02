@@ -90,11 +90,6 @@
     & #{$base}__inner-wrapper {
       grid-gap: .8em;
     }
-
-    &:focus-within {
-      border-color: transparent;
-      box-shadow: 0 0 0 .2em rgba(var(--medium-theme-color-rgb), .25);
-    }
   }
 
   &__input-wrapper {
@@ -108,6 +103,7 @@
     outline: 0;
     border: none;
     border-radius: .3em;
+    background: transparent;
 
     &::placeholder {
       opacity: .5;
@@ -124,7 +120,6 @@
     color: rgba(var(--error-color-rgb), .85);
     font-size: .9em;
     border-radius: 0.3em;
-    display: none;
     top: 100%;
     margin-top: 1em;
     padding: .5em 1em;
@@ -189,8 +184,10 @@
     }
   }
 
-  &:focus-within &__i-error {
-    display: block;
+  /* ********************************** focused-input ************************ */
+  &--focused-input &__body {
+    border-color: transparent;
+    box-shadow: 0 0 0 .2em rgba(var(--medium-theme-color-rgb), .25);
   }
 
   /* ********************************** error ************************ */
@@ -198,13 +195,10 @@
     color: var(--error-color);
   }
 
-  &--error &__body {
+  &--error#{$base}--focused-input &__body {
     // border-color: var(--error-color);
-
-    &:focus-within {
-      border-color: transparent;
-      box-shadow: 0 0 0 .2em rgba(var(--error-color-rgb), .25);
-    }
+    border-color: transparent;
+    box-shadow: 0 0 0 .2em rgba(var(--error-color-rgb), .25);
   }
 
   /* ********************************** success ************************ */
@@ -212,13 +206,24 @@
     // color: var(--success-color);
   }
 
-  &--success &__body {
+  &--success#{$base}--focused-input &__body {
     // border-color: var(--success-color);
+    border-color: transparent;
+    box-shadow: 0 0 0 .2em rgba(var(--success-color-rgb), .25);
+  }
 
-    &:focus-within {
-      border-color: transparent;
-      box-shadow: 0 0 0 .2em rgba(var(--success-color-rgb), .25);
-    }
+  /* ****************************** transparent ********************************** */
+  &--transparent &__body {
+    background-color: rgba(var(--white-rgb), .6);
+  }
+
+  &--transparent#{$base}--empty &__body {
+    background-color: transparent;
+  }
+
+  &--transparent#{$base}--focused-input &__body,
+  &--transparent#{$base}--focused-input#{$base}--empty &__body {
+    background-color: var(--white);
   }
 
   /* ****************************** 1c style ********************************** */
@@ -309,22 +314,5 @@
     z-index: 1;
     font-size: .8em;
     opacity: 1;
-  }
-
-  /* ****************************** transparent ********************************** */
-  &.--transparent &__input {
-    background-color: rgba(var(--white-rgb), .6);
-
-    &:focus {
-      background-color: var(--white);
-    }
-  }
-
-  &.--transparent &__input[value=""] {
-    background-color: transparent;
-
-    &:focus {
-      background-color: var(--white);
-    }
   }
 }

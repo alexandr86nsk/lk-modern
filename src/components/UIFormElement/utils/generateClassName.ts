@@ -7,6 +7,8 @@ interface IArgs {
   disabled?: boolean;
   errors?: IErrors[] | null;
   required?: boolean;
+  inputIsFocused?: boolean;
+  isEmpty?: boolean;
 }
 
 const generateClassName = (value: IArgs): string => {
@@ -17,10 +19,18 @@ const generateClassName = (value: IArgs): string => {
     disabled,
     errors,
     required,
+    inputIsFocused,
+    isEmpty,
   } = value || {};
   let cls = baseClass;
   if (isReadOnly) {
     cls = `${cls} ${baseClass}--read-only`;
+  }
+  if (isEmpty) {
+    cls = `${cls} ${baseClass}--empty`;
+  }
+  if (inputIsFocused) {
+    cls = `${cls} ${baseClass}--focused-input`;
   }
   if (type) {
     try {
