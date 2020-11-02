@@ -11,6 +11,7 @@ import validateData, { IErrors } from './utils/validateData';
 import generatePopupStyle, { IPopupStyle } from './utils/generatePopupStyle';
 import UIInput from './elementTypes/UIInput';
 import useOutsideClick from '../UICustomHooks/useOutsideClick/useOutsideClick';
+import useDebounce from '../UICustomHooks/useDebounce/useDebounce';
 
 interface IFormProps {
   title?: string;
@@ -120,8 +121,10 @@ function UIFormElement(props: IFormProps) {
 
   const isEmpty = React.useMemo(() => !data && data !== 0, [data]);
 
+  const debouncedData = useDebounce(data, 500);
+
   const errors = React.useMemo(() => validateData({
-    data,
+    data: debouncedData,
     required,
     minLength,
     maxLength,
@@ -133,9 +136,9 @@ function UIFormElement(props: IFormProps) {
     isUrl,
     customValidation,
   }), [
+    debouncedData,
     isEmpty,
     customValidation,
-    data,
     isEmail,
     minLength,
     maxLength,

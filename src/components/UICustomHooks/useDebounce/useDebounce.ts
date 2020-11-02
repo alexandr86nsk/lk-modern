@@ -1,6 +1,10 @@
 import React from 'react';
 
-function useDebounce(value, delay) {
+interface IArgs<T> {
+  T | undefined | null
+}
+
+function useDebounce(value: T, delay: number): T {
   const [debouncedValue, setDebouncedValue] = React.useState(value);
 
   React.useEffect(
