@@ -11,7 +11,7 @@ import validateData, { IErrors } from './utils/validateData';
 import generatePopupStyle, { IPopupStyle } from './utils/generatePopupStyle';
 import UIInput from './elementTypes/UIInput';
 import useOutsideClick from '../UICustomHooks/useOutsideClick/useOutsideClick';
-import useDebounce from '../UICustomHooks/useDebounce/useDebounce';
+import useDebounce from '../UICustomHooks/useDebounce';
 
 interface IFormProps {
   title?: string;

@@ -8,7 +8,7 @@ import InputTestPage from '../pages/InputTestPage';
 
 const routes = [
   {
-    path: '/',
+    path: '',
     caseSensitive: true,
     element: <Navigate to="briefcases" />,
   },

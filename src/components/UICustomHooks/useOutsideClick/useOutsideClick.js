@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 function useOutsideClick(ref, callback) {
   React.useEffect(() => {
     function handleClickOutside(event) {
