@@ -54,7 +54,7 @@ const compareInteger = (value: string | number, min: number, max: number): Custo
   }
 };
 
-const validateData = (value: CompareArgs): CustomError[] => {
+export default function validateData(value: CompareArgs): CustomError[] {
   const {
     data,
     required,
@@ -63,12 +63,12 @@ const validateData = (value: CompareArgs): CustomError[] => {
     isInteger,
     minInteger,
     maxInteger,
-    isEmpty,
     isEmail,
     isUrl,
     customValidation,
   } = value || {};
   let err = [];
+  const isEmpty = !data && data !== 0;
   if (required) {
     if (isEmpty) {
       err.push({ id: v4(), value: 'Поле является обязательным, но не заполнено!' });
@@ -99,6 +99,4 @@ const validateData = (value: CompareArgs): CustomError[] => {
     return err;
   }
   return null;
-};
-
-export default validateData;
+}

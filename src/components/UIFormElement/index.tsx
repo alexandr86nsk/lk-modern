@@ -6,6 +6,8 @@ import ClearIcon from './icons/clear-icon.svg';
 import HintIcon from './icons/hint-icon.svg';
 import SearchIcon from './icons/search-icon.svg';
 import RequiredIcon from './icons/required-icon.svg';
+import VisibilityIcon from './icons/visibility-icon.svg';
+import VisibilityOffIcon from './icons/visibility-icon--off.svg';
 import generateClassName from './utils/generateClassName';
 import validateData from './utils/validateData';
 import generatePopupStyle from './utils/generatePopupStyle';
@@ -49,14 +51,20 @@ function UIFormElement(props: IUIFormElementProps) {
   const hintMessageRef = React.useRef<HTMLDivElement | null>(null);
 
   const [hintStyle, setHintStyle] = React.useState<PopupStyle | null>(null);
-  const [inputIsFocused, setInputIsFocused] = React.useState(false);
+  const [isFocusedInput, setIsFocusedInput] = React.useState(false);
+  const [passVisibility, setPassVisibility] = React.useState(false);
 
   const handleSetFocusedInput = React.useCallback(() => {
-    setInputIsFocused(true);
+    setIsFocusedInput(true);
   }, []);
 
   const handleSetUnFocusedInput = React.useCallback(() => {
-    setInputIsFocused(false);
+    setIsFocusedInput(false);
+  }, []);
+
+  const handleSetPassVisibility = React.useCallback((e: React.SyntheticEvent) => {
+    e.stopPropagation();
+    setPassVisibility((prev) => !prev);
   }, []);
 
   useOutsideClick(bodyRef, handleSetUnFocusedInput);
@@ -86,13 +94,12 @@ function UIFormElement(props: IUIFormElementProps) {
   const handleClear = React.useCallback(() => {
     if (callback) {
       callback(name, undefined);
-      handleFocusInput();
     }
-  }, [callback, name, handleFocusInput]);
+  }, [callback, name]);
 
   const isEmpty = React.useMemo(() => !data && data !== 0, [data]);
 
-  const debouncedData = useDebounce(data, 500);
+  const debouncedData = useDebounce(data, isEmpty ? 0 : 500);
 
   const errors = React.useMemo(() => validateData({
     data: debouncedData,
@@ -102,13 +109,11 @@ function UIFormElement(props: IUIFormElementProps) {
     isInteger,
     minInteger,
     maxInteger,
-    isEmpty,
     isEmail,
     isUrl,
     customValidation,
   }), [
     debouncedData,
-    isEmpty,
     customValidation,
     isEmail,
     minLength,
@@ -127,9 +132,9 @@ function UIFormElement(props: IUIFormElementProps) {
     disabled,
     errors,
     required,
-    inputIsFocused,
+    isFocusedInput,
     isEmpty,
-  }), [isEmpty, inputIsFocused, errors, isReadOnly, type, disabled, required]);
+  }), [isEmpty, isFocusedInput, errors, isReadOnly, type, disabled, required]);
 
   const renderBody = React.useMemo(() => {
     switch (elementType) {
@@ -147,6 +152,7 @@ function UIFormElement(props: IUIFormElementProps) {
             mask={mask}
             isMoney={isMoney}
             onFocus={handleSetFocusedInput}
+            passVisibility={passVisibility}
           />
         );
       case 'select':
@@ -166,6 +172,7 @@ function UIFormElement(props: IUIFormElementProps) {
     isDate,
     mask,
     isMoney,
+    passVisibility,
   ]);
 
   const renderErrors = React.useMemo(() => {
@@ -187,7 +194,7 @@ function UIFormElement(props: IUIFormElementProps) {
         <div className="ui-form-element__title">
           <div className="ui-form-element__inner-wrapper">
             <div className="ui-form-element__text" title={title}>
-              {title}
+              <span>{title}</span>
             </div>
             {required && !isReadOnly && (
               <div className="ui-form-element__icon-wrapper">
@@ -224,8 +231,25 @@ function UIFormElement(props: IUIFormElementProps) {
             <>
               {!isEmpty && (
                 <div className="ui-form-element__icon-wrapper">
-                  <div role="presentation" className="ui-form-element__icon ui-form-element__icon--clear" title="Очистить" onClick={handleClear}>
+                  <div
+                    role="presentation"
+                    className="ui-form-element__icon ui-form-element__icon--clear"
+                    title="Очистить"
+                    onClick={handleClear}
+                  >
                     <ClearIcon />
+                  </div>
+                </div>
+              )}
+              {isPassword && (
+                <div className="ui-form-element__icon-wrapper">
+                  <div
+                    role="presentation"
+                    className="ui-form-element__icon ui-form-element__icon--visibility"
+                    title={passVisibility ? 'Скрыть' : 'Показать'}
+                    onClick={handleSetPassVisibility}
+                  >
+                    {passVisibility ? <VisibilityOffIcon /> : <VisibilityIcon />}
                   </div>
                 </div>
               )}
@@ -253,7 +277,7 @@ function UIFormElement(props: IUIFormElementProps) {
             </div>
           )}
         </div>
-        {errors && inputIsFocused && (
+        {errors && isFocusedInput && (
           <div className="ui-form-element__i-error">
             <ul>
               {renderErrors}

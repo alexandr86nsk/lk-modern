@@ -1,6 +1,6 @@
 import { GenerateClassNameArgs } from '../@types';
 
-const generateClassName = (value: GenerateClassNameArgs): string => {
+export default function generateClassName(value: GenerateClassNameArgs): string {
   const {
     baseClass = '',
     isReadOnly,
@@ -8,7 +8,7 @@ const generateClassName = (value: GenerateClassNameArgs): string => {
     disabled,
     errors,
     required,
-    inputIsFocused,
+    isFocusedInput,
     isEmpty,
   } = value || {};
   let cls = baseClass;
@@ -18,7 +18,7 @@ const generateClassName = (value: GenerateClassNameArgs): string => {
   if (isEmpty) {
     cls = `${cls} ${baseClass}--empty`;
   }
-  if (inputIsFocused) {
+  if (isFocusedInput) {
     cls = `${cls} ${baseClass}--focused-input`;
   }
   if (type) {
@@ -46,5 +46,3 @@ const generateClassName = (value: GenerateClassNameArgs): string => {
   }
   return cls;
 };
-
-export default generateClassName;

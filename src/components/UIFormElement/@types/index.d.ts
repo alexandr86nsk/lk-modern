@@ -40,7 +40,7 @@ export type GenerateClassNameArgs = {
   disabled?: boolean;
   errors?: CustomError[] | null;
   required?: boolean;
-  inputIsFocused?: boolean;
+  isFocusedInput?: boolean;
   isEmpty?: boolean;
 };
 
@@ -68,7 +68,6 @@ export type CompareArgs = {
   maxInteger?: number;
   minInteger?: number;
   customValidation?: (value: string | number) => CustomError[];
-  isEmpty?: boolean;
 };
 
 export interface IUIInputProps {
@@ -84,4 +83,5 @@ export interface IUIInputProps {
   isInteger?: boolean;
   dateFormat?: string;
   placeholder?: string;
+  passVisibility?: boolean;
 }

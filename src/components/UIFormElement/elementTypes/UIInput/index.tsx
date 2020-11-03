@@ -18,6 +18,7 @@ const UIInput = (props: IUIInputProps) => {
     dateFormat,
     isDate,
     onFocus,
+    passVisibility,
   } = props || {};
 
   const momentDate = React.useMemo(() => {
@@ -86,7 +87,7 @@ const UIInput = (props: IUIInputProps) => {
         a: '[A-zА-я]',
         '*': '[A-Za-z0-9]',
       }}
-      type={isPassword
+      type={isPassword && !passVisibility
         ? 'password'
         : 'text'}
       disabled={!!disabled}

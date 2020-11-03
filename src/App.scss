@@ -102,6 +102,13 @@
     flex: 1;
     position: relative;
 
+    &__animation-block {
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
     &__fixed-btn {
       position: absolute;
       top: 1em;

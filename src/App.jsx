@@ -23,6 +23,7 @@ function App(props) {
       <PageWrapper isAuth={isAuth}>
           <AnimatePresence exitBeforeEnter>
             <motion.div
+              className="page__animation-block"
               key={pathname}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, transition }}

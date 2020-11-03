@@ -26,7 +26,7 @@ function InputTestPage(props) {
   return (
     <div className="input-test-page">
       <UIBlockTitle title="Inputs" />
-      {renderInputs}
+      <div className="test-block">{renderInputs}</div>
     </div>
   );
 }
