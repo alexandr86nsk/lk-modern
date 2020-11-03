@@ -134,7 +134,7 @@
     margin-top: 1em;
     padding: .5em 1em;
     border: 1px solid var(--error-color);
-    z-index: 1;
+    z-index: 2;
 
     &--bottom {
       top: unset;
@@ -208,7 +208,7 @@
   &--error#{$base}--focused-input &__body {
     // border-color: var(--error-color);
     border-color: transparent;
-    box-shadow: 0 0 0 .2em rgba(var(--error-color-rgb), .25);
+    box-shadow: 0 0 0 .2em var(--error-background-color);
   }
 
   /* ********************************** success ************************ */
@@ -274,7 +274,7 @@
   }
 
   &--style-1c#{$base}--focused-input#{$base}--error &__body {
-    box-shadow: inset 0 0 0 .2em rgba(var(--error-color-rgb), .25);
+    box-shadow: inset 0 0 0 .2em var(--error-background-color);
   }
 
   &--style-1c#{$base}--focused-input#{$base}--success &__body {
