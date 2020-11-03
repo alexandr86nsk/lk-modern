@@ -4,16 +4,7 @@
 
   .test-block {
     display: grid;
-    grid-template: auto / 50% 50%;
+    grid-template: auto / repeat(auto-fit, minmax(400px, 1fr));
     grid-gap: 1em;
-
-    > div {
-      grid-column-end: span 2;
-
-      &:nth-child(2n),
-      &:nth-child(3n) {
-        grid-column-end: span 1;
-      }
-    }
   }
 }
