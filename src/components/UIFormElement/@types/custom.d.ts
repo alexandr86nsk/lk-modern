@@ -3,7 +3,7 @@ export type CustomError = {
   value: string;
 };
 
-export interface IFormElementProps {
+export interface IUIFormElementProps {
   title?: string;
   data: string | number;
   name: string;
@@ -70,3 +70,18 @@ export type CompareArgs = {
   customValidation?: (value: string | number) => CustomError[];
   isEmpty?: boolean;
 };
+
+export interface IUIInputProps {
+  data: string | number;
+  name: string;
+  callback: (name: string, value: string | number) => void;
+  onFocus?: () => void;
+  mask?: string | Array<string|RegExp>;
+  disabled?: boolean;
+  isDate?: boolean;
+  isMoney?: boolean;
+  isPassword?: boolean;
+  isInteger?: boolean;
+  dateFormat?: string;
+  placeholder?: string;
+}

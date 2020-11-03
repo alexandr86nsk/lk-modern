@@ -2,21 +2,7 @@ import React from 'react';
 import NumberFormat, { NumberFormatValues } from 'react-number-format';
 import InputMask from 'react-input-mask';
 import * as moment from 'moment';
-
-export interface IUIInputProps {
-  data: string | number;
-  name: string;
-  callback: (name: string, value: string | number) => void;
-  onFocus: () => void;
-  mask?: string | Array<string|RegExp>;
-  disabled?: boolean;
-  isDate?: boolean;
-  isMoney?: boolean;
-  isPassword?: boolean;
-  isInteger?: boolean;
-  dateFormat?: string;
-  placeholder?: string;
-}
+import { IUIInputProps } from '../../@types/custom';
 
 const UIInput = (props: IUIInputProps) => {
   const {

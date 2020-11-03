@@ -7,14 +7,14 @@ import HintIcon from './icons/hint-icon.svg';
 import SearchIcon from './icons/search-icon.svg';
 import RequiredIcon from './icons/required-icon.svg';
 import generateClassName from './utils/generateClassName';
-import validateData, { IErrors } from './utils/validateData';
+import validateData from './utils/validateData';
 import generatePopupStyle from './utils/generatePopupStyle';
 import UIInput from './elementTypes/UIInput';
 import useOutsideClick from '../UICustomHooks/useOutsideClick/useOutsideClick';
 import useDebounce from '../UICustomHooks/useDebounce';
-import { IFormElementProps, PopupStyle } from './@types/custom';
+import { IUIFormElementProps, PopupStyle, CustomError } from './@types/custom';
 
-function UIFormElement(props: IFormElementProps) {
+function UIFormElement(props: IUIFormElementProps) {
   const {
     title,
     name,
@@ -170,7 +170,7 @@ function UIFormElement(props: IFormElementProps) {
 
   const renderErrors = React.useMemo(() => {
     if (errors && Array.isArray(errors)) {
-      return errors.map((v: IErrors) => {
+      return errors.map((v: CustomError) => {
         const { id, value } = v || {};
         return (
           <li key={id}>{value}</li>
