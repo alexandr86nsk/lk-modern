@@ -1,6 +1,6 @@
 import { v4 } from 'uuid';
 import { validateEmail, validateUrl } from '../../utilities/helpers';
-import { CompareArgs, CustomError } from '../@types/custom';
+import { CompareArgs, CustomError } from '../@types';
 
 const compareLength = (value: string | number, min: number, max: number): CustomError[] => {
   try {

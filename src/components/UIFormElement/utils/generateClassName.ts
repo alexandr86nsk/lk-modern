@@ -1,4 +1,4 @@
-import { GenerateClassNameArgs } from '../@types/custom';
+import { GenerateClassNameArgs } from '../@types';
 
 const generateClassName = (value: GenerateClassNameArgs): string => {
   const {

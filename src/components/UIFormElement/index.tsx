@@ -12,7 +12,7 @@ import generatePopupStyle from './utils/generatePopupStyle';
 import UIInput from './elementTypes/UIInput';
 import useOutsideClick from '../UICustomHooks/useOutsideClick/useOutsideClick';
 import useDebounce from '../UICustomHooks/useDebounce';
-import { IUIFormElementProps, PopupStyle, CustomError } from './@types/custom';
+import { IUIFormElementProps, PopupStyle, CustomError } from './@types';
 
 function UIFormElement(props: IUIFormElementProps) {
   const {

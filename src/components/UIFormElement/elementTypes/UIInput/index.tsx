@@ -2,7 +2,7 @@ import React from 'react';
 import NumberFormat, { NumberFormatValues } from 'react-number-format';
 import InputMask from 'react-input-mask';
 import * as moment from 'moment';
-import { IUIInputProps } from '../../@types/custom';
+import { IUIInputProps } from '../../@types';
 
 const UIInput = (props: IUIInputProps) => {
   const {

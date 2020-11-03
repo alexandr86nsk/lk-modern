@@ -1,4 +1,4 @@
-import { UseRef, PopupStyle } from '../@types/custom';
+import { UseRef, PopupStyle } from '../@types';
 
 const generatePopupStyle = (
   parentRef: UseRef<HTMLDivElement>, popupRef: UseRef<HTMLDivElement>,
