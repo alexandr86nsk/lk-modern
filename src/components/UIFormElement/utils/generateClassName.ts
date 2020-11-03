@@ -1,17 +1,6 @@
-import { IErrors } from './validateData';
+import { GenerateClassNameArgs } from '../@types/custom';
 
-interface IArgs {
-  baseClass?: string;
-  isReadOnly?: boolean;
-  type?: string;
-  disabled?: boolean;
-  errors?: IErrors[] | null;
-  required?: boolean;
-  inputIsFocused?: boolean;
-  isEmpty?: boolean;
-}
-
-const generateClassName = (value: IArgs): string => {
+const generateClassName = (value: GenerateClassNameArgs): string => {
   const {
     baseClass = '',
     isReadOnly,

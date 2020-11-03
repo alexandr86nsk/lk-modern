@@ -1,26 +1,8 @@
 import { v4 } from 'uuid';
 import { validateEmail, validateUrl } from '../../utilities/helpers';
+import { CompareArgs, CustomError } from '../@types/custom';
 
-export type IErrors = {
-  id: string;
-  value: string;
-};
-
-export interface ICompareArgs {
-  minLength?: number;
-  maxLength?: number;
-  data: string | number;
-  isEmail?: boolean;
-  isUrl?: boolean;
-  isInteger?: boolean;
-  required?: boolean;
-  maxInteger?: number;
-  minInteger?: number;
-  customValidation?: (value: string | number) => IErrors[];
-  isEmpty?: boolean;
-}
-
-const compareLength = (value: string | number, min: number, max: number): IErrors[] => {
+const compareLength = (value: string | number, min: number, max: number): CustomError[] => {
   try {
     const hasMin = !!(min || min === 0);
     const hasMax = !!(max || max === 0);
@@ -50,7 +32,7 @@ const compareLength = (value: string | number, min: number, max: number): IError
   }
 };
 
-const compareInteger = (value: string | number, min: number, max: number): IErrors[] => {
+const compareInteger = (value: string | number, min: number, max: number): CustomError[] => {
   try {
     const hasMin = !!(min || min === 0);
     const hasMax = !!(max || max === 0);
@@ -72,7 +54,7 @@ const compareInteger = (value: string | number, min: number, max: number): IErro
   }
 };
 
-const validateData = (value: ICompareArgs): IErrors[] => {
+const validateData = (value: CompareArgs): CustomError[] => {
   const {
     data,
     required,

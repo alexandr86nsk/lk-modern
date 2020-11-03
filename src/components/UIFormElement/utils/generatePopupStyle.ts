@@ -1,19 +1,8 @@
-export type IPopupStyle = {
-  left?: string;
-  right?: string;
-  bottom?: string;
-  top?: string;
-  width?: string;
-  visibility?: 'visible',
-};
-
-interface IRef<T> {
-  readonly current: T | null | undefined;
-}
+import { UseRef, PopupStyle } from '../@types/custom';
 
 const generatePopupStyle = (
-  parentRef: IRef<HTMLDivElement>, popupRef: IRef<HTMLDivElement>,
-): IPopupStyle | null => {
+  parentRef: UseRef<HTMLDivElement>, popupRef: UseRef<HTMLDivElement>,
+): PopupStyle | null => {
   if (parentRef && popupRef) {
     const { current: iconEl } = parentRef || {};
     const { current: messageEl } = popupRef || {};

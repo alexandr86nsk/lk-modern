@@ -8,42 +8,13 @@ import SearchIcon from './icons/search-icon.svg';
 import RequiredIcon from './icons/required-icon.svg';
 import generateClassName from './utils/generateClassName';
 import validateData, { IErrors } from './utils/validateData';
-import generatePopupStyle, { IPopupStyle } from './utils/generatePopupStyle';
+import generatePopupStyle from './utils/generatePopupStyle';
 import UIInput from './elementTypes/UIInput';
 import useOutsideClick from '../UICustomHooks/useOutsideClick/useOutsideClick';
 import useDebounce from '../UICustomHooks/useDebounce';
+import { IFormElementProps, PopupStyle } from './@types/custom';
 
-interface IFormProps {
-  title?: string;
-  data: string | number;
-  name: string;
-  elementType: string;
-  callback: (name: string, value: string | number) => void;
-  mask?: string | Array<string | RegExp>;
-  minLength?: number;
-  maxLength?: number;
-  disabled?: boolean;
-  isEmail?: boolean;
-  isUrl?: boolean;
-  isDate?: boolean;
-  isMoney?: boolean;
-  isPassword?: boolean;
-  isInteger?: boolean;
-  dateFormat?: string;
-  required?: boolean;
-  hint?: boolean;
-  hintMessage?: string;
-  hintIcon?: string;
-  placeholder?: string;
-  isReadOnly?: boolean;
-  type?: string;
-  isSearch?: boolean;
-  maxInteger?: number;
-  minInteger?: number;
-  customValidation?: (value: string | number) => IErrors[];
-}
-
-function UIFormElement(props: IFormProps) {
+function UIFormElement(props: IFormElementProps) {
   const {
     title,
     name,
@@ -77,7 +48,7 @@ function UIFormElement(props: IFormProps) {
   const hintIconRef = React.useRef<HTMLDivElement | null>(null);
   const hintMessageRef = React.useRef<HTMLDivElement | null>(null);
 
-  const [hintStyle, setHintStyle] = React.useState<IPopupStyle | null>(null);
+  const [hintStyle, setHintStyle] = React.useState<PopupStyle | null>(null);
   const [inputIsFocused, setInputIsFocused] = React.useState(false);
 
   const handleSetFocusedInput = React.useCallback(() => {
