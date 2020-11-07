@@ -1,6 +1,15 @@
 .ui-form-element {
   $base: &;
   width: 100%;
+  position: relative;
+
+  &__fieldset {
+    display: none;
+  }
+
+  &__legend {
+    visibility: hidden;
+  }
 
   &__inner-wrapper {
     display: flex;
@@ -12,6 +21,10 @@
     line-height: 1.5em;
     font-size: .9em;
     margin-bottom: .3em;
+
+    #{$base}__inner-wrapper {
+      display: inline-flex;
+    }
   }
 
   &__text {
@@ -101,7 +114,7 @@
     transition: color .2s ease-in-out, border-color .2s ease-in-out, box-shadow .2s ease-in-out;
     padding-right: .8em;
 
-    & #{$base}__inner-wrapper {
+    #{$base}__inner-wrapper {
       grid-gap: .8em;
       flex: 1;
     }
@@ -301,6 +314,20 @@
   }
 
   /* ****************************** translate-title ********************************** */
+
+  &--translate-title &__fieldset {
+    display: block;
+    position: absolute;
+    top: 1.5em;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border: 1px solid var(--theme-border-color);
+    border-radius: .3em;
+    padding: 0 .8em;
+    transition: color .2s ease-in-out, border-color .2s ease-in-out, box-shadow .2s ease-in-out;
+  }
+
   &--translate-title {
     position: relative;
   }

@@ -1,48 +1,31 @@
-import { GenerateClassNameArgs } from '../@types';
+import { CustomObject } from '../@types';
 
-export default function generateClassName(value: GenerateClassNameArgs): string {
-  const {
-    baseClass = '',
-    isReadOnly,
-    type,
-    disabled,
-    errors,
-    required,
-    isFocusedInput,
-    isEmpty,
-  } = value || {};
+function generateClassName<T extends CustomObject>(baseClass: string, props: T): string {
   let cls = baseClass;
-  if (isReadOnly) {
-    cls = `${cls} ${baseClass}--read-only`;
-  }
-  if (isEmpty) {
-    cls = `${cls} ${baseClass}--empty`;
-  }
-  if (isFocusedInput) {
-    cls = `${cls} ${baseClass}--focused-input`;
-  }
-  if (type) {
-    try {
-      const typeArgs = type.split(' ');
-      if (typeArgs && Array.isArray(typeArgs)) {
-        typeArgs.forEach((v) => {
-          cls = `${cls} ${baseClass}--${v}`;
-        });
-      }
-    } catch (e) {
-      console.log(`[${baseClass}] Error: `, e);
+  try {
+    const keys = Object.keys(props);
+    if (keys && Array.isArray(keys)) {
+      keys.forEach((v) => {
+        const el = props[v];
+        if (el) {
+          if (typeof el === 'string') {
+            const typeArgs = el.split(' ');
+            if (typeArgs && Array.isArray(typeArgs)) {
+              typeArgs.forEach((w) => {
+                cls = `${cls} ${baseClass}--${w}`;
+              });
+            }
+          } else {
+            cls = `${cls} ${baseClass}--${v}`;
+          }
+        }
+      });
     }
-  } else {
-    cls = `${cls} ${baseClass}--basic`;
+  } catch (e) {
+    console.log('[Fn: generateClassName] Error: ', e);
   }
-  if (disabled) {
-    cls = `${cls} ${baseClass}--disabled`;
-  }
-  if (errors) {
-    cls = `${cls} ${baseClass}--error`;
-  }
-  if (required && !errors) {
-    cls = `${cls} ${baseClass}--success`;
-  }
+
   return cls;
 }
+
+export default generateClassName;

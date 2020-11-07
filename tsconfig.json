@@ -2,7 +2,7 @@
   "include": [
     "src",
     "@types/custom.d.ts",
-    "@types/untyped.d.ts"
+    "@types/customTypes.ts"
   ],
   "exclude": [
     "node_modules",
@@ -24,7 +24,7 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["core-js", "node"],
+    "types": ["node"],
     "lib": ["dom", "es2015", "esnext"],
     "downlevelIteration": true
   },

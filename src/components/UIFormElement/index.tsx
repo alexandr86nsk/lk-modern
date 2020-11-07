@@ -13,6 +13,7 @@ import UIInput from './elementTypes/UIInput';
 import useOutsideClick from '../UICustomHooks/useOutsideClick/useOutsideClick';
 import useDebounce from '../UICustomHooks/useDebounce';
 import { IUIFormElementProps, PopupStyle, CustomError } from './@types';
+import useResizeObserver from '../UICustomHooks/useResizeObserver/useResizeObserver';
 
 function UIFormElement(props: IUIFormElementProps) {
   const {
@@ -45,12 +46,15 @@ function UIFormElement(props: IUIFormElementProps) {
   } = props || {};
 
   const bodyRef = React.useRef<HTMLDivElement | null>(null);
+  const titleRef = React.useRef<HTMLDivElement | null>(null);
   const hintIconRef = React.useRef<HTMLDivElement | null>(null);
   const hintMessageRef = React.useRef<HTMLDivElement | null>(null);
 
   const [hintStyle, setHintStyle] = React.useState<PopupStyle | null>(null);
   const [isFocusedInput, setIsFocusedInput] = React.useState(false);
   const [passVisibility, setPassVisibility] = React.useState(false);
+
+  const { width: titleWidth } = useResizeObserver(titleRef);
 
   const handleSetFocusedInput = React.useCallback(() => {
     setIsFocusedInput(true);
@@ -127,16 +131,18 @@ function UIFormElement(props: IUIFormElementProps) {
     minInteger,
   ]);
 
-  const baseClassName = React.useMemo((): string => generateClassName({
-    baseClass: 'ui-form-element',
-    isReadOnly,
-    type,
-    disabled,
-    errors,
-    required,
-    isFocusedInput,
-    isEmpty,
-  }), [isEmpty, isFocusedInput, errors, isReadOnly, type, disabled, required]);
+  const baseClassName = React.useMemo(
+    (): string => generateClassName('ui-form-element', {
+      'read-only': isReadOnly,
+      'focused-input': isFocusedInput,
+      empty: isEmpty,
+      disabled,
+      error: !!errors,
+      success: required && !errors,
+      type,
+    }),
+    [isEmpty, isFocusedInput, errors, isReadOnly, type, disabled, required],
+  );
 
   const renderBody = React.useMemo(() => {
     switch (elementType) {
@@ -190,13 +196,15 @@ function UIFormElement(props: IUIFormElementProps) {
   }, [errors]);
 
   return (
-    <fieldset className={baseClassName}>
+    <div className={baseClassName}>
       {title
       && (
         <>
-          <legend>{title}</legend>
+          <fieldset className="ui-form-element__fieldset">
+            <legend className="ui-form-element__legend" style={{ width: titleWidth }} />
+          </fieldset>
           <div className="ui-form-element__title">
-            <div className="ui-form-element__inner-wrapper">
+            <div className="ui-form-element__inner-wrapper" ref={titleRef}>
               <div className="ui-form-element__text" title={title}>
                 <span>{title}</span>
               </div>
@@ -290,7 +298,7 @@ function UIFormElement(props: IUIFormElementProps) {
           </div>
         )}
       </div>
-    </fieldset>
+    </div>
   );
 }
 

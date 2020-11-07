@@ -96,7 +96,8 @@
     "typescript": "^4.0.3",
     "uuid": "^8.3.1",
     "webpack-merge": "^5.2.0",
-    "yarn": "^1.22.10"
+    "yarn": "^1.22.10",
+    "resize-observer-polyfill": "^1.5.1"
   },
   "scripts": {
     "production": "node --max_old_space_size=4096 ./node_modules/webpack/bin/webpack.js --env.NODE_PATH=//localhost/path --mode=production --config webpack/webpack.spa.js",
@@ -161,7 +162,6 @@
     "raw-loader": "^4.0.2",
     "react-svg-loader": "^3.0.3",
     "react-test-renderer": "^17.0.1",
-    "resize-observer-polyfill": "^1.5.1",
     "sass": "^1.27.0",
     "sass-loader": "^10.0.4",
     "terser-webpack-plugin": "^5.0.1",

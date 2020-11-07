@@ -1,4 +1,5 @@
-import { UseRef, PopupStyle } from '../@types';
+import { PopupStyle } from '../@types';
+import { UseRef } from '../../../../@types/costomTypes';
 
 export default function generatePopupStyle(
   parentRef: UseRef<HTMLDivElement>, popupRef: UseRef<HTMLDivElement>,
@@ -12,7 +13,7 @@ export default function generatePopupStyle(
       iconEl = iconCurrent.getBoundingClientRect();
       messageEl = messageCurrent.getBoundingClientRect();
     } catch (e) {
-      console.log('[UIFormElement] Error: ', e);
+      console.log('[Fn: generatePopupStyle] Error: ', e);
     }
     const {
       top = 0,

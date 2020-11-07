@@ -3,7 +3,11 @@ export type CustomError = {
   value: string;
 };
 
-export interface IUIFormElementProps {
+export type CustomObject = {
+  [key: string]: boolean | string;
+};
+
+export type IUIFormElementProps = {
   title?: string;
   data: string | number;
   name: string;
@@ -31,21 +35,6 @@ export interface IUIFormElementProps {
   maxInteger?: number;
   minInteger?: number;
   customValidation?: (value: string | number) => CustomError[];
-}
-
-export type GenerateClassNameArgs = {
-  baseClass?: string;
-  isReadOnly?: boolean;
-  type?: string;
-  disabled?: boolean;
-  errors?: CustomError[] | null;
-  required?: boolean;
-  isFocusedInput?: boolean;
-  isEmpty?: boolean;
-};
-
-export type UseRef<T> = {
-  readonly current: T | null | undefined;
 };
 
 export type PopupStyle = {
@@ -71,7 +60,7 @@ export type CompareArgs = {
   customValidation?: (value: string | number) => CustomError[];
 };
 
-export interface IUIInputProps {
+export type IUIInputProps = {
   data: string | number;
   name: string;
   callback: (name: string, value: string | number) => void;
@@ -85,4 +74,4 @@ export interface IUIInputProps {
   dateFormat?: string;
   placeholder?: string;
   passVisibility?: boolean;
-}
+};
