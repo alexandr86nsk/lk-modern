@@ -16,7 +16,7 @@ code {
 
 .document-body {
 
-  &.--styled {
+  &--styled {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d7e6ff', endColorstr='#d9e3ff', GradientType=1);
     background: linear-gradient(135deg, rgba(215, 230, 255, 1) 0%,
             rgba(243, 219, 246, 1) 50%, rgba(240, 220, 247, 1) 55%,

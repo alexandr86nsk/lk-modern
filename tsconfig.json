@@ -9,7 +9,8 @@
     "**/*.spec.ts"
   ],
   "compilerOptions": {
-    "module": "esnext",
+    "declaration": true,
+    "module": "commonjs",
     "target": "es5",
     "jsx": "react",
     "allowJs": true,
@@ -23,7 +24,8 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["node"],
+    "types": ["core-js", "node"],
+    "lib": ["dom", "es2015", "esnext"],
     "downlevelIteration": true
   },
   "compileOnSave": false,

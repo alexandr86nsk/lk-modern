@@ -45,4 +45,4 @@ export default function generateClassName(value: GenerateClassNameArgs): string 
     cls = `${cls} ${baseClass}--success`;
   }
   return cls;
-};
+}

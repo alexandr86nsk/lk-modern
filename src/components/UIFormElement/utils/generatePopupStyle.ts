@@ -53,6 +53,7 @@ export default function generatePopupStyle(
       top: elTop,
       width: elWidth,
       visibility: 'visible',
+      opacity: '1',
     };
   }
   return null;

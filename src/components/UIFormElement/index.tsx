@@ -8,9 +8,7 @@ import SearchIcon from './icons/search-icon.svg';
 import RequiredIcon from './icons/required-icon.svg';
 import VisibilityIcon from './icons/visibility-icon.svg';
 import VisibilityOffIcon from './icons/visibility-icon--off.svg';
-import generateClassName from './utils/generateClassName';
-import validateData from './utils/validateData';
-import generatePopupStyle from './utils/generatePopupStyle';
+import { generateClassName, generatePopupStyle, validateData } from './utils';
 import UIInput from './elementTypes/UIInput';
 import useOutsideClick from '../UICustomHooks/useOutsideClick/useOutsideClick';
 import useDebounce from '../UICustomHooks/useDebounce';
@@ -97,6 +95,10 @@ function UIFormElement(props: IUIFormElementProps) {
     }
   }, [callback, name]);
 
+  const handleIErrorClick = React.useCallback((e: React.SyntheticEvent) => {
+    e.stopPropagation();
+  }, []);
+
   const isEmpty = React.useMemo(() => !data && data !== 0, [data]);
 
   const debouncedData = useDebounce(data, isEmpty ? 0 : 500);
@@ -125,7 +127,7 @@ function UIFormElement(props: IUIFormElementProps) {
     minInteger,
   ]);
 
-  const className = React.useMemo((): string => generateClassName({
+  const baseClassName = React.useMemo((): string => generateClassName({
     baseClass: 'ui-form-element',
     isReadOnly,
     type,
@@ -188,39 +190,42 @@ function UIFormElement(props: IUIFormElementProps) {
   }, [errors]);
 
   return (
-    <div className={className}>
+    <fieldset className={baseClassName}>
       {title
       && (
-        <div className="ui-form-element__title">
-          <div className="ui-form-element__inner-wrapper">
-            <div className="ui-form-element__text" title={title}>
-              <span>{title}</span>
-            </div>
-            {required && !isReadOnly && (
-              <div className="ui-form-element__icon-wrapper">
-                <div className="ui-form-element__icon ui-form-element__icon--required" title="Обязательное поле">
-                  <RequiredIcon />
-                </div>
+        <>
+          <legend>{title}</legend>
+          <div className="ui-form-element__title">
+            <div className="ui-form-element__inner-wrapper">
+              <div className="ui-form-element__text" title={title}>
+                <span>{title}</span>
               </div>
-            )}
-            {hint && !isReadOnly && (
-              <div className="ui-form-element__icon-wrapper">
-                <div
-                  role="presentation"
-                  className="ui-form-element__icon ui-form-element__icon--hint"
-                  ref={hintIconRef}
-                  onMouseEnter={getHintCoords}
-                  onMouseLeave={clearHintCoords}
-                >
-                  <HintIcon />
-                  <div className="ui-form-element__hint" ref={hintMessageRef} style={hintStyle || undefined}>
-                    {hintMessage}
+              {required && !isReadOnly && (
+                <div className="ui-form-element__icon-wrapper">
+                  <div className="ui-form-element__icon ui-form-element__icon--required" title="Обязательное поле">
+                    <RequiredIcon />
                   </div>
                 </div>
-              </div>
-            )}
+              )}
+              {hint && !isReadOnly && (
+                <div className="ui-form-element__icon-wrapper">
+                  <div
+                    role="presentation"
+                    className="ui-form-element__icon ui-form-element__icon--hint"
+                    ref={hintIconRef}
+                    onMouseEnter={getHintCoords}
+                    onMouseLeave={clearHintCoords}
+                  >
+                    <HintIcon />
+                    <div className="ui-form-element__hint" ref={hintMessageRef} style={hintStyle || undefined}>
+                      {hintMessage}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        </>
       )}
       <div role="presentation" className="ui-form-element__body" ref={bodyRef} onClick={handleFocusInput}>
         <div className="ui-form-element__inner-wrapper">
@@ -277,15 +282,15 @@ function UIFormElement(props: IUIFormElementProps) {
             </div>
           )}
         </div>
-        {errors && isFocusedInput && (
-          <div className="ui-form-element__i-error">
+        {errors && (
+          <div role="presentation" className="ui-form-element__i-error" onClick={handleIErrorClick}>
             <ul>
               {renderErrors}
             </ul>
           </div>
         )}
       </div>
-    </div>
+    </fieldset>
   );
 }
 

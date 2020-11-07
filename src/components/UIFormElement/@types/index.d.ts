@@ -55,6 +55,7 @@ export type PopupStyle = {
   top?: string;
   width?: string;
   visibility?: 'visible',
+  opacity?: string,
 };
 
 export type CompareArgs = {
