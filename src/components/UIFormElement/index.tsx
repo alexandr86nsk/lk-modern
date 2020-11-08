@@ -15,36 +15,34 @@ import useDebounce from '../UICustomHooks/useDebounce';
 import { IUIFormElementProps, PopupStyle, CustomError } from './@types';
 import useResizeObserver from '../UICustomHooks/useResizeObserver/useResizeObserver';
 
-function UIFormElement(props: IUIFormElementProps) {
-  const {
-    title,
-    name,
-    callback,
-    mask,
-    minLength = 0,
-    maxLength,
-    data,
-    isEmail,
-    isUrl,
-    disabled,
-    isDate,
-    dateFormat = 'LLL',
-    isPassword,
-    isMoney,
-    required,
-    hint,
-    hintMessage,
-    placeholder,
-    isReadOnly,
-    type,
-    elementType,
-    isInteger,
-    maxInteger,
-    minInteger,
-    isSearch,
-    customValidation,
-  } = props || {};
-
+function UIFormElement({
+  title,
+  name,
+  callback,
+  mask,
+  minLength = 0,
+  maxLength,
+  data,
+  isEmail,
+  isUrl,
+  disabled,
+  isDate,
+  dateFormat = 'LLL',
+  isPassword,
+  isMoney,
+  required,
+  hint,
+  hintMessage,
+  placeholder,
+  isReadOnly,
+  type,
+  elementType,
+  isInteger,
+  maxInteger,
+  minInteger,
+  isSearch,
+  customValidation,
+}: IUIFormElementProps) {
   const bodyRef = React.useRef<HTMLDivElement | null>(null);
   const titleRef = React.useRef<HTMLDivElement | null>(null);
   const hintIconRef = React.useRef<HTMLDivElement | null>(null);

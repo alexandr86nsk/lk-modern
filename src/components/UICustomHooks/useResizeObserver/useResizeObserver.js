@@ -5,12 +5,6 @@ function useResizeObserver(resizeSubject) {
   const resizeObserver = useRef(null);
 
   useEffect(() => {
-    if ('ResizeObserver' in window) {
-      observe(ResizeObserver);
-    } else {
-      import('resize-observer-polyfill').then(observe);
-    }
-
     function observe(RO) {
       resizeObserver.current = new RO((entries) => {
         const {
@@ -29,6 +23,12 @@ function useResizeObserver(resizeSubject) {
       if (resizeSubject.current) {
         resizeObserver.current.observe(resizeSubject.current);
       }
+    }
+
+    if ('ResizeObserver' in window) {
+      observe(ResizeObserver);
+    } else {
+      import('resize-observer-polyfill').then(observe);
     }
 
     return disconnect;
