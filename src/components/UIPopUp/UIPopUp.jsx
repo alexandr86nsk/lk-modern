@@ -1,33 +1,8 @@
 import React from 'react';
 import './UIPopUp.scss';
-import { motion } from 'framer-motion';
-import CloseIcon from '../../static/images/close-10px.svg';
+import CloseIcon from '../../assetssadads/icons/close-10px.svg';
 import useScrollPage from '../UICustomHooks/useScrollPage/useScrollPage';
 import UIScrollToTop from '../UIScrollToTop/UIScrollToTop';
-
-const popup = {
-  initial: {
-    opacity: 0.5,
-    clipPath: 'circle(3px at calc(100% - 3em) 3em)',
-  },
-  open: (height = 1000) => ({
-    clipPath: `circle(${height * 2 + 200}px at calc(100% - 3em) 3em)`,
-    transition: {
-      type: 'spring',
-      stiffness: 40,
-      restDelta: 2,
-    },
-    opacity: 1,
-  }),
-  closed: {
-    clipPath: 'circle(3px at calc(100% - 3em) 3em)',
-    transition: {
-      type: 'spring',
-      stiffness: 400,
-      damping: 40,
-    },
-  },
-};
 
 function UIPopUp(props) {
   const {
@@ -37,7 +12,6 @@ function UIPopUp(props) {
     type,
     closingImpossible,
     title,
-    animationDisabled,
   } = props || {};
 
   const [scroll, setScroll] = React.useState(false);
@@ -65,12 +39,8 @@ function UIPopUp(props) {
   }, [handleClose, noEscape]);
 
   return (
-    <motion.div
+    <div
       className={`ui-popup ${type || ''}`}
-      variants={animationDisabled ? undefined : popup}
-      initial="initial"
-      animate="open"
-      exit="closed"
     >
       <div className="ui-popup__wrapper">
         <div className="ui-popup__top-panel">
@@ -94,7 +64,7 @@ function UIPopUp(props) {
           <UIScrollToTop isVisible={scroll} refEl={pageEl.current} />
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 

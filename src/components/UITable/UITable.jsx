@@ -7,11 +7,11 @@ import UITableCell from './UITableCell';
 import UIPagination from '../UIPagination/UIPagination';
 import UISelect from '../UISelect/UISelect';
 import UISearch from '../UISearch/UISearch';
-import FilterIcon from '../../static/images/filter_list-24px.svg';
-import RefreshIcon from '../../static/images/refresh-24px.svg';
+import FilterIcon from '../../assetssadads/icons/filter_list-24px.svg';
+import RefreshIcon from '../../assetssadads/icons/refresh-24px.svg';
 import numberOfRecords from './common/numberOfRecords';
 import UITableFilter from './UITableFilter';
-import UILoader from '../UILoader';
+import UILoader from '../Loader';
 
 
 function UITable(props) {

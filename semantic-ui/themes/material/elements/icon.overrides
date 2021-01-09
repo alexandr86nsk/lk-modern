@@ -476,12 +476,12 @@ i.icon.local.atm:before { content: '\e53e'}
 i.icon.local.bar:before { content: '\e540'}
 i.icon.local.cafe:before { content: '\e541'}
 i.icon.local.car.wash:before { content: '\e542'}
-i.icon.local.convenience.store:before { content: '\e543'}
+i.icon.local.convenience.index:before { content: '\e543'}
 i.icon.local.dining:before { content: '\e556'}
 i.icon.local.drink:before { content: '\e544'}
 i.icon.local.florist:before { content: '\e545'}
 i.icon.local.gas.station:before { content: '\e546'}
-i.icon.local.grocery.store:before { content: '\e547'}
+i.icon.local.grocery.index:before { content: '\e547'}
 i.icon.local.hospital:before { content: '\e548'}
 i.icon.local.hotel:before { content: '\e549'}
 i.icon.local.laundry.service:before { content: '\e54a'}
@@ -798,8 +798,8 @@ i.icon.stay.primary.portrait:before { content: '\e0d6'}
 i.icon.stop:before { content: '\e047'}
 i.icon.stop.screen.share:before { content: '\e0e3'}
 i.icon.storage:before { content: '\e1db'}
-i.icon.store:before { content: '\e8d1'}
-i.icon.store.mall.directory:before { content: '\e563'}
+i.icon.index:before { content: '\e8d1'}
+i.icon.index.mall.directory:before { content: '\e563'}
 i.icon.straighten:before { content: '\e41c'}
 i.icon.streetview:before { content: '\e56e'}
 i.icon.strikethrough.s:before { content: '\e257'}

@@ -1,84 +1,115 @@
 {
-  "root": true,
   "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "import",
+    "@typescript-eslint",
+    "react",
+    "react-hooks",
+    "jest"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
+    "react-app",
+    "plugin:prettier/recommended"
+  ],
   "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "useJSXTextNode": true,
+    "project": "./tsconfig.json",
     "ecmaVersion": 2020,
     "sourceType": "module",
-    "project": "./tsconfig.json",
-    "createDefaultProgram": true
-  },
-  "env": {
-    "browser": true,
-    "es6": true,
-    "node": true
-  },
-  "extends": [
-    "airbnb",
-    "airbnb-typescript",
-    "airbnb/hooks"
-  ],
-  "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
-  },
-  "plugins": [
-    "react",
-    "react-hooks"
-  ],
-  "rules": {
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
-    "react/prop-types": 0,
-    "react/no-unused-prop-types": 0,
-    "react/require-default-props": 0,
-    "react/jsx-props-no-spreading": 0,
-    "import/no-cycle": 0,
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
-    "no-console": "off"
-  },
-  "overrides": [
-    {
-      "files": [
-        "*.ts", "*.tsx"
-      ],
-      "plugins": [
-        "react",
-        "react-hooks",
-        "@typescript-eslint"
-      ],
-      "extends": [
-        "airbnb",
-        "airbnb-typescript",
-        "airbnb/hooks",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking"
-      ],
-      "rules": {
-        "@typescript-eslint/no-explicit-any": 0,
-        "@typescript-eslint/member-delimiter-style": 0,
-        "@typescript-eslint/interface-name-prefix": 0,
-        "@typescript-eslint/no-use-before-define": 0,
-        "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "warn",
-        "react/prop-types": 0,
-        "react/no-unused-prop-types": 0,
-        "react/require-default-props": 0,
-        "react/jsx-props-no-spreading": 0,
-        "import/no-cycle": 0,
-        "no-console": "off"
-      }
+    "ecmaFeatures": {
+      "jsx": true
     }
-  ],
-  "settings": {
-    "react": { "version": "detect" }
-    /*"import/resolver": {
-      "typescript": {
-        "alwaysTryTypes": true
+  },
+  "rules": {
+    "@typescript-eslint/indent": "off",
+    "@typescript-eslint/camelcase": 0,
+    "@typescript-eslint/interface-name-prefix": 0,
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "@typescript-eslint/no-var-requires": 0,
+    "@typescript-eslint/no-explicit-any": [
+      "warn",
+      {
+        "ignoreRestArgs": false
       }
-    }*/
+    ],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "unknown",
+          "parent",
+          "sibling",
+          "index",
+          "object"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "@src/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@components/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@pages/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@store/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@services/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@constants/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@assets/**",
+            "group": "internal",
+            "position": "after"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": [
+          "internal"
+        ],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "import/no-default-export": "warn",
+    "no-negated-in-lhs": 0,
+    "no-native-reassign": 0,
+    "react/self-closing-comp": "warn",
+    "no-magic-numbers": "warn",
+    "jsx-a11y/anchor-is-valid": 0,
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }

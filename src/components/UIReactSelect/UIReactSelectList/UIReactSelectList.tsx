@@ -1,7 +1,7 @@
 import React from 'react';
 import { FixedSizeList as List } from 'react-window';
-// import { components } from 'react-select';
-// import { OptionProps } from 'react-select/src/components/Option';
+// import { spinners } from 'react-select';
+// import { OptionProps } from 'react-select/src/spinners/Option';
 import { MenuListComponentProps } from 'react-select/src/components/Menu';
 import { IOptions } from '../UIReactSelect';
 
@@ -49,7 +49,7 @@ const UIReactSelectList = React.memo((props: MenuListComponentProps<IOptions>) =
   delete props.innerProps.onMouseMove;
   // eslint-disable-next-line no-param-reassign,react/destructuring-assignment
   delete props.innerProps.onMouseOver;
-  return <components.Option {...props}>{children}</components.Option>;
+  return <spinners.Option {...props}>{children}</spinners.Option>;
 } */
 
 const optimizeSelect = {

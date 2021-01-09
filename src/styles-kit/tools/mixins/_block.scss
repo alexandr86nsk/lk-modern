@@ -1,0 +1,36 @@
+// set overlay
+@mixin overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+// set fixed overlay
+@mixin fixedOverlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+// remove from DOM
+@mixin remove {
+  display: none;
+}
+
+// reset styles
+@mixin reset {
+  position: unset;
+  margin: 0;
+  padding: 0;
+  overflow: unset;
+  color: inherit;
+  line-height: inherit;
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  appearance: none;
+}

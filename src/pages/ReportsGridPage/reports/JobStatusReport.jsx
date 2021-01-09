@@ -5,7 +5,7 @@ import UIReactSelect from '../../../components/UIReactSelect/UIReactSelect';
 import { jobStatusReportTableHeader, jobHistoryReportTableHeader } from './settings';
 import tableDefaultConfig from '../../../components/UIRsuiteTable/tableDeafultConfig';
 import UIRsuiteTable from '../../../components/UIRsuiteTable/UIRsuiteTable';
-import UILoader from '../../../components/UILoader';
+import UILoader from '../../../components/Loader';
 
 const JobStatusReport = (props) => {
   const {

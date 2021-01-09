@@ -1,6 +1,6 @@
 import React from 'react';
 import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
+import 'rc-slider/assetssadads/index.css';
 import './UIStepInput.scss';
 import InputMask from 'react-input-mask';
 

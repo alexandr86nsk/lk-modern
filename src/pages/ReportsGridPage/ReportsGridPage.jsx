@@ -6,13 +6,13 @@ import { connect } from 'react-redux';
 import { v4 } from 'uuid';
 import { Button, Icon } from 'semantic-ui-react';
 import actions from '../../redux/actions/actions';
-import UIBlockTitle from '../../components/UIBlockTitle/UIBlockTitle';
+import UIBlockTitle from '@components/UIBlockTitle';
 import UIDropdownMenu from '../../components/UIDropdownMenu/UIDropdownMenu';
 import menuTemplate from './settings';
 import ReportsGridLayout from './ReactGridLayout/ReportsGridLayout';
 import useKeyboardObserver from '../../components/UICustomHooks/useKeyboardObserver/useKeyboardObserver';
 import ToolboxEditor from './ReactGridToolbox/ToolboxEditor';
-import WarningIcon from '../../static/images/warning-24px.svg';
+import WarningIcon from '../../assetssadads/icons/warning-24px.svg';
 
 function getFromLS() {
   let ls = [];

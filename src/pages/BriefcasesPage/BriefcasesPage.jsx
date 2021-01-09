@@ -3,12 +3,12 @@ import './BriefcasesPage.scss';
 import { connect } from 'react-redux';
 import actions from '../../redux/actions/actions';
 import { briefcasesTableTemplate } from './settings';
-import UIBlockTitle from '../../components/UIBlockTitle/UIBlockTitle';
-import WarningIcon from '../../static/images/warning-24px.svg';
+import UIBlockTitle from '@components/UIBlockTitle';
+import WarningIcon from '../../assetssadads/icons/warning-24px.svg';
 import UIRsuiteTable from '../../components/UIRsuiteTable/UIRsuiteTable';
 import tableDefaultConfig from '../../components/UIRsuiteTable/tableDeafultConfig';
 import BriefcaseEditor from './common/BriefcaseEditor';
-import UILoader from '../../components/UILoader';
+import UILoader from '../../components/Loader';
 
 function BriefcasesPage(props) {
   const {

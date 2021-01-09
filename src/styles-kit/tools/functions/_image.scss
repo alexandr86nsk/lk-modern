@@ -1,0 +1,6 @@
+// get background corner images
+@function getBgCornerImage($variant, $image) {
+  $image-full-path: "#{$path-images}/bg/#{$variant}";
+
+  @return "#{$image-full-path}/#{$image}.webp";
+}

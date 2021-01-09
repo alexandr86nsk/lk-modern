@@ -1973,7 +1973,7 @@ d="M149 192c20 28 45 44 78 52l-34 34c-25 -24 -37 -54 -44 -86zM51 475l421 -421l-2
 c23 0 42 -18 42 -42v-214zM453 128h59v-43h-17z" />
     <glyph glyph-name="storage" unicode="storage"
 d="M85 277v-42h43v42h-43zM43 213v86h426v-86h-426zM128 363v42h-43v-42h43zM43 427h426v-86h-426v86zM85 149v-42h43v42h-43zM43 85v86h426v-86h-426z" />
-    <glyph glyph-name="store" unicode="store"
+    <glyph glyph-name="index" unicode="index"
 d="M256 128v85h-128v-85h128zM448 213h-21v-128h-43v128h-85v-128h-214v128h-21v43l21 107h342l21 -107v-43zM427 427v-43h-342v43h342z" />
     <glyph glyph-name="store_mall_directory" unicode="store_mall_directory"
 d="M256 128v85h-128v-85h128zM448 213h-21v-128h-43v128h-85v-128h-214v128h-21v43l21 107h342l21 -107v-43zM427 427v-43h-342v43h342z" />

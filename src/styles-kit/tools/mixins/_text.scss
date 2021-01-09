@@ -1,0 +1,32 @@
+// return font
+@mixin font($variant, $type, $weight: normal, $style: normal) {
+  $font-full-path: "#{$path-fonts}/#{$variant}";
+  @font-face {
+    font-weight: $weight;
+    font-family: "#{$variant}";
+    font-style: $style;
+    src: local("#{$variant} #{$type}"), local("#{$variant}-#{$type}"),
+    url("#{$font-full-path}/#{$variant}-#{$type}.woff2") format("woff2"),
+    url("#{$font-full-path}/#{$variant}-#{$type}.woff") format("woff");
+    font-display: swap;
+  }
+}
+
+// overflow ellipsis
+@mixin overflow-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+// set font size
+@mixin textUnit($text-unit) {
+  --text-unit: #{$text-unit};
+
+  font-size: var(--text-unit);
+}
+
+// set space value
+@mixin spaceUnit($space-unit) {
+  --space-unit:  #{$space-unit};
+}

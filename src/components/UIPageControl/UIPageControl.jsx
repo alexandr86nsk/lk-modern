@@ -1,6 +1,6 @@
 import React from 'react';
 import './UIPageControl.scss';
-import UILoader from '../UILoader';
+import UILoader from '../Loader';
 import UITransition from '../UITransition/UITransition';
 import controlButtons from './settings';
 
@@ -23,7 +23,7 @@ function UIPageControl(props) {
               title={v.title}
               onClick={actions[v.type]}
             >
-              {v.type !== 'back' && loading[v.type] ? <UILoader size="small" /> : v.icon}
+              {v.type !== 'back' && loading[v.type] ? <Loader size="small" /> : v.icon}
             </div>
           </UITransition>
         );
@@ -62,7 +62,7 @@ function UIPageControl(props) {
       )}
       {actions.add && !hide.add && (
         <div role="presentation" className="ui-page-control__button add" title="Создать" onClick={actions.add}>
-          {loading.add ? <UILoader size="small" /> : <AddIcon />}
+          {loading.add ? <Loader size="small" /> : <AddIcon />}
         </div>
       )}
       {actions.delete && !hide.delete && (
@@ -72,17 +72,17 @@ function UIPageControl(props) {
         title="Удалить"
         onClick={actions.delete}
       >
-        {loading.delete ? <UILoader size="small" /> : <DeleteIcon />}
+        {loading.delete ? <Loader size="small" /> : <DeleteIcon />}
       </div>
       )}
       {actions.save && !hide.save && (
       <div role="presentation" className="ui-page-control__button save" title="Сохранить" onClick={actions.save}>
-        {loading.save ? <UILoader size="small" /> : <SaveIcon />}
+        {loading.save ? <Loader size="small" /> : <SaveIcon />}
       </div>
       )}
       {actions.complete && !hide.complete && (
         <div role="presentation" className="ui-page-control__button save" title="Выполнить" onClick={actions.complete}>
-          {loading.complete ? <UILoader size="small" /> : <SaveIcon />}
+          {loading.complete ? <Loader size="small" /> : <SaveIcon />}
         </div>
       )} */}
     </div>

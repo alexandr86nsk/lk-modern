@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import useResizeObserver from '../../../components/UICustomHooks/useResizeObserver/useResizeObserver';
 import actions from '../../../redux/actions/actions';
 import ReportsGridItem from '../ReportsGridItem/ReportsGridItem';
-import UILoader from '../../../components/UILoader';
+import UILoader from '../../../components/Loader';
 
 function ReportsGridLayout(props) {
   const {

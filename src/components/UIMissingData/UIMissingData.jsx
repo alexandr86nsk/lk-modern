@@ -1,6 +1,6 @@
 import React from 'react';
 import './UIMissingData.scss';
-import WarningIcon from '../../static/images/warning-24px.svg';
+import WarningIcon from '../../assetssadads/icons/warning-24px.svg';
 
 function UIMissingData(props) {
   const {

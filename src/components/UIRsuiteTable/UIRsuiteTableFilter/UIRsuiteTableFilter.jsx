@@ -1,7 +1,7 @@
 import React from 'react';
 import './UIRsuiteTableFilter.scss';
 import { Button, Icon } from 'semantic-ui-react';
-import FilterIcon from '../../../static/images/filter_list-24px.svg';
+import FilterIcon from '../../../assetssadads/icons/filter_list-24px.svg';
 
 function UIRsuiteTableFilter(props) {
   const {

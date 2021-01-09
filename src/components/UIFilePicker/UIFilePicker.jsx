@@ -1,6 +1,6 @@
 import React from 'react';
 import './UIFilePicker.scss';
-import FileIcon from '../../static/images/attach_file-24px.svg';
+import FileIcon from '../../assetssadads/icons/attach_file-24px.svg';
 
 
 function UIFilePicker(props) {

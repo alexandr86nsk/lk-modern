@@ -3,7 +3,7 @@ import '../../SettingsPage.scss';
 import { connect } from 'react-redux';
 import { Table } from 'semantic-ui-react';
 import actions from '../../../../redux/actions/actions';
-import UILoader from '../../../../components/UILoader';
+import UILoader from '../../../../components/Loader';
 import UIMissingData from '../../../../components/UIMissingData/UIMissingData';
 import CompletionCodesItem from './CompletionCodesItem';
 import useResizeObserver from '../../../../components/UICustomHooks/useResizeObserver/useResizeObserver';

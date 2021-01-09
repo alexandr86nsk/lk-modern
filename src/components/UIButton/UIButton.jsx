@@ -1,6 +1,6 @@
 import React from 'react';
 import './UIButton.scss';
-import UILoader from '../UILoader';
+import UILoader from '../Loader';
 
 
 function UIButton(props) {

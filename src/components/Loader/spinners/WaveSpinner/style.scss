@@ -1,0 +1,69 @@
+$h: 2.5em;
+$w: 7.15em;
+
+.rl-spinner {
+
+  $parent: &;
+
+  &#{$parent}_type_wave {
+    position: relative;
+    width: $w;
+    height: $h;
+    overflow: hidden;
+
+    &__bar {
+      position: absolute;
+      bottom: 0;
+      width: .85em;
+      height: $h;
+      background: var(--theme-color);
+      border-radius: .2em;
+      transform: translateY(100%);
+
+      &:nth-child(1) {
+        left: 0;
+        animation: bottom-top 2s infinite ease-in-out 0s;
+      }
+
+      &:nth-child(2) {
+        left: 1.25em;
+        animation: bottom-top 2s infinite ease-in-out .2s;
+      }
+
+      &:nth-child(3) {
+        left: 2.5em;
+        animation: bottom-top 2s infinite ease-in-out .4s;
+      }
+
+      &:nth-child(4) {
+        left: 3.75em;
+        animation: bottom-top 2s infinite ease-in-out .6s;
+      }
+
+      &:nth-child(5) {
+        left: 5em;
+        animation: bottom-top 2s infinite ease-in-out .8s;
+      }
+
+      &:nth-child(6) {
+        left: 6.25em;
+        animation: bottom-top 2s infinite ease-in-out 1s;
+      }
+    }
+  }
+}
+
+@keyframes bottom-top {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}

@@ -1,0 +1,7 @@
+input {
+  ::-ms-reveal,
+  ::-ms-clear,
+  ::-webkit-textfield-decoration-container {
+    @include remove();
+  }
+}

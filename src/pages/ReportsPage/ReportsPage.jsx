@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './ReportsPage.scss';
 import actions from '../../redux/actions/actions';
-import UIBlockTitle from '../../components/UIBlockTitle/UIBlockTitle';
+import UIBlockTitle from '@components/UIBlockTitle';
 import UITab from '../../components/UITab/UITab';
 import reportsTabs from './settings';
 

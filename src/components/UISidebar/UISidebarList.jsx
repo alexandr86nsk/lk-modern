@@ -1,8 +1,8 @@
 import React from 'react';
-import ZoneIcon from '../../static/images/language-24px.svg';
-import SettingsIcon from '../../static/images/settings-24px.svg';
-import MonitoringIcon from '../../static/images/tv-24px.svg';
-import ReportsIcon from '../../static/images/insert_chart_outlined-24px.svg';
+import ZoneIcon from '../../assetssadads/icons/language-24px.svg';
+import SettingsIcon from '../../assetssadads/icons/settings-24px.svg';
+import MonitoringIcon from '../../assetssadads/icons/tv-24px.svg';
+import ReportsIcon from '../../assetssadads/icons/insert_chart_outlined-24px.svg';
 
 const UISidebarList = [
   {

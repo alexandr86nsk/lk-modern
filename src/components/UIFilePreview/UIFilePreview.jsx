@@ -1,15 +1,15 @@
 import React from 'react';
 import './UIFilePreview.scss';
 import { Document, Page } from 'react-pdf/dist/entry.webpack';
-import BackIcon from '../../static/images/arrow_back_ios-24px.svg';
-import ForwardIcon from '../../static/images/arrow_forward_ios-24px.svg';
-import RotateLeftIcon from '../../static/images/rotate_left-24px.svg';
-import RotateRightIcon from '../../static/images/rotate_right-24px.svg';
-import CloseIcon from '../../static/images/close-24px.svg';
-import IncreaseIcon from '../../static/images/add_circle_outline-24px.svg';
-import DecreaseIcon from '../../static/images/remove_circle_outline-24px.svg';
+import BackIcon from '../../assetssadads/icons/arrow_back_ios-24px.svg';
+import ForwardIcon from '../../assetssadads/icons/arrow_forward_ios-24px.svg';
+import RotateLeftIcon from '../../assetssadads/icons/rotate_left-24px.svg';
+import RotateRightIcon from '../../assetssadads/icons/rotate_right-24px.svg';
+import CloseIcon from '../../assetssadads/icons/close-24px.svg';
+import IncreaseIcon from '../../assetssadads/icons/add_circle_outline-24px.svg';
+import DecreaseIcon from '../../assetssadads/icons/remove_circle_outline-24px.svg';
 import UIDraggable from '../UIDraggable/UIDraggable';
-import UILoader from '../UILoader';
+import UILoader from '../Loader';
 
 
 function UIFilePreview(props) {

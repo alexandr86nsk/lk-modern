@@ -1,0 +1,29 @@
+$default_size: 1;
+$default_radius: 50%;
+$default_padding: .3;
+$default_padding_compact: .1;
+
+// basic
+@mixin icon($size: $default_size, $radius: $default_radius, $padding: $default_padding) {
+  --scope-padding: #{$padding};
+
+  width: calc(#{$size} * var(--scope-padding) * 1em + #{$size} * 1em);
+  height: calc(#{$size} * var(--scope-padding) * 1em + #{$size} * 1em);
+  padding: calc(#{$size} * var(--scope-padding) * 1em);
+  border-radius: $radius;
+}
+
+// clickable
+@mixin iconClickable {
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-neutral-lighter);
+  }
+}
+
+// compact
+@mixin iconCompact($padding: $default_padding_compact) {
+  --scope-padding: #{$padding};
+}
+

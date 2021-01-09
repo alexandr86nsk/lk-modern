@@ -1,0 +1,19 @@
+// set background image
+@function setBackgroundImage($position, $image) {
+
+  @if $position == 'right-top' {
+    @return 'right top / fixed no-repeat #{$image}';
+  }
+
+  @if $position == 'right-bottom' {
+    @return 'right bottom / fixed no-repeat #{$image}';
+  }
+
+  @if $position == 'left-bottom' {
+    @return 'left bottom / fixed no-repeat #{$image}';
+  }
+
+  @if $position == 'left-top' {
+    @return 'left top / fixed no-repeat #{$image}';
+  }
+}

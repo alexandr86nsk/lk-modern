@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Button, Icon } from 'semantic-ui-react';
 import actions from '../../../../redux/actions/actions';
 import UIInput from '../../../../components/UIInput/UIInput';
-import UILoader from '../../../../components/UILoader';
+import UILoader from '../../../../components/Loader';
 import UIMissingData from '../../../../components/UIMissingData/UIMissingData';
 
 const options = {

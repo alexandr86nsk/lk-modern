@@ -1,6 +1,6 @@
 import React from 'react';
 import './SettingsPage.scss';
-import UIBlockTitle from '../../components/UIBlockTitle/UIBlockTitle';
+import UIBlockTitle from '@components/UIBlockTitle';
 import UITab from '../../components/UITab/UITab';
 import settingsTabs from './settings';
 

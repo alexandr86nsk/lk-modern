@@ -4,7 +4,7 @@ import InputMask from 'react-input-mask';
 import NumberFormat, { NumberFormatValues } from 'react-number-format';
 import { Popup } from 'semantic-ui-react';
 import * as moment from 'moment';
-import { validateEmail, validateUrl } from '../utilities/helpers';
+import { validateEmail, validateUrl } from '../utils/validators';
 import ErrorIcon from './error-icon.svg';
 import SuccessIcon from './check-icon.svg';
 import ClearIcon from './clear-icon.svg';

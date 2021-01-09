@@ -1,0 +1,135 @@
+// ---------- colors ---------- //
+:root {
+
+  // orange
+  --orange-10: hsl(30, 85%, 10%);
+  --orange-20: hsl(30, 85%, 20%);
+  --orange-30: hsl(30, 85%, 30%);
+  --orange-40: hsl(30, 85%, 40%);
+  --orange-50: hsl(30, 85%, 50%);
+  --orange-60: hsl(30, 85%, 60%);
+  --orange-70: hsl(30, 85%, 70%);
+  --orange-80: hsl(30, 85%, 80%);
+  --orange-90: hsl(30, 85%, 90%);
+
+  // yellow
+  --yellow-10: hsl(60, 85%, 10%);
+  --yellow-20: hsl(60, 85%, 20%);
+  --yellow-30: hsl(60, 85%, 30%);
+  --yellow-40: hsl(60, 85%, 40%);
+  --yellow-50: hsl(60, 85%, 50%);
+  --yellow-60: hsl(60, 85%, 60%);
+  --yellow-70: hsl(60, 85%, 70%);
+  --yellow-80: hsl(60, 85%, 80%);
+  --yellow-90: hsl(60, 85%, 90%);
+
+  // chartreuse
+  --chartreuse-10: hsl(90, 85%, 10%);
+  --chartreuse-20: hsl(90, 85%, 20%);
+  --chartreuse-30: hsl(90, 85%, 30%);
+  --chartreuse-40: hsl(90, 85%, 40%);
+  --chartreuse-50: hsl(90, 85%, 50%);
+  --chartreuse-60: hsl(90, 85%, 60%);
+  --chartreuse-70: hsl(90, 85%, 70%);
+  --chartreuse-80: hsl(90, 85%, 80%);
+  --chartreuse-90: hsl(90, 85%, 90%);
+
+  // green
+  --green-10: hsl(120, 85%, 10%);
+  --green-20: hsl(120, 85%, 20%);
+  --green-30: hsl(120, 85%, 30%);
+  --green-40: hsl(120, 85%, 40%);
+  --green-50: hsl(120, 85%, 50%);
+  --green-60: hsl(120, 85%, 60%);
+  --green-70: hsl(120, 85%, 70%);
+  --green-80: hsl(120, 85%, 80%);
+  --green-90: hsl(120, 85%, 90%);
+
+  // spring
+  --spring-10: hsl(150, 85%, 10%);
+  --spring-20: hsl(150, 85%, 20%);
+  --spring-30: hsl(150, 85%, 30%);
+  --spring-40: hsl(150, 85%, 40%);
+  --spring-50: hsl(150, 85%, 50%);
+  --spring-60: hsl(150, 85%, 60%);
+  --spring-70: hsl(150, 85%, 70%);
+  --spring-80: hsl(150, 85%, 80%);
+  --spring-90: hsl(150, 85%, 90%);
+
+  // cyan
+  --cyan-10: hsl(180, 85%, 10%);
+  --cyan-20: hsl(180, 85%, 20%);
+  --cyan-30: hsl(180, 85%, 30%);
+  --cyan-40: hsl(180, 85%, 40%);
+  --cyan-50: hsl(180, 85%, 50%);
+  --cyan-60: hsl(180, 85%, 60%);
+  --cyan-70: hsl(180, 85%, 70%);
+  --cyan-80: hsl(180, 85%, 80%);
+  --cyan-90: hsl(180, 85%, 90%);
+
+  // azure
+  --azure-10: hsl(210, 85%, 10%);
+  --azure-20: hsl(210, 85%, 20%);
+  --azure-30: hsl(210, 85%, 30%);
+  --azure-40: hsl(210, 85%, 40%);
+  --azure-50: hsl(210, 85%, 50%);
+  --azure-60: hsl(210, 85%, 60%);
+  --azure-70: hsl(210, 85%, 70%);
+  --azure-80: hsl(210, 85%, 80%);
+  --azure-90: hsl(210, 85%, 90%);
+
+  // blue
+  --blue-10: hsl(240, 85%, 10%);
+  --blue-20: hsl(240, 85%, 20%);
+  --blue-30: hsl(240, 85%, 30%);
+  --blue-40: hsl(240, 85%, 40%);
+  --blue-50: hsl(240, 85%, 50%);
+  --blue-60: hsl(240, 85%, 60%);
+  --blue-70: hsl(240, 85%, 70%);
+  --blue-80: hsl(240, 85%, 80%);
+  --blue-90: hsl(240, 85%, 90%);
+
+  // indigo
+  --indigo-10: hsl(270, 85%, 10%);
+  --indigo-20: hsl(270, 85%, 20%);
+  --indigo-30: hsl(270, 85%, 30%);
+  --indigo-40: hsl(270, 85%, 40%);
+  --indigo-50: hsl(270, 85%, 50%);
+  --indigo-60: hsl(270, 85%, 60%);
+  --indigo-70: hsl(270, 85%, 70%);
+  --indigo-80: hsl(270, 85%, 80%);
+  --indigo-90: hsl(270, 85%, 90%);
+
+  // magenta
+  --magenta-10: hsl(300, 85%, 10%);
+  --magenta-20: hsl(300, 85%, 20%);
+  --magenta-30: hsl(300, 85%, 30%);
+  --magenta-40: hsl(300, 85%, 40%);
+  --magenta-50: hsl(300, 85%, 50%);
+  --magenta-60: hsl(300, 85%, 60%);
+  --magenta-70: hsl(300, 85%, 70%);
+  --magenta-80: hsl(300, 85%, 80%);
+  --magenta-90: hsl(300, 85%, 90%);
+
+  // rose
+  --rose-10: hsl(330, 85%, 10%);
+  --rose-20: hsl(330, 85%, 20%);
+  --rose-30: hsl(330, 85%, 30%);
+  --rose-40: hsl(330, 85%, 40%);
+  --rose-50: hsl(330, 85%, 50%);
+  --rose-60: hsl(330, 85%, 60%);
+  --rose-70: hsl(330, 85%, 70%);
+  --rose-80: hsl(330, 85%, 80%);
+  --rose-90: hsl(330, 85%, 90%);
+
+  // red
+  --red-10: hsl(0, 85%, 10%);
+  --red-20: hsl(0, 85%, 20%);
+  --red-30: hsl(0, 85%, 30%);
+  --red-40: hsl(0, 85%, 40%);
+  --red-50: hsl(0, 85%, 50%);
+  --red-60: hsl(0, 85%, 60%);
+  --red-70: hsl(0, 85%, 70%);
+  --red-80: hsl(0, 85%, 80%);
+  --red-90: hsl(0, 85%, 90%);
+}

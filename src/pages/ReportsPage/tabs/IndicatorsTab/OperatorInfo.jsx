@@ -1,5 +1,5 @@
 import React from 'react';
-import UILoader from '../../../../components/UILoader';
+import UILoader from '../../../../components/Loader';
 import UIInput from '../../../../components/UIInput/UIInput';
 import UIMissingData from '../../../../components/UIMissingData/UIMissingData';
 

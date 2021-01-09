@@ -1,33 +1,35 @@
 {
-  "include": [
-    "src",
-    "@types/custom.d.ts",
-    "@types/customTypes.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
-  ],
   "compilerOptions": {
-    "declaration": true,
-    "module": "commonjs",
-    "target": "es5",
+    "noEmit": true,
     "jsx": "react",
-    "allowJs": true,
-    "noImplicitAny": true,
-    "isolatedModules": false,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "allowJs": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "removeComments": true,
-    "preserveConstEnums": true,
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "allowSyntheticDefaultImports": true,
-    "types": ["node"],
-    "lib": ["dom", "es2015", "esnext"],
-    "downlevelIteration": true
+    "baseUrl": "./",
+    "paths": {
+      "@assets/*": ["./assets/*"],
+      "@src/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@models/*": ["./src/models/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@store/*": ["./src/store/*"],
+      "@constants/*": ["./src/constants/*"],
+      "@services/*": ["./src/services/*"],
+      "@mocks/*": ["./src/__mocks__/*"],
+      "@styles-kit/*": ["./src/styles-kit/*"]
+    }
   },
-  "compileOnSave": false,
-  "buildOnSave": false
+  "exclude": ["node_modules"],
+  "include": [
+    "src/index.tsx",
+    "@types/*",
+    "src/types/*"
+  ]
 }

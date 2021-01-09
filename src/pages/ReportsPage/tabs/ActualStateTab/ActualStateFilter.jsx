@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import actions from '../../../../redux/actions/actions';
-import formGenerator from '../../../../components/utilities/formGenerator';
+import formGenerator from '../../../../components/utils/formGenerator';
 import { actualStateFilterDataTemplate } from './settings';
 
 const ActualStateFilter = (props) => {

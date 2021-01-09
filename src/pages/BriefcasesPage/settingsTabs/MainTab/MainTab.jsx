@@ -4,7 +4,7 @@ import actions from '../../../../redux/actions/actions';
 import QueueSettingsRecallItem from '../../common/QueueSettingsRecallItem';
 import QueueSettingsTimeZoneItem from '../../common/QueueSettingsTimeZoneItem';
 import QueueSettingItem from '../../common/QueueSettingsItem';
-import formGenerator from '../../../../components/utilities/formGenerator';
+import formGenerator from '../../../../components/utils/formGenerator';
 import queueMainSettingsTemplate from './settings';
 
 function MainTab(props) {

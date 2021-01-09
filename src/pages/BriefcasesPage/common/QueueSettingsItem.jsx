@@ -1,7 +1,7 @@
 import React from 'react';
 import AnimateHeight from 'react-animate-height';
 import { Button } from 'semantic-ui-react';
-import UILoader from '../../../components/UILoader';
+import UILoader from '../../../components/Loader';
 import UIMissingData from '../../../components/UIMissingData/UIMissingData';
 
 const heightVariables = {

@@ -844,8 +844,8 @@ i.icon.sticky.note:before { content: "\f249"; }
 i.icon.stop:before { content: "\f04d"; }
 i.icon.stop.circle:before { content: "\f28d"; }
 i.icon.stopwatch:before { content: "\f2f2"; }
-i.icon.store:before { content: "\f54e"; }
-i.icon.store.alternate:before { content: "\f54f"; }
+i.icon.index:before { content: "\f54e"; }
+i.icon.index.alternate:before { content: "\f54f"; }
 i.icon.stream:before { content: "\f550"; }
 i.icon.street.view:before { content: "\f21d"; }
 i.icon.strikethrough:before { content: "\f0cc"; }
@@ -1521,8 +1521,8 @@ i.icon.zoom.out:before { content: "\f010"; }
   i.icon.angellist:before { content: "\f209"; font-family: @brandFontName; }
   i.icon.angrycreative:before { content: "\f36e"; font-family: @brandFontName; }
   i.icon.angular:before { content: "\f420"; font-family: @brandFontName; }
-  i.icon.app.store:before { content: "\f36f"; font-family: @brandFontName; }
-  i.icon.app.store.ios:before { content: "\f370"; font-family: @brandFontName; }
+  i.icon.app.index:before { content: "\f36f"; font-family: @brandFontName; }
+  i.icon.app.index.ios:before { content: "\f370"; font-family: @brandFontName; }
   i.icon.apper:before { content: "\f371"; font-family: @brandFontName; }
   i.icon.apple:before { content: "\f179"; font-family: @brandFontName; }
   i.icon.apple.pay:before { content: "\f415"; font-family: @brandFontName; }

@@ -52,7 +52,8 @@ function UIFormElement({
   const [isFocusedInput, setIsFocusedInput] = React.useState(false);
   const [passVisibility, setPassVisibility] = React.useState(false);
 
-  const { width: titleWidth } = useResizeObserver(titleRef);
+  // const { width: titleWidth } = useResizeObserver(titleRef);
+  const titleWidth = 100;
 
   const handleSetFocusedInput = React.useCallback(() => {
     setIsFocusedInput(true);
@@ -105,41 +106,46 @@ function UIFormElement({
 
   const debouncedData = useDebounce(data, isEmpty ? 0 : 500);
 
-  const errors = React.useMemo(() => validateData({
-    data: debouncedData,
-    required,
-    minLength,
-    maxLength,
-    isInteger,
-    minInteger,
-    maxInteger,
-    isEmail,
-    isUrl,
-    customValidation,
-  }), [
-    debouncedData,
-    customValidation,
-    isEmail,
-    minLength,
-    maxLength,
-    required,
-    isUrl,
-    isInteger,
-    maxInteger,
-    minInteger,
-  ]);
+  const errors = React.useMemo(
+    () =>
+      validateData({
+        data: debouncedData,
+        required,
+        minLength,
+        maxLength,
+        isInteger,
+        minInteger,
+        maxInteger,
+        isEmail,
+        isUrl,
+        customValidation,
+      }),
+    [
+      debouncedData,
+      customValidation,
+      isEmail,
+      minLength,
+      maxLength,
+      required,
+      isUrl,
+      isInteger,
+      maxInteger,
+      minInteger,
+    ]
+  );
 
   const baseClassName = React.useMemo(
-    (): string => generateClassName('ui-form-element', {
-      'read-only': isReadOnly,
-      'focused-input': isFocusedInput,
-      empty: isEmpty,
-      disabled,
-      error: !!errors,
-      success: required && !errors,
-      type,
-    }),
-    [isEmpty, isFocusedInput, errors, isReadOnly, type, disabled, required],
+    (): string =>
+      generateClassName('ui-form-element', {
+        'read-only': isReadOnly,
+        'focused-input': isFocusedInput,
+        empty: isEmpty,
+        disabled,
+        error: !!errors,
+        success: required && !errors,
+        type,
+      }),
+    [isEmpty, isFocusedInput, errors, isReadOnly, type, disabled, required]
   );
 
   const renderBody = React.useMemo(() => {
@@ -163,7 +169,8 @@ function UIFormElement({
         );
       case 'select':
         return null;
-      default: return null;
+      default:
+        return null;
     }
   }, [
     handleSetFocusedInput,
@@ -185,9 +192,7 @@ function UIFormElement({
     if (errors && Array.isArray(errors)) {
       return errors.map((v: CustomError) => {
         const { id, value } = v || {};
-        return (
-          <li key={id}>{value}</li>
-        );
+        return <li key={id}>{value}</li>;
       });
     }
     return null;
@@ -195,8 +200,7 @@ function UIFormElement({
 
   return (
     <div className={baseClassName}>
-      {title
-      && (
+      {title && (
         <>
           <fieldset className="ui-form-element__fieldset">
             <legend className="ui-form-element__legend" style={{ width: titleWidth }} />
@@ -208,7 +212,10 @@ function UIFormElement({
               </div>
               {required && !isReadOnly && (
                 <div className="ui-form-element__icon-wrapper">
-                  <div className="ui-form-element__icon ui-form-element__icon--required" title="Обязательное поле">
+                  <div
+                    className="ui-form-element__icon ui-form-element__icon--required"
+                    title="Обязательное поле"
+                  >
                     <RequiredIcon />
                   </div>
                 </div>
@@ -223,7 +230,11 @@ function UIFormElement({
                     onMouseLeave={clearHintCoords}
                   >
                     <HintIcon />
-                    <div className="ui-form-element__hint" ref={hintMessageRef} style={hintStyle || undefined}>
+                    <div
+                      className="ui-form-element__hint"
+                      ref={hintMessageRef}
+                      style={hintStyle || undefined}
+                    >
                       {hintMessage}
                     </div>
                   </div>
@@ -233,11 +244,14 @@ function UIFormElement({
           </div>
         </>
       )}
-      <div role="presentation" className="ui-form-element__body" ref={bodyRef} onClick={handleFocusInput}>
+      <div
+        role="presentation"
+        className="ui-form-element__body"
+        ref={bodyRef}
+        onClick={handleFocusInput}
+      >
         <div className="ui-form-element__inner-wrapper">
-          <div className="ui-form-element__input-wrapper">
-            {renderBody}
-          </div>
+          <div className="ui-form-element__input-wrapper">{renderBody}</div>
           {!disabled && !isReadOnly && (
             <>
               {!isEmpty && (
@@ -266,14 +280,20 @@ function UIFormElement({
               )}
               {errors && (
                 <div className="ui-form-element__icon-wrapper">
-                  <div className="ui-form-element__icon ui-form-element__icon--error" title="Ошибка в поле">
+                  <div
+                    className="ui-form-element__icon ui-form-element__icon--error"
+                    title="Ошибка в поле"
+                  >
                     <ErrorIcon />
                   </div>
                 </div>
               )}
               {required && !errors && (
                 <div className="ui-form-element__icon-wrapper">
-                  <div className="ui-form-element__icon ui-form-element__icon--success" title="Поле заполнено верно">
+                  <div
+                    className="ui-form-element__icon ui-form-element__icon--success"
+                    title="Поле заполнено верно"
+                  >
                     <SuccessIcon />
                   </div>
                 </div>
@@ -290,9 +310,7 @@ function UIFormElement({
         </div>
         {errors && (
           <div role="presentation" className="ui-form-element__i-error" onClick={handleIErrorClick}>
-            <ul>
-              {renderErrors}
-            </ul>
+            <ul>{renderErrors}</ul>
           </div>
         )}
       </div>

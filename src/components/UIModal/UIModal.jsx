@@ -1,8 +1,8 @@
 import React from 'react';
 import './UIModal.scss';
 import { Button, Icon } from 'semantic-ui-react';
-import CloseIcon from '../../static/images/close-24px.svg';
-import UILoader from '../UILoader';
+import CloseIcon from '../../assetssadads/icons/close-24px.svg';
+import UILoader from '../Loader';
 
 function UIModal(props) {
   const {

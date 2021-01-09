@@ -1,0 +1,16 @@
+:root, * {
+  // shadow
+  --shadow-low: #{shadow(0, .3em, .5em, var(--color-theme), .1)};
+  --shadow-normal: #{shadow(0, .6em, 1em, var(--color-theme), .1)};
+  --shadow-high: #{shadow(0, 1.3em, 2.1em, var(--color-theme), .1)};
+  --shadow-accent: #{shadow(.1em, .1em, .3em, var(--color-theme), .15),
+  shadow(-.1em, -.1em, .3em, var(--color-theme), .15),
+  shadow(0, 0, .6em, var(--color-theme), .1)};
+
+  // radius
+  --radius-lower: .2em;
+  --radius-low: .6em;
+  --radius-medium: 1em;
+  --radius-high: 1.4em;
+  --radius-higher: 50%;
+}

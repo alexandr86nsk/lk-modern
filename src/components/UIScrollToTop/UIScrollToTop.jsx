@@ -1,6 +1,6 @@
 import React from 'react';
 import './UIScrollToTop.scss';
-import ArrowUpIcon from '../../static/images/keyboard_arrow_up-24px.svg';
+import ArrowUpIcon from '../../assetssadads/icons/keyboard_arrow_up-24px.svg';
 
 
 function UIScrollToTop(props) {

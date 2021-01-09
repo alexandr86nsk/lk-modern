@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import getIconByFileExtension from '../../utilities/getIconByFileExtension';
+import getIconByFileExtension from '../../utils/getIconByFileExtension';
 import actions from '../../../redux/actions/actions';
 
 

@@ -1,8 +1,8 @@
 import React from 'react';
-import BackIcon from '../../static/images/arrow_back-24px.svg';
-import DeleteIcon from '../../static/images/delete_forever-24px.svg';
-import CompleteIcon from '../../static/images/check-24px.svg';
-import AddIcon from '../../static/images/add-24px.svg';
+import BackIcon from '../../assetssadads/icons/arrow_back-24px.svg';
+import DeleteIcon from '../../assetssadads/icons/delete_forever-24px.svg';
+import CompleteIcon from '../../assetssadads/icons/check-24px.svg';
+import AddIcon from '../../assetssadads/icons/add-24px.svg';
 
 const controlButtons = [
   {

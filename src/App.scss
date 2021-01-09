@@ -1,47 +1,18 @@
-@font-face {
-  font-family: 'GothamProRRegular';
-  src:  url('./static/fonts/GothamProRRegular.woff2') format('woff2'),
-  url('./static/fonts/GothamProRRegular.woff') format('woff'),
-  url('./static/fonts/GothamProRRegular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-.App {
+.application {
+  position: relative;
   display: flex;
   flex-direction: column;
-  width: 100%;
   min-height: 100vh;
-  font: 400 12px 'GothamProRRegular', sans-serif;
-  color: var(----stylish-color-rgb);
-
-  * {
-
-    ::-webkit-scrollbar {
-      width: .5em;
-      height: .5em;
-    }
-
-    ::-webkit-scrollbar-track {
-      background-color: transparent !important;
-      width: .5em;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background-color: rgba(var(--medium-theme-color-rgb), .3) !important;
-    }
-  }
-
-  .ui-rsuite-table {
-    font-size: .9em;
-  }
+  color: var(--color-primary);
+  font-size: var(--text-sm);
+  font-family: 'GothamPro', serif;
 
   .content {
     display: flex;
+    flex: 1;
     width: 100%;
     max-width: 1440px;
     margin: 0 auto;
-    flex: 1;
 
     &.fixed {
       max-width: unset;
@@ -86,14 +57,6 @@
     grid-template-rows: 60px 1fr 20px;
     position: relative;
     flex: 1;
-  }
-
-  .ui.divided.list > .item {
-    border-top: none;
-  }
-
-  .ui.button.loading {
-    pointer-events: none !important;
   }
 
   .page {

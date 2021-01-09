@@ -2,7 +2,7 @@ import React from 'react';
 import './UISidebar.scss';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import UILogo from '../UILogo/UILogo';
+import UILogo from '../Logo';
 import UISidebarItem from './UISidebarItem';
 import UISidebarList from './UISidebarList';
 import CloseIcon from './close-icon.svg';

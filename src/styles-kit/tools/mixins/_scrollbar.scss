@@ -1,0 +1,32 @@
+// set scrollbar styles
+@mixin scrollbar(
+  $width: 4px,
+  $trackColor: transparent,
+  $thumbColor: var(--theme-color),
+  $thumbHoverColor: var(--theme-color-dark),
+) {
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $trackColor;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $thumbColor;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: $thumbHoverColor;
+  }
+
+  // ie
+  -ms-scrollbar-base-color: $trackColor;
+  -ms-scrollbar-arrow-color: $thumbColor;
+
+  // ff
+  scrollbar-color: $thumbColor $trackColor;
+  scrollbar-width: thin;
+}

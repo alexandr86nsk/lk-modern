@@ -1,0 +1,42 @@
+.rl-popup {
+  $parent: &;
+
+  &__inner {
+    position: relative;
+    display: inline-block;
+  }
+
+  &__icon {
+    line-height: 0;
+
+    svg {
+      @include icon(1.5);
+      @include iconClickable;
+      @include iconCompact;
+    }
+  }
+
+  &__notice {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-md);
+    font-size: var(--text-sm);
+    hyphens: auto;
+    background-color: var(--color-white);
+    border-radius: var(--radius-low);
+    box-shadow: var(--shadow-accent);
+
+    @include breakpoint(lg) {
+      position: absolute;
+      padding: var(--space-sm) var(--space-md);
+      font-size: var(--text-xs);
+    }
+  }
+
+  &__close {
+      margin-left: var(--space-md);
+
+      @include icon(1.5);
+      @include iconClickable;
+  }
+}
