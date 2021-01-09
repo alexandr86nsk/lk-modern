@@ -8,6 +8,7 @@ import { isDefined } from '@src/utils';
 const SCALE = 1.5;
 const MARGIN_FROM_PARENT = 5;
 const MARGIN_FROM_BODY = 15;
+const MIN_WIDTH = 190;
 
 export type UsePopupPosition = {
   left?: number | string;
@@ -68,6 +69,10 @@ export function usePopupPosition(
           } else {
             elWidth = maxWidth;
           }
+        }
+
+        if (elWidth < MIN_WIDTH) {
+          elWidth = MIN_WIDTH;
         }
 
         /*if (elWidth > maxWidth || (noticeHeight > top && noticeHeight > bodyHeight - bottom)) {

@@ -33,6 +33,10 @@
     }
   }
 
+  &__text {
+    padding: calc(1.5 * .3em) 0;
+  }
+
   &__close {
       margin-left: var(--space-md);
 

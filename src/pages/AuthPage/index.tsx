@@ -50,6 +50,7 @@ function AuthPageComponent() {
             </form>
             {errors && <span className="auth-page__errors">{errors}</span>}
             <Popup notice={`Lorem ipsum dolor!`} />
+            <Popup notice={`Lorem ipsum dolor!`}>Lorem ipsum dolor!</Popup>
             <Popup notice={`Привет какие делища!`} closeable />
             <Popup
               notice={`Lorem ipsum dolor sit amet, consectetur adipisicing elit. At deserunt, earum error est

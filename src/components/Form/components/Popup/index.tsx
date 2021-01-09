@@ -21,16 +21,16 @@ export type PopupProps = {
    */
   icon?: ReactElement;
   /**
-   * Индивидуальный контейнер подсказки
+   * Внутренние элементы
    */
-  customContainer?: ReactElement;
+  children?: ReactElement | string;
   /**
    * Флаг заменяет событие hover на click и добавляет кнопку закрыть
    */
   closeable?: boolean;
 };
 
-function PopupComponent({ notice = '', icon, customContainer, closeable }: PopupProps) {
+function PopupComponent({ notice = '', icon, children, closeable }: PopupProps) {
   const innerRef = useRef(null);
   const noticeRef = useRef(null);
 
@@ -85,11 +85,11 @@ function PopupComponent({ notice = '', icon, customContainer, closeable }: Popup
           onMouseEnter={onContainerMouseEnterHandler}
           onMouseLeave={onContainerMouseLeaveHandler}
         >
-          {customContainer || <div className="rl-popup__icon">{icon || <HintIcon />}</div>}
+          {children || <div className="rl-popup__icon">{icon || <HintIcon />}</div>}
         </div>
         <Overlay in={isNoticeShow} duration={150} mobileOnly>
           <div className="rl-popup__notice" ref={noticeRef} style={noticeStyle}>
-            <div>{notice}</div>
+            <div className="rl-popup__text">{notice}</div>
             {isClosable && <CloseIcon className="rl-popup__close" onClick={hideNotice} />}
           </div>
         </Overlay>
