@@ -1,10 +1,10 @@
 import cn from 'classnames';
 import React, { ReactElement, useState, memo, useCallback, useRef, useMemo } from 'react';
 
-import { useOutsideClick, usePopupPosition } from '@src/hooks';
+import { useEscapeClick, useOutsideClick, usePopupPosition } from '@src/hooks';
 import { isDefined } from '@src/utils';
 
-import { Overlay } from '@components/Overlay';
+import { Overlay } from '../Overlay';
 
 import CloseIcon from './icons/close-icon.svg';
 import HintIcon from './icons/hint-icon.svg';
@@ -15,7 +15,7 @@ export type PopupProps = {
   /**
    * Содержимое подсказки
    */
-  notice?: string | ReactElement | ReactElement[];
+  notice?: string | ReactElement;
   /**
    * Иконка подсказки
    */
@@ -55,6 +55,7 @@ function PopupComponent({ notice = '', icon, children, closeable }: PopupProps) 
     setNoticeShowState(true);
   }, []);
 
+  useEscapeClick(hideNotice);
   useOutsideClick(innerRef, hideNotice);
 
   const onContainerMouseEnterHandler = useCallback(() => {

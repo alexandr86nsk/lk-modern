@@ -1,4 +1,6 @@
 .rl-popup {
+  line-height: 0;
+
   $parent: &;
 
   &__inner {
@@ -7,7 +9,6 @@
   }
 
   &__icon {
-    line-height: 0;
 
     svg {
       @include icon(1.5);
@@ -21,6 +22,7 @@
     justify-content: space-between;
     padding: var(--space-md);
     font-size: var(--text-sm);
+    line-height: initial;
     hyphens: auto;
     background-color: var(--color-white);
     border-radius: var(--radius-low);

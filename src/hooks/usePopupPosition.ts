@@ -75,10 +75,6 @@ export function usePopupPosition(
           elWidth = MIN_WIDTH;
         }
 
-        /*if (elWidth > maxWidth || (noticeHeight > top && noticeHeight > bodyHeight - bottom)) {
-          elWidth = maxWidth;
-        }*/
-
         setContentRect({
           left: elLeft,
           right: elRight,

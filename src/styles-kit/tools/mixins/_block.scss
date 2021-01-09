@@ -5,6 +5,7 @@
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: var(--zindex-absolute);
 }
 
 // set fixed overlay
@@ -14,6 +15,7 @@
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: var(--zindex-overlay);
 }
 
 // remove from DOM

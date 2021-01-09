@@ -1,0 +1,23 @@
+.rl-title {
+
+  &__inner {
+    display: flex;
+    align-items: center;
+  }
+
+  &__text {
+    display: grid;
+
+    span {
+      @include overflow-ellipsis;
+    }
+  }
+
+  &__icon {
+    color: var(--color-error);
+
+    svg {
+      @include icon(.7);
+    }
+  }
+}

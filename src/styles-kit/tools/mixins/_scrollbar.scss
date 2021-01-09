@@ -1,25 +1,28 @@
+$default_width: 4;
+
 // set scrollbar styles
 @mixin scrollbar(
-  $width: 4px,
+  $width: $default_width,
   $trackColor: transparent,
-  $thumbColor: var(--theme-color),
-  $thumbHoverColor: var(--theme-color-dark),
+  $thumbColor: var(--color-theme),
+  $thumbHoverColor: var(--color-theme-dark),
 ) {
 
   &::-webkit-scrollbar {
-    width: 4px;
+    width: $width * 1px;
   }
 
   &::-webkit-scrollbar-track {
-    background: $trackColor;
+    background-color: $trackColor;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: $thumbColor;
+    background-color: $thumbColor;
+    border-radius: var(--radius-lower);
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background: $thumbHoverColor;
+    background-color: $thumbHoverColor;
   }
 
   // ie
@@ -28,5 +31,10 @@
 
   // ff
   scrollbar-color: $thumbColor $trackColor;
-  scrollbar-width: thin;
+
+  @if ($width <= 6) {
+    scrollbar-width: thin;
+  } @else {
+    scrollbar-width: auto;
+  }
 }

@@ -3,6 +3,13 @@ html {
 }
 
 body {
+  width: 100vw;
+  overflow-x: hidden;
+  overflow-y: overlay;
   color: var(--text-primary);
   font-family: GothamPro, serif;
+
+  &, * {
+    @include scrollbar(8);
+  }
 }
