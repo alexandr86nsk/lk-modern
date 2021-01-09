@@ -1,5 +1,6 @@
 .rl-overlay {
   display: grid;
+  grid-template-columns: 1fr;
   align-items: center;
   justify-content: center;
   padding: var(--space-lg) var(--space-xl);
@@ -8,4 +9,10 @@
   background-color: alpha(var(--color-neutral-darker), .7);
 
   @include fixedOverlay;
+
+  &::after {
+    height: var(--space-lg);
+    content:"";
+
+  }
 }
