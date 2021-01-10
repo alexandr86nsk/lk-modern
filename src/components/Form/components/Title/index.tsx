@@ -14,11 +14,11 @@ export type TitleProps = {
   /**
    * Флаг обязательности заполнения поля
    */
-  required?: boolean;
+  isRequired?: boolean;
   /**
    * Флаг признака только для чтения у поля
    */
-  readonly?: boolean;
+  isReadOnly?: boolean;
   /**
    * Текст подсказки для поля
    */
@@ -30,21 +30,21 @@ export type TitleProps = {
   /**
    * Флаг для установки возможности открыть закрыть подсказку по клику
    */
-  hintCloseable?: boolean;
+  hintIsCloseable?: boolean;
   /**
    * Индивидуальный компонент подсказки для поля
    */
-  customHint?: string | ReactElement;
+  hintContainer?: string | ReactElement;
 };
 
 function TitleComponent({
   text,
-  required,
-  readonly,
+  isRequired,
+  isReadOnly,
   hintText,
   hintIcon,
-  hintCloseable,
-  customHint,
+  hintIsCloseable,
+  hintContainer,
 }: TitleProps) {
   const titleRef = React.useRef<HTMLDivElement | null>(null);
   return (
@@ -53,14 +53,14 @@ function TitleComponent({
         <div className="rl-title__text" title={text}>
           <span>{text}</span>
         </div>
-        {!readonly && required && (
+        {!isReadOnly && isRequired && (
           <div className="rl-title__icon" title="Обязательное поле">
             <RequiredIcon />
           </div>
         )}
-        {!readonly && hintText && (
-          <Popup icon={hintIcon} notice={hintText} closeable={hintCloseable}>
-            {customHint}
+        {!isReadOnly && hintText && (
+          <Popup icon={hintIcon} notice={hintText} isCloseable={hintIsCloseable}>
+            {hintContainer}
           </Popup>
         )}
       </div>

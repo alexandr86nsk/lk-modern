@@ -5,6 +5,7 @@ import { useEscapeClick, useShallowEqualSelector } from '@src/hooks';
 
 import './styles.scss';
 
+import { Field } from '@components/Form/components/Field';
 import { Title } from '@components/Form/components/Title';
 import { Loader } from '@components/Loader';
 import { Logo } from '@components/Logo';
@@ -45,7 +46,7 @@ function AuthPageComponent() {
           <div className="auth-page__form">
             {tryAuthIndicator && (
               <div className="auth-page__loader">
-                <Loader type="wave" title="Выполняется авторизация" />
+                <Loader type="wave" text="Выполняется авторизация" />
               </div>
             )}
             <form className="form" onSubmit={logInHandler}>
@@ -56,7 +57,7 @@ function AuthPageComponent() {
             {errors && <span className="auth-page__errors">{errors}</span>}
             <button onClick={open}>Open</button>
             <Title
-              required
+              isRequired
               text="Dolorum impedit molestiae impedit molestiae"
               hintText={
                 <p>
@@ -69,6 +70,7 @@ function AuthPageComponent() {
                 </p>
               }
             />
+            <Field />
             <div>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae ea expedita fugiat

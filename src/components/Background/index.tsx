@@ -1,22 +1,9 @@
 import cn from 'classnames';
 import React, { memo } from 'react';
 
-import './style.scss';
+import { BackgroundProps } from '@components/Background/types';
 
-export type BackgroundProps = {
-  /**
-   * Дополнительный className для компонента
-   */
-  className?: string;
-  /**
-   * Тема для компонента
-   */
-  theme?: 'magenta';
-  /**
-   * Флаг для добавления изображений по углам компонента
-   */
-  hasCorners?: boolean;
-};
+import './styles.scss';
 
 function BackgroundComponent({ theme, hasCorners, className }: BackgroundProps) {
   return (

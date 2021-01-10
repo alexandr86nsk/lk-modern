@@ -1,40 +1,22 @@
 import cn from 'classnames';
-import React, { ReactElement, useState, memo, useCallback, useRef, useMemo } from 'react';
+import React, { useState, memo, useCallback, useRef, useMemo } from 'react';
 
 import { useEscapeClick, useOutsideClick, usePopupPosition } from '@src/hooks';
 import { isDefined } from '@src/utils';
 
-import { Overlay } from '../Overlay';
+import { Overlay } from '@components/Overlay';
 
 import CloseIcon from './icons/close-icon.svg';
 import HintIcon from './icons/hint-icon.svg';
+import { PopupProps } from './types';
 
 import './styles.scss';
 
-export type PopupProps = {
-  /**
-   * Содержимое подсказки
-   */
-  notice?: string | ReactElement;
-  /**
-   * Иконка подсказки
-   */
-  icon?: ReactElement;
-  /**
-   * Внутренние элементы
-   */
-  children?: ReactElement | string;
-  /**
-   * Флаг заменяет событие hover на click и добавляет кнопку закрыть
-   */
-  closeable?: boolean;
-};
-
-function PopupComponent({ notice = '', icon, children, closeable }: PopupProps) {
+function PopupComponent({ notice = '', icon, children, isCloseable }: PopupProps) {
   const innerRef = useRef(null);
   const noticeRef = useRef(null);
 
-  const [isNoticeShow, setNoticeShowState] = useState(false);
+  const [isShowNotice, setShowNoticeState] = useState(false);
 
   const noticeStyle = usePopupPosition(innerRef, noticeRef);
 
@@ -44,15 +26,15 @@ function PopupComponent({ notice = '', icon, children, closeable }: PopupProps) 
   }, [noticeStyle]);
 
   const isClosable = useMemo(() => {
-    return closeable || isMobileDevice;
-  }, [closeable, isMobileDevice]);
+    return isCloseable || isMobileDevice;
+  }, [isCloseable, isMobileDevice]);
 
   const hideNotice = useCallback(() => {
-    setNoticeShowState(false);
+    setShowNoticeState(false);
   }, []);
 
   const showNotice = useCallback(() => {
-    setNoticeShowState(true);
+    setShowNoticeState(true);
   }, []);
 
   useEscapeClick(hideNotice);
@@ -72,12 +54,12 @@ function PopupComponent({ notice = '', icon, children, closeable }: PopupProps) 
 
   const onContainerClickHandler = useCallback(() => {
     if (isClosable) {
-      setNoticeShowState((prev) => !prev);
+      setShowNoticeState((prev) => !prev);
     }
   }, [isClosable]);
 
   return (
-    <div className={cn('rl-popup', { 'rl-popup_type_closeable': closeable })}>
+    <div className={cn('rl-popup', { 'rl-popup_type_closeable': isCloseable })}>
       <div className="rl-popup__inner" ref={innerRef}>
         <div
           role="presentation"
@@ -88,7 +70,7 @@ function PopupComponent({ notice = '', icon, children, closeable }: PopupProps) 
         >
           {children || <div className="rl-popup__icon">{icon || <HintIcon />}</div>}
         </div>
-        <Overlay in={isNoticeShow} duration={150} mobileOnly>
+        <Overlay in={isShowNotice} duration={150} isMobileOnly>
           <div className="rl-popup__notice" ref={noticeRef} style={noticeStyle}>
             <div className="rl-popup__text">{notice}</div>
             {isClosable && <CloseIcon className="rl-popup__close" onClick={hideNotice} />}

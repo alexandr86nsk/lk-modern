@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import React, { memo, useEffect, useState, ReactElement, useMemo, useCallback } from 'react';
+import React, { memo, useEffect, useState, useMemo, useCallback } from 'react';
 
 import { defaultValues, screenSizes } from '@src/constants';
 import { useBodySizeObserver } from '@src/hooks';
@@ -7,55 +7,28 @@ import { isDefined } from '@src/utils';
 
 import { Fade } from '@components/Transitions';
 
-import './style.scss';
+import { OverlayProps } from './types';
 
-export type OverlayProps = {
-  /**
-   * Дополнительный className для компонента
-   */
-  className?: string;
-  /**
-   * Вложенные элементы
-   */
-  children?: ReactElement | ReactElement[];
-  /**
-   * Флаг отображения в виде слоя только на мобильных устройствах
-   */
-  mobileOnly?: boolean;
-  /**
-   * Флаг для отображения элемента
-   */
-  in?: boolean;
-  /**
-   * Длительность анимации появления
-   */
-  duration?: number;
-};
+import './styles.scss';
 
-function OverlayComponent({ children, className, mobileOnly, in: inProp, duration }: OverlayProps) {
+function OverlayComponent({
+  children,
+  className,
+  isMobileOnly,
+  in: inProp,
+  duration,
+}: OverlayProps) {
   const { width: bodyWidth = defaultValues.ZERO } = useBodySizeObserver();
   const [mounted, setMountedState] = useState(false);
 
   const isMobileDevice = useMemo(() => bodyWidth < screenSizes.NOTEBOOK, [bodyWidth]);
   const hasOverlay = useMemo(
-    () => (isDefined(mobileOnly) && isMobileDevice) || !isDefined(mobileOnly),
-    [isMobileDevice, mobileOnly]
+    () => (isDefined(isMobileOnly) && isMobileDevice) || !isDefined(isMobileOnly),
+    [isMobileDevice, isMobileOnly]
   );
 
   useEffect(() => {
-    /*if (isDefined(mobileOnly) && isMobileDevice && isDefined(inProp) && inProp) {
-      document.body.classList.add('overflow-hidden');
-    } else if (isDefined(mobileOnly) && isMobileDevice && isDefined(inProp) && !inProp) {
-      document.body.classList.remove('overflow-hidden');
-    } else if (!isDefined(mobileOnly) && isDefined(inProp) && inProp) {
-      document.body.classList.add('overflow-hidden');
-    } else if (!isDefined(mobileOnly) && isDefined(inProp) && !inProp) {
-      document.body.classList.remove('overflow-hidden');
-    } else */
     setMountedState(true);
-    if (!isDefined(inProp)) {
-      // document.body.classList.add('overflow-hidden');
-    }
     return () => {
       document.body.classList.remove('overflow-hidden');
       setMountedState(false);

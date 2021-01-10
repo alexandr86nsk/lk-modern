@@ -1,0 +1,14 @@
+.rl-field {
+
+  $parent: &;
+
+  &__inner {
+    display: flex;
+    gap: .3em;
+    align-items: center;
+  }
+
+  &__icon {
+    line-height: 0;
+  }
+}

@@ -4,24 +4,11 @@ import React, { memo } from 'react';
 import logo from '@assets/images/logo/logo.png';
 import logoWp from '@assets/images/logo/logo.webp';
 
+import { LogoProps } from './types';
+
 import './styles.scss';
 
-export type LogoProps = {
-  /**
-   * Дополнительный className для компонента
-   */
-  className?: string;
-  /**
-   * Направление компонента
-   */
-  position?: 'horizontal' | 'vertical';
-  /**
-   * Флаг для скрытия заголовка
-   */
-  hideTitle?: boolean;
-};
-
-function LogoComponent({ position = 'horizontal', hideTitle, className }: LogoProps) {
+function LogoComponent({ position = 'horizontal', isTitleHidden, className }: LogoProps) {
   return (
     <div
       className={cn('rl-logo', className, {
@@ -33,7 +20,7 @@ function LogoComponent({ position = 'horizontal', hideTitle, className }: LogoPr
         <source srcSet={logo} type="image/jpeg" />
         <img src={logo} alt="logo" />
       </picture>
-      {!hideTitle && (
+      {!isTitleHidden && (
         <h2 className="rl-logo__title">
           <span>Real</span>
           <span>apps</span>

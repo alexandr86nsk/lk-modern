@@ -2,48 +2,22 @@ import cn from 'classnames';
 import React, { memo } from 'react';
 
 import { WaveSpinner } from './spinners/WaveSpinner';
+import { LoaderProps } from './types';
 
-import './style.scss';
+import './styles.scss';
+
+const dots = ['dot_01', 'dot_02', 'dot_03'];
 
 const spinnerTypes = {
   wave: <WaveSpinner />,
 };
 
-const DOTS = ['dot_01', 'dot_02', 'dot_03'];
-
-export type LoaderProps = {
-  /**
-   * Дополнительный className для компонента
-   */
-  className?: string;
-  /**
-   * Заголовок компонента
-   */
-  title?: string;
-  /**
-   * Направление компонента
-   */
-  position?: 'horizontal' | 'vertical';
-  /**
-   * Тип загрузчика
-   */
-  type?: 'wave';
-  /**
-   * Флаг наличия области затемнения
-   */
-  dimmed?: boolean;
-  /**
-   * Флаг наличия троеточия с анимацией в конце заголовка
-   */
-  hideTitleDots?: boolean;
-};
-
 function LoaderComponent({
-  title,
+  text,
   position = 'horizontal',
   type,
-  dimmed,
-  hideTitleDots,
+  isDimmed,
+  isDotsHidden,
   className,
 }: LoaderProps) {
   return (
@@ -56,11 +30,11 @@ function LoaderComponent({
       <div className="rl-loader__inner">
         <div className="rl-loader__content">
           {type && spinnerTypes[type]}
-          {title && (
-            <div className="rl-loader__title">
-              <span className="rl-loader__text">{title}</span>
-              {!hideTitleDots &&
-                DOTS.map((dot) => (
+          {text && (
+            <div className="rl-loader__wrapper">
+              <span className="rl-loader__text">{text}</span>
+              {!isDotsHidden &&
+                dots.map((dot) => (
                   <span key={dot} className="rl-loader__dot">
                     .
                   </span>
@@ -69,7 +43,7 @@ function LoaderComponent({
           )}
         </div>
       </div>
-      {dimmed && <div className="rl-loader__dimmer" />}
+      {isDimmed && <div className="rl-loader__dimmer" />}
     </div>
   );
 }

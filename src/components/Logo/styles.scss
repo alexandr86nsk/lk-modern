@@ -13,6 +13,7 @@
     margin: 0 1em 0 0;
     cursor: pointer;
     transition: transform 1s;
+    user-select: none;
 
     &:hover {
       transform: rotate(360deg);
