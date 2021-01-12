@@ -11,6 +11,11 @@
 
   @include fixedOverlay;
 
+  &::before {
+    height: var(--space-lg);
+    content: "";
+  }
+
   &::after {
     height: var(--space-lg);
     content: "";
