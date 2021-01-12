@@ -1,6 +1,7 @@
 .rl-overlay {
   display: grid;
   grid-template: 1fr / 1fr;
+  align-content: center;
   align-items: center;
   justify-items: center;
   padding: var(--space-lg) var(--space-xl);

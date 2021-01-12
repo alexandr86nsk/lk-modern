@@ -17,7 +17,8 @@
     color: var(--color-error);
 
     svg {
-      @include icon(.7);
+      width: .7em;
+      height: .7em;
     }
   }
 }

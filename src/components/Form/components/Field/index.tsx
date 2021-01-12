@@ -1,15 +1,14 @@
-import React, { memo, useCallback, useRef, useState } from 'react';
+import React, { memo, useCallback, useRef, useState, useMemo } from 'react';
 
-import { isNotNil } from '@src/utils';
+import { isNotEmptyArray, isTruthy } from '@src/utils';
 
-import ClearIcon from './icons/clear-icon.svg';
-import ErrorIcon from './icons/error-outline-icon.svg';
-import SearchIcon from './icons/search-icon.svg';
-import VisibilityIcon from './icons/visibility-icon.svg';
-import VisibilityOffIcon from './icons/visibility-off-icon.svg';
+import { Icon } from '@components/Icon';
+
 import { FieldProps } from './types';
 
 import './styles.scss';
+
+const MIN_VALUE_LENGTH = 5;
 
 function FieldComponent({ isReadOnly, isDisabled, isPassword, isSearch }: FieldProps) {
   const [value, setValue] = useState('');
@@ -38,50 +37,70 @@ function FieldComponent({ isReadOnly, isDisabled, isPassword, isSearch }: FieldP
     setPassVisibilityState((prev) => !prev);
   }, []);
 
-  const errors: never[] = [];
+  const errors = useMemo(() => {
+    const err = [];
+    if (value.length < MIN_VALUE_LENGTH) {
+      err.push({ id: '0', value: 'Минимальное число символов 5' });
+    }
+    if (value.includes('6')) {
+      err.push({ id: '1', value: 'Поле не должно содержать цифру 6' });
+    }
+    if (value.includes('4')) {
+      err.push({
+        id: '2',
+        value: 'Очень очень длинная ошибка которая может встретиться в ошибках заполнения поля',
+      });
+    }
+    return err;
+  }, [value]);
 
   return (
     <div className="rl-field" role="presentation" ref={bodyRef} onClick={handleFocusInput}>
       <div className="rl-field__inner">
         <div className="rl-field__input">
-          <input value={value} onChange={onInputChangeHandler} />
+          <input value={value} onChange={onInputChangeHandler} onFocus={handleFocusInput} />
         </div>
         {!isDisabled && !isReadOnly && (
           <>
-            {isNotNil(value) && (
-              <div
-                role="presentation"
+            {isTruthy(value) && (
+              <Icon
                 className="rl-field__icon rl-field__icon_type_clear"
+                name="clear"
                 title="Очистить"
                 onClick={clearClickHandler}
-              >
-                <ClearIcon />
-              </div>
+                isCompact
+              />
             )}
             {isPassword && (
-              <div
-                role="presentation"
+              <Icon
                 className="rl-field__icon rl-field__icon_type_visibility"
+                name={passVisibility ? 'visibilityOff' : 'visibilityOn'}
                 title={passVisibility ? 'Скрыть' : 'Показать'}
                 onClick={changePassVisibilityHandler}
-              >
-                {passVisibility ? <VisibilityOffIcon /> : <VisibilityIcon />}
-              </div>
+                size="md"
+                isCompact
+              />
             )}
-            {errors && (
-              <div className="rl-field__icon rl-field__icon_type_error" title="Ошибка в поле">
-                <ErrorIcon />
-              </div>
+            {isNotEmptyArray(errors) && isShowErrorsState && (
+              <Icon
+                className="rl-field__icon rl-field__icon_type_error"
+                name="errorOutline"
+                title="Ошибка в поле"
+                isCompact
+              />
             )}
           </>
         )}
         {isSearch && (
-          <div className="rl-field__icon rl-field__icon_type_error" title="Поиск">
-            <SearchIcon />
-          </div>
+          <Icon
+            className="rl-field__icon rl-field__icon_type_search"
+            name="search"
+            title="Поиск"
+            isCompact
+          />
         )}
       </div>
-      {errors && !isShowErrorsState && (
+      {isNotEmptyArray(errors) && isShowErrorsState && (
         <ul className="rl-field__errors">
           {errors.map((v) => {
             const { id, value } = v || {};

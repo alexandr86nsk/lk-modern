@@ -8,7 +8,7 @@ $breakpoints: (
 ) !default;
 
 @mixin breakpoint($breakpoint, $logic: false) {
-  @if ($logic) {
+  @if $logic {
     @media #{$logic} and (min-width: map-get($map: $breakpoints, $key: $breakpoint)) {
       @content;
     }

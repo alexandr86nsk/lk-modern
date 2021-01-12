@@ -1,41 +1,10 @@
-// import cn from 'classnames';
-import React, { memo, ReactElement } from 'react';
+import React, { memo } from 'react';
 
+import { TitleProps } from '@components/Form/components/Title/types';
+import { Icon } from '@components/Icon';
 import { Popup } from '@components/Popup';
 
-import RequiredIcon from './icons/required-icon.svg';
 import './styles.scss';
-
-export type TitleProps = {
-  /**
-   * Текст заголовка для поля
-   */
-  text?: string;
-  /**
-   * Флаг обязательности заполнения поля
-   */
-  isRequired?: boolean;
-  /**
-   * Флаг признака только для чтения у поля
-   */
-  isReadOnly?: boolean;
-  /**
-   * Текст подсказки для поля
-   */
-  hintText?: string | ReactElement;
-  /**
-   * Иконка подсказки для поля
-   */
-  hintIcon?: ReactElement;
-  /**
-   * Флаг для установки возможности открыть закрыть подсказку по клику
-   */
-  hintIsCloseable?: boolean;
-  /**
-   * Индивидуальный компонент подсказки для поля
-   */
-  hintContainer?: string | ReactElement;
-};
 
 function TitleComponent({
   text,
@@ -54,9 +23,7 @@ function TitleComponent({
           <span>{text}</span>
         </div>
         {!isReadOnly && isRequired && (
-          <div className="rl-title__icon" title="Обязательное поле">
-            <RequiredIcon />
-          </div>
+          <Icon className="rl-title__icon" name="required" title="Обязательное поле" isCompact />
         )}
         {!isReadOnly && hintText && (
           <Popup icon={hintIcon} notice={hintText} isCloseable={hintIsCloseable}>

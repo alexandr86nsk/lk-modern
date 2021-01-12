@@ -4,21 +4,28 @@ import React, { useState, memo, useCallback, useRef, useMemo } from 'react';
 import { useEscapeClick, useOutsideClick, usePopupPosition } from '@src/hooks';
 import { isDefined } from '@src/utils';
 
+import { Icon } from '@components/Icon';
 import { Overlay } from '@components/Overlay';
 
-import CloseIcon from './icons/close-icon.svg';
-import HintIcon from './icons/hint-icon.svg';
 import { PopupProps } from './types';
 
 import './styles.scss';
 
-function PopupComponent({ notice = '', icon, children, isCloseable }: PopupProps) {
+function PopupComponent({
+  notice = '',
+  icon,
+  children,
+  isCloseable,
+  hasTail = true,
+  maxWidth,
+}: PopupProps) {
   const innerRef = useRef(null);
   const noticeRef = useRef(null);
+  const textRef = useRef(null);
 
   const [isShowNotice, setShowNoticeState] = useState(false);
 
-  const noticeStyle = usePopupPosition(innerRef, noticeRef);
+  const { tailStyle, ...noticeStyle } = usePopupPosition(innerRef, noticeRef, textRef, maxWidth);
 
   const isMobileDevice = useMemo(() => {
     const { width } = noticeStyle || {};
@@ -68,12 +75,45 @@ function PopupComponent({ notice = '', icon, children, isCloseable }: PopupProps
           onMouseEnter={onContainerMouseEnterHandler}
           onMouseLeave={onContainerMouseLeaveHandler}
         >
-          {children || <div className="rl-popup__icon">{icon || <HintIcon />}</div>}
+          {children || (
+            <div className="rl-popup__icon">
+              {icon || (
+                <Icon
+                  isCircle
+                  name="helpOutline"
+                  size="md"
+                  isCompact
+                  hasRipple
+                  isInteractive={isClosable}
+                />
+              )}
+            </div>
+          )}
         </div>
         <Overlay in={isShowNotice} duration={150} isMobileOnly>
           <div className="rl-popup__notice" ref={noticeRef} style={noticeStyle}>
-            <div className="rl-popup__text">{notice}</div>
-            {isClosable && <CloseIcon className="rl-popup__close" onClick={hideNotice} />}
+            <div className="rl-popup__wrapper">
+              <div className="rl-popup__text" ref={textRef}>
+                {notice}
+              </div>
+              {isClosable && (
+                <div className="rl-popup__icon">
+                  <Icon
+                    isCircle
+                    className="rl-popup__close"
+                    size="md"
+                    name="close"
+                    onClick={hideNotice}
+                  />
+                </div>
+              )}
+              {hasTail && (
+                <>
+                  <div className="rl-popup__tail rl-popup__tail_bg" style={tailStyle} />
+                  <div className="rl-popup__tail rl-popup__tail_border" style={tailStyle} />
+                </>
+              )}
+            </div>
           </div>
         </Overlay>
       </div>

@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
+import { useIsomorphicLayoutEffect } from '@hooks/useIsomorphicLayoutEffect';
 
 import { CallbackEventFunctionType } from '@src/types';
 
 export function useKeyboardObserver(callback: CallbackEventFunctionType<KeyboardEvent>) {
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     function handlePressKey(event: KeyboardEvent) {
       if (callback) {
         callback(event);

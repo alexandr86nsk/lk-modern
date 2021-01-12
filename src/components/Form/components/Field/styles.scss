@@ -4,11 +4,25 @@
 
   &__inner {
     display: flex;
-    gap: .3em;
+    gap: .2em;
+    align-items: center;
+  }
+
+  &__input {
+    display: flex;
     align-items: center;
   }
 
   &__icon {
-    line-height: 0;
+
+    &#{&}_type_error {
+      color: var(--color-error);
+    }
+  }
+
+  &__errors {
+    padding-top: var(--space-xxxs);
+    color: var(--color-error);
+    font-size: var(--text-xs);
   }
 }

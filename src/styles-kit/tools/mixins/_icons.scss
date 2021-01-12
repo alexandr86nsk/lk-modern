@@ -1,5 +1,5 @@
-$default_size: 1;
-$default_radius: 50%;
+$default_size: 1em;
+$default_radius: var(--radius-low);
 $default_padding: .3;
 $default_padding_compact: .1;
 
@@ -7,19 +7,10 @@ $default_padding_compact: .1;
 @mixin icon($size: $default_size, $radius: $default_radius, $padding: $default_padding) {
   --scope-padding: #{$padding};
 
-  width: calc(#{$size} * var(--scope-padding) * 1em + #{$size} * 1em);
-  height: calc(#{$size} * var(--scope-padding) * 1em + #{$size} * 1em);
-  padding: calc(#{$size} * var(--scope-padding) * 1em);
+  width: calc(#{$size} * var(--scope-padding) + #{$size});
+  height: calc(#{$size} * var(--scope-padding) + #{$size});
+  padding: calc(#{$size} * var(--scope-padding));
   border-radius: $radius;
-}
-
-// clickable
-@mixin iconClickable {
-  cursor: pointer;
-
-  &:hover {
-    background-color: var(--color-neutral-lighter);
-  }
 }
 
 // compact
@@ -27,3 +18,25 @@ $default_padding_compact: .1;
   --scope-padding: #{$padding};
 }
 
+// size class
+@mixin defineIconSizeClasses($class, $parent: false) {
+  @if $class {
+    @each $name, $size in $sizes {
+      @if $parent {
+        &#{$class}_size_#{$name} {
+          svg {
+            @include icon(#{$size});
+          }
+        }
+      } @else {
+        #{$class}_size_#{$name} {
+          svg {
+            @include icon(#{$size});
+          }
+        }
+      }
+    }
+  } @else {
+    @debug 'Icon class argument not defined';
+  }
+}

@@ -17,4 +17,12 @@ export type PopupProps = {
    * Флаг заменяет событие hover на click и добавляет кнопку закрыть
    */
   isCloseable?: boolean;
+  /**
+   * Флаг добавляет хвостик к сообщению
+   */
+  hasTail?: boolean;
+  /**
+   * Максимальная ширина сообщения
+   */
+  maxWidth?: number;
 };

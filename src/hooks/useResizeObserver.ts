@@ -1,4 +1,5 @@
-import { useEffect, useState, useRef, RefObject } from 'react';
+import { useIsomorphicLayoutEffect } from '@hooks/useIsomorphicLayoutEffect';
+import { useState, useRef, RefObject } from 'react';
 
 import { defaultValues } from '@src/constants';
 import { isNotNil } from '@src/utils';
@@ -14,7 +15,7 @@ export function useResizeObserver(resizeSubject: RefObject<Element>): UseResizeO
   const [contentRect, setContentRect] = useState<UseResizeObserver | null>(null);
   const resizeObserver = useRef<ResizeObserver | null>(null);
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     function observe(RO: typeof ResizeObserver) {
       resizeObserver.current = new RO((entries) => {
         const obs = entries[defaultValues.ZERO];

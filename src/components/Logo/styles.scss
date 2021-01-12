@@ -10,7 +10,7 @@
     justify-content: center;
     width: 100%;
     max-width: 2.6em;
-    margin: 0 1em 0 0;
+    margin: 0 var(--space-sm) 0 0;
     cursor: pointer;
     transition: transform 1s;
     user-select: none;
@@ -39,12 +39,12 @@
   }
 
   // ---------- Position vertical ---------- //
-  &#{$parent}_position_vertical {
+  &#{&}_position_vertical {
     flex-direction: column;
-    padding: 2.5em 0;
+    padding: var(--space-lg) 0;
 
     #{$parent}__image {
-      margin: .5em 0;
+      margin: var(--space-xxs) 0;
     }
   }
 }

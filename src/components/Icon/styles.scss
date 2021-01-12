@@ -1,0 +1,32 @@
+.rl-icon {
+  position: relative;
+  overflow: hidden;
+  line-height: 0;
+
+  svg {
+    @include icon;
+  }
+
+  @include defineIconSizeClasses(#{&}, true);
+
+
+  &#{&}_type_compact {
+
+    svg {
+      @include iconCompact;
+    }
+  }
+
+  &#{&}_type_interactive {
+    border: 1px solid transparent;
+    cursor: pointer;
+
+    &:hover {
+      border: 1px solid var(--color-neutral-lighter);
+    }
+  }
+
+  &#{&}_type_circle {
+    border-radius: var(--radius-circle);
+  }
+}

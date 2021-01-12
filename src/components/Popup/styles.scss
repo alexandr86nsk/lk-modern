@@ -1,48 +1,86 @@
-.rl-popup {
-  line-height: 0;
+$tail_bg_indent: -20px;
+$tail_border_indent: -18px;
+$tail_border_width: 10px;
+$text_line-height: 1.2;
+$text_padding_scale: .3;
 
-  $parent: &;
+.rl-popup {
+  display: inline-block;
+  line-height: 0;
 
   &__inner {
     position: relative;
-    display: inline-block;
   }
 
-  &__icon {
-
-    svg {
-      @include icon(1.5);
-      @include iconClickable;
-      @include iconCompact;
-    }
+  &__container {
+    line-height: initial;
   }
 
   &__notice {
-    display: flex;
-    justify-content: space-between;
-    padding: var(--space-md);
+    z-index: var(--zindex-popover);
     font-size: var(--text-sm);
-    line-height: initial;
+    line-height: $text_line-height;
     hyphens: auto;
     background-color: var(--color-white);
+    border-color: var(--color-neutral);
+    border-style: solid;
+    border-width: 1px;
     border-radius: var(--radius-low);
-    box-shadow: var(--shadow-accent);
+    filter: drop-shadow(#{var(--shadow-low)});
+    transition: transform .3s ease;
 
     @include breakpoint(lg) {
       position: absolute;
-      padding: var(--space-sm) var(--space-md);
+      top: 0;
       font-size: var(--text-xs);
     }
   }
 
+  &__wrapper {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-md);
+
+    @include breakpoint(lg) {
+      padding: var(--space-sm) var(--space-md);
+    }
+  }
+
+  &__tail {
+    position: absolute;
+    display: none;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: $tail_border_width;
+
+    &#{&}_border {
+      top: $tail_border_indent;
+      bottom: $tail_border_indent;
+      border-color: var(--color-white) transparent transparent transparent;
+    }
+
+    &#{&}_bg {
+      top: $tail_bg_indent;
+      bottom: $tail_bg_indent;
+      border-color: var(--color-neutral) transparent transparent transparent;
+    }
+
+    @include breakpoint(lg) {
+      display: block;
+    }
+  }
+
   &__text {
-    padding: calc(1.5 * .3em) 0;
+    padding: calc(var(--text-md) * #{$text_padding_scale}) 0;
+
+    @include breakpoint(lg) {
+      padding: calc(var(--text-md) * #{$text_padding_scale}) 0;
+    }
   }
 
   &__close {
-      margin-left: var(--space-md);
-
-      @include icon(1.5);
-      @include iconClickable;
+      margin-left: var(--space-sm);
   }
 }

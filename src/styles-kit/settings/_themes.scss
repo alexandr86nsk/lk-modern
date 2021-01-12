@@ -45,11 +45,11 @@
   @include defineHSLColor(--color-neutral-lighter, 206, 6%, 95%);
 
   // theme
-  @include defineHSLColor(--color-theme-darker, 300, 85%, 19%);
-  @include defineHSLColor(--color-theme-dark, 300, 85%, 26%);
-  @include defineHSLColor(--color-theme, 300, 85%, 33%);
-  @include defineHSLColor(--color-theme-light, 300, 85%, 40%);
-  @include defineHSLColor(--color-theme-lighter, 300, 85%, 47%);
+  @include defineHSLColor(--color-theme-darker, 300, 85%, 10%);
+  @include defineHSLColor(--color-theme-dark, 300, 85%, 30%);
+  @include defineHSLColor(--color-theme, 300, 85%, 50%);
+  @include defineHSLColor(--color-theme-light, 300, 85%, 70%);
+  @include defineHSLColor(--color-theme-lighter, 300, 85%, 90%);
 
   // contrast
   @include defineHSLColor(--color-contrast-lower, 240, 0%, 95%);

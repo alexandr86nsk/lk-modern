@@ -1,0 +1,8 @@
+@function getSize($size: 'md') {
+  @if $size {
+    @return map-get($map: $sizes, $key: $size);
+  }
+  @else {
+    @debug 'Size in not defined';
+  }
+}

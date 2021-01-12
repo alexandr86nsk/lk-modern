@@ -1,9 +1,4 @@
 .rl-loader {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,12 +6,14 @@
   user-select: none;
   pointer-events: none;
 
+  @include overlay;
+
   $parent: &;
 
   &__content {
     position: relative;
     display: grid;
-    grid-gap: .6em;
+    grid-gap: var(--space-xs);
     grid-template: auto / 1fr;
     text-align: center;
   }
@@ -26,12 +23,9 @@
   }
 
   &__dimmer {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
     background-color: rgba(255, 255, 255, .6);
+
+    @include overlay;
   }
 
   &__dot {
@@ -50,18 +44,18 @@
   }
 
   // ---------- Type basic ---------- //
-  &#{$parent}_type_basic {
+  &#{&}_type_basic {
 
-    &__content {
-      padding-top: 2.5em;
+    #{$parent}__content {
+      padding-top: var(--space-lg);
 
       ::before,
       ::after {
         position: absolute;
-        top: .4em;
-        width: 1.7em;
-        height: 1.7em;
-        border-radius: 50%;
+        top: var(--space-xxs);
+        width: var(--text-lg);
+        height: var(--text-lg);
+        border-radius: var(--radius-circle);
         content: '';
       }
 
@@ -81,9 +75,9 @@
   }
 
   // ---------- Position horizontal ---------- //
-  &#{$parent}_position_horizontal {
+  &#{&}_position_horizontal {
     display: grid;
-    grid-gap: 1em;
+    grid-gap: var(--space-sm);
     grid-template: auto / auto;
   }
 }

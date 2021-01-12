@@ -1,11 +1,12 @@
-import { RefObject, useEffect } from 'react';
+import { useIsomorphicLayoutEffect } from '@hooks/useIsomorphicLayoutEffect';
+import { RefObject } from 'react';
 
 import { CallbackFunctionType } from '@src/types';
 
 export function useOutsideClick(ref: RefObject<HTMLElement>, callback: CallbackFunctionType) {
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     function outsideClickHandler(event: MouseEvent) {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
+      if (ref.current && !ref.current?.contains(event.target as Node)) {
         if (callback) {
           callback();
         }

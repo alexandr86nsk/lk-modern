@@ -128,6 +128,7 @@ module.exports = (env, argv) => {
                 additionalData: `
                 @import "@styles-kit/constants/paths";
                 @import "@styles-kit/constants/images";
+                 @import "@styles-kit/constants/sizes";
                 @import "@styles-kit/tools/mixins";
                 @import "@styles-kit/tools/functions";
                 `,

@@ -32,7 +32,7 @@ $default_width: 4;
   // ff
   scrollbar-color: $thumbColor $trackColor;
 
-  @if ($width <= 6) {
+  @if $width <= 6 {
     scrollbar-width: thin;
   } @else {
     scrollbar-width: auto;
