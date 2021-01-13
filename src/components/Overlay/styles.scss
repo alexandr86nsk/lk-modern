@@ -1,10 +1,9 @@
 .rl-overlay {
-  display: grid;
-  grid-template: 1fr / 1fr;
-  align-content: center;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-items: center;
-  padding: var(--space-lg) var(--space-xl);
+  padding: var(--space-lg) var(--space-md);
   overflow-x: hidden;
   overflow-y: auto;
   background-color: alpha(var(--color-neutral-darker), .7);
@@ -12,12 +11,18 @@
   @include fixedOverlay;
 
   &::before {
-    height: var(--space-lg);
+    margin-top: auto;
+    // height: var(--space-lg);
     content: "";
   }
 
   &::after {
-    height: var(--space-lg);
+    margin-bottom: auto;
+    // height: var(--space-lg);
     content: "";
+  }
+
+  @include breakpoint(lg) {
+    padding: var(--space-lg) var(--space-xl);
   }
 }
