@@ -9,8 +9,7 @@ import CloseIcon from '../../assetssadads/icons/close-24px.svg';
 import IncreaseIcon from '../../assetssadads/icons/add_circle_outline-24px.svg';
 import DecreaseIcon from '../../assetssadads/icons/remove_circle_outline-24px.svg';
 import UIDraggable from '../UIDraggable/UIDraggable';
-import UILoader from '../Loader';
-
+import UILoader from '../Loader/Loader';
 
 function UIFilePreview(props) {
   const {
@@ -42,13 +41,16 @@ function UIFilePreview(props) {
     }
   }, [imageSize]);
 
-  const onWheel = React.useCallback((e) => {
-    if (e.deltaY < 0) {
-      handleIncreaseImage();
-    } else {
-      handleDecreaseImage();
-    }
-  }, [handleDecreaseImage, handleIncreaseImage]);
+  const onWheel = React.useCallback(
+    (e) => {
+      if (e.deltaY < 0) {
+        handleIncreaseImage();
+      } else {
+        handleDecreaseImage();
+      }
+    },
+    [handleDecreaseImage, handleIncreaseImage]
+  );
 
   React.useEffect(() => {
     function handleClickEscape(event) {
@@ -127,8 +129,7 @@ function UIFilePreview(props) {
     <div className={`ui-pdf-preview ${fixed ? 'fixed' : ''}`}>
       <div className="ui-pdf-preview__body">
         <div className="ui-pdf-preview__list">
-          {((numPages > 1 || multi) && !loading)
-          && (
+          {(numPages > 1 || multi) && !loading && (
             <button
               className="ui-pdf-preview__btn"
               type="button"
@@ -138,20 +139,20 @@ function UIFilePreview(props) {
               <BackIcon />
             </button>
           )}
-          { loading && <div>Данные загружаются. Подождите пожалуйста</div> }
-          { ((image && !loading) || (!image && preview)) && (
+          {loading && <div>Данные загружаются. Подождите пожалуйста</div>}
+          {((image && !loading) || (!image && preview)) && (
             <>
               {((!multi && !image && numPages < 2) || (image && !multi)) && (
-              <button
-                className="ui-pdf-preview__btn"
-                type="button"
-                onClick={rotateLeft}
-                title="Повернуть влево"
-              >
-                <div className="icon-wrapper">
-                  <RotateLeftIcon />
-                </div>
-              </button>
+                <button
+                  className="ui-pdf-preview__btn"
+                  type="button"
+                  onClick={rotateLeft}
+                  title="Повернуть влево"
+                >
+                  <div className="icon-wrapper">
+                    <RotateLeftIcon />
+                  </div>
+                </button>
               )}
               <div className="ui-pdf-preview__image">
                 {title && <div className="ui-pdf-preview__title">{title}</div>}
@@ -166,26 +167,25 @@ function UIFilePreview(props) {
                       alt="file"
                       className="ui-pdf-preview__image"
                     />
-                  )
-                    : (
-                      <Document
-                        file={b64toBlob}
-                        onLoadSuccess={onDocumentLoadSuccess}
-                        renderMode="svg"
-                        loading="Формирование"
-                        error="Ошибка загрузки файла."
+                  ) : (
+                    <Document
+                      file={b64toBlob}
+                      onLoadSuccess={onDocumentLoadSuccess}
+                      renderMode="svg"
+                      loading="Формирование"
+                      error="Ошибка загрузки файла."
+                      noData="Неверный формат файла."
+                      externalLinkTarget="_blank"
+                    >
+                      <Page
+                        pageNumber={pageNumber}
+                        loading={<UILoader text="Загрузка" size="small" />}
+                        error="Ошибка загрузки страницы."
                         noData="Неверный формат файла."
-                        externalLinkTarget="_blank"
-                      >
-                        <Page
-                          pageNumber={pageNumber}
-                          loading={<UILoader text="Загрузка" size="small" />}
-                          error="Ошибка загрузки страницы."
-                          noData="Неверный формат файла."
-                          renderMode="svg"
-                        />
-                      </Document>
-                    )}
+                        renderMode="svg"
+                      />
+                    </Document>
+                  )}
                 </UIDraggable>
                 <div className="ui-pdf-preview__resize-block">
                   <button
@@ -206,21 +206,20 @@ function UIFilePreview(props) {
                 </div>
               </div>
               {((!multi && !image && numPages < 2) || (image && !multi)) && (
-              <button
-                className="ui-pdf-preview__btn"
-                type="button"
-                onClick={rotateRight}
-                title="Повернуть вправо"
-              >
-                <div className="icon-wrapper">
-                  <RotateRightIcon />
-                </div>
-              </button>
+                <button
+                  className="ui-pdf-preview__btn"
+                  type="button"
+                  onClick={rotateRight}
+                  title="Повернуть вправо"
+                >
+                  <div className="icon-wrapper">
+                    <RotateRightIcon />
+                  </div>
+                </button>
               )}
             </>
           )}
-          {((numPages > 1 || multi) && !loading)
-          && (
+          {(numPages > 1 || multi) && !loading && (
             <button
               className="ui-pdf-preview__btn"
               type="button"
@@ -259,12 +258,7 @@ function UIFilePreview(props) {
           </div>
         </div>
         {numPages > 1 && <p>{`Страница ${pageNumber} из ${numPages}`}</p>}
-        {component
-        && (
-          <div className="ui-pdf-preview__component">
-            {component}
-          </div>
-        )}
+        {component && <div className="ui-pdf-preview__component">{component}</div>}
       </div>
     </div>
   );

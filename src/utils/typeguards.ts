@@ -13,10 +13,14 @@ export function isDefined<T>(value: T): value is Exclude<T, undefined> {
   return value !== undefined;
 }
 
-export function isArray<T>(value: T) {
-  return value && Array.isArray(value);
+export function isArray<T>(
+  value: T
+): value is Exclude<T, undefined | null | number | string | boolean> {
+  return isTruthy(value) && Array.isArray(value);
 }
 
-export function isNotEmptyArray<T>(value: T) {
-  return value && Array.isArray(value) && value.length > defaultValues.ZERO;
+export function isNotEmptyArray<T>(
+  value: T
+): value is Exclude<T, undefined | null | number | string | boolean> {
+  return isTruthy(value) && Array.isArray(value) && value.length > defaultValues.ZERO;
 }

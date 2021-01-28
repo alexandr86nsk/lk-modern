@@ -6,20 +6,18 @@
   padding: var(--space-lg) var(--space-md);
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: alpha(var(--color-neutral-darker), .7);
+  background-color: alpha-color(var(--color-neutral-darker), 0.7);
 
   @include fixedOverlay;
 
   &::before {
     margin-top: auto;
-    // height: var(--space-lg);
-    content: "";
+    content: '';
   }
 
   &::after {
     margin-bottom: auto;
-    // height: var(--space-lg);
-    content: "";
+    content: '';
   }
 
   @include breakpoint(lg) {

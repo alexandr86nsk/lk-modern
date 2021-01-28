@@ -1,7 +1,7 @@
-import { CustomError } from "../types";
-import { v4 } from "uuid";
-import { isDefined, isNotEmptyArray, validateEmail, validateUrl } from "@src/utils";
-import { compareInteger, compareLength } from "./compare";
+import { CustomError } from '../types';
+import { v4 } from 'uuid';
+import { isDefined, isNotEmptyArray, validateEmail, validateUrl } from '@src/utils';
+import { compareInteger, compareLength } from './compare';
 
 export type ValidatePropsType = {
   minLength?: number;
@@ -17,20 +17,20 @@ export type ValidatePropsType = {
 };
 
 export function validate({
-                                   value,
-                                   required,
-                                   minLength,
-                                   maxLength,
-                                   isInteger,
-                                   minInteger,
-                                   maxInteger,
-                                   isEmail,
-                                   isUrl,
-                                   customValidation
-                                 }: ValidatePropsType): CustomError[] | null {
+  value,
+  required,
+  minLength,
+  maxLength,
+  isInteger,
+  minInteger,
+  maxInteger,
+  isEmail,
+  isUrl,
+  customValidation,
+}: ValidatePropsType): CustomError[] | null {
   let err = [];
   if (required && !isDefined(value)) {
-    err.push({ id: v4(), value: "Поле является обязательным, но не заполнено!" });
+    err.push({ id: v4(), value: 'Поле является обязательным, но не заполнено!' });
   }
   if (isDefined(value)) {
     if (!isInteger) {
@@ -41,12 +41,18 @@ export function validate({
     }
     if (isEmail) {
       if (!validateEmail(value.toString())) {
-        err.push({ id: v4(), value: "Поле заполнено неверно! Пример верного формата: example@gmail.com" });
+        err.push({
+          id: v4(),
+          value: 'Поле заполнено неверно! Пример верного формата: example@gmail.com',
+        });
       }
     }
     if (isUrl) {
       if (!validateUrl(value.toString())) {
-        err.push({ id: v4(), value: "Поле заполнено неверно! Пример верного формата: http://example.ru" });
+        err.push({
+          id: v4(),
+          value: 'Поле заполнено неверно! Пример верного формата: http://example.ru',
+        });
       }
     }
     if (customValidation) {

@@ -1,22 +1,55 @@
 // ---------- theme default ---------- //
-:root, [data-theme="default"] {
-
-  // black & white
-  @include defineHSLColor(--color-black, 240, 8%, 12%);
-  @include defineHSLColor(--color-white, 0, 0%, 100%);
-
+:root,
+[data-theme='default'] {
   // text
-  @include defineHSLColor(--color-primary-darker, 225, 34%, 31%);
-  @include defineHSLColor(--color-primary-dark, 225, 34%, 38%);
-  @include defineHSLColor(--color-primary, 225, 34%, 45%);
-  @include defineHSLColor(--color-primary-light, 225, 34%, 52%);
-  @include defineHSLColor(--color-primary-lighter, 225, 34%, 71%);
+  @include defineHSLColor(--color-text-darker, 225, 37%, 45%);
+  @include defineHSLColor(--color-text-dark, 225, 34%, 45%);
+  @include defineHSLColor(--color-text, 225, 36%, 47%);
+  @include defineHSLColor(--color-text-light, 226, 37%, 71%);
+  @include defineHSLColor(--color-text-lighter, 213, 41%, 95%);
 
   @include defineHSLColor(--color-accent-darker, 330, 85%, 36%);
   @include defineHSLColor(--color-accent-dark, 330, 85%, 44%);
   @include defineHSLColor(--color-accent, 330, 85%, 51%);
   @include defineHSLColor(--color-accent-light, 330, 85%, 59%);
   @include defineHSLColor(--color-accent-lighter, 330, 85%, 67%);
+
+  // types
+  @include defineHSLColor(--color-primary-darker, 206, 73%, 37%);
+  @include defineHSLColor(--color-primary-dark, 206, 80%, 42%);
+  @include defineHSLColor(--color-primary, 206, 73%, 47%);
+  @include defineHSLColor(--color-primary-light, 206, 73%, 54%);
+  @include defineHSLColor(--color-primary-lighter, 206, 73%, 61%);
+
+  @include defineHSLColor(--color-positive-darker, 134, 70%, 33%);
+  @include defineHSLColor(--color-positive-dark, 134, 77%, 38%);
+  @include defineHSLColor(--color-positive, 134, 70%, 43%);
+  @include defineHSLColor(--color-positive-light, 134, 70%, 50%);
+  @include defineHSLColor(--color-positive-lighter, 134, 70%, 65%);
+
+  @include defineHSLColor(--color-negative-darker, 0, 71%, 41%);
+  @include defineHSLColor(--color-negative-dark, 0, 79%, 46%);
+  @include defineHSLColor(--color-negative, 0, 71%, 51%);
+  @include defineHSLColor(--color-negative-light, 0, 71%, 60%);
+  @include defineHSLColor(--color-negative-lighter, 0, 71%, 68%);
+
+  @include defineHSLColor(--color-secondary-darker, 210, 3%, 4%);
+  @include defineHSLColor(--color-secondary-dark, 210, 4%, 8%);
+  @include defineHSLColor(--color-secondary, 210, 4%, 11%);
+  @include defineHSLColor(--color-secondary-light, 210, 4%, 16%);
+  @include defineHSLColor(--color-secondary-lighter, 210, 3%, 21%);
+
+  @include defineHSLColor(--color-basic-darker, 210, 1%, 73%);
+  @include defineHSLColor(--color-basic-dark, 210, 3%, 80%);
+  @include defineHSLColor(--color-basic, 210, 3%, 88%);
+  @include defineHSLColor(--color-basic-light, 210, 3%, 92%);
+  @include defineHSLColor(--color-basic-lighter, 210, 3%, 96%);
+
+  @include defineHSLColor(--color-night-darker, 240, 4%, 31%);
+  @include defineHSLColor(--color-night-dark, 240, 2%, 41%);
+  @include defineHSLColor(--color-night, 240, 2%, 51%);
+  @include defineHSLColor(--color-night-light, 240, 1%, 61%);
+  @include defineHSLColor(--color-night-lighter, 240, 1%, 70%);
 
   // status
   @include defineHSLColor(--color-success-darker, 120, 85%, 42%);
@@ -28,8 +61,8 @@
   @include defineHSLColor(--color-error-darker, 0, 85%, 36%);
   @include defineHSLColor(--color-error-dark, 0, 85%, 44%);
   @include defineHSLColor(--color-error, 0, 85%, 51%);
-  @include defineHSLColor(--color-error-light, 0, 85%, 59%);
-  @include defineHSLColor(--color-error-lighter, 0, 85%, 67%);
+  @include defineHSLColor(--color-error-light, 0, 85%, 75%);
+  @include defineHSLColor(--color-error-lighter, 0, 85%, 95%);
 
   @include defineHSLColor(--color-warning-darker, 60, 85%, 47%);
   @include defineHSLColor(--color-warning-dark, 60, 85%, 50%);
@@ -45,7 +78,7 @@
   @include defineHSLColor(--color-neutral-lighter, 206, 6%, 95%);
 
   // theme
-  @include defineHSLColor(--color-theme-darker, 300, 85%, 10%);
+  @include defineHSLColor(--color-theme-darker, 300, 85%, 20%);
   @include defineHSLColor(--color-theme-dark, 300, 85%, 30%);
   @include defineHSLColor(--color-theme, 300, 85%, 50%);
   @include defineHSLColor(--color-theme-light, 300, 85%, 70%);
@@ -57,4 +90,8 @@
   @include defineHSLColor(--color-contrast-medium, 240, 1%, 48%);
   @include defineHSLColor(--color-contrast-high, 240, 4%, 20%);
   @include defineHSLColor(--color-contrast-higher, 240, 8%, 12%);
+
+  // white & black
+  @include defineHSLColor(--color-white, 0, 0%, 100%);
+  @include defineHSLColor(--color-black, 0, 0%, 0%);
 }

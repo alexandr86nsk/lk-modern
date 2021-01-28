@@ -1,6 +1,7 @@
 .rl-logo {
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
 
   $parent: &;
 
@@ -11,40 +12,37 @@
     width: 100%;
     max-width: 2.6em;
     margin: 0 var(--space-sm) 0 0;
-    cursor: pointer;
-    transition: transform 1s;
     user-select: none;
-
-    &:hover {
-      transform: rotate(360deg);
-    }
   }
 
   &__title {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: inline-block;
 
     span {
-      color: var(--text-accent-light);
+      color: var(--color-text);
       font-size: var(--text-sm);
     }
 
     span:first-of-type {
-      color: var(--text-accent);
+      padding-right: var(--space-xxxxs);
+      color: var(--color-text-darker);
       font-weight: 700;
       font-size: var(--text-md);
     }
   }
 
-  // ---------- Position vertical ---------- //
-  &#{&}_position_vertical {
+  &_direction_column {
     flex-direction: column;
-    padding: var(--space-lg) 0;
 
     #{$parent}__image {
       margin: var(--space-xxs) 0;
+    }
+
+    #{$parent}__title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
   }
 }

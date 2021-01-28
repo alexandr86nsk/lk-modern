@@ -5,7 +5,7 @@ import UIReactSelect from '../../../components/UIReactSelect/UIReactSelect';
 import { jobStatusReportTableHeader, jobHistoryReportTableHeader } from './settings';
 import tableDefaultConfig from '../../../components/UIRsuiteTable/tableDeafultConfig';
 import UIRsuiteTable from '../../../components/UIRsuiteTable/UIRsuiteTable';
-import UILoader from '../../../components/Loader';
+import UILoader from '@components/Loader/Loader';
 
 const JobStatusReport = (props) => {
   const {
@@ -31,21 +31,19 @@ const JobStatusReport = (props) => {
     tableStore,
   } = item || {};
 
-  const refreshReport = React.useCallback((value) => {
-    reportsGridStoreGetReport({
-      data: {
-        id,
-        type,
-        selectedBriefcase,
-      },
-      auto: value,
-    });
-  }, [
-    id,
-    type,
-    selectedBriefcase,
-    reportsGridStoreGetReport,
-  ]);
+  const refreshReport = React.useCallback(
+    (value) => {
+      reportsGridStoreGetReport({
+        data: {
+          id,
+          type,
+          selectedBriefcase,
+        },
+        auto: value,
+      });
+    },
+    [id, type, selectedBriefcase, reportsGridStoreGetReport]
+  );
 
   const refreshTimerCallback = React.useCallback(() => {
     if (isLastRequestComplete) {
@@ -53,26 +51,35 @@ const JobStatusReport = (props) => {
     }
   }, [isLastRequestComplete, refreshReport]);
 
-  const handleChangeFilter = React.useCallback((editName, editValue) => {
-    reportsGridStoreSetReportSection({
-      id,
-      [editName]: editValue,
-    });
-  }, [id, reportsGridStoreSetReportSection]);
+  const handleChangeFilter = React.useCallback(
+    (editName, editValue) => {
+      reportsGridStoreSetReportSection({
+        id,
+        [editName]: editValue,
+      });
+    },
+    [id, reportsGridStoreSetReportSection]
+  );
 
-  const handleChangeTableStore = React.useCallback((value) => {
-    reportsGridStoreSetReportTableStoreSection({
-      id,
-      ...value,
-    });
-  }, [id, reportsGridStoreSetReportTableStoreSection]);
+  const handleChangeTableStore = React.useCallback(
+    (value) => {
+      reportsGridStoreSetReportTableStoreSection({
+        id,
+        ...value,
+      });
+    },
+    [id, reportsGridStoreSetReportTableStoreSection]
+  );
 
-  const handleChangeTableTemplate = React.useCallback((value) => {
-    reportsGridStoreSetReportTableTemplateSection({
-      id,
-      ...value,
-    });
-  }, [id, reportsGridStoreSetReportTableTemplateSection]);
+  const handleChangeTableTemplate = React.useCallback(
+    (value) => {
+      reportsGridStoreSetReportTableTemplateSection({
+        id,
+        ...value,
+      });
+    },
+    [id, reportsGridStoreSetReportTableTemplateSection]
+  );
 
   React.useEffect(() => {
     if (!tableTemplate || !tableStore) {
@@ -90,13 +97,7 @@ const JobStatusReport = (props) => {
         },
       });
     }
-  }, [
-    id,
-    isJobHistory,
-    tableTemplate,
-    tableStore,
-    reportsGridStoreSetReportSection,
-  ]);
+  }, [id, isJobHistory, tableTemplate, tableStore, reportsGridStoreSetReportSection]);
 
   React.useEffect(() => {
     reportsGridStoreSetReportTableStoreSection({
@@ -114,13 +115,16 @@ const JobStatusReport = (props) => {
     return () => clearInterval(refreshTimer);
   }, [refreshTimerCallback]);
 
-  React.useEffect(() => () => {
-    reportsGridStoreGetReportCancel(id);
-    reportsGridStoreSetReportSection({
-      id,
-      isLastRequestComplete: true,
-    });
-  }, [id, reportsGridStoreSetReportSection, reportsGridStoreGetReportCancel]);
+  React.useEffect(
+    () => () => {
+      reportsGridStoreGetReportCancel(id);
+      reportsGridStoreSetReportSection({
+        id,
+        isLastRequestComplete: true,
+      });
+    },
+    [id, reportsGridStoreSetReportSection, reportsGridStoreGetReportCancel]
+  );
 
   return (
     <div className="job-status-report">

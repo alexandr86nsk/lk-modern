@@ -4,9 +4,9 @@ export type LogoProps = {
    */
   className?: string;
   /**
-   * Направление компонента
+   * Направление контекста
    */
-  position?: 'horizontal' | 'vertical';
+  direction?: 'row' | 'column';
   /**
    * Флаг для скрытия заголовка
    */

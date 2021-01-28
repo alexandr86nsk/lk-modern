@@ -2,26 +2,42 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { RootState } from '@store/rootReducer';
 
-export type authState = {
+export type AuthState = {
   login?: string;
   password?: string;
   token?: string;
   errors?: string;
   tryAuthIndicator?: boolean;
+  registerLogin?: string;
+  registerPassword?: string;
+  registerPasswordConfirm?: string;
+  registerErrors?: string;
+  tryRegisterIndicator?: boolean;
 };
 
-export type GetAuthActionType = {
+export type GetAuthAction = {
   login: string;
   password: string;
 };
 
-export const initialState: authState = {};
+export type GetRegisterAction = GetAuthAction;
+
+export type SetAuthSectionAction = Partial<AuthState>;
+
+export const initialState: AuthState = {};
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    getAuth: (state, _action: PayloadAction<GetAuthActionType>) => {
+    setSection: (state, action: PayloadAction<SetAuthSectionAction>) => {
+      return {
+        ...state,
+        errors: undefined,
+        ...action.payload,
+      };
+    },
+    getAuth: (state, _action: PayloadAction<GetAuthAction>) => {
       return {
         ...state,
         tryAuthIndicator: true,
@@ -31,6 +47,18 @@ export const authSlice = createSlice({
       return {
         ...state,
         tryAuthIndicator: false,
+      };
+    },
+    getRegister: (state, _action: PayloadAction<GetRegisterAction>) => {
+      return {
+        ...state,
+        tryRegisterIndicator: true,
+      };
+    },
+    getRegisterCancel: (state) => {
+      return {
+        ...state,
+        tryRegisterIndicator: false,
       };
     },
     setToken: (state, action: PayloadAction<string>) => {
@@ -43,6 +71,12 @@ export const authSlice = createSlice({
       return {
         ...state,
         errors: action.payload,
+      };
+    },
+    setRegisterErrors: (state, action: PayloadAction<string>) => {
+      return {
+        ...state,
+        registerErrors: action.payload,
       };
     },
     clear: () => {
@@ -62,4 +96,9 @@ export const authSelectors = {
   password: (state: RootState) => state.auth.password,
   tryAuthIndicator: (state: RootState) => state.auth.tryAuthIndicator,
   errors: (state: RootState) => state.auth.errors,
+  registerLogin: (state: RootState) => state.auth.registerLogin,
+  registerPassword: (state: RootState) => state.auth.registerPassword,
+  registerPasswordConfirm: (state: RootState) => state.auth.registerPasswordConfirm,
+  tryRegisterIndicator: (state: RootState) => state.auth.tryRegisterIndicator,
+  registerErrors: (state: RootState) => state.auth.registerErrors,
 };

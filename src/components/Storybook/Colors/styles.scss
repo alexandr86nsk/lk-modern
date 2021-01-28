@@ -1,0 +1,61 @@
+.rl-colors {
+  &__list {
+    & > li {
+      margin-bottom: var(--space-xxxxs);
+    }
+
+    h5 {
+      display: inline-block;
+      margin-bottom: var(--space-xxxxs);
+      padding: var(--space-xxxs) var(--space-xs);
+      color: var(--color-neutral-darker);
+      font-weight: 500;
+      font-size: var(--text-xs);
+      line-height: 1;
+      text-align: center;
+      border: 1px solid var(--color-neutral-darker);
+      border-radius: var(--radius-lower);
+    }
+  }
+
+  &__section {
+    display: grid;
+    grid-gap: var(--space-xs);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  &__color {
+    padding: var(--space-xxxs);
+    background-color: var(--color-white);
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    transition: box-shadow 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  &__swatch {
+    height: 2em;
+    border-radius: var(--radius-lower) var(--radius-lower) 0 0;
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxxs);
+    padding-top: var(--space-xxxs);
+    overflow: hidden;
+    font-size: var(--text-xs);
+    text-align: right;
+  }
+
+  &__name,
+  &__value {
+    flex: 1;
+    text-align: right;
+
+    @include overflow-ellipsis;
+  }
+}

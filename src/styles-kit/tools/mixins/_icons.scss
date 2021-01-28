@@ -1,39 +1,17 @@
 $default_size: 1em;
-$default_radius: var(--radius-low);
-$default_padding: .3;
-$default_padding_compact: .1;
 
 // basic
-@mixin icon($size: $default_size, $radius: $default_radius, $padding: $default_padding) {
-  --scope-padding: #{$padding};
-
-  width: calc(#{$size} * var(--scope-padding) + #{$size});
-  height: calc(#{$size} * var(--scope-padding) + #{$size});
-  padding: calc(#{$size} * var(--scope-padding));
-  border-radius: $radius;
-}
-
-// compact
-@mixin iconCompact($padding: $default_padding_compact) {
-  --scope-padding: #{$padding};
+@mixin icon($size: $default_size) {
+  width: $size;
+  height: $size;
 }
 
 // size class
-@mixin defineIconSizeClasses($class, $parent: false) {
+@mixin defineIconSizeClasses($class) {
   @if $class {
     @each $name, $size in $sizes {
-      @if $parent {
-        &#{$class}_size_#{$name} {
-          svg {
-            @include icon(#{$size});
-          }
-        }
-      } @else {
-        #{$class}_size_#{$name} {
-          svg {
-            @include icon(#{$size});
-          }
-        }
+      &#{$class}_size_#{$name} {
+        @include icon(#{$size});
       }
     }
   } @else {

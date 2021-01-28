@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Button, Icon } from 'semantic-ui-react';
 import actions from '../../../../redux/actions/actions';
 import UIInput from '../../../../components/UIInput/UIInput';
-import UILoader from '../../../../components/Loader';
+import UILoader from '@components/Loader/Loader';
 import UIMissingData from '../../../../components/UIMissingData/UIMissingData';
 
 const options = {
@@ -38,11 +38,14 @@ function MainTab(props) {
     settingsStoreGetMainCancel,
   } = props || {};
 
-  const handleChangeValue = React.useCallback((editName, editValue) => {
-    settingsStoreSetSubSection('main', {
-      [editName]: editValue,
-    });
-  }, [settingsStoreSetSubSection]);
+  const handleChangeValue = React.useCallback(
+    (editName, editValue) => {
+      settingsStoreSetSubSection('main', {
+        [editName]: editValue,
+      });
+    },
+    [settingsStoreSetSubSection]
+  );
 
   const handleSaveChanges = React.useCallback(() => {
     settingsStoreUpdateMain(main);
@@ -73,19 +76,20 @@ function MainTab(props) {
     settingsStoreGetMain();
   }, [settingsStoreGetMain]);
 
-  React.useEffect(() => () => {
-    settingsStoreGetMainCancel();
-    settingsStoreUpdateMainCancel();
-  }, [settingsStoreGetMainCancel, settingsStoreUpdateMainCancel]);
+  React.useEffect(
+    () => () => {
+      settingsStoreGetMainCancel();
+      settingsStoreUpdateMainCancel();
+    },
+    [settingsStoreGetMainCancel, settingsStoreUpdateMainCancel]
+  );
 
   return (
     <div className="settings-page__main-tab tab">
       {loadingMainSettings && <UILoader title="Загрузка" type="block-wave" dimmed />}
       {!loadingMainSettings && main && (
         <>
-          <div className="input-block">
-            {renderInputs}
-          </div>
+          <div className="input-block">{renderInputs}</div>
           <div className="controls">
             <Button
               circular

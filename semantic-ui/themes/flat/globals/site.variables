@@ -70,7 +70,7 @@
 
 
 /*-------------------
-  Background Colors
+  Divider Colors
 --------------------*/
 
 @subtleTransparentBlack : rgba(0, 0, 0, 0.03);

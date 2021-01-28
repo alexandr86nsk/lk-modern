@@ -1,0 +1,67 @@
+$button_themes: (
+  'basic': (
+    'bg-color': var(--color-basic),
+    'bg-color-hover': var(--color-basic-dark),
+    'bg-color-active': var(--color-basic-darker),
+    'color': var(--color-night),
+    'color-hover': var(--color-night-dark),
+    'color-active': var(--color-night-darker),
+    'ripple-color': var(--color-basic-lighter),
+  ),
+  'negative': (
+    'bg-color': var(--color-negative),
+    'bg-color-hover': var(--color-negative-dark),
+    'bg-color-active': var(--color-negative-darker),
+    'color': var(--color-white),
+    'color-hover': var(--color-white),
+    'color-active': var(--color-white),
+    'ripple-color': var(--color-negative-lighter),
+  ),
+  'positive': (
+    'bg-color': var(--color-positive),
+    'bg-color-hover': var(--color-positive-dark),
+    'bg-color-active': var(--color-positive-darker),
+    'color': var(--color-white),
+    'color-hover': var(--color-white),
+    'color-active': var(--color-white),
+    'ripple-color': var(--color-positive-lighter),
+  ),
+  'primary': (
+    'bg-color': var(--color-primary),
+    'bg-color-hover': var(--color-primary-dark),
+    'bg-color-active': var(--color-primary-darker),
+    'color': var(--color-white),
+    'color-hover': var(--color-white),
+    'color-active': var(--color-white),
+    'ripple-color': var(--color-primary-lighter),
+  ),
+  'secondary': (
+    'bg-color': var(--color-secondary),
+    'bg-color-hover': var(--color-secondary-light),
+    'bg-color-active': var(--color-secondary-lighter),
+    'color': var(--color-white),
+    'color-hover': var(--color-white),
+    'color-active': var(--color-white),
+    'ripple-color': var(--color-secondary-lighter),
+  ),
+) !default;
+
+// colors
+@mixin buttonColors($colors) {
+  --scope-bg-color: #{map-get($colors, 'bg-color')};
+  --scope-bg-color-hover: #{map-get($colors, 'bg-color-hover')};
+  --scope-bg-color-active: #{map-get($colors, 'bg-color-active')};
+  --scope-color: #{map-get($colors, 'color')};
+  --scope-color-hover: #{map-get($colors, 'color-hover')};
+  --scope-color-active: #{map-get($colors, 'color-active')};
+  --scope-ripple-color: #{map-get($colors, 'ripple-color')};
+}
+
+// theme class
+@mixin defineButtonThemeClasses {
+  @each $name, $colors in $button_themes {
+    &_theme_#{$name} {
+      @include buttonColors($colors);
+    }
+  }
+}

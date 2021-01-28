@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Button, Icon } from 'semantic-ui-react';
 import actions from '../../../../redux/actions/actions';
 import RecallItem from './RecallItem';
-import UILoader from '../../../../components/Loader';
+import UILoader from '@components/Loader/Loader';
 import UIMissingData from '../../../../components/UIMissingData/UIMissingData';
 
 function RecallTab(props) {
@@ -19,11 +19,14 @@ function RecallTab(props) {
     settingsStoreGetRecallCancel,
   } = props || {};
 
-  const handleChangeValue = React.useCallback((id, editName, editValue) => {
-    settingsStoreChangeRecallItem(id, {
-      [editName]: editValue,
-    });
-  }, [settingsStoreChangeRecallItem]);
+  const handleChangeValue = React.useCallback(
+    (id, editName, editValue) => {
+      settingsStoreChangeRecallItem(id, {
+        [editName]: editValue,
+      });
+    },
+    [settingsStoreChangeRecallItem]
+  );
 
   const handleSaveChanges = React.useCallback(() => {
     settingsStoreUpdateRecall(recall);
@@ -43,19 +46,20 @@ function RecallTab(props) {
     settingsStoreGetRecall();
   }, [settingsStoreGetRecall]);
 
-  React.useEffect(() => () => {
-    settingsStoreGetRecallCancel();
-    settingsStoreUpdateRecallCancel();
-  }, [settingsStoreGetRecallCancel, settingsStoreUpdateRecallCancel]);
+  React.useEffect(
+    () => () => {
+      settingsStoreGetRecallCancel();
+      settingsStoreUpdateRecallCancel();
+    },
+    [settingsStoreGetRecallCancel, settingsStoreUpdateRecallCancel]
+  );
 
   return (
     <div className="settings-page__recall-tab tab">
       {loadingRecallSettings && <UILoader type="--google" dimmed />}
       {!loadingRecallSettings && recall && (
         <>
-          <div className="input-block">
-            {renderItems}
-          </div>
+          <div className="input-block">{renderItems}</div>
           <div className="controls">
             <Button
               circular

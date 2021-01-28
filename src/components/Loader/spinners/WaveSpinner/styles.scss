@@ -2,22 +2,21 @@ $h: 2.5em;
 $w: 7.15em;
 
 .rl-spinner {
-
   $parent: &;
 
-  &#{$parent}_type_wave {
+  &_type_wave {
     position: relative;
     width: $w;
     height: $h;
     overflow: hidden;
 
-    &__bar {
+    #{$parent}__bar {
       position: absolute;
       bottom: 0;
-      width: .85em;
+      width: 0.85em;
       height: $h;
-      background: var(--theme-color);
-      border-radius: .2em;
+      background: currentColor;
+      border-radius: 0.2em;
       transform: translateY(100%);
 
       &:nth-child(1) {
@@ -27,22 +26,22 @@ $w: 7.15em;
 
       &:nth-child(2) {
         left: 1.25em;
-        animation: bottom-top 2s infinite ease-in-out .2s;
+        animation: bottom-top 2s infinite ease-in-out 0.2s;
       }
 
       &:nth-child(3) {
         left: 2.5em;
-        animation: bottom-top 2s infinite ease-in-out .4s;
+        animation: bottom-top 2s infinite ease-in-out 0.4s;
       }
 
       &:nth-child(4) {
         left: 3.75em;
-        animation: bottom-top 2s infinite ease-in-out .6s;
+        animation: bottom-top 2s infinite ease-in-out 0.6s;
       }
 
       &:nth-child(5) {
         left: 5em;
-        animation: bottom-top 2s infinite ease-in-out .8s;
+        animation: bottom-top 2s infinite ease-in-out 0.8s;
       }
 
       &:nth-child(6) {

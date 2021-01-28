@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Table } from 'semantic-ui-react';
 import actions from '../../../redux/actions/actions';
 import UIReactSelect from '../../../components/UIReactSelect/UIReactSelect';
-import UILoader from '../../../components/Loader';
+import UILoader from '@components/Loader/Loader';
 import JobDetailReportItem from './JobDetailReportItem';
 
 const JobDetailReport = (props) => {
@@ -16,36 +16,23 @@ const JobDetailReport = (props) => {
     reportsGridStoreSetReportSection,
   } = props || {};
 
-  const {
-    id,
-    data,
-    selectedBriefcase,
-    loading,
-    type,
-    isLastRequestComplete,
-  } = item || {};
+  const { id, data, selectedBriefcase, loading, type, isLastRequestComplete } = item || {};
 
-  const {
-    PercentageJobDetails,
-    QuantyJobDetails,
-    SystemParamsJobDetails,
-  } = data || {};
+  const { PercentageJobDetails, QuantyJobDetails, SystemParamsJobDetails } = data || {};
 
-  const refreshReport = React.useCallback((value) => {
-    reportsGridStoreGetReport({
-      data: {
-        id,
-        type,
-        selectedBriefcase,
-      },
-      auto: value,
-    });
-  }, [
-    id,
-    type,
-    selectedBriefcase,
-    reportsGridStoreGetReport,
-  ]);
+  const refreshReport = React.useCallback(
+    (value) => {
+      reportsGridStoreGetReport({
+        data: {
+          id,
+          type,
+          selectedBriefcase,
+        },
+        auto: value,
+      });
+    },
+    [id, type, selectedBriefcase, reportsGridStoreGetReport]
+  );
 
   const refreshTimerCallback = React.useCallback(() => {
     if (isLastRequestComplete) {
@@ -53,26 +40,29 @@ const JobDetailReport = (props) => {
     }
   }, [isLastRequestComplete, refreshReport]);
 
-  const handleChangeFilter = React.useCallback((editName, editValue) => {
-    reportsGridStoreSetReportSection({
-      id,
-      [editName]: editValue,
-    });
-  }, [id, reportsGridStoreSetReportSection]);
+  const handleChangeFilter = React.useCallback(
+    (editName, editValue) => {
+      reportsGridStoreSetReportSection({
+        id,
+        [editName]: editValue,
+      });
+    },
+    [id, reportsGridStoreSetReportSection]
+  );
 
   const renderPercentageJobDetails = React.useMemo(
     () => <JobDetailReportItem data={PercentageJobDetails} title="Процентные данные задания" />,
-    [PercentageJobDetails],
+    [PercentageJobDetails]
   );
 
   const renderQuantyJobDetails = React.useMemo(
     () => <JobDetailReportItem data={QuantyJobDetails} title="Количественные данные задания" />,
-    [QuantyJobDetails],
+    [QuantyJobDetails]
   );
 
   const renderSystemParamsJobDetails = React.useMemo(
     () => <JobDetailReportItem data={SystemParamsJobDetails} title="Системные параметры задания" />,
-    [SystemParamsJobDetails],
+    [SystemParamsJobDetails]
   );
 
   React.useEffect(() => {
@@ -84,23 +74,25 @@ const JobDetailReport = (props) => {
     return () => clearInterval(refreshTimer);
   }, [refreshTimerCallback]);
 
-  React.useEffect(() => () => {
-    reportsGridStoreGetReportCancel(id);
-    reportsGridStoreSetReportSection({
-      id,
-      isLastRequestComplete: true,
-    });
-  }, [id, reportsGridStoreSetReportSection, reportsGridStoreGetReportCancel]);
+  React.useEffect(
+    () => () => {
+      reportsGridStoreGetReportCancel(id);
+      reportsGridStoreSetReportSection({
+        id,
+        isLastRequestComplete: true,
+      });
+    },
+    [id, reportsGridStoreSetReportSection, reportsGridStoreGetReportCancel]
+  );
 
   return (
     <div className="job-detail-report">
       <div className="job-detail-report__body">
-        {loading
-          && (
+        {loading && (
           <div className="job-detail-report__loader">
             <UILoader type="--google" dimmed />
           </div>
-          )}
+        )}
         <div className="job-detail-report__table">
           <Table selectable celled fixed size="small">
             <Table.Header>

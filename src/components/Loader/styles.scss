@@ -1,152 +1,42 @@
 .rl-loader {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: var(--zindex-absolute);
   display: flex;
   align-items: center;
   justify-content: center;
   transform: translateZ(-1em);
   user-select: none;
-  pointer-events: none;
-
-  @include overlay;
 
   $parent: &;
 
-  &__content {
-    position: relative;
-    display: grid;
-    grid-gap: var(--space-xs);
-    grid-template: auto / 1fr;
+  &_type_dimmed {
+    background-color: alpha-color(var(--color-white), 0.85);
+  }
+
+  &_position_absolute {
+    position: absolute;
+    z-index: var(--zindex-absolute);
+  }
+
+  &_position_fixed {
+    position: fixed;
+    z-index: var(--zindex-fix);
+  }
+
+  &__inner {
+    display: flex;
+    gap: var(--space-xs);
+    align-items: center;
     text-align: center;
   }
 
-  &__wrapper {
-    display: flex;
-  }
-
-  &__dimmer {
-    background-color: rgba(255, 255, 255, .6);
-
-    @include overlay;
-  }
-
-  &__dot {
-
-    &:nth-of-type(2) {
-      animation: visibility1 3s linear infinite;
+  &_direction_column {
+    #{$parent}__inner {
+      flex-direction: column;
+      gap: var(--space-sm);
     }
-
-    &:nth-of-type(3) {
-      animation: visibility2 3s linear infinite;
-    }
-
-    &:nth-of-type(4) {
-      animation: visibility3 3s linear infinite;
-    }
-  }
-
-  // ---------- Type basic ---------- //
-  &#{&}_type_basic {
-
-    #{$parent}__content {
-      padding-top: var(--space-lg);
-
-      ::before,
-      ::after {
-        position: absolute;
-        top: var(--space-xxs);
-        width: var(--text-lg);
-        height: var(--text-lg);
-        border-radius: var(--radius-circle);
-        content: '';
-      }
-
-      ::before {
-        border: 0.2em solid var(--theme-color);
-        opacity: .1;
-      }
-
-      ::after {
-        border-color: var(--theme-color) transparent transparent;
-        border-style: solid;
-        border-width: .2em;
-        box-shadow: 0 0 0 1px transparent;
-        animation: loader .6s infinite linear;
-      }
-    }
-  }
-
-  // ---------- Position horizontal ---------- //
-  &#{&}_position_horizontal {
-    display: grid;
-    grid-gap: var(--space-sm);
-    grid-template: auto / auto;
-  }
-}
-
-@keyframes visibility1 {
-  0% {
-    opacity: 1;
-  }
-  65% {
-    opacity: 1;
-  }
-  66% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes visibility2 {
-  0% {
-    opacity: 0;
-  }
-  21% {
-    opacity: 0;
-  }
-  22% {
-    opacity: 1;
-  }
-  65% {
-    opacity: 1;
-  }
-  66% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes visibility3 {
-  0% {
-    opacity: 0;
-  }
-  43% {
-    opacity: 0;
-  }
-  44% {
-    opacity: 1;
-  }
-  65% {
-    opacity: 1;
-  }
-  66% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes loader {
-  from {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-
-  to {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
   }
 }

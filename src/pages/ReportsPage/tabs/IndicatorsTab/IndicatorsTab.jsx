@@ -8,7 +8,7 @@ import tableDefaultConfig from '../../../../components/UIRsuiteTable/tableDeaful
 import CallStatisticFilter from './CallStatisticFilter';
 import UIElementTitle from '../../../../components/UIElementTitle/UIElementTitle';
 import OperatorInfo from './OperatorInfo';
-import UILoader from '../../../../components/Loader';
+import UILoader from '@components/Loader/Loader';
 
 function IndicatorsTab(props) {
   const {
@@ -27,23 +27,20 @@ function IndicatorsTab(props) {
     reportsStoreSetSection,
   } = props || {};
 
-  const {
-    selectedCallStatisticBriefcase,
-  } = callStatisticFilter || {};
+  const { selectedCallStatisticBriefcase } = callStatisticFilter || {};
 
   const handleRefreshTable = React.useCallback(() => {
     reportsStoreGetOperatorInfo(selectedCallStatisticBriefcase);
     reportsStoreGetCallStatistic(selectedCallStatisticBriefcase);
-  }, [
-    selectedCallStatisticBriefcase,
-    reportsStoreGetOperatorInfo,
-    reportsStoreGetCallStatistic,
-  ]);
+  }, [selectedCallStatisticBriefcase, reportsStoreGetOperatorInfo, reportsStoreGetCallStatistic]);
 
-  React.useEffect(() => () => {
-    reportsStoreGetCallStatisticCancel();
-    reportsStoreGetOperatorInfoCancel();
-  }, [reportsStoreGetCallStatisticCancel, reportsStoreGetOperatorInfoCancel]);
+  React.useEffect(
+    () => () => {
+      reportsStoreGetCallStatisticCancel();
+      reportsStoreGetOperatorInfoCancel();
+    },
+    [reportsStoreGetCallStatisticCancel, reportsStoreGetOperatorInfoCancel]
+  );
 
   React.useEffect(() => {
     if (!callStatisticTableTemplate || !callStatisticTableStore) {
@@ -61,20 +58,13 @@ function IndicatorsTab(props) {
         },
       });
     }
-  }, [
-    callStatisticTableTemplate,
-    callStatisticTableStore,
-    reportsStoreSetSection,
-  ]);
+  }, [callStatisticTableTemplate, callStatisticTableStore, reportsStoreSetSection]);
 
   React.useEffect(() => {
     reportsStoreSetCallStatisticTableStoreSection({
       refreshCallback: handleRefreshTable,
     });
-  }, [
-    handleRefreshTable,
-    reportsStoreSetCallStatisticTableStoreSection,
-  ]);
+  }, [handleRefreshTable, reportsStoreSetCallStatisticTableStoreSection]);
 
   React.useEffect(() => {
     handleRefreshTable();
@@ -107,8 +97,10 @@ const mapStateToProps = (state) => ({
   callStatisticFilter: state.reportsStore.callStatisticFilter,
   callStatisticTableStore: state.reportsStore.callStatisticTableStore,
   callStatisticTableTemplate: state.reportsStore.callStatisticTableTemplate,
-  reportsStoreSetCallStatisticTableStoreSection: state.reportsStore.reportsStoreSetCallStatisticTableStoreSection,
-  reportsStoreSetCallStatisticTableTemplateSection: state.reportsStore.reportsStoreSetCallStatisticTableTemplateSection,
+  reportsStoreSetCallStatisticTableStoreSection:
+    state.reportsStore.reportsStoreSetCallStatisticTableStoreSection,
+  reportsStoreSetCallStatisticTableTemplateSection:
+    state.reportsStore.reportsStoreSetCallStatisticTableTemplateSection,
 });
 
 const mapDispatchToProps = { ...actions };

@@ -1,0 +1,19 @@
+.ripple {
+  position: absolute;
+  z-index: 0;
+  width: 2px;
+  height: 2px;
+  background-color: var(--color-neutral-light);
+  border-radius: var(--radius-circular);
+  animation: rippleEffect 0.7s ease-in-out;
+}
+
+@keyframes rippleEffect {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(var(--scale-ripple));
+    opacity: 0;
+  }
+}

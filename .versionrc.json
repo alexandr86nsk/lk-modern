@@ -1,0 +1,16 @@
+{
+  "NAME": "Changelog",
+  "VERSION": "1.0.0",
+  "types": [
+    { "type": "feat", "section": "Features" },
+    { "type": "fix", "section": "Bug Fixes" },
+    { "type": "chore", "hidden": true },
+    { "type": "docs", "hidden": true },
+    { "type": "style", "hidden": true },
+    { "type": "refactor", "hidden": true },
+    { "type": "perf", "hidden": true },
+    { "type": "test", "hidden": true }
+  ],
+  "commitUrlFormat": "https://github.com/alexandr86nsk/lk-modern/commit/{{hash}}",
+  "compareUrlFormat": "https://github.com/alexandr86nsk/lk-modern/compare/{{previousTag}}...{{currentTag}}"
+}

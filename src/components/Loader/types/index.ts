@@ -8,19 +8,19 @@ export type LoaderProps = {
    */
   text?: string;
   /**
-   * Направление компонента
+   * Направление контекста
    */
-  position?: 'horizontal' | 'vertical';
+  direction?: 'row' | 'column';
+  /**
+   * Позиция компонента
+   */
+  position?: 'fixed' | 'absolute';
   /**
    * Тип загрузчика
    */
-  type?: 'wave';
+  type?: 'wave' | 'basic';
   /**
    * Флаг наличия области затемнения
    */
   isDimmed?: boolean;
-  /**
-   * Флаг наличия троеточия с анимацией в конце заголовка
-   */
-  isDotsHidden?: boolean;
 };

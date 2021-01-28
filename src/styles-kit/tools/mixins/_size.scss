@@ -1,0 +1,15 @@
+$default_size: 1em;
+
+// size
+@mixin font-size($size: $default_size) {
+  font-size: #{$size};
+}
+
+// size class
+@mixin defineSizeClasses {
+  @each $name, $size in $sizes {
+    &_size_#{$name} {
+      @include font-size(#{$size});
+    }
+  }
+}

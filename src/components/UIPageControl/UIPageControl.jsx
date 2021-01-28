@@ -1,14 +1,11 @@
 import React from 'react';
 import './UIPageControl.scss';
-import UILoader from '../Loader';
+import UILoader from '../Loader/Loader';
 import UITransition from '../UITransition/UITransition';
 import controlButtons from './settings';
 
 function UIPageControl(props) {
-  const {
-    actions,
-    loading,
-  } = props;
+  const { actions, loading } = props;
 
   /*  const memoizedButtons = React.useMemo(() => {
     let counter = 0;
@@ -32,22 +29,26 @@ function UIPageControl(props) {
     });
   }, [actions, loading]); */
 
-  const memoizedButtons = React.useMemo(() => controlButtons.map((v) => {
-    if (actions[v.type]) {
-      return (
-        <div
-          key={v.id}
-          role="presentation"
-          className={`ui-page-control__button ${v.type} active`}
-          title={v.title}
-          onClick={actions[v.type]}
-        >
-          {v.type !== 'back' && loading[v.type] ? <UILoader size="small" /> : v.icon}
-        </div>
-      );
-    }
-    return null;
-  }), [actions, loading]);
+  const memoizedButtons = React.useMemo(
+    () =>
+      controlButtons.map((v) => {
+        if (actions[v.type]) {
+          return (
+            <div
+              key={v.id}
+              role="presentation"
+              className={`ui-page-control__button ${v.type} active`}
+              title={v.title}
+              onClick={actions[v.type]}
+            >
+              {v.type !== 'back' && loading[v.type] ? <UILoader size="small" /> : v.icon}
+            </div>
+          );
+        }
+        return null;
+      }),
+    [actions, loading]
+  );
 
   return (
     <div className="ui-page-control">

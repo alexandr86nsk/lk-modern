@@ -2,11 +2,12 @@ $tail_bg_indent: -20px;
 $tail_border_indent: -18px;
 $tail_border_width: 10px;
 $text_line-height: 1.2;
-$text_padding_scale: .3;
 
 .rl-popup {
   display: inline-block;
-  line-height: 0;
+  line-height: 1;
+
+  $parent: &;
 
   &__inner {
     position: relative;
@@ -27,7 +28,7 @@ $text_padding_scale: .3;
     border-width: 1px;
     border-radius: var(--radius-low);
     filter: drop-shadow(#{var(--shadow-low)});
-    transition: transform .3s ease;
+    transition: transform 0.3s ease;
 
     @include breakpoint(lg) {
       position: absolute;
@@ -54,14 +55,15 @@ $text_padding_scale: .3;
     height: 0;
     border-style: solid;
     border-width: $tail_border_width;
+    pointer-events: none;
 
-    &#{&}_border {
+    &_border {
       top: $tail_border_indent;
       bottom: $tail_border_indent;
       border-color: var(--color-white) transparent transparent transparent;
     }
 
-    &#{&}_bg {
+    &_bg {
       top: $tail_bg_indent;
       bottom: $tail_bg_indent;
       border-color: var(--color-neutral) transparent transparent transparent;
@@ -73,14 +75,16 @@ $text_padding_scale: .3;
   }
 
   &__text {
-    padding: calc(var(--text-md) * #{$text_padding_scale}) 0;
-
-    @include breakpoint(lg) {
-      padding: calc(var(--text-md) * #{$text_padding_scale}) 0;
-    }
+    margin: auto 0;
   }
 
   &__close {
-      margin-left: var(--space-sm);
+    margin-left: var(--space-sm);
+  }
+
+  &_type_closeable {
+    #{$parent}__tail {
+      pointer-events: initial;
+    }
   }
 }

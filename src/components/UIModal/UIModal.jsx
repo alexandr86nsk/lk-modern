@@ -2,7 +2,7 @@ import React from 'react';
 import './UIModal.scss';
 import { Button, Icon } from 'semantic-ui-react';
 import CloseIcon from '../../assetssadads/icons/close-24px.svg';
-import UILoader from '../Loader';
+import UILoader from '../Loader/Loader';
 
 function UIModal(props) {
   const {
@@ -21,10 +21,7 @@ function UIModal(props) {
     readOnly,
   } = props || {};
 
-  const {
-    positiveTitle,
-    negativeTitle,
-  } = buttons || {};
+  const { positiveTitle, negativeTitle } = buttons || {};
 
   React.useEffect(() => {
     document.body.classList.add('modal');
@@ -58,54 +55,44 @@ function UIModal(props) {
     <div className={`ui-modal${active ? ' active' : ''}${type ? ` ${type}` : ''}`}>
       <div className="confirm-block">
         <div className="confirm-block__title">
-          <div className="confirm-block__icon">
-            {icon && icon}
-          </div>
-          <div className="confirm-block__text">
-            {title}
-          </div>
+          <div className="confirm-block__icon">{icon && icon}</div>
+          <div className="confirm-block__text">{title}</div>
         </div>
         <div className="confirm-block__body">
-          {loading && <div className="ui-modal__loader"><UILoader text={loadingText} /></div>}
+          {loading && (
+            <div className="ui-modal__loader">
+              <UILoader text={loadingText} />
+            </div>
+          )}
           {body}
         </div>
-        {!(hidePositive && hideNegative)
-          && (
+        {!(hidePositive && hideNegative) && (
           <div className="confirm-block__controls">
-            {(!hidePositive && !readOnly) && (
-            <div className="confirm-block__accept-btn">
-              <Button
-                circular
-                positive
-                size="small"
-                onClick={handleAcceptClick}
-                disabled={disabledPositive}
-              >
-                <Icon name="check" />
-                {positiveTitle || 'Да'}
-              </Button>
-            </div>
+            {!hidePositive && !readOnly && (
+              <div className="confirm-block__accept-btn">
+                <Button
+                  circular
+                  positive
+                  size="small"
+                  onClick={handleAcceptClick}
+                  disabled={disabledPositive}
+                >
+                  <Icon name="check" />
+                  {positiveTitle || 'Да'}
+                </Button>
+              </div>
             )}
             {!hideNegative && (
-            <div className="confirm-block__reject-btn">
-              <Button
-                circular
-                negative
-                size="small"
-                onClick={handleClose}
-              >
-                <Icon name="close" />
-                {readOnly ? 'Закрыть' : (negativeTitle || 'Нет')}
-              </Button>
-            </div>
+              <div className="confirm-block__reject-btn">
+                <Button circular negative size="small" onClick={handleClose}>
+                  <Icon name="close" />
+                  {readOnly ? 'Закрыть' : negativeTitle || 'Нет'}
+                </Button>
+              </div>
             )}
           </div>
-          )}
-        <div
-          role="presentation"
-          className="confirm-block__close"
-          onClick={handleClose}
-        >
+        )}
+        <div role="presentation" className="confirm-block__close" onClick={handleClose}>
           <div className="confirm-block__close-icon">
             <CloseIcon />
           </div>

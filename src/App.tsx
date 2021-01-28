@@ -6,7 +6,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { useShallowEqualSelector } from '@src/hooks';
 import { routes } from '@src/routes';
 
-import { Background } from '@components/Background';
+import { Background } from '@components/Background/Background';
 import { PageWrapper } from '@components/PageWrapper';
 
 import { AuthPage } from '@pages/AuthPage';
@@ -17,7 +17,7 @@ function Application() {
   const token = useShallowEqualSelector(authSelectors.token);
   const isAuth = !!token;
   const element = useRoutes(routes);
-  const { key } = useLocation();
+  const { pathname } = useLocation();
 
   return (
     <div className="application" data-theme="default">
@@ -25,7 +25,7 @@ function Application() {
       {isAuth ? (
         <PageWrapper>
           <TransitionGroup>
-            <CSSTransition key={key} classNames="fade" timeout={300}>
+            <CSSTransition key={pathname} classNames="fade" timeout={300}>
               {element}
             </CSSTransition>
           </TransitionGroup>

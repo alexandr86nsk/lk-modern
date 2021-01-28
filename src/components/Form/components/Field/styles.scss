@@ -1,28 +1,154 @@
+$default_distance: 0.67857143em;
+$border-radius: 0.28571429em;
+
 .rl-field {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  cursor: text;
 
   $parent: &;
 
   &__inner {
+    position: relative;
     display: flex;
-    gap: .2em;
+    flex: 1;
     align-items: center;
+    padding: 0 var(--space-sm);
+    background-color: var(--color-white);
+    border: 1px solid currentColor;
+    border-radius: $border-radius;
+    transition: color, border-color, box-shadow 0.2s ease-in-out;
+  }
+
+  &__label {
+    padding-right: $default_distance;
   }
 
   &__input {
-    display: flex;
+    display: inline-flex;
+    flex: 1;
     align-items: center;
-  }
 
-  &__icon {
-
-    &#{&}_type_error {
-      color: var(--color-error);
+    input {
+      flex: 1;
+      width: 100%;
+      padding: $default_distance 0;
+      color: inherit;
+      background-color: transparent;
     }
   }
 
+  &__info {
+    display: inline-flex;
+    gap: calc(#{$default_distance} / 1.7);
+    align-items: center;
+    padding-left: var(--space-xxxxs);
+  }
+
+  &__icon {
+    font-size: 1.3em;
+
+    &_type_error {
+      color: var(--color-error);
+    }
+
+    &_type_success {
+      color: var(--color-success);
+    }
+  }
+
+  &__bubble {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: var(--zindex-absolute);
+    margin-top: var(--space-xxxxs);
+    transform: translateY(-20%);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+  }
+
   &__errors {
-    padding-top: var(--space-xxxs);
-    color: var(--color-error);
-    font-size: var(--text-xs);
+    position: relative;
+    padding: var(--space-xxxxs) var(--space-xs) var(--space-xxxxs) var(--space-xxl);
+    color: alpha-color(var(--color-error), 0.85);
+    font-size: 0.85em;
+    list-style: disc;
+    background: var(--color-error-lighter);
+    border: 1px solid var(--color-error);
+    border-radius: $border-radius;
+
+    &::after,
+    &::before {
+      position: absolute;
+      bottom: 100%;
+      left: 1.85em;
+      width: 0;
+      height: 0;
+      margin-left: -0.5em;
+      border: 0.5em solid transparent;
+      content: '';
+      pointer-events: none;
+    }
+
+    &::after {
+      border-bottom-color: var(--color-error-lighter);
+      transform: translateY(1px);
+    }
+
+    &::before {
+      border-bottom-color: var(--color-error);
+    }
+
+    li {
+      margin: 0.2em 0;
+      line-height: 1.15em;
+    }
+  }
+
+  // focused
+  &_state_focused &__bubble {
+    transform: translateY(0);
+    visibility: visible;
+    opacity: 1;
+  }
+
+  // error
+  &_type_error &__inner {
+    border-color: var(--color-error);
+  }
+
+  // ---------- Theme filled ---------- //
+  &_theme_filled {
+    #{$parent}__inner {
+      background-color: var(--color-text-lighter);
+      border-color: var(--color-text-lighter);
+    }
+
+    // error
+    &#{$parent}_type_error {
+      #{$parent}__inner {
+        background-color: var(--color-error-lighter);
+        border-color: var(--color-error-lighter);
+      }
+    }
+
+    // focused
+    &#{$parent}_state_focused {
+      #{$parent}__inner {
+        background-color: inherit;
+        border-color: var(--color-text-light);
+      }
+
+      // error
+      &#{$parent}_type_error {
+        #{$parent}__inner {
+          background-color: inherit;
+          border-color: var(--color-error-light);
+        }
+      }
+    }
   }
 }

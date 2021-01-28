@@ -7,7 +7,7 @@ import { actualStateTableDataTemplate } from './settings';
 import UIRsuiteTable from '../../../../components/UIRsuiteTable/UIRsuiteTable';
 import tableDefaultConfig from '../../../../components/UIRsuiteTable/tableDeafultConfig';
 import ActualStateFilter from './ActualStateFilter';
-import UILoader from '../../../../components/Loader';
+import UILoader from '@components/Loader/Loader';
 
 function ActualStateTab(props) {
   const {
@@ -23,30 +23,29 @@ function ActualStateTab(props) {
     reportsStoreSetActualStateTableTemplateSection,
   } = props || {};
 
-  const {
-    selectedActualStateBriefcase,
-    actualStateFrom,
-    actualStateTo,
-    selectedActualStatePhone,
-  } = actualStateFilter || {};
+  const { selectedActualStateBriefcase, actualStateFrom, actualStateTo, selectedActualStatePhone } =
+    actualStateFilter || {};
 
-  const handleRefreshTable = React.useCallback((value) => {
-    reportsStoreGetActualState({
-      data: {
-        startDate: actualStateFrom,
-        endDate: actualStateTo,
-        briefcaseId: selectedActualStateBriefcase,
-        phone: selectedActualStatePhone,
-      },
-      auto: value,
-    });
-  }, [
-    selectedActualStateBriefcase,
-    selectedActualStatePhone,
-    actualStateFrom,
-    actualStateTo,
-    reportsStoreGetActualState,
-  ]);
+  const handleRefreshTable = React.useCallback(
+    (value) => {
+      reportsStoreGetActualState({
+        data: {
+          startDate: actualStateFrom,
+          endDate: actualStateTo,
+          briefcaseId: selectedActualStateBriefcase,
+          phone: selectedActualStatePhone,
+        },
+        auto: value,
+      });
+    },
+    [
+      selectedActualStateBriefcase,
+      selectedActualStatePhone,
+      actualStateFrom,
+      actualStateTo,
+      reportsStoreGetActualState,
+    ]
+  );
 
   const refreshTimerCallback = React.useCallback(() => {
     if (isLastRequestComplete) {
@@ -59,20 +58,19 @@ function ActualStateTab(props) {
     return () => clearInterval(refreshTimer);
   }, [refreshTimerCallback]);
 
-  React.useEffect(() => () => {
-    reportsStoreGetActualStateCancel();
-    reportsStoreSetSection({
-      isLastRequestComplete: true,
-    });
-  }, [
-    reportsStoreSetSection,
-    reportsStoreGetActualStateCancel,
-  ]);
-
-  const sortedActualState = React.useMemo(
-    () => sortBy(actualState, 'CallModifyDate').reverse(),
-    [actualState],
+  React.useEffect(
+    () => () => {
+      reportsStoreGetActualStateCancel();
+      reportsStoreSetSection({
+        isLastRequestComplete: true,
+      });
+    },
+    [reportsStoreSetSection, reportsStoreGetActualStateCancel]
   );
+
+  const sortedActualState = React.useMemo(() => sortBy(actualState, 'CallModifyDate').reverse(), [
+    actualState,
+  ]);
 
   React.useEffect(() => {
     if (!actualStateTableTemplate || !actualStateTableStore) {
@@ -91,11 +89,7 @@ function ActualStateTab(props) {
         },
       });
     }
-  }, [
-    actualStateTableTemplate,
-    actualStateTableStore,
-    reportsStoreSetSection,
-  ]);
+  }, [actualStateTableTemplate, actualStateTableStore, reportsStoreSetSection]);
 
   React.useEffect(() => {
     handleRefreshTable(false);

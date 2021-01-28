@@ -11,8 +11,8 @@ import { isDefined } from '@src/utils';
 
 const MARGIN_FROM_PARENT = 10;
 const MARGIN_FROM_BODY = 25;
-const LINE_HEIGHT = 1.25;
-const MAX_LINES = 2;
+const LINE_HEIGHT = 1.15;
+const MAX_LINES = 3;
 const MAX_OVERFLOW_LINES = 7;
 const WIDTH_STEP = 50;
 const MAX_WIDTH = 450;
@@ -100,14 +100,11 @@ export function usePopupPosition(
         if (textRef.current) {
           const { fontSize: styleFontSize } = getComputedStyle(textRef.current, null);
           const fontSize = parseFloat(styleFontSize.replace('px', ''));
-          console.log('fontSize: ', fontSize);
-          console.log('textHeight: ', textHeight);
           const lines = Math.ceil(textHeight / (fontSize * LINE_HEIGHT));
-          console.log('lines: ', lines);
           if (elWidth < maxOverflowWidth) {
-            if (elWidth < maxWidth && lines >= MAX_LINES) {
+            if (elWidth <= maxWidth && lines >= MAX_LINES) {
               elWidth = elWidth + WIDTH_STEP;
-            } else if (lines >= MAX_OVERFLOW_LINES) {
+            } else if (elWidth > maxWidth && lines >= MAX_OVERFLOW_LINES) {
               elWidth = elWidth + WIDTH_STEP;
             }
           } else {
@@ -115,6 +112,7 @@ export function usePopupPosition(
           }
         }
 
+        // left or right
         if (noticeOut <= defaultValues.ZERO) {
           elLeft = -halfNoticeOut;
         } else {

@@ -8,7 +8,7 @@ import WarningIcon from '../../assetssadads/icons/warning-24px.svg';
 import UIRsuiteTable from '../../components/UIRsuiteTable/UIRsuiteTable';
 import tableDefaultConfig from '../../components/UIRsuiteTable/tableDeafultConfig';
 import BriefcaseEditor from './common/BriefcaseEditor';
-import UILoader from '../../components/Loader';
+import UILoader from '@components/Loader/Loader';
 
 function BriefcasesPage(props) {
   const {
@@ -44,46 +44,61 @@ function BriefcasesPage(props) {
     });
   }, [popUpStoreSetSection, trySaveBriefcase]);
 
-  const handleEditBriefcase = React.useCallback((value) => {
-    const { QueuePhone: thisQueuePhone } = value || {};
-    popUpStoreSetSection({
-      show: true,
-      component: <BriefcaseEditor id={thisQueuePhone} />,
-      type: '--right --55 --rounded --styled',
-      title: thisQueuePhone,
-      queueId: thisQueuePhone,
-    });
-  }, [popUpStoreSetSection]);
+  const handleEditBriefcase = React.useCallback(
+    (value) => {
+      const { QueuePhone: thisQueuePhone } = value || {};
+      popUpStoreSetSection({
+        show: true,
+        component: <BriefcaseEditor id={thisQueuePhone} />,
+        type: '--right --55 --rounded --styled',
+        title: thisQueuePhone,
+        queueId: thisQueuePhone,
+      });
+    },
+    [popUpStoreSetSection]
+  );
 
-  const handleStartBriefcase = React.useCallback((value) => {
-    const { Id: thisId } = value || {};
-    briefcasesStoreStartBriefcase(thisId);
-  }, [briefcasesStoreStartBriefcase]);
+  const handleStartBriefcase = React.useCallback(
+    (value) => {
+      const { Id: thisId } = value || {};
+      briefcasesStoreStartBriefcase(thisId);
+    },
+    [briefcasesStoreStartBriefcase]
+  );
 
-  const handleStopBriefcase = React.useCallback((value) => {
-    const { Id: thisId } = value || {};
-    briefcasesStoreStopBriefcase(thisId);
-  }, [briefcasesStoreStopBriefcase]);
+  const handleStopBriefcase = React.useCallback(
+    (value) => {
+      const { Id: thisId } = value || {};
+      briefcasesStoreStopBriefcase(thisId);
+    },
+    [briefcasesStoreStopBriefcase]
+  );
 
-  const removeBriefcase = React.useCallback((value) => {
-    const { Id: thisId } = value || {};
-    briefcasesStoreDeleteBriefcase(thisId);
-  }, [briefcasesStoreDeleteBriefcase]);
+  const removeBriefcase = React.useCallback(
+    (value) => {
+      const { Id: thisId } = value || {};
+      briefcasesStoreDeleteBriefcase(thisId);
+    },
+    [briefcasesStoreDeleteBriefcase]
+  );
 
-  const handleRemoveBriefcase = React.useCallback((value) => {
-    const { QueuePhone: thisQueuePhone } = value || {};
-    modalStoreSetSection({
-      show: true,
-      outputBody: {
-        icon: <WarningIcon />,
-        title: 'Важно',
-        body: <div>{`Действительно хотите удалить очередь "${thisQueuePhone}"?`}</div>,
-      },
-      data: value,
-      asyncClose: true,
-      callback: removeBriefcase,
-    });
-  }, [modalStoreSetSection, removeBriefcase]);
+  const handleRemoveBriefcase = React.useCallback(
+    (value) => {
+      const { QueuePhone: thisQueuePhone } = value || {};
+      modalStoreSetSection({
+        show: true,
+        outputBody: {
+          icon: <WarningIcon />,
+          title: 'Важно',
+          body: <div>{`Действительно хотите удалить очередь "${thisQueuePhone}"?`}</div>,
+        },
+        data: value,
+        asyncClose: true,
+        callback: removeBriefcase,
+      });
+    },
+    [modalStoreSetSection, removeBriefcase]
+  );
 
   React.useEffect(() => {
     if (!tableTemplate || !tableStore) {
@@ -100,11 +115,7 @@ function BriefcasesPage(props) {
         },
       });
     }
-  }, [
-    tableTemplate,
-    tableStore,
-    briefcasesStoreSetSection,
-  ]);
+  }, [tableTemplate, tableStore, briefcasesStoreSetSection]);
 
   React.useEffect(() => {
     briefcasesStoreSetTableStoreSection({
@@ -117,7 +128,7 @@ function BriefcasesPage(props) {
           title: 'Старт',
           icon: 'play',
           color: 'green',
-          showCondition: (rowData) => (rowData.Work === 1 || rowData.Work === 5),
+          showCondition: (rowData) => rowData.Work === 1 || rowData.Work === 5,
         },
         {
           id: 1,
@@ -125,7 +136,7 @@ function BriefcasesPage(props) {
           title: 'Стоп',
           icon: 'stop',
           color: 'red',
-          showCondition: (rowData) => (rowData.Work === 0),
+          showCondition: (rowData) => rowData.Work === 0,
         },
         {
           id: 2,
@@ -154,27 +165,28 @@ function BriefcasesPage(props) {
 
   React.useEffect(() => {
     briefcasesStoreGetBriefcases();
-  }, [
-    briefcasesStoreGetBriefcases,
-  ]);
+  }, [briefcasesStoreGetBriefcases]);
 
-  React.useEffect(() => () => {
-    briefcasesStoreGetBriefcasesCancel();
-    briefcasesStoreAddBriefcaseCancel();
-    briefcasesStoreDeleteBriefcaseCancel();
-    briefcasesStoreUpdateBriefcaseFileCancel();
-    briefcasesStoreStartBriefcaseCancel();
-    briefcasesStoreStopBriefcaseCancel();
-    popUpStoreClear();
-  }, [
-    briefcasesStoreGetBriefcasesCancel,
-    briefcasesStoreAddBriefcaseCancel,
-    briefcasesStoreDeleteBriefcaseCancel,
-    briefcasesStoreUpdateBriefcaseFileCancel,
-    briefcasesStoreStartBriefcaseCancel,
-    briefcasesStoreStopBriefcaseCancel,
-    popUpStoreClear,
-  ]);
+  React.useEffect(
+    () => () => {
+      briefcasesStoreGetBriefcasesCancel();
+      briefcasesStoreAddBriefcaseCancel();
+      briefcasesStoreDeleteBriefcaseCancel();
+      briefcasesStoreUpdateBriefcaseFileCancel();
+      briefcasesStoreStartBriefcaseCancel();
+      briefcasesStoreStopBriefcaseCancel();
+      popUpStoreClear();
+    },
+    [
+      briefcasesStoreGetBriefcasesCancel,
+      briefcasesStoreAddBriefcaseCancel,
+      briefcasesStoreDeleteBriefcaseCancel,
+      briefcasesStoreUpdateBriefcaseFileCancel,
+      briefcasesStoreStartBriefcaseCancel,
+      briefcasesStoreStopBriefcaseCancel,
+      popUpStoreClear,
+    ]
+  );
 
   return (
     <div className="briefcases-page page__content">

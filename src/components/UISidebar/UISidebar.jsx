@@ -2,7 +2,7 @@ import React from 'react';
 import './UISidebar.scss';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import UILogo from '../Logo';
+import UILogo from '../Logo/Logo';
 import UISidebarItem from './UISidebarItem';
 import UISidebarList from './UISidebarList';
 import CloseIcon from './close-icon.svg';
@@ -10,11 +10,7 @@ import actions from '../../redux/actions/actions';
 import useOutsideClick from '../UICustomHooks/useOutsideClick/useOutsideClick';
 
 function UISidebar(props) {
-  const {
-    type,
-    showSidebar,
-    globalStoreSetSection,
-  } = props || {};
+  const { type, showSidebar, globalStoreSetSection } = props || {};
 
   const sidebarRef = React.useRef(null);
 
@@ -28,39 +24,41 @@ function UISidebar(props) {
 
   useOutsideClick(sidebarRef, handleClose);
 
-  const renderMenu = React.useMemo(() => UISidebarList.map((v) => {
-    const currentPath = `/${pathname.split('/')[1]}`;
-    const {
-      id, link, items, title,
-    } = v || {};
+  const renderMenu = React.useMemo(
+    () =>
+      UISidebarList.map((v) => {
+        const currentPath = `/${pathname.split('/')[1]}`;
+        const { id, link, items, title } = v || {};
 
-    if (items && Array.isArray(items)) {
-      const arrItems = items.map((w) => {
-        const { id: wId, link: wLink } = w || {};
+        if (items && Array.isArray(items)) {
+          const arrItems = items.map((w) => {
+            const { id: wId, link: wLink } = w || {};
+            return (
+              <li key={`subKey${wId}`}>
+                <UISidebarItem
+                  item={w}
+                  active={wLink === `/${currentPath}` || wLink === pathname}
+                />
+              </li>
+            );
+          });
+          return (
+            <div className="ui-sidebar__section" key={id}>
+              <h3 className="ui-sidebar__list-title">{title}</h3>
+              <ul className="ui-sidebar__list">{arrItems}</ul>
+            </div>
+          );
+        }
         return (
-          <li key={`subKey${wId}`}>
-            <UISidebarItem
-              item={w}
-              active={wLink === `/${currentPath}` || wLink === pathname}
-            />
-          </li>
+          <UISidebarItem
+            key={id}
+            item={v}
+            active={link === `/${currentPath}` || link === pathname}
+          />
         );
-      });
-      return (
-        <div className="ui-sidebar__section" key={id}>
-          <h3 className="ui-sidebar__list-title">{title}</h3>
-          <ul className="ui-sidebar__list">{arrItems}</ul>
-        </div>
-      );
-    }
-    return (
-      <UISidebarItem
-        key={id}
-        item={v}
-        active={link === `/${currentPath}` || link === pathname}
-      />
-    );
-  }), [pathname]);
+      }),
+    [pathname]
+  );
 
   return (
     <aside
@@ -68,20 +66,14 @@ function UISidebar(props) {
       ref={sidebarRef}
     >
       <div className="ui-sidebar__body">
-        <div
-          role="presentation"
-          className="ui-sidebar__close"
-          onClick={handleClose}
-        >
+        <div role="presentation" className="ui-sidebar__close" onClick={handleClose}>
           <CloseIcon />
         </div>
         <div className="ui-sidebar__logo">
           <UILogo type="--vertical" />
         </div>
         <nav>
-          <div className="ui-sidebar__navigation">
-            {renderMenu}
-          </div>
+          <div className="ui-sidebar__navigation">{renderMenu}</div>
         </nav>
       </div>
     </aside>

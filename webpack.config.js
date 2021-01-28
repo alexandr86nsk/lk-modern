@@ -72,7 +72,7 @@ module.exports = (env, argv) => {
         }
       : undefined,
     resolve: {
-      extensions: ['.jsx', '.js', '.tsx', '.ts', 'scss'],
+      extensions: ['.tsx', '.ts', '.svg', '.scss', '.mjs', '.js', '.jsx', '.json'],
       alias: {
         '@assets': path.resolve(__dirname, 'assets'),
         '@src': path.resolve(__dirname, 'src'),
@@ -127,8 +127,7 @@ module.exports = (env, argv) => {
               options: {
                 additionalData: `
                 @import "@styles-kit/constants/paths";
-                @import "@styles-kit/constants/images";
-                 @import "@styles-kit/constants/sizes";
+                @import "@styles-kit/constants/sizes";
                 @import "@styles-kit/tools/mixins";
                 @import "@styles-kit/tools/functions";
                 `,
@@ -149,28 +148,36 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.svg$/,
-          exclude: /node_modules/,
-          use: [
+          oneOf: [
             {
-              loader: 'babel-loader',
+              issuer: /\.(sa|sc|c)ss$/,
+              use: [
+                {
+                  loader: 'file-loader',
+                  options: {
+                    name: 'assets/[name].[ext]',
+                  },
+                },
+              ],
             },
             {
-              loader: 'react-svg-loader',
-              options: {
-                jsx: true,
-              },
-            },
-          ],
-        },
-        {
-          test: /\.svg$/,
-          include: /node_modules/,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {
-                name: 'assets/[name].[ext]',
-              },
+              exclude: /node_modules/,
+              issuer: /\.jsx|js|tsx|ts$/,
+              use: [
+                {
+                  loader: 'babel-loader',
+                },
+                {
+                  loader: 'react-svg-loader',
+                  options: {
+                    svgo: {
+                      plugins: [{ removeTitle: false }],
+                      floatPrecision: 2,
+                    },
+                    jsx: true,
+                  },
+                },
+              ],
             },
           ],
         },

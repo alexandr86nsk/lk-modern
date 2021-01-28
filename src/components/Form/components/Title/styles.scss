@@ -1,12 +1,14 @@
 .rl-title {
+  $parent: &;
 
   &__inner {
-    display: flex;
+    display: inline-flex;
+    gap: 0.15em;
     align-items: center;
   }
 
   &__text {
-    display: grid;
+    display: inline-grid;
 
     span {
       @include overflow-ellipsis;
@@ -14,11 +16,9 @@
   }
 
   &__icon {
-    color: var(--color-error);
-
-    svg {
-      width: .7em;
-      height: .7em;
+    &_type_required {
+      color: var(--color-error);
+      font-size: 0.5em;
     }
   }
 }

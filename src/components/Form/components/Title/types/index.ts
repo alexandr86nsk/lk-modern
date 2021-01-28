@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
 
+import { IconNames } from '@components/Icon/types';
+
 export type TitleProps = {
   /**
    * Текст заголовка для поля
@@ -20,7 +22,7 @@ export type TitleProps = {
   /**
    * Иконка подсказки для поля
    */
-  hintIcon?: ReactElement;
+  hintIcon?: IconNames;
   /**
    * Флаг для установки возможности открыть закрыть подсказку по клику
    */

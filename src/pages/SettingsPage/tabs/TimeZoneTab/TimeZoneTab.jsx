@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Button, Icon } from 'semantic-ui-react';
 import actions from '../../../../redux/actions/actions';
 import TimeZoneItem from './TimeZoneItem';
-import UILoader from '../../../../components/Loader';
+import UILoader from '@components/Loader/Loader';
 import UIMissingData from '../../../../components/UIMissingData/UIMissingData';
 
 function TimeZoneTab(props) {
@@ -19,9 +19,12 @@ function TimeZoneTab(props) {
     settingsStoreChangeTimeZoneItem,
   } = props || {};
 
-  const handleChangeValue = React.useCallback((value) => {
-    settingsStoreChangeTimeZoneItem(value);
-  }, [settingsStoreChangeTimeZoneItem]);
+  const handleChangeValue = React.useCallback(
+    (value) => {
+      settingsStoreChangeTimeZoneItem(value);
+    },
+    [settingsStoreChangeTimeZoneItem]
+  );
 
   const handleSaveChanges = React.useCallback(() => {
     settingsStoreUpdateTimeZone(timeZone);
@@ -33,27 +36,28 @@ function TimeZoneTab(props) {
         const { TimeZoneId } = v || {};
         return <TimeZoneItem key={TimeZoneId} data={v} callback={handleChangeValue} />;
       });
-    } return null;
-  },
-  [timeZone, handleChangeValue]);
+    }
+    return null;
+  }, [timeZone, handleChangeValue]);
 
   React.useEffect(() => {
     settingsStoreGetTimeZone();
   }, [settingsStoreGetTimeZone]);
 
-  React.useEffect(() => () => {
-    settingsStoreGetTimeZoneCancel();
-    settingsStoreUpdateTimeZoneCancel();
-  }, [settingsStoreGetTimeZoneCancel, settingsStoreUpdateTimeZoneCancel]);
+  React.useEffect(
+    () => () => {
+      settingsStoreGetTimeZoneCancel();
+      settingsStoreUpdateTimeZoneCancel();
+    },
+    [settingsStoreGetTimeZoneCancel, settingsStoreUpdateTimeZoneCancel]
+  );
 
   return (
     <div className="settings-page__time-zone-tab tab">
       {loadingTimeZoneSettings && <UILoader type="--google" dimmed />}
       {!loadingTimeZoneSettings && timeZone && (
         <>
-          <div className="input-block">
-            {renderItems}
-          </div>
+          <div className="input-block">{renderItems}</div>
           <div className="controls">
             <Button
               circular

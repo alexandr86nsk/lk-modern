@@ -1,7 +1,7 @@
 import React from 'react';
 import AnimateHeight from 'react-animate-height';
 import { Button } from 'semantic-ui-react';
-import UILoader from '../../../components/Loader';
+import UILoader from '@components/Loader/Loader';
 import UIMissingData from '../../../components/UIMissingData/UIMissingData';
 
 const heightVariables = {
@@ -10,15 +10,7 @@ const heightVariables = {
 };
 
 function QueueSettingsItem(props) {
-  const {
-    title,
-    blockName,
-    body,
-    loading,
-    saveCallback,
-    trySave,
-    disableSaveButton,
-  } = props || {};
+  const { title, blockName, body, loading, saveCallback, trySave, disableSaveButton } = props || {};
 
   const [height, setHeight] = React.useState(true);
 
@@ -30,7 +22,9 @@ function QueueSettingsItem(props) {
     <div className={`queue-settings__item${height ? ' active' : ''}`}>
       <div role="presentation" className="settings-item__header" onClick={handleActiveClick}>
         <i
-          className={`settings-item__dropdown-icon icon ${height ? 'minus square outline' : 'plus square outline'}`}
+          className={`settings-item__dropdown-icon icon ${
+            height ? 'minus square outline' : 'plus square outline'
+          }`}
           aria-hidden
         />
         <div className="settings-item__title">
@@ -48,10 +42,7 @@ function QueueSettingsItem(props) {
           </div>
         </div>
       </div>
-      <AnimateHeight
-        duration={300}
-        height={heightVariables[height]}
-      >
+      <AnimateHeight duration={300} height={heightVariables[height]}>
         <div className={`settings-item__body${blockName ? ` ${blockName}` : ''}`}>
           {loading && (
             <div className="settings-item__loader">

@@ -17,7 +17,7 @@ export function useResizeObserver(resizeSubject: RefObject<Element>): UseResizeO
 
   useIsomorphicLayoutEffect(() => {
     function observe(RO: typeof ResizeObserver) {
-      resizeObserver.current = new RO((entries) => {
+      resizeObserver.current = new RO((entries: ResizeObserverEntry[]) => {
         const obs = entries[defaultValues.ZERO];
         const { width, height } = obs?.contentRect || {};
         const { blockSize, inlineSize }: ResizeObserverSize = isNotNil(obs?.borderBoxSize)

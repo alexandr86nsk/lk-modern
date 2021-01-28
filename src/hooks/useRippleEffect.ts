@@ -8,7 +8,7 @@ const TIME_OUT = 500;
 export function useRippleEffect(ref: RefObject<HTMLElement>, isActive?: boolean) {
   useIsomorphicLayoutEffect(() => {
     function clickHandler(event: MouseEvent) {
-      if (isActive && ref.current && ref.current?.contains(event.target as Node)) {
+      if (isActive) {
         const { left = defaultValues.ZERO, top = defaultValues.ZERO, width = defaultValues.ZERO } =
           ref.current?.getBoundingClientRect() || {};
         const x = event.clientX - left;
@@ -30,9 +30,9 @@ export function useRippleEffect(ref: RefObject<HTMLElement>, isActive?: boolean)
       }
     }
 
-    document.addEventListener('mousedown', clickHandler);
+    ref.current?.addEventListener('mousedown', clickHandler);
     return () => {
-      document.removeEventListener('mousedown', clickHandler);
+      ref.current?.removeEventListener('mousedown', clickHandler);
     };
   });
 }

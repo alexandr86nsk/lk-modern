@@ -1,0 +1,7 @@
+{
+  "hooks": {
+    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+    "pre-commit": "pretty-quick --staged && concurrently yarn:lint && concurrently yarn:build:dev && ncu -u && npm install",
+    "pre-push": "yarn yarn:build:dev"
+  }
+}

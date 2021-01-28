@@ -1,7 +1,6 @@
 import React from 'react';
 import './UIButton.scss';
-import UILoader from '../Loader';
-
+import UILoader from '../Loader/Loader';
 
 function UIButton(props) {
   const {
@@ -26,30 +25,20 @@ function UIButton(props) {
   return (
     <button
       type="button"
-      className={`ui-button ${type} ${disabled ? 'disabled' : ''} ${maxContent ? 'max-content' : ''}`}
+      className={`ui-button ${type} ${disabled ? 'disabled' : ''} ${
+        maxContent ? 'max-content' : ''
+      }`}
       onClick={handleClick}
       title={hint}
     >
-      {leftIcon
-      && (
-      <div className="ui-button__left-icon">
-        {leftIcon}
-      </div>
-      )}
-      <div className="ui-button__title">
-        {title}
-      </div>
+      {leftIcon && <div className="ui-button__left-icon">{leftIcon}</div>}
+      <div className="ui-button__title">{title}</div>
       {loading && (
-      <div className="ui-button__loader">
-        <UILoader size={loaderSize} />
-      </div>
+        <div className="ui-button__loader">
+          <UILoader size={loaderSize} />
+        </div>
       )}
-      {rightIcon
-      && (
-      <div className="ui-button__right-icon">
-        {rightIcon}
-      </div>
-      )}
+      {rightIcon && <div className="ui-button__right-icon">{rightIcon}</div>}
     </button>
   );
 }

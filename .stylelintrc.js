@@ -12,6 +12,13 @@ module.exports = {
     'stylelint-config-rational-order/plugin',
     'stylelint-declaration-block-no-ignored-properties',
   ],
-  rules: {},
+  rules: {
+    'selector-pseudo-class-no-unknown': [
+      true,
+      {
+        ignorePseudoClasses: ['global', 'export', 'import', 'local'],
+      },
+    ],
+  },
   ignoreFiles: [],
 };

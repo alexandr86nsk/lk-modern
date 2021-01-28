@@ -1,4 +1,4 @@
 // box shadow
-@function shadow($x-axis: 0, $y-axis: .1em, $blur: .2em, $color: #000, $opacity: 1) {
-  @return '#{$x-axis} #{$y-axis} #{$blur} #{alpha($color, $opacity)}';
+@function shadow($x-axis: 0, $y-axis: 0.1em, $blur: 0.2em, $color: #000, $opacity: 1) {
+  @return '#{$x-axis} #{$y-axis} #{$blur} #{alpha-color($color, $opacity)}';
 }

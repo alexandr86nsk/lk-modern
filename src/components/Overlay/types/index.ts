@@ -8,11 +8,11 @@ export type OverlayProps = {
   /**
    * Вложенные элементы
    */
-  children?: ReactElement | ReactElement[];
+  children?: ReactElement | ReactElement[] | string;
   /**
    * Флаг отображения в виде слоя только на мобильных устройствах
    */
-  isMobileOnly?: boolean;
+  isOnlyInMobile?: boolean;
   /**
    * Флаг для отображения элемента
    */

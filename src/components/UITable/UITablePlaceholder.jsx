@@ -1,7 +1,6 @@
 import React from 'react';
 import { Table } from 'semantic-ui-react';
-import UILoader from '../Loader';
-
+import UILoader from '../Loader/Loader';
 
 function UITablePlaceholder(props) {
   const { length } = props;

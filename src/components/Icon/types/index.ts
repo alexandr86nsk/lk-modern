@@ -1,16 +1,18 @@
-import { SyntheticEvent } from 'react';
+import { ComponentSizes } from '@src/constants';
 
 import { icons } from '../icons';
+
+export type IconNames = keyof typeof icons;
 
 export type IconProps = {
   /**
    * Название иконки
    */
-  name?: keyof typeof icons;
+  name: IconNames;
   /**
    * Размер иконки
    */
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'xxxl' | 'xxxxl';
+  size?: ComponentSizes;
   /**
    * Сообщение которое отображается при наведении на компонент
    */
@@ -20,23 +22,7 @@ export type IconProps = {
    */
   className?: string;
   /**
-   * Функция вызываемая при клике
+   * Флаг круглой иконки
    */
-  onClick?: (event: SyntheticEvent) => void;
-  /**
-   * Флаг установки компактного режима
-   */
-  isCompact?: boolean;
-  /**
-   * Флаг для установки круглой иконки
-   */
-  isCircle?: boolean;
-  /**
-   * Флаг для установки волны в иконке
-   */
-  hasRipple?: boolean;
-  /**
-   * Флаг установки интерактивного режима
-   */
-  isInteractive?: boolean;
+  isCircular?: boolean;
 };

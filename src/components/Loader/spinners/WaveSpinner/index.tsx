@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 
 import './styles.scss';
 
-const bars = ['bar_01', 'bar_02', 'bar_03', 'bar_04'];
+const bars = ['bar_01', 'bar_02', 'bar_03', 'bar_04', 'bar_05', 'bar_06'];
 
 function WaveSpinnerComponent() {
   return (

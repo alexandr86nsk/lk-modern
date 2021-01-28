@@ -1,7 +1,7 @@
 import React, { useCallback, memo } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Logo } from '@components/Logo';
+import { Logo } from '@components/Logo/Logo';
 
 import { coreActions } from '@store/core';
 

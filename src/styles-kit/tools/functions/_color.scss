@@ -1,18 +1,26 @@
 // set color opacity
-@function alpha($color, $opacity){
+@function alpha-color($color, $opacity) {
   $color: str-replace($color, 'var(');
   $color: str-replace($color, ')');
-  $color-h: var(#{$color+'-h'});
-  $color-s: var(#{$color+'-s'});
-  $color-l: var(#{$color+'-l'});
+  $color-h: var(#{$color + '-h'});
+  $color-s: var(#{$color + '-s'});
+  $color-l: var(#{$color + '-l'});
   @return hsla($color-h, $color-s, $color-l, $opacity);
+}
+
+// get color by type
+@function color-type($color, $type) {
+  $color: str-replace($color, 'var(');
+  $color: str-replace($color, ')');
+  @return 'var(' + $color + '-' + $type + ')';
 }
 
 // replace string
 @function str-replace($string, $search, $replace: '') {
   $index: str-index($string, $search);
   @if $index {
-    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    @return str-slice($string, 1, $index - 1) + $replace +
+      str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
   }
   @return $string;
 }

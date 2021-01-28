@@ -1,0 +1,199 @@
+$box-shadow: 0 0 0 0.08em;
+$padding-horizontal: 1.5em;
+$padding-vertical: 0.78571429em;
+$border-radius: 0.28571429em;
+$compact-factor: 1.33333333;
+$icon-compact-factor: 2.71;
+
+.rl-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $padding-vertical $padding-horizontal;
+  overflow: hidden;
+  color: var(--scope-color, inherit);
+  font-weight: 500;
+  font-size: 1em;
+  white-space: nowrap;
+  text-decoration: none;
+  background-color: var(--scope-bg-color, transparent);
+  border: none;
+  border-radius: $border-radius;
+  box-shadow: 0 0.12em 0.04em -0.08em alpha-color(var(--color-black), 0.2),
+    0 0.08em 0.08em 0 alpha-color(var(--color-black), 0.14),
+    0 0.04em 0.2em 0 alpha-color(var(--color-black), 0.12);
+  cursor: pointer;
+  transition: background-color 0.2s ease-out;
+  user-select: none;
+
+  $parent: &;
+
+  &:not(:disabled):hover {
+    color: var(--scope-color-hover);
+    background-color: var(--scope-bg-color-hover);
+  }
+
+  &:not(:disabled):active {
+    color: var(--scope-color-active);
+    background-color: var(--scope-bg-color-active);
+    box-shadow: 0 0.12em 0.04em -0.08em alpha-color(var(--color-black), 0.05) inset,
+      0 0.08em 0.08em 0 alpha-color(var(--color-black), 0.02) inset,
+      0.08em 0.04em 0.12em 0 alpha-color(var(--color-black), 0.08) inset;
+
+    #{$parent}__inner {
+      transform: scale(0.99);
+    }
+  }
+
+  .ripple {
+    background-color: var(--scope-ripple-color);
+  }
+
+  &__inner {
+    display: inline-flex;
+    gap: var(--space-xxxs);
+    align-items: center;
+    justify-content: center;
+  }
+
+  @include defineSizeClasses;
+  @include defineButtonThemeClasses;
+
+  &_theme_basic {
+    &#{$parent}_type_inverted {
+      --scope-color: var(--color-white);
+      --scope-bg-color: var(--color-night);
+    }
+
+    &#{$parent}_type_outline {
+      color: var(--color-night);
+      box-shadow: $box-shadow var(--color-night) inset;
+
+      &:not(:disabled):hover {
+        color: var(--color-night-dark);
+        box-shadow: $box-shadow var(--color-night-dark) inset;
+      }
+
+      &:not(:disabled):active {
+        color: var(--color-night-darker);
+        box-shadow: $box-shadow var(--color-night-darker) inset;
+      }
+    }
+
+    &#{$parent}_type_ghost {
+      color: var(--color-night);
+
+      &:not(:disabled):hover {
+        color: var(--color-night-dark);
+      }
+
+      &:not(:disabled):active {
+        color: var(--color-night-darker);
+      }
+
+      .ripple {
+        background-color: var(--color-night-lighter);
+      }
+    }
+  }
+
+  &_type_inverted {
+    color: var(--scope-bg-color);
+    background-color: var(--scope-color);
+    box-shadow: $box-shadow var(--scope-bg-color) inset;
+
+    &:not(:disabled):hover {
+      box-shadow: initial;
+    }
+
+    &:not(:disabled):active {
+      box-shadow: initial;
+
+      #{$parent}__inner {
+        transform: initial;
+      }
+    }
+  }
+
+  &_type_outline {
+    color: var(--scope-bg-color);
+    background-color: var(--scope-color);
+    box-shadow: $box-shadow var(--scope-bg-color) inset;
+
+    &:not(:disabled):hover {
+      color: var(--scope-bg-color-hover);
+      background-color: var(--scope-color);
+      box-shadow: $box-shadow var(--scope-bg-color-hover) inset;
+    }
+
+    &:not(:disabled):active {
+      color: var(--scope-bg-color-active);
+      background-color: var(--scope-color);
+      box-shadow: $box-shadow var(--scope-bg-color-active) inset;
+
+      #{$parent}__inner {
+        transform: initial;
+      }
+    }
+  }
+
+  &_type_ghost {
+    color: var(--scope-bg-color);
+    background-color: transparent;
+    box-shadow: initial;
+
+    &:not(:disabled):hover {
+      color: var(--scope-bg-color-hover);
+      background-color: alpha-color(var(--color-neutral-lighter), 0.75);
+      box-shadow: initial;
+    }
+
+    &:not(:disabled):active {
+      color: var(--scope-bg-color-active);
+      background-color: alpha-color(var(--color-neutral-lighter), 0.95);
+      box-shadow: initial;
+
+      #{$parent}__inner {
+        transform: initial;
+      }
+    }
+  }
+
+  &_type_circular {
+    border-radius: var(--radius-circular);
+  }
+
+  &_type_compact {
+    padding: calc(#{$padding-vertical} / #{$compact-factor})
+      calc(#{$padding-horizontal} / #{$compact-factor});
+  }
+
+  &_type_icon {
+    padding: calc(#{$padding-vertical} / #{$compact-factor});
+
+    &#{$parent}_type_compact {
+      padding: calc(#{$padding-vertical} / #{$icon-compact-factor});
+    }
+  }
+
+  &_type_fluid {
+    display: flex;
+    width: 100%;
+  }
+
+  &_type_loading {
+    #{$parent}__inner {
+      visibility: hidden;
+    }
+  }
+
+  &_type_disabled {
+    --scope-bg-color: var(--color-neutral-lighter);
+    --scope-color: var(--color-neutral);
+
+    &#{$parent}_type_ghost {
+      color: var(--color-neutral);
+    }
+  }
+}

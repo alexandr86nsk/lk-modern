@@ -1,14 +1,20 @@
 import { ReactElement } from 'react';
 
+import { IconNames } from '@components/Icon/types';
+
 export type PopupProps = {
   /**
    * Содержимое подсказки
    */
   notice?: string | ReactElement;
   /**
+   * Дополнительный className
+   */
+  className?: string;
+  /**
    * Иконка подсказки
    */
-  icon?: ReactElement;
+  icon?: IconNames;
   /**
    * Внутренние элементы
    */
@@ -25,4 +31,12 @@ export type PopupProps = {
    * Максимальная ширина сообщения
    */
   maxWidth?: number;
+  /**
+   * Флаг отображения сообщения
+   */
+  in?: boolean;
+  /**
+   * Флаг отображения overlay в мобильной версии
+   */
+  isOverlayInMobile?: boolean;
 };
